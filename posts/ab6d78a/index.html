@@ -28,14 +28,12 @@
 <meta property="og:site_name" content="Victor.Chu&#39;s Blog">
 <meta property="og:description" content="设计模式之享元模式享元模式以共享的方式高效地支持大量细粒度对象的重用，享元对象能做到共享的关键是区分了内部状态(Intrinsic State)和外部状态(Extrinsic State)。下面将对享元的内部状态和外部状态进行简单的介绍：  内部状态是存储在享元对象内部并且不会随环境改变而改变的状态，内部状态可以共享。如字符的内容，不会随外部环境的变化而变化，无论在任何环境下字符“a”始终是“a”">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://www.victorchu.info/posts/ab6d78a/享元模式.svg">
 <meta property="article:published_time" content="2017-01-20T14:09:15.000Z">
-<meta property="article:modified_time" content="2021-03-28T05:05:23.693Z">
+<meta property="article:modified_time" content="2021-03-28T07:03:43.946Z">
 <meta property="article:author" content="Victor Chu">
 <meta property="article:tag" content="Architecture">
 <meta property="article:tag" content="基本设计模式">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://www.victorchu.info/posts/ab6d78a/享元模式.svg">
 
 <link rel="canonical" href="http://www.victorchu.info/posts/ab6d78a/">
 
@@ -235,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-28 13:05:23" itemprop="dateModified" datetime="2021-03-28T13:05:23+08:00">2021-03-28</time>
+                <time title="修改时间：2021-03-28 15:03:43" itemprop="dateModified" datetime="2021-03-28T15:03:43+08:00">2021-03-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -278,7 +276,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.4k</span>
+              <span>3.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -306,7 +304,25 @@
 <a id="more"></a>
 <h2 id="享元模式的定义"><a href="#享元模式的定义" class="headerlink" title="享元模式的定义"></a>享元模式的定义</h2><p>享元模式(Flyweight Pattern)：运用共享技术有效地支持大量细粒度对象的复用。系统只使用少量的对象，而这些对象都很相似，状态变化很小，可以实现对象的多次复用。由于享元模式要求能够共享的对象必须是细粒度对象，因此它又称为轻量级模式，它是一种对象结构型模式。</p>
 <p>在享元模式结构图中包含如下几个角色：</p>
-<p><img data-src="/posts/ab6d78a/享元模式.svg" alt="享元模式"></p>
+<pre class="mermaid">classDiagram
+class Flyweight{
+  +operation(String extrinsicState) void
+}
+class ConcreteFlyweight{
+  -String intrinsicState
+  +operation(String extrinsicState) void
+}
+class UnsharedConcreteFlyweight{
+  +operation(String extrinsicState) void
+}
+Flyweight &lt;|-- ConcreteFlyweight
+Flyweight &lt;|-- UnsharedConcreteFlyweight
+class FlyweightFactory{
+  -Map&lt;String,Flyweight&gt; flyweights
+  +getFlyweight(String key) Flyweight
+}
+FlyweightFactory *-- Flyweight</pre>
+
 <ol>
 <li>Flyweight（抽象享元类）：通常是一个接口或抽象类，在抽象享元类中声明了具体享元类公共的方法，这些方法可以向外界提供享元对象的内部数据（内部状态），同时也可以通过这些方法来设置外部数据（外部状态）。</li>
 <li>ConcreteFlyweight（具体享元类）：它实现了抽象享元类，其实例称为享元对象；在具体享元类中为内部状态提供了存储空间。通常我们可以结合单例模式来设计具体享元类，为每一个具体享元类提供唯一的享元对象。</li>
@@ -314,7 +330,7 @@
 <li>FlyweightFactory（享元工厂类）：享元工厂类用于创建并管理享元对象，它针对抽象享元类编程，将各种类型的具体享元对象存储在一个享元池中，享元池一般设计为一个存储“键值对”的集合（也可以是其他类型的集合），可以结合工厂模式进行设计；当用户请求一个具体享元对象时，享元工厂提供一个存储在享元池中已创建的实例或者创建一个新的实例（如果不存在的话），返回新创建的实例并将其存储在享元池中。</li>
 </ol>
 <p>在享元模式中引入了享元工厂类，享元工厂类的作用在于提供一个用于存储享元对象的享元池，当用户需要对象时，首先从享元池中获取，如果享元池中不存在，则创建一个新的享元对象返回给用户，并在享元池中保存该新增对象。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FlyweightFactory</span> </span>&#123;</span><br><span class="line">  <span class="comment">//定义一个HashMap用于存储享元对象，实现享元池</span></span><br><span class="line">  <span class="keyword">private</span> HashMap flyweights = newHashMap();</span><br><span class="line">  <span class="function"><span class="keyword">public</span> Flyweight <span class="title">getFlyweight</span><span class="params">(String key)</span></span>&#123;</span><br><span class="line">    <span class="comment">//如果对象存在，则直接从享元池获取</span></span><br><span class="line">    <span class="keyword">if</span>(flyweights.containsKey(key))&#123;</span><br><span class="line">      <span class="keyword">return</span>(Flyweight)flyweights.get(key);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果对象不存在，先创建一个新的对象添加到享元池中，然后返回</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      Flyweight fw = newConcreteFlyweight();</span><br><span class="line">      flyweights.put(key,fw);</span><br><span class="line">      <span class="keyword">return</span> fw;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FlyweightFactory</span> </span>&#123;</span><br><span class="line">  <span class="comment">//定义一个HashMap用于存储享元对象，实现享元池</span></span><br><span class="line">  <span class="keyword">private</span> HashMap flyweights = <span class="keyword">new</span> HashMap();</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Flyweight <span class="title">getFlyweight</span><span class="params">(String key)</span></span>&#123;</span><br><span class="line">    <span class="comment">//如果对象存在，则直接从享元池获取</span></span><br><span class="line">    <span class="keyword">if</span>(flyweights.containsKey(key))&#123;</span><br><span class="line">      <span class="keyword">return</span>(Flyweight)flyweights.get(key);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果对象不存在，先创建一个新的对象添加到享元池中，然后返回</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      Flyweight fw = newConcreteFlyweight();</span><br><span class="line">      flyweights.put(key,fw);</span><br><span class="line">      <span class="keyword">return</span> fw;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>享元类的设计是享元模式的要点之一，在享元类中要将内部状态和外部状态分开处理，通常将内部状态作为享元类的成员变量，而外部状态通过注入的方式添加到享元类中。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Flyweight</span> </span>&#123;</span><br><span class="line">  <span class="comment">//内部状态intrinsicState作为成员变量，同一个享元对象其内部状态是一致的</span></span><br><span class="line">  <span class="keyword">private</span> String intrinsicState;</span><br><span class="line">      </span><br><span class="line">  <span class="function"><span class="keyword">public</span>  <span class="title">Flyweight</span><span class="params">(String intrinsicState)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.intrinsicState=intrinsicState;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//外部状态extrinsicState在使用时由外部设置，不保存在享元对象中，即使是同一个对象，在每一次调用时也可以传入不同的外部状态</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">(String  extrinsicState)</span> </span>&#123;</span><br><span class="line">    ......</span><br><span class="line">  &#125;     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -596,11 +612,15 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:03</span>
+    <span title="站点阅读时长">2:04</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-602cdf671abc4d97" async="async"></script>
   </div>
+
+<div class="powered-by">
+由<a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" class="theme-link" rel="noopener" target="_blank"><img src="/images/upyun_logo.png" width="50" style="display:inline;"></a> 提供CDN服务
+</div>
 
         
 

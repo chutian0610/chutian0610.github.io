@@ -6,7 +6,7 @@
   <link href="http://www.victorchu.info/atom.xml" rel="self"/>
   
   <link href="http://www.victorchu.info/"/>
-  <updated>2021-03-28T05:05:23.693Z</updated>
+  <updated>2021-03-28T07:03:43.946Z</updated>
   <id>http://www.victorchu.info/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://www.victorchu.info/posts/ab6d78a/"/>
     <id>http://www.victorchu.info/posts/ab6d78a/</id>
     <published>2017-01-20T14:09:15.000Z</published>
-    <updated>2021-03-28T05:05:23.693Z</updated>
+    <updated>2021-03-28T07:03:43.946Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;设计模式之享元模式&quot;&gt;&lt;a href=&quot;#设计模式之享元模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之享元模式&quot;&gt;&lt;/a&gt;设计模式之享元模式&lt;/h1&gt;&lt;p&gt;享元模式以共享的方式高效地支持大量细粒度对象的重用，享元对象能做到共享的关键是区分了内部状态(Intrinsic State)和外部状态(Extrinsic State)。下面将对享元的内部状态和外部状态进行简单的介绍：&lt;/p&gt;
