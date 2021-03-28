@@ -1,0 +1,1769 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hexo Next tag插件</title>
+    <url>/posts/e1817b32/</url>
+    <content><![CDATA[<h1 id="Hexo-Next-tag插件"><a href="#Hexo-Next-tag插件" class="headerlink" title="Hexo Next tag插件"></a>Hexo Next tag插件</h1><p>Tag Plugin 是一种使 Hexo 支持特殊样式内容的方法。例如，我们无法在标准 Markdown 中显示具有自定义尺寸的图像。然后我们可以使用标签插件来解决它。 Hexo 有很多可以帮助用户的标签。 Hexo 还具有主题接口，使主题能够创建自己的标签。</p>
+<a id="more"></a>
+<h2 id="文本居中引用"><a href="#文本居中引用" class="headerlink" title="文本居中引用"></a>文本居中引用</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% cq %&#125;世间所有的相遇，都是久别重逢&#123;% endcq %&#125;</span><br></pre></td></tr></table></figure>
+<p>显示效果：</p>
+<blockquote class="blockquote-center">
+            <i class="fa fa-quote-left"></i>
+            <p>世间所有的相遇，都是久别重逢</p>
+
+            <i class="fa fa-quote-right"></i>
+          </blockquote>
+<h2 id="提示块"><a href="#提示块" class="headerlink" title="提示块"></a>提示块</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% note default %&#125;</span><br><span class="line">default 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note primary %&#125;</span><br><span class="line">primary 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note success %&#125;</span><br><span class="line">success 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note info %&#125;</span><br><span class="line">info 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note warning %&#125;</span><br><span class="line">warning 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note danger %&#125;</span><br><span class="line">danger 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<p>显示效果：</p>
+<div class="note default">
+            <p>default 提示块标签</p>
+          </div>
+<div class="note primary">
+            <p>primary 提示块标签</p>
+          </div>
+<div class="note success">
+            <p>success 提示块标签</p>
+          </div>
+<div class="note info">
+            <p>info 提示块标签</p>
+          </div>
+<div class="note warning">
+            <p>warning 提示块标签</p>
+          </div>
+<div class="note danger">
+            <p>danger 提示块标签</p>
+          </div>
+<h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Note tag (bs-callout).</span></span><br><span class="line"><span class="attr">note:</span></span><br><span class="line">  <span class="comment"># Note tag style values:</span></span><br><span class="line">  <span class="comment">#  - simple    bs-callout old alert style. Default.</span></span><br><span class="line">  <span class="comment">#  - modern    bs-callout new (v2-v3) alert style.</span></span><br><span class="line">  <span class="comment">#  - flat      flat callout style with background, like on Mozilla or StackOverflow.</span></span><br><span class="line">  <span class="comment">#  - disabled  disable all CSS styles import of note tag.</span></span><br><span class="line">  <span class="comment"># 风格</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">flat</span></span><br><span class="line">  <span class="comment"># 要不要图标</span></span><br><span class="line">  <span class="attr">icons:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># 圆角矩形</span></span><br><span class="line">  <span class="attr">border_radius:</span> <span class="number">3</span></span><br><span class="line">  <span class="comment"># Offset lighter of background in % for modern and flat styles (modern: -12 | 12; flat: -18 | 6).</span></span><br><span class="line">  <span class="comment"># Offset also applied to label tag variables. This option can work with disabled note tag.</span></span><br><span class="line">  <span class="attr">light_bg_offset:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% label default@默认 %&#125; &#123;% label primary@主要 %&#125; &#123;% label success@成功 %&#125; &#123;% label info@信息 %&#125; &#123;% label warning@警告 %&#125; &#123;% label danger@危险 %&#125; </span><br><span class="line">&#123;% label success@这是成功的信息%&#125;</span><br></pre></td></tr></table></figure>
+<p>显示效果：</p>
+<span class="label default">默认</span> <span class="label primary">主要</span> <span class="label success">成功</span> <span class="label info">信息</span> <span class="label warning">警告</span> <span class="label danger">危险</span> 
+<span class="label success">这是成功的信息</span>
+<h2 id="选项卡"><a href="#选项卡" class="headerlink" title="选项卡"></a>选项卡</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% tabs tab,1 %&#125; 名字为tab，默认在第1个选项卡，如果是-1则隐藏</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**选项卡 1** </span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**选项卡 2**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&lt;!-- tab A --&gt;</span><br><span class="line">**选项卡 3** 名字为A</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&#123;% endtabs %&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="修改配置文件-1"><a href="#修改配置文件-1" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Tabs tag</span></span><br><span class="line"><span class="attr">tabs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">transition:</span></span><br><span class="line">    <span class="attr">tabs:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">labels:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">border_radius:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<div class="tabs" id="tab"><ul class="nav-tabs"><li class="tab active"><a href="#tab-1">tab 1</a></li><li class="tab"><a href="#tab-2">tab 2</a></li><li class="tab"><a href="#tab-3">A</a></li></ul><div class="tab-content"><div class="tab-pane active" id="tab-1"><p><strong>选项卡 1</strong> </p></div><div class="tab-pane" id="tab-2"><p><strong>选项卡 2</strong></p></div><div class="tab-pane" id="tab-3"><p><strong>选项卡 3</strong> 名字为A</p></div></div></div>
+<h2 id="按钮"><a href="#按钮" class="headerlink" title="按钮"></a>按钮</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% button url, text, icon [class], [title] %&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>url : 绝对或相对 URL</li>
+<li>text : 按钮文字，如果未指定图标则为必须</li>
+<li>icon : FontAwesome 图标名称（开头没有’fa-‘）。如果未指定文本，则为必需</li>
+<li><code>[class]</code> : FontAwesome 类：fa-fw | fa-lg | fa-2x | fa-3x | fa-4x | fa-5X ，可选参数。</li>
+<li><code>[title]</code> : 鼠标悬停时的工具提示，可选参数。</li>
+</ul>
+<p>显示效果：</p>
+<a class="btn" href="https://www.baidu.com/ " title="百度">
+            <i class="fa fa-baidu"></i>go baidu
+          </a>]]></content>
+      <categories>
+        <category>Hexo</category>
+        <category>Next</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ubuntu tweak</title>
+    <url>/posts/aa450f3f/</url>
+    <content><![CDATA[<h1 id="ubuntu-tweak"><a href="#ubuntu-tweak" class="headerlink" title="ubuntu tweak"></a>ubuntu tweak</h1><p>ubuntu桌面的一些优化调整和一些常用应用程序。</p>
+<div class="note default">
+            <p>持续更新中</p>
+          </div>
+<a id="more"></a>
+<h2 id="gnome-安装"><a href="#gnome-安装" class="headerlink" title="gnome 安装"></a>gnome 安装</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt install gnome-tweak-tool</span><br></pre></td></tr></table></figure>
+<h2 id="桌面-tweak"><a href="#桌面-tweak" class="headerlink" title="桌面 tweak"></a>桌面 tweak</h2><p>gnome3 桌面的优化主要通过 gnome shell 扩展.gnome shell 快速安装方法：</p>
+<ul>
+<li>打开网站<a href="https://extensions.gnome.org/">gnome extension</a><ul>
+<li>选择想要安装的扩展，点击右侧ON-OFF按钮(需要浏览器安装gnome shell 插件)。</li>
+<li>或者把扩展包下载到<code>~/.local/share/gnome-shell/extensions/</code>或者<code>/usr/share/gnome-shell/extensions/</code>目录</li>
+</ul>
+</li>
+</ul>
+<h3 id="主题优化"><a href="#主题优化" class="headerlink" title="主题优化"></a>主题优化</h3><ul>
+<li>安装用户主题扩展<a href="https://extensions.gnome.org/extension/19/user-themes/">user themes</a> </li>
+<li>打开 Tweak Tool -&gt; 扩展 -&gt; User themes. // 开启用户主题</li>
+<li>到<a href="https://www.gnome-look.org/">gome look</a>网站找到主题下载</li>
+</ul>
+<p>例如:</p>
+<ul>
+<li>McMojava:<ul>
+<li>GTK主题: <a href="https://www.gnome-look.org/p/1275087">McMojave-theme</a></li>
+<li>ICON主题: <a href="https://www.opendesktop.org/p/1305429">McMojave-circle</a></li>
+<li>cursor主题: <a href="https://www.opendesktop.org/p/1355701">McMojave-cursors</a></li>
+</ul>
+</li>
+<li><p>sweet </p>
+<ul>
+<li>GTK主题: <a href="https://www.gnome-look.org/p/1253385/">sweet</a></li>
+<li>cursor主题: <a href="https://www.gnome-look.org/p/1393084/">sweet cursor</a></li>
+<li>folder主题: <a href="https://www.gnome-look.org/p/1284047/">sweet folder</a></li>
+<li>icon主题: <a href="https://www.gnome-look.org/p/1305251/">candy icons</a><h3 id="扩展插件"><a href="#扩展插件" class="headerlink" title="扩展插件"></a>扩展插件</h3></li>
+</ul>
+</li>
+<li><p>manage</p>
+<ul>
+<li><a href="https://extensions.gnome.org/extension/1036/extensions/">Extensions</a> : 快速开关扩展</li>
+</ul>
+</li>
+<li>menu<ul>
+<li><a href="https://extensions.gnome.org/extension/1228/arc-menu/">Arc Menu</a> : 菜单</li>
+</ul>
+</li>
+<li>Top Bar:<ul>
+<li><a href="https://extensions.gnome.org/extension/1031/topicons/">Top Icons Plus</a> : 状态栏</li>
+<li><a href="https://extensions.gnome.org/extension/1301/ubuntu-appindicators/">ubuntu-appindicators</a>: 状态栏</li>
+<li><a href="https://extensions.gnome.org/extension/545/hide-top-bar/">Hide Top Bar</a> : 隐藏顶栏</li>
+<li><a href="https://extensions.gnome.org/extension/885/dynamic-top-bar/">Dynamic Top Bar</a> : 动态顶栏</li>
+</ul>
+</li>
+<li>Dash<ul>
+<li><a href="https://extensions.gnome.org/extension/307/dash-to-dock/">Dash to Dock</a> : 启动器</li>
+</ul>
+</li>
+<li>Desktop<ul>
+<li><a href="https://extensions.gnome.org/extension/657/shelltile/">Shell Tile</a> : 桌面排版</li>
+<li><a href="https://extensions.gnome.org/extension/1131/desk-changer/">Desk Changer</a> : 自动更换桌面背景</li>
+<li><a href="https://extensions.gnome.org/extension/1465/desktop-icons/">Desktop Icons</a>: 桌面图标</li>
+</ul>
+</li>
+<li>wifi<ul>
+<li><a href="https://extensions.gnome.org/extension/904/disconnect-wifi/">Disconnect Wifi</a>: wifi断连</li>
+<li><a href="https://extensions.gnome.org/extension/905/refresh-wifi-connections/">Refresh Wifi Connections</a> : 刷新wifi</li>
+</ul>
+</li>
+<li>Monitor<ul>
+<li><a href="https://extensions.gnome.org/extension/921/multi-monitors-add-on/">Multi Monitors Add-On</a> : 多显示器</li>
+</ul>
+</li>
+<li>增强<ul>
+<li><a href="https://extensions.gnome.org/extension/21/workspace-indicator/">workspace-indicator</a>: 工作区</li>
+<li><a href="https://extensions.gnome.org/extension/906/sound-output-device-chooser/">Sound Chooser</a> : 声音设备</li>
+<li><a href="https://extensions.gnome.org/extension/442/drop-down-terminal/">Drop Down Terminal</a> : 弹出terminal</li>
+<li><a href="https://extensions.gnome.org/extension/97/coverflow-alt-tab/">Coverflow Alt-Tab</a> : 窗口切换</li>
+<li><a href="https://extensions.gnome.org/extension/779/clipboard-indicator/">Clipboard Indicator</a> : 剪贴版</li>
+</ul>
+</li>
+<li>sensor<ul>
+<li><a href="https://extensions.gnome.org/extension/120/system-monitor/">Syetem Monitor</a> : 系统指示器</li>
+<li><a href="https://extensions.gnome.org/extension/1460/vitals/">vitals</a>: 系统指示器</li>
+</ul>
+</li>
+<li>效率<ul>
+<li><a href="https://extensions.gnome.org/extension/120/system-monitor/">To Do</a> : TODO</li>
+<li><a href="https://extensions.gnome.org/extension/53/pomodoro/">Pomodora</a> : 计时器</li>
+</ul>
+</li>
+</ul>
+<h2 id="Kde"><a href="#Kde" class="headerlink" title="Kde"></a>Kde</h2><p>ubuntu 默认使用gnome桌面，kde桌面安装的命令如下:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt install kubuntu-desktop</span><br></pre></td></tr></table></figure>
+<p>kde桌面主题可以在<code>系统设置&gt;外观</code>菜单下的全局主题，plasma样式，颜色主题，图标主题中安装设置。此处就不赘述了。</p>
+<ul>
+<li><a href="https://store.kde.org/p/1310500/">McMojave kde</a></li>
+<li><a href="https://store.kde.org/p/1294729/">Sweet Kde</a></li>
+<li><a href="https://store.kde.org/p/1393507/">Sweet Mars Kde</a></li>
+</ul>
+<p>推荐安装<a href="https://github.com/tsujan/Kvantum">Kvantum</a><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository ppa:papirus&#x2F;papirus</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install qt5-style-kvantum qt5-style-kvantum-themes</span><br></pre></td></tr></table></figure><br>然后使用 kvantum-manager来设置 kvantum 主题。</p>
+<h3 id="扩展插件-1"><a href="#扩展插件-1" class="headerlink" title="扩展插件"></a>扩展插件</h3><ul>
+<li><a href="https://github.com/rbn42/panon">panon</a>:音效可视化插件，播放音乐时顶栏上多余的空间显示音效，美观而且可以充分利用顶栏空间。</li>
+<li><a href="https://github.com/Zren/plasma-applet-sysmonitordash">System Monitor Dashboard</a>: 系统监控面板</li>
+<li><a href="https://store.kde.org/p/998901/">Event Calendar</a>: 日历+天气</li>
+<li><a href="https://store.kde.org/p/1169519/">Latte Dock</a>: dock</li>
+</ul>
+<h2 id="设备"><a href="#设备" class="headerlink" title="设备"></a>设备</h2><h3 id="笔记本禁用触摸板"><a href="#笔记本禁用触摸板" class="headerlink" title="笔记本禁用触摸板"></a>笔记本禁用触摸板</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ xinput</span><br></pre></td></tr></table></figure>
+<p>查看输入设备的id,例如知道了id=12之后，就可以通过命令关闭/开启触控板: </p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 关闭命令</span></span><br><span class="line">xinput --<span class="built_in">disable</span> 12</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启命令</span></span><br><span class="line">xinput --<span class="built_in">enable</span> 12 </span><br></pre></td></tr></table></figure>
+<ul>
+<li>对于gnome桌面也可以使用gnome extension <a href="https://extensions.gnome.org/extension/935/toggle-touchpad/">toggle-touchpad</a></li>
+<li>kde桌面可以使用触摸板设置来快速切换</li>
+</ul>
+<h2 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行</h2><h3 id="安装zsh"><a href="#安装zsh" class="headerlink" title="安装zsh"></a>安装zsh</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt install zsh</span><br></pre></td></tr></table></figure>
+<h3 id="安装-oh-my-zsh"><a href="#安装-oh-my-zsh" class="headerlink" title="安装 oh-my-zsh"></a>安装 oh-my-zsh</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt install curl</span><br><span class="line">sh -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;robbyrussell&#x2F;oh-my-zsh&#x2F;master&#x2F;tools&#x2F;install.sh)&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="zsh-插件"><a href="#zsh-插件" class="headerlink" title="zsh 插件"></a>zsh 插件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">plugins&#x3D;(</span><br><span class="line">    alias-finder              # 内置插件: 输入alias-finder搜索定义的别名，并输出与输入命令匹配的任何别名</span><br><span class="line">    sudo                      # 内置插件: 连按两次ESC,在命令行前自动添加 sudo</span><br><span class="line">    last-working-dir          # 内置插件: 回到上次工作目录</span><br><span class="line">    git                       # 内置插件: 提供对git支持</span><br><span class="line">    history                   # 内置插件: history 命令定制,设置时间格式&#96;HIST_STAMPS&#x3D;&quot;yyyy-mm-dd&quot;&#96;</span><br><span class="line">    extract                   # 内置插件: 提供快速解压功能,输入&#96;x&#96;解压。</span><br><span class="line">    ubuntu                    # 内置插件: 提供对ubuntu支持</span><br><span class="line">    docker                    # 内置插件: 提供对docker支持</span><br><span class="line">    wd                        # 内置插件: 使用wd命令添加路径书签,快速跳转。</span><br><span class="line">    zsh_reload                # 内置插件: zsh reload</span><br><span class="line">    mvn                       # 内置插件: 提供对maven支持</span><br><span class="line">    z                         # 内置插件: 使用z命令快速跳转历史浏览路径。</span><br><span class="line">    aws                       # 外部依赖: 需要安装aws-cli </span><br><span class="line">    fzf                       # 外部依赖: 需要安装fzf</span><br><span class="line">    zsh-syntax-highlighting   # 第三方插件: 命令行语法高亮</span><br><span class="line">    git-open                  # 第三方插件: 浏览器打开git远程仓库</span><br><span class="line">    zsh-completions           # 第三方插件: zsh 自动补齐</span><br><span class="line"></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="fzf"><a href="#fzf" class="headerlink" title="fzf"></a>fzf</h3><p><a href="https://github.com/junegunn/fzf">官方地址</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt install fzf</span><br></pre></td></tr></table></figure>
+<ul>
+<li>CTRL-T -将选定的文件和目录粘贴到命令行上</li>
+<li>CTRL-R -从历史记录中将所选命令粘贴到命令行上</li>
+<li>ALT-C  -进入所选目录</li>
+</ul>
+<h4 id="fzf-tab-completion"><a href="#fzf-tab-completion" class="headerlink" title="fzf-tab-completion"></a>fzf-tab-completion</h4><p>在使用tab键补齐时,使用fzf查找。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/lincheney/fzf-tab-completion.git <span class="variable">$&#123;ZSH_CUSTOM:=~/.oh-my-zsh/custom&#125;</span>/plugins/fzf-tab-completion</span><br><span class="line"><span class="comment">#then edit ~/.zsh file.</span></span><br><span class="line"><span class="built_in">source</span> <span class="variable">$HOME</span>/.oh-my-zsh/custom/plugins/fzf-tab-completion/zsh/fzf-zsh-completion.sh</span><br><span class="line"><span class="comment"># only aws command completion </span></span><br><span class="line"><span class="built_in">zstyle</span> <span class="string">&#x27;:completion:*:*:aws&#x27;</span> fzf-search-display <span class="literal">true</span></span><br><span class="line"><span class="comment"># or for everything</span></span><br><span class="line"><span class="built_in">zstyle</span> <span class="string">&#x27;:completion:*&#x27;</span> fzf-search-display <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h3 id="AWS-CLI"><a href="#AWS-CLI" class="headerlink" title="AWS-CLI"></a>AWS-CLI</h3><p><a href="https://github.com/aws/aws-cli">官方地址</a></p>
+<h3 id="zsh-syntax-highlighting"><a href="#zsh-syntax-highlighting" class="headerlink" title="zsh-syntax-highlighting"></a>zsh-syntax-highlighting</h3><p><a href="https://github.com/zsh-users/zsh-syntax-highlighting">官方地址</a></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-syntax-highlighting.git <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-syntax-highlighting</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 开启</span><br><span class="line">plugins&#x3D;(zsh-syntax-highlighting)</span><br></pre></td></tr></table></figure>
+<h3 id="zsh-autosuggestions"><a href="#zsh-autosuggestions" class="headerlink" title="zsh-autosuggestions"></a>zsh-autosuggestions</h3><p><a href="https://github.com/zsh-users/zsh-autosuggestions">官方地址</a></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git://github.com/zsh-users/zsh-autosuggestions <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 开启</span><br><span class="line">plugins&#x3D;(zsh-autosuggestions)</span><br></pre></td></tr></table></figure>
+<h3 id="git-open"><a href="#git-open" class="headerlink" title="git open"></a>git open</h3><p><a href="https://github.com/paulirish/git-open">官方地址</a></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/paulirish/git-open.git <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/git-open</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 开启</span><br><span class="line">plugins&#x3D;(git-open)</span><br></pre></td></tr></table></figure>
+<h3 id="zsh-completion"><a href="#zsh-completion" class="headerlink" title="zsh-completion"></a>zsh-completion</h3><p><a href="https://github.com/zsh-users/zsh-completions">官方地址</a></p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-completions  <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-completions</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 开启</span><br><span class="line">plugins&#x3D;(zsh-completions)</span><br></pre></td></tr></table></figure>
+<h3 id="thefuck"><a href="#thefuck" class="headerlink" title="thefuck"></a>thefuck</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install python3-dev python3-pip python3-setuptools</span><br><span class="line">sudo pip3 install thefuck</span><br><span class="line"><span class="comment"># eidt .zshrc</span></span><br><span class="line"><span class="built_in">eval</span> $(thefuck --<span class="built_in">alias</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="APPS"><a href="#APPS" class="headerlink" title="APPS"></a>APPS</h2><h3 id="terminator"><a href="#terminator" class="headerlink" title="terminator"></a>terminator</h3><p>安装terminator作为终端工具。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt install terminator</span><br></pre></td></tr></table></figure>
+<h3 id="trash-cli"><a href="#trash-cli" class="headerlink" title="trash-cli"></a>trash-cli</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install trash-cli</span><br></pre></td></tr></table></figure>
+<p>给 rm 设置一个别名来提醒你不要使用它</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">alias rm=&#x27;echo &quot;This is not the command you are looking for.&quot;; false&#x27;</span><br></pre></td></tr></table></figure>
+<p>如果你真的要用 rm，那就在 rm 前加上斜杠来取消别名：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">\rm file-without-hope</span><br></pre></td></tr></table></figure>
+<h3 id="hyper"><a href="#hyper" class="headerlink" title="hyper"></a>hyper</h3><p>如果想体验高颜值的终端可以尝试下 <a href="https://hyper.is/">hyper</a></p>
+<h3 id="Variety"><a href="#Variety" class="headerlink" title="Variety"></a>Variety</h3><p><a href="https://github.com/varietywalls/variety">Variety</a> 支持自动切换墙纸,还包括一系列的图像效果。</p>
+<h3 id="Yakuake"><a href="#Yakuake" class="headerlink" title="Yakuake"></a>Yakuake</h3><p><a href="https://github.com/KDE/yakuake">yakuake</a> drop-down terminal emulator based on KDE Konsole technology.</p>
+<h3 id="stacer"><a href="#stacer" class="headerlink" title="stacer"></a>stacer</h3><p><a href="https://www.fossmint.com/stacer-ubuntu-system-optimizer/">stacer</a>方便的系统管理工具</p>
+<h3 id="slimbook-battery"><a href="#slimbook-battery" class="headerlink" title="slimbook-battery"></a>slimbook-battery</h3><p><a href="https://slimbook.es/en/tutoriales/aplicaciones-slimbook/398-slimbook-battery-3-application-for-optimize-battery-of-your-laptop"></a> cpu和电池模式设置</p>
+]]></content>
+      <categories>
+        <category>Ubuntu</category>
+        <category>Desktop</category>
+      </categories>
+      <tags>
+        <tag>ubuntu</tag>
+        <tag>continue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>面向对象设计原则</title>
+    <url>/posts/f9c29644/</url>
+    <content><![CDATA[<h1 id="面向对象设计原则"><a href="#面向对象设计原则" class="headerlink" title="面向对象设计原则"></a>面向对象设计原则</h1><blockquote class="blockquote-center">
+            <i class="fa fa-quote-left"></i>
+            <p>如何同时提高一个软件系统的可维护性和可复用性是面向对象设计需要解决的核心问题之一。</p>
+
+            <i class="fa fa-quote-right"></i>
+          </blockquote>
+<p>在面向对象设计中，可维护性的复用是以设计原则为基础的。每一个原则都蕴含一些面向对象设计的思想，可以从不同的角度提升一个软件结构的设计水平。</p>
+<a id="more"></a>
+<h2 id="单一职责原则"><a href="#单一职责原则" class="headerlink" title="单一职责原则"></a>单一职责原则</h2><ul>
+<li>就一个类而言，应该只有一个引起它变化的原因。</li>
+</ul>
+<p>单一职责原则告诉我们：一个类不能太“累”！在软件系统中，一个类（大到模块，小到方法）承担的职责越多，它被复用的可能性就越小，而且一个类承担的职责过多，就相当于将这些职责耦合在一起，当其中一个职责变化时，可能会影响其他职责的运作，因此要将这些职责进行分离，将不同的职责封装在不同的类中，即将不同的变化原因封装在不同的类中，如果多个职责总是同时发生改变则可将它们封装在同一类中。<br>单一职责原则是实现高内聚、低耦合的指导方针，它是最简单但又最难运用的原则，接口的设计一定要做到单一职责，方法尽量做到一个方法只做一件事。类的设计由于种种情况，很难去完全做到单一职责原则，尽量去做到。</p>
+<h2 id="里氏代换原则"><a href="#里氏代换原则" class="headerlink" title="里氏代换原则"></a>里氏代换原则</h2><ul>
+<li>如果对每一个类型为S的对象o1，都有类型为T的对象o2，使得以T定义的所有程序P在所有的对象o1代换o2时，程序P的行为没有变化，那么类型S是类型T的子类型。</li>
+<li>所有引用基类的地方必须能透明地使用其子类对象。</li>
+</ul>
+<p>在程序中尽量使用基类类型来对对象进行定义，而在运行时再确定其子类类型，用子类对象来替换父类对象。</p>
+<h3 id="子类必须完全实现父类的方法"><a href="#子类必须完全实现父类的方法" class="headerlink" title="子类必须完全实现父类的方法"></a>子类必须完全实现父类的方法</h3><p>根据里氏代换原则，为了保证系统的扩展性，在程序中通常使用父类来进行定义，如果子类不能完整地实现父类的方法，正常的业务逻辑将不能运行。</p>
+<h3 id="子类可以有自己的个性"><a href="#子类可以有自己的个性" class="headerlink" title="子类可以有自己的个性"></a>子类可以有自己的个性</h3><p>里氏代换原则告诉我们，在软件中将一个基类对象替换成它的子类对象，程序将不会产生任何错误和异常，反过来则不成立，如果一个软件实体使用的是一个子类对象的话，那么它不一定能够使用基类对象。有的业务依赖很强，应该直接使用子类。</p>
+<h3 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h3><ul>
+<li>覆盖或实现父类的方法时输入的参数可以被放大</li>
+<li>覆写或实现父类的方法时输出结果可以被缩小</li>
+</ul>
+<h2 id="依赖倒置原则"><a href="#依赖倒置原则" class="headerlink" title="依赖倒置原则"></a>依赖倒置原则</h2><ul>
+<li>高层次的模块不应该依赖于低层次的模块，他们都应该依赖于抽象。抽象不应该依赖于具体，具体应该依赖于抽象。<ul>
+<li>每个逻辑的实现是由原子逻辑组成的。不可分割的原子逻辑就是低层模块。原子逻辑的再组装就是高层模块。</li>
+<li>抽象是指接口或者抽象类，不能被实例化。细节是指实现接口或继承抽象类的具体类，可以被实例化。</li>
+</ul>
+</li>
+</ul>
+<h3 id="依赖倒置原则在-Java-语言中的表现"><a href="#依赖倒置原则在-Java-语言中的表现" class="headerlink" title="依赖倒置原则在 Java 语言中的表现"></a>依赖倒置原则在 Java 语言中的表现</h3><ol>
+<li>模块间的依赖通过抽象类或接口发生，实现类之间不发生直接的依赖关系。</li>
+<li>接口或抽象类不能依赖于实现类。</li>
+<li>实现类依赖于接口或抽象类</li>
+</ol>
+<p>采用依赖倒置原则可以减少类之间的耦合性，提高系统的稳定性， 降低并行开发引发的风险，提高代码可读性和可维护性。</p>
+<h3 id="依赖的三种写法"><a href="#依赖的三种写法" class="headerlink" title="依赖的三种写法"></a>依赖的三种写法</h3><p>对象的依赖关系有三种方式来传递。</p>
+<h4 id="构造函数传递依赖对象"><a href="#构造函数传递依赖对象" class="headerlink" title="构造函数传递依赖对象"></a>构造函数传递依赖对象</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IDriver</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drive</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Driver</span> <span class="keyword">implements</span> <span class="title">IDriver</span></span>&#123;</span><br><span class="line">  <span class="keyword">private</span> ICar car;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 在类的构造函数中声明依赖对象。</span></span><br><span class="line"><span class="comment">  * 这种方法叫作--构造函数注入</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Driver</span> <span class="params">(ICar car)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.car = car;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drive</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.car.run();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Setter-方法传递依赖对象"><a href="#Setter-方法传递依赖对象" class="headerlink" title="Setter 方法传递依赖对象"></a>Setter 方法传递依赖对象</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IDriver</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dirve</span><span class="params">()</span></span>;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 在抽象中设置Setter 方法声明依赖关系。</span></span><br><span class="line"><span class="comment">  * 这种方法叫做--Setter 依赖注入</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCar</span><span class="params">(ICar car)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Driver</span> <span class="keyword">implements</span> <span class="title">IDriver</span></span>&#123;</span><br><span class="line">  <span class="keyword">private</span> ICar car;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCar</span><span class="params">(ICar car)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.car = car;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drive</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.car.run();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="接口注入"><a href="#接口注入" class="headerlink" title="接口注入"></a>接口注入</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IDriver</span> </span>&#123;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 在抽象接口的方法参数中声明依赖对象</span></span><br><span class="line"><span class="comment">  * 这种方法叫作--接口注入</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drive</span><span class="params">(ICar car)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Driver</span> <span class="keyword">implements</span> <span class="title">IDriver</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drive</span><span class="params">(ICar car)</span></span>&#123;</span><br><span class="line">    car.run();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="依赖倒置原则的使用"><a href="#依赖倒置原则的使用" class="headerlink" title="依赖倒置原则的使用"></a>依赖倒置原则的使用</h3><ol>
+<li>每个类尽量有自己的接口或者抽象类，后两者都有。</li>
+<li>变量的表面类型尽量是接口或者抽象类。</li>
+<li>任何一个类都不应该从具体类派生。</li>
+<li>尽量不要复写基类已实现方法。</li>
+</ol>
+<h2 id="接口隔离原则"><a href="#接口隔离原则" class="headerlink" title="接口隔离原则"></a>接口隔离原则</h2><h3 id="什么是Java接口"><a href="#什么是Java接口" class="headerlink" title="什么是Java接口"></a>什么是Java接口</h3><p>在Java中，接口可以被分为两种：</p>
+<ul>
+<li>实例接口(Object Interface),实例接口指的就是Java中的class,通过class文件产生的Java对象遵从该class文件所定义的接口，简单的说，就是类的非私有方法和属性。</li>
+<li>类接口(Class Interface),interface定义的接口。</li>
+</ul>
+<h3 id="接口隔离原则的定义"><a href="#接口隔离原则的定义" class="headerlink" title="接口隔离原则的定义"></a>接口隔离原则的定义</h3><ul>
+<li>客户端不应该依赖它不需要的接口。</li>
+<li>类之间的依赖尽量建立在最小的接口上，使用多个专门的接口，而不使用单一的总接口。</li>
+</ul>
+<p>总结一下就是，接口尽量细化，建立单一接口，接口方法尽量要少。接口是对外提供的契约，分散定义多个接口，可以提高系统灵活性和可维护性。</p>
+<h3 id="保持接口的纯洁性"><a href="#保持接口的纯洁性" class="headerlink" title="保持接口的纯洁性"></a>保持接口的纯洁性</h3><ul>
+<li>接口尽量小<br>根据单一职责原则，尽量小得拆分接口</li>
+<li>接口要高内聚<br>接口中尽量少的公布public方法。</li>
+<li>定制服务<br>只提供访问者需要的方法。</li>
+<li>接口设计并非越小越好，有一个限度</li>
+</ul>
+<h2 id="迪米特法则-最少知识原则"><a href="#迪米特法则-最少知识原则" class="headerlink" title="迪米特法则(最少知识原则)"></a>迪米特法则(最少知识原则)</h2><blockquote>
+<p>一个软件实体应当尽可能少地与其他实体发生相互作用。</p>
+</blockquote>
+<p>在迪米特法则中，对于一个对象，其朋友包括以下几类：</p>
+<ul>
+<li>当前对象本身(this;</li>
+<li>以参数形式传入到当前对象方法中的对象;</li>
+<li>当前对象的成员对象;</li>
+<li>如果当前对象的成员对象是一个集合，那么集合中的元素也都是朋友;</li>
+<li>当前对象所创建的对象。</li>
+</ul>
+<h3 id="迪米特法则—低耦合"><a href="#迪米特法则—低耦合" class="headerlink" title="迪米特法则—低耦合"></a>迪米特法则—低耦合</h3><ul>
+<li>只和朋友交流<br>只和存在耦合关系(组合、聚合、依赖等)的对象交流，一般来说，朋友类出现在成员变量、方法的输入输出参数和构造器上。</li>
+<li>朋友间需要距离<br>设计时尽量减少public属性和方法，多使用private,friendly(默认访问权限),protected等访问权限，以及是否可以加上final关键字。</li>
+<li>是自己的就是自己的<br>如果一个方法放在本类中，即使不增加类间关系，也不对本类产生副作用，就放在本类中。</li>
+<li>谨慎使用Serializable</li>
+</ul>
+<h2 id="合成复用原则"><a href="#合成复用原则" class="headerlink" title="合成复用原则"></a>合成复用原则</h2><p>尽量使用对象组合，而不是继承来达到复用的目的。<br>在面向对象设计中，可以通过两种方法在不同的环境中复用已有的设计和实现，即通过组合/聚合关系或通过继承，但首先应该考虑使用组合/聚合，组合/聚合可以使系统更加灵活，降低类与类之间的耦合度，一个类的变化对其他类造成的影响相对较少；其次才考虑继承，在使用继承时，需要严格遵循里氏代换原则。</p>
+<h3 id="如何使用合成复用原则"><a href="#如何使用合成复用原则" class="headerlink" title="如何使用合成复用原则"></a>如何使用合成复用原则</h3><p>一般而言，如果两个类之间是“Has-A”的关系应使用组合或聚合，如果是“Is-A”关系可使用继承。”Is-A”是严格的分类学意义上的定义，意思是一个类是另一个类的”一种”；而”Has-A”则不同，它表示某一个角色具有某一项责任。</p>
+<h2 id="开闭原则"><a href="#开闭原则" class="headerlink" title="开闭原则"></a>开闭原则</h2><p>一个软件实体如类、模块和函数应该对扩展开放，对修改关闭。即软件实体应尽量在不修改原有代码的情况下进行扩展。<br>在开闭原则的定义中，软件实体可以指一个软件模块、一个由多个类组成的局部结构或一个独立的类。</p>
+<h3 id="如何使用开闭原则"><a href="#如何使用开闭原则" class="headerlink" title="如何使用开闭原则"></a>如何使用开闭原则</h3><ul>
+<li>抽象约束<ul>
+<li>通过接口或抽象类约束扩展，不允许出现在接口或抽象类中不存在的public方法；</li>
+<li>参数类型、引用对象尽量使用接口或抽象类；</li>
+<li>抽象层尽量稳定。</li>
+</ul>
+</li>
+<li>元数据控制程序模块行为</li>
+<li>使用框架，建立项目章程</li>
+<li>封装变化<ul>
+<li>将相同变化封装到统一接口；</li>
+<li>不同变化封装到不同接口；</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Architecture</category>
+        <category>基本设计模式</category>
+      </categories>
+      <tags>
+        <tag>Architecture</tag>
+        <tag>基本设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式之工厂模式</title>
+    <url>/posts/bf53f1b3/</url>
+    <content><![CDATA[<h1 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h1><p>在面向对象编程中, 最通常的方法是一个new操作符产生一个对象实例,new操作符就是用来构造对象实例的。但是在一些情况下,new操作符直接生成对象会带来一些问题。举例来说,许多类型对象的创造需要一系列的步骤: 你可能需要计算或取得对象的初始设置;选择生成哪个子对象实例;或在生成你需要的对象之前必须先生成一些辅助功能的对象。在这些情况,新对象的建立就是一个“过程”，不仅是一个操作，像一部大机器中的一个齿轮传动。</p>
+<p>那么如何能轻松方便地构造对象实例，而不必关心构造对象实例的细节和复杂过程呢？答案就是工厂模式。<br><a id="more"></a></p>
+<h2 id="什么是工厂模式"><a href="#什么是工厂模式" class="headerlink" title="什么是工厂模式"></a>什么是工厂模式</h2><p>工厂方法模式(Factory Method Pattern)：定义一个用于创建对象的接口，让子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)。工厂方法模式是一种类创建型模式。</p>
+<p>工厂方法模式提供一个抽象工厂接口来声明抽象工厂方法，而由其子类来具体实现工厂方法，生产具体的产品。工厂方法模式结构如下图所示：</p>
+<pre class="mermaid">classDiagram
+class Product
+class ConcreteProduct
+class Factory
+class ConcreteFactory
+Product &lt;|-- ConcreteProduct
+Factory &lt;|-- ConcreteFactory
+ConcreteProduct &lt;.. ConcreteFactory</pre>
+
+<p>在工厂方法模式结构图中包含如下几个角色：</p>
+<ul>
+<li>Product（抽象产品）：它是定义产品的接口，是工厂方法模式所创建对象的超类型，也就是产品对象的公共父类。</li>
+<li>ConcreteProduct（具体产品）：它实现了抽象产品接口，某种类型的具体产品由专门的具体工厂创建，具体工厂和具体产品之间一一对应。</li>
+<li>Factory（抽象工厂）：在抽象工厂类中，声明了工厂方法(Factory Method)，用于返回一个产品。抽象工厂是工厂方法模式的核心，所有创建对象的工厂类都必须实现该接口。</li>
+<li>ConcreteFactory（具体工厂）：它是抽象工厂类的子类，实现了抽象工厂中定义的工厂方法，并可由客户端调用，返回一个具体产品类的实例。</li>
+</ul>
+<h3 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h3><ul>
+<li>抽象产品类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Product</span> </span>&#123;  </span><br><span class="line">    <span class="comment">//所有产品类的公共业务方法  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">methodSame</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="comment">//公共方法的实现  </span></span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//声明抽象业务方法  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">methodDiff</span><span class="params">()</span></span>;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<ul>
+<li>具体产品子类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteProduct</span> <span class="keyword">extends</span> <span class="title">Product</span> </span>&#123;  </span><br><span class="line">    <span class="comment">//实现业务方法  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">methodDiff</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="comment">//业务方法的实现  </span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>抽象工厂接口</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Factory</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Product <span class="title">factoryMethod</span><span class="params">()</span></span>;  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<ul>
+<li>具体工厂实现类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteFactory</span> <span class="keyword">implements</span> <span class="title">Factory</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Product <span class="title">factoryMethod</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProduct();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<ul>
+<li>实际使用</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Factory factory;  </span><br><span class="line">factory = <span class="keyword">new</span> ConcreteFactory(); <span class="comment">//可通过配置文件实现  </span></span><br><span class="line">Product product;  </span><br><span class="line">product = factory.factoryMethod();  </span><br></pre></td></tr></table></figure>
+<h2 id="工厂模式的扩展使用"><a href="#工厂模式的扩展使用" class="headerlink" title="工厂模式的扩展使用"></a>工厂模式的扩展使用</h2><h3 id="缩小为简单工厂模式"><a href="#缩小为简单工厂模式" class="headerlink" title="缩小为简单工厂模式"></a>缩小为简单工厂模式</h3><p>简单工厂模式(Simple Factory Pattern)：定义一个工厂类，它可以根据参数的不同返回不同类的实例，被创建的实例通常都具有共同的父类。因为在简单工厂模式中用于创建实例的方法是静态(static)方法，因此简单工厂模式又被称为静态工厂方法(Static Factory Method)模式，它属于类创建型模式。简单工厂模式的要点在于：当你需要什么，只需要传入一个正确的参数，就可以获取你所需要的对象，而无须知道其创建细节。</p>
+<p>简单工厂模式结构中包含如下几个角色：</p>
+<ul>
+<li>Factory（工厂角色）：工厂角色即工厂类，它是简单工厂模式的核心，负责实现创建所有产品实例的内部逻辑；工厂类可以被外界直接调用，创建所需的产品对象；在工厂类中提供了静态的工厂方法factoryMethod()，它的返回类型为抽象产品类型Product。</li>
+<li>Product（抽象产品角色）：它是工厂类所创建的所有对象的父类，封装了各种产品对象的公有方法，它的引入将提高系统的灵活性，使得在工厂类中只需定义一个通用的工厂方法，因为所有创建的具体产品对象都是其子类对象。</li>
+<li>ConcreteProduct（具体产品角色）：它是简单工厂模式的创建目标，所有被创建的对象都充当这个角色的某个具体类的实例。每一个具体产品角色都继承了抽象产品角色，需要实现在抽象产品中声明的抽象方法。</li>
+</ul>
+<p>在简单工厂模式中，客户端通过工厂类来创建一个产品类的实例，而无须直接使用new关键字来创建对象，它是工厂模式家族中最简单的一员。</p>
+<pre class="mermaid">classDiagram
+class Product
+&lt;&lt;interface&gt;&gt; Product
+class ConcreteProductA
+class ConcreteProductB
+class Factory
+Factory: +createProduct(String type) Product
+Product &lt;|-- ConcreteProductA
+Product &lt;|-- ConcreteProductB
+ConcreteProductA &lt;.. Factory
+ConcreteProductB &lt;.. Factory</pre>
+
+<h3 id="替换单例模式"><a href="#替换单例模式" class="headerlink" title="替换单例模式"></a>替换单例模式</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>&#123; </span><br><span class="line">        <span class="comment">// 业务代码</span></span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>单例模式的核心要求就是内存中只有一个对象，上面的Singleton保证不能通过正常的方法构造建立一个对象，我们可以通过反射创建Singleton的单例对象。代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonFactory</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            Class c1 = Class.forName(Singleton.class.getName());</span><br><span class="line">            <span class="comment">// 获得无餐构造</span></span><br><span class="line">            Constructor constructor = c1.getDeclaredConstructor();</span><br><span class="line">            <span class="comment">// 设置访问权限</span></span><br><span class="line">            constructor.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">            <span class="comment">// 构造实例</span></span><br><span class="line">            singleton = (Singleton)constructor.newInstance();</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            <span class="comment">// handle exception</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="工厂模式的优缺点"><a href="#工厂模式的优缺点" class="headerlink" title="工厂模式的优缺点"></a>工厂模式的优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<li>在工厂方法模式中，工厂方法用来创建客户所需要的产品，同时还向客户隐藏了哪种具体产品类将被实例化这一细节，用户只需要关心所需产品对应的工厂，无须关心创建细节，甚至无须知道具体产品类的类名。</li>
+<li>基于工厂角色和产品角色的多态性设计是工厂方法模式的关键。它能够让工厂可以自主确定创建何种产品对象，而如何创建这个对象的细节则完全封装在具体工厂内部。工厂方法模式之所以又被称为多态工厂模式，就正是因为所有的具体工厂类都具有同一抽象父类。</li>
+<li>使用工厂方法模式的另一个优点是在系统中加入新产品时，无须修改抽象工厂和抽象产品提供的接口，无须修改客户端，也无须修改其他的具体工厂和具体产品，而只要添加一个具体工厂和具体产品就可以了，这样，系统的可扩展性也就变得非常好，完全符合“开闭原则”。</li>
+</ol>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
+<li>在添加新产品时，需要编写新的具体产品类，而且还要提供与之对应的具体工厂类，系统中类的个数将成对增加，在一定程度上增加了系统的复杂度，有更多的类需要编译和运行，会给系统带来一些额外的开销。</li>
+<li>由于考虑到系统的可扩展性，需要引入抽象层，在客户端代码中均使用抽象层进行定义，增加了系统的抽象性和理解难度，且在实现时可能需要用到DOM、反射等技术，增加了系统的实现难度。</li>
+</ol>
+<h2 id="工厂模式的使用场景"><a href="#工厂模式的使用场景" class="headerlink" title="工厂模式的使用场景"></a>工厂模式的使用场景</h2><ol>
+<li>客户端不知道它所需要的对象的类。在工厂方法模式中，客户端不需要知道具体产品类的类名，只需要知道所对应的工厂即可，具体的产品对象由具体工厂类创建，可将具体工厂类的类名存储在配置文件或数据库中。</li>
+<li>抽象工厂类通过其子类来指定创建哪个对象。在工厂方法模式中，对于抽象工厂类只需要提供一个创建产品的接口，而由其子类来确定具体要创建的对象，利用面向对象的多态性和里氏代换原则，在程序运行时，子类对象将覆盖父类对象，从而使得系统更容易扩展。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Architecture</category>
+        <category>基本设计模式</category>
+      </categories>
+      <tags>
+        <tag>Architecture</tag>
+        <tag>基本设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式之抽象工厂模式</title>
+    <url>/posts/1ef33906/</url>
+    <content><![CDATA[<h1 id="设计模式之抽象工厂模式"><a href="#设计模式之抽象工厂模式" class="headerlink" title="设计模式之抽象工厂模式"></a>设计模式之抽象工厂模式</h1><p>工厂方法模式通过引入工厂等级结构，解决了简单工厂模式中工厂类职责太重的问题，但由于工厂方法模式中的每个工厂只生产一类产品，可能会导致系统中存在大量的工厂类，势必会增加系统的开销。</p>
+<p>此时，我们可以考虑将一些相关的产品组成一个“产品族”，由同一个工厂来统一生产，这就是我们本文将要学习的抽象工厂模式的基本思想。</p>
+<a id="more"></a> 
+<h2 id="产品等级结构与产品族"><a href="#产品等级结构与产品族" class="headerlink" title="产品等级结构与产品族"></a>产品等级结构与产品族</h2><p>在工厂方法模式中具体工厂负责生产具体的产品，每一个具体工厂对应一种具体产品，工厂方法具有唯一性，一般情况下，一个具体工厂中只有一个或者一组重载的工厂方法。但是有时候我们希望一个工厂可以提供多个产品对象，而不是单一的产品对象，为了更好地理解抽象工厂模式，我们先引入两个概念：</p>
+<ul>
+<li>产品等级结构：产品等级结构即产品的继承结构。如一个抽象类是电视机，其子类有海尔电视机、海信电视机、TCL电视机，则抽象电视机与具体品牌的电视机之间构成了一个产品等级结构，抽象电视机是父类，而具体品牌的电视机是其子类。</li>
+<li>产品族：在抽象工厂模式中，产品族是指由同一个工厂生产的，位于不同产品等级结构中的一组产品。如海尔电器工厂生产的海尔电视机、海尔电冰箱，海尔电视机位于电视机产品等级结构中，海尔电冰箱位于电冰箱产品等级结构中，海尔电视机、海尔电冰箱构成了一个产品族。</li>
+</ul>
+<p>当系统所提供的工厂生产的具体产品并不是一个简单的对象，而是多个位于不同产品等级结构、属于不同类型的具体产品时就可以使用抽象工厂模式。抽象工厂模式是所有形式的工厂模式中最为抽象和最具一般性的一种形式。抽象工厂模式与工厂方法模式最大的区别在于，工厂方法模式针对的是一个产品等级结构，而抽象工厂模式需要面对多个产品等级结构，一个工厂等级结构可以负责多个不同产品等级结构中的产品对象的创建。当一个工厂等级结构可以创建出分属于不同产品等级结构的一个产品族中的所有对象时，抽象工厂模式比工厂方法模式更为简单、更有效率。</p>
+<h2 id="抽象工厂模式的定义"><a href="#抽象工厂模式的定义" class="headerlink" title="抽象工厂模式的定义"></a>抽象工厂模式的定义</h2><blockquote>
+<p>抽象工厂模式(Abstract Factory Pattern)：提供一个创建一系列相关或相互依赖对象的接口，而无须指定它们具体的类。抽象工厂模式又称为Kit模式，它是一种对象创建型模式。</p>
+</blockquote>
+<p>抽象工厂模式为创建一组对象提供了一种解决方案。与工厂方法模式相比，抽象工厂模式中的具体工厂不只是创建一种产品，它负责创建一族产品。在抽象工厂模式中，每一个具体工厂都提供了多个工厂方法用于产生多种不同类型的产品，这些产品构成了一个产品族。</p>
+<pre class="mermaid">classDiagram
+class AbstractProduct
+class ConcreteProductA
+class ConcreteProductB
+AbstractProduct &lt;|-- ConcreteProductA : Inheritance
+AbstractProduct &lt;|-- ConcreteProductB : Inheritance
+class AbstractFactory
+AbstractFactory : +createProduct()* AbstractProduct
+AbstractFactory &lt;|-- ConcreteFactory1 : Inheritance
+AbstractFactory &lt;|-- ConcreteFactory2 : Inheritance
+class ConcreteFactory1
+ConcreteFactory1 : +createProduct() AbstractProduct
+ConcreteFactory1..&gt;ConcreteProductA : Dependency
+class ConcreteFactory2
+ConcreteFactory2 : +createProduct() AbstractProduct
+ConcreteFactory2..&gt;ConcreteProductB : Dependency</pre>
+
+<p>在抽象工厂模式结构图中包含如下几个角色：</p>
+<ul>
+<li>AbstractFactory(抽象工厂)：它声明了一组用于创建一族产品的方法，每一个方法对应一种产品。</li>
+<li>ConcreteFactory(具体工厂)：它实现了在抽象工厂中声明的创建产品的方法，生成一组具体产品，这些产品构成了一个产品族，每一个产品都位于某个产品等级结构中。</li>
+<li>AbstractProduct(抽象产品)：它为每种产品声明接口，在抽象产品中声明了产品所具有的业务方法。</li>
+<li>ConcreteProduct(具体产品)：它定义具体工厂生产的具体产品对象，实现抽象产品接口中声明的业务方法。</li>
+</ul>
+<p>在抽象工厂中声明了多个工厂方法，用于创建不同类型的产品，抽象工厂可以是接口，也可以是抽象类或者具体类，其典型代码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractFactory</span> </span>&#123;  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> AbstractProductA <span class="title">createProductA</span><span class="params">()</span></span>; <span class="comment">//工厂方法一  </span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> AbstractProductB <span class="title">createProductB</span><span class="params">()</span></span>; <span class="comment">//工厂方法二  </span></span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>具体工厂实现了抽象工厂，每一个具体的工厂方法可以返回一个特定的产品对象，而同一个具体工厂所创建的产品对象构成了一个产品族。对于每一个具体工厂类，其典型代码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteFactory1</span> <span class="keyword">extends</span> <span class="title">AbstractFactory</span> </span>&#123;  </span><br><span class="line">    <span class="comment">//工厂方法一  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AbstractProductA <span class="title">createProductA</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProductA1();  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="comment">//工厂方法二  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AbstractProductB <span class="title">createProductB</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProductB1();  </span><br><span class="line">    &#125;   </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<h2 id="抽象工厂模式的优缺点"><a href="#抽象工厂模式的优缺点" class="headerlink" title="抽象工厂模式的优缺点"></a>抽象工厂模式的优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<li>抽象工厂模式隔离了具体类的生成，使得客户并不需要知道什么被创建。由于这种隔离，更换一个具体工厂就变得相对容易，所有的具体工厂都实现了抽象工厂中定义的那些公共接口，因此只需改变具体工厂的实例，就可以在某种程度上改变整个软件系统的行为。</li>
+<li>当一个产品族中的多个对象被设计成一起工作时，它能够保证客户端始终只使用同一个产品族中的对象。</li>
+<li>增加新的产品族很方便，无须修改已有系统，符合“开闭原则”。</li>
+</ol>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>增加新的产品等级结构麻烦，需要对原有系统进行较大的修改，甚至需要修改抽象层代码，这显然会带来较大的不便，违背了“开闭原则”。</p>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>在以下情况下可以考虑使用抽象工厂模式：</p>
+<ol>
+<li>一个系统不应当依赖于产品类实例如何被创建、组合和表达的细节，这对于所有类型的工厂模式都是很重要的，用户无须关心对象的创建过程，将对象的创建和使用解耦。</li>
+<li>系统中有多于一个的产品族，而每次只使用其中某一产品族。可以通过配置文件等方式来使得用户可以动态改变产品族，也可以很方便地增加新的产品族。</li>
+<li>属于同一个产品族的产品将在一起使用，这一约束必须在系统的设计中体现出来。同一个产品族中的产品可以是没有任何关系的对象，但是它们都具有一些共同的约束，如同一操作系统下的按钮和文本框，按钮与文本框之间没有直接关系，但它们都是属于某一操作系统的，此时具有一个共同的约束条件：操作系统的类型。</li>
+<li>产品等级结构稳定，设计完成之后，不会向系统中增加新的产品等级结构或者删除已有的产品等级结构。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Architecture</category>
+        <category>基本设计模式</category>
+      </categories>
+      <tags>
+        <tag>Architecture</tag>
+        <tag>基本设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式之建造者模式</title>
+    <url>/posts/722e57af/</url>
+    <content><![CDATA[<h1 id="设计模式之建造者模式"><a href="#设计模式之建造者模式" class="headerlink" title="设计模式之建造者模式"></a>设计模式之建造者模式</h1><p>建造者模式是较为复杂的创建型模式，它将客户端与包含多个组成部分（或部件）的复杂对象的创建过程分离，客户端无须知道复杂对象的内部组成部分与装配方式，只需要知道所需建造者的类型即可。<br>它关注如何一步一步创建一个的复杂对象，不同的具体建造者定义了不同的创建过程，且具体建造者相互独立，增加新的建造者非常方便，无须修改已有代码，系统具有较好的扩展性。</p>
+<a id="more"></a>
+<h2 id="什么是建造者模式"><a href="#什么是建造者模式" class="headerlink" title="什么是建造者模式"></a>什么是建造者模式</h2><blockquote>
+<p>建造者模式(Builder Pattern)：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。建造者模式是一种对象创建型模式。</p>
+</blockquote>
+<pre class="mermaid">classDiagram
+class Director
+Director: -Builder builder
+Director: +Construct() Product
+class Builder
+&lt;&lt;interface&gt;&gt; Builder
+Builder: +buildPartA() Void
+Builder: +buildPartB() Void
+Builder: +build() Product
+class ConcreteBuilder
+ConcreteBuilder: +buildPartA() Void
+ConcreteBuilder: +buildPartB() Void
+ConcreteBuilder: +build() Product
+class Product
+Product ..&gt; ConcreteBuilder : Dependency
+Builder &lt;|.. ConcreteBuilder : Realization
+Director o-- Builder : Aggregation</pre>
+
+<p>在建造者模式结构图中包含如下几个角色：</p>
+<ul>
+<li>Builder（抽象建造者）：它为创建一个产品Product对象的各个部件指定抽象接口，在该接口中一般声明两类方法，一类方法是buildPartX()，它们用于创建复杂对象的各个部件；另一类方法是getResult()，它们用于返回复杂对象。Builder既可以是抽象类，也可以是接口。</li>
+<li>ConcreteBuilder（具体建造者）：它实现了Builder接口，实现各个部件的具体构造和装配方法，定义并明确它所创建的复杂对象，也可以提供一个方法返回创建好的复杂产品对象。</li>
+<li>Product（产品角色）：它是被构建的复杂对象，包含多个组成部件，具体建造者创建该产品的内部表示并定义它的装配过程。</li>
+<li>Director（指挥者）：指挥者又称为导演类，它负责安排复杂对象的建造次序，指挥者与抽象建造者之间存在关联关系，可以在其construct()建造方法中调用建造者对象的部件构造与装配方法，完成复杂对象的建造。客户端一般只需要与指挥者进行交互，在客户端确定具体建造者的类型，并实例化具体建造者对象（也可以通过配置文件和反射机制），然后通过指挥者类的构造函数或者Setter方法将该对象传入指挥者类中。</li>
+</ul>
+<blockquote>
+<p>建造者模式与抽象工厂模式有点相似，但是建造者模式返回一个完整的复杂产品，而抽象工厂模式返回一系列相关的产品；在抽象工厂模式中，客户端通过选择具体工厂来生成所需对象，而在建造者模式中，客户端通过指定具体建造者类型并指导Director类如何去生成对象，侧重于一步步构造一个复杂对象，然后将结果返回。如果将抽象工厂模式看成一个汽车配件生产厂，生成不同类型的汽车配件，那么建造者模式就是一个汽车组装厂，通过对配件进行组装返回一辆完整的汽车。</p>
+</blockquote>
+<h2 id="优缺点与应用"><a href="#优缺点与应用" class="headerlink" title="优缺点与应用"></a>优缺点与应用</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<li>封装性，在建造者模式中，客户端不必知道产品内部组成的细节，将产品本身与产品的创建过程解耦，使得相同的创建过程可以创建不同的产品对象。</li>
+<li>每一个具体建造者都相对独立，而与其他的具体建造者无关，因此可以很方便地替换具体建造者或增加新的具体建造者，用户使用不同的具体建造者即可得到不同的产品对象。由于指挥者类针对抽象建造者编程，增加新的具体建造者无须修改原有类库的代码，系统扩展方便，符合“开闭原则”</li>
+<li>可以更加精细地控制产品的创建过程。将复杂产品的创建步骤分解在不同的方法中，使得创建过程更加清晰，也更方便使用程序来控制创建过程。</li>
+</ol>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
+<li>建造者模式所创建的产品一般具有较多的共同点，其组成部分相似，如果产品之间的差异性很大，例如很多组成部分都不相同，不适合使用建造者模式，因此其使用范围受到一定的限制。</li>
+<li>如果产品的内部变化复杂，可能会导致需要定义很多具体建造者类来实现这种变化，导致系统变得很庞大，增加系统的理解难度和运行成本。</li>
+</ol>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><ol>
+<li>需要生成的产品对象有复杂的内部结构，这些产品对象通常包含多个成员属性。</li>
+<li>需要生成的产品对象的属性相互依赖，需要指定其生成顺序。</li>
+<li>对象的创建过程独立于创建该对象的类。在建造者模式中通过引入了指挥者类，将创建过程封装在指挥者类中，而不在建造者类和客户类中。</li>
+<li>隔离复杂对象的创建和使用，并使得相同的创建过程可以创建不同的产品。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Architecture</category>
+        <category>基本设计模式</category>
+      </categories>
+      <tags>
+        <tag>Architecture</tag>
+        <tag>基本设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式之模板方法模式</title>
+    <url>/posts/6948162f/</url>
+    <content><![CDATA[<h1 id="设计模式-模板方法模式"><a href="#设计模式-模板方法模式" class="headerlink" title="设计模式-模板方法模式"></a>设计模式-模板方法模式</h1><p>在软件开发中，会遇到下面这种情况：</p>
+<p>某个方法的实现需要多个步骤，其中有些步骤是固定的，而有些步骤并不固定，存在可变性。为了提高代码的复用性和系统的灵活性，可以使用一种称之为模板方法模式的设计模式来对这类情况进行设计。</p>
+<a id="more"></a>
+<h2 id="什么是模板方法模式"><a href="#什么是模板方法模式" class="headerlink" title="什么是模板方法模式"></a>什么是模板方法模式</h2><p>定义一个操作中算法的框架，而将一些步骤延迟到子类中。模板方法模式使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</p>
+<p>在模板方法模式中，将实现功能的每一个步骤所对应的方法称为基本方法。而调用这些基本方法同时定义基本方法的执行次序的方法称为模板方法。在模板方法模式中，可以将相同的代码放在父类中，将其具体实现放在不同的子类中。</p>
+<h3 id="设计模式结构"><a href="#设计模式结构" class="headerlink" title="设计模式结构"></a>设计模式结构</h3><pre class="mermaid">classDiagram
+class AbstractClass
+AbstractClass: +templateMethod() Void
+AbstractClass: +operation1()* Void
+AbstractClass: +operation2()* Void
+class ConcreteClass1
+ConcreteClass1: +operation1() Void
+ConcreteClass1: +operation2() Void
+class ConcreteClass2
+ConcreteClass2: +operation1() Void
+ConcreteClass2: +operation2() Void
+AbstractClass &lt;|-- ConcreteClass1 : Inheritance
+AbstractClass &lt;|-- ConcreteClass2 : Inheritance</pre>
+
+<p>模板方法模式包含如下两个角色：</p>
+<ol>
+<li><p>AbstractClass(抽象类): 在抽象类中定义了一系列基本方法，每一个基本方法对应算法的一个步骤，在其子类中可以继承或覆盖这些步骤。同时，在抽象类中实现了一个模板方法，用于定义一个算法的框架。</p>
+</li>
+<li><p>ConcreteClass(具体子类): 它是抽象类的子类，用于实现在父类中声明的抽象基本操作以完成子类特定算法的步骤，也可以覆盖在父类中已经实现的具体基本操作。</p>
+</li>
+</ol>
+<blockquote>
+<p>为了防止恶意的操作，一般模板方法都会加上final关键字，防止子类覆盖。</p>
+</blockquote>
+<h2 id="模板方法模式的扩展"><a href="#模板方法模式的扩展" class="headerlink" title="模板方法模式的扩展"></a>模板方法模式的扩展</h2><h3 id="钩子方法-Hook-Method"><a href="#钩子方法-Hook-Method" class="headerlink" title="钩子方法(Hook Method)"></a>钩子方法(Hook Method)</h3><p>我们可以通过钩子方法来扩展模板方法模式:</p>
+<ol>
+<li>第一类钩子方法可以与一些具体步骤“挂钩”，以实现在不同条件下执行模板方法中的不同步骤，这类钩子方法的返回类型通常是bool类型的，这类方法名一般为IsXXX()，用于对某个条件进行判断，如果条件满足则执行某一步骤，否则将不执行，如下代码片段所示：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//模板方法  </span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TemplateMethod</span><span class="params">()</span>   </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    Open();  </span><br><span class="line">    Display();  </span><br><span class="line">    <span class="comment">//通过钩子方法来确定某步骤是否执行  </span></span><br><span class="line">    <span class="keyword">if</span> (IsPrint())   </span><br><span class="line">    &#123;  </span><br><span class="line">        Print();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//钩子方法  </span></span><br><span class="line"><span class="function"><span class="keyword">public</span> bool <span class="title">IsPrint</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<ol>
+<li>还有一类钩子方法就是实现体为空的具体方法，子类可以根据需要覆盖或者继承这些钩子方法，与抽象方法相比，这类钩子方法的好处在于子类如果没有覆盖父类中定义的钩子方法，编译可以正常通过，但是如果没有覆盖父类中声明的抽象方法，编译将报错。</li>
+</ol>
+<h2 id="模板方法模式的优缺点"><a href="#模板方法模式的优缺点" class="headerlink" title="模板方法模式的优缺点"></a>模板方法模式的优缺点</h2><p>模板方法模式是基于继承的代码复用技术，它体现了面向对象的诸多重要思想，是一种使用较为频繁的模式。模板方法模式广泛应用于框架设计中，以确保通过父类来控制处理流程的逻辑顺序（如框架的初始化，测试流程的设置等）。</p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>模板方法模式的主要优点如下：</p>
+<ol>
+<li>在父类中形式化地定义一个算法，而由它的子类来实现细节的处理，在子类实现详细的处理算法时并不会改变算法中步骤的执行次序。</li>
+<li>模板方法模式是一种代码复用技术，它在类库设计中尤为重要，它提取了类库中的公共行为，将公共行为放在父类中，而通过其子类来实现不同的行为，它鼓励我们恰当使用继承来实现代码复用。</li>
+<li>可实现一种反向控制结构，通过子类覆盖父类的钩子方法来决定某一特定步骤是否需要执行。</li>
+<li>在模板方法模式中可以通过子类来覆盖父类的基本方法，不同的子类可以提供基本方法的不同实现，更换和增加新的子类很方便，符合单一职责原则和开闭原则。</li>
+</ol>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>模板方法模式的主要缺点如下：</p>
+<ul>
+<li>需要为每一个基本方法的不同实现提供一个子类，如果父类中可变的基本方法太多，将会导致类的个数增加，系统更加庞大，设计也更加抽象。</li>
+</ul>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><p>在以下情况下可以考虑使用模板方法模式：</p>
+<ol>
+<li>对一些复杂的算法进行分割，将其算法中固定不变的部分设计为模板方法和父类具体方法，而一些可以改变的细节由其子类来实现。即：一次性实现一个算法的不变部分，并将可变的行为留给子类来实现。</li>
+<li>各子类中公共的行为应被提取出来并集中到一个公共父类中以避免代码重复。</li>
+<li>需要通过子类来决定父类算法中某个步骤是否执行，实现子类对父类的反向控制。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Architecture</category>
+        <category>基本设计模式</category>
+      </categories>
+      <tags>
+        <tag>Architecture</tag>
+        <tag>基本设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式之原型模式</title>
+    <url>/posts/7a86e223/</url>
+    <content><![CDATA[<h1 id="设计模式之原型模式"><a href="#设计模式之原型模式" class="headerlink" title="设计模式之原型模式"></a>设计模式之原型模式</h1><p>原型模式(Prototype  Pattern)：使用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。原型模式是一种对象创建型模式。</p>
+<a id="more"></a>
+<p>原型模式的工作原理很简单：将一个原型对象传给那个要发动创建的对象，这个要发动创建的对象通过请求原型对象拷贝自己来实现创建过程。由于在软件系统中我们经常会遇到需要创建多个相同或者相似对象的情况，因此原型模式在真实开发中的使用频率还是非常高的。原型模式是一种“另类”的创建型模式，创建克隆对象的工厂就是原型类自身，工厂方法由克隆方法来实现。</p>
+<p>需要注意的是通过克隆方法所创建的对象是全新的对象，它们在内存中拥有新的地址，通常对克隆所产生的对象进行修改对原型对象不会造成任何影响，每一个克隆对象都是相互独立的。通过不同的方式修改可以得到一系列相似但不完全相同的对象。</p>
+<pre class="mermaid">classDiagram
+class Client
+class Prototype
+Prototype: +clone()* Prototype
+class ConcretePrototype
+ConcretePrototype: +clone() Prototype
+Prototype &lt;|-- ConcretePrototype : Inheritance
+Client ..&gt; Prototype : Dependency</pre>
+
+<p>在原型模式结构图中包含如下几个角色：</p>
+<ul>
+<li>Prototype（抽象原型类）：它是声明克隆方法的接口，是所有具体原型类的公共父类，可以是抽象类也可以是接口，甚至还可以是具体实现类。</li>
+<li>ConcretePrototype（具体原型类）：它实现在抽象原型类中声明的克隆方法，在克隆方法中返回自己的一个克隆对象。</li>
+<li>Client（客户类）：让一个原型对象克隆自身从而创建一个新的对象，在客户类中只需要直接实例化或通过工厂方法等方式创建一个原型对象，再通过调用该对象的克隆方法即可得到多个相同的对象。由于客户类针对抽象原型类Prototype编程，因此用户可以根据需要选择具体原型类，系统具有较好的可扩展性，增加或更换具体原型类都很方便。</li>
+</ul>
+<h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h2><h3 id="通用方法"><a href="#通用方法" class="headerlink" title="通用方法"></a>通用方法</h3><p>通用的克隆实现方法是在具体原型类的克隆方法中实例化一个与自身类型相同的对象并将其返回，并将相关的参数传入新创建的对象中，保证它们的成员属性相同。示意代码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcretePrototype</span> <span class="keyword">implements</span> <span class="title">Prototype</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"><span class="keyword">private</span> String  attr; <span class="comment">//成员属性</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span>  <span class="title">setAttr</span><span class="params">(String attr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.attr = attr;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> String  <span class="title">getAttr</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.attr;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> Prototype  <span class="title">clonePrototype</span><span class="params">()</span> <span class="comment">//克隆方法</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Prototype  prototype = <span class="keyword">new</span> ConcretePrototype(); <span class="comment">//创建新对象</span></span><br><span class="line">    prototype.setAttr(<span class="keyword">this</span>.attr);</span><br><span class="line">    <span class="keyword">return</span> prototype;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Java语言提供的clone-方法"><a href="#Java语言提供的clone-方法" class="headerlink" title="Java语言提供的clone()方法"></a>Java语言提供的clone()方法</h3><p>所有的Java类都继承自java.lang.Object。事实上，Object类提供一个clone()方法，可以将一个Java对象复制一份。因此在Java中可以直接使用Object提供的clone()方法来实现对象的克隆，Java语言中的原型模式实现很简单。</p>
+<p>注意：</p>
+<ol>
+<li>java 实现的clone是浅clone，如果有深clone的需要，可以覆写Object的clone方法。</li>
+<li>如果要实现深clone，引用属性不能为final。</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>原型模式作为一种快速创建大量相同或相似对象的方式，下面对该模式的使用效果和适用情况进行简单的总结。</p>
+<h3 id="主要优点"><a href="#主要优点" class="headerlink" title="主要优点"></a>主要优点</h3><p>原型模式的主要优点如下：</p>
+<ol>
+<li>当创建新的对象实例较为复杂时，使用原型模式可以简化对象的创建过程，通过复制一个已有实例可以提高新实例的创建效率。</li>
+<li>扩展性较好，由于在原型模式中提供了抽象原型类，在客户端可以针对抽象原型类进行编程，而将具体原型类写在配置文件中，增加或减少产品类对原有系统都没有任何影响。</li>
+<li>原型模式提供了简化的创建结构，工厂方法模式常常需要有一个与产品类等级结构相同的工厂等级结构，而原型模式就不需要这样，原型模式中产品的复制是通过封装在原型类中的克隆方法实现的，无须专门的工厂类来创建产品。</li>
+<li>可以使用深克隆的方式保存对象的状态，使用原型模式将对象复制一份并将其状态保存起来，以便在需要的时候使用（如恢复到某一历史状态），可辅助实现撤销操作。</li>
+</ol>
+<h3 id="主要缺点"><a href="#主要缺点" class="headerlink" title="主要缺点"></a>主要缺点</h3><p>原型模式的主要缺点如下：</p>
+<ol>
+<li>需要为每一个类配备一个克隆方法，而且该克隆方法位于一个类的内部，当对已有的类进行改造时，需要修改源代码，违背了“开闭原则”。</li>
+<li>在实现深克隆时需要编写较为复杂的代码，而且当对象之间存在多重的嵌套引用时，为了实现深克隆，每一层对象对应的类都必须支持深克隆，实现起来可能会比较麻烦。</li>
+<li>适用场景</li>
+</ol>
+<p>在以下情况下可以考虑使用原型模式：</p>
+<ol>
+<li>创建新对象成本较大（如初始化需要占用较长的时间，占用太多的CPU资源或网络资源），新的对象可以通过原型模式对已有对象进行复制来获得，如果是相似对象，则可以对其成员变量稍作修改。</li>
+<li>如果系统要保存对象的状态，而对象的状态变化很小，或者对象本身占用内存较少时，可以使用原型模式配合备忘录模式来实现。</li>
+<li>需要避免使用分层次的工厂类来创建分层次的对象，并且类的实例对象只有一个或很少的几个组合状态，通过复制原型对象得到新实例可能比使用构造函数创建一个新实例更加方便。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Architecture</category>
+        <category>基本设计模式</category>
+      </categories>
+      <tags>
+        <tag>Architecture</tag>
+        <tag>基本设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式之中介者模式</title>
+    <url>/posts/5c993c8f/</url>
+    <content><![CDATA[<h1 id="设计模式之中介者模式"><a href="#设计模式之中介者模式" class="headerlink" title="设计模式之中介者模式"></a>设计模式之中介者模式</h1><p>如果在一个系统中对象之间的联系呈现为网状结构。对象之间存在大量的多对多联系，将导致系统非常复杂，这些对象既会影响别的对象，也会被别的对象所影响，这些对象称为同事对象，它们之间通过彼此的相互作用实现系统的行为。在网状结构中，几乎每个对象都需要与其他对象发生相互作用，而这种相互作用表现为一个对象与另外一个对象的直接耦合，这将导致一个过度耦合的系统。</p>
+<pre class="mermaid">classDiagram
+class A
+class B
+class C
+A ..&gt; B : 
+A ..&gt; C : 
+B ..&gt; A : 
+B ..&gt; C : 
+C ..&gt; A : 
+C ..&gt; B</pre>
+
+<a id="more"></a>
+<p>中介者模式可以使对象之间的关系数量急剧减少，通过引入中介者对象，可以将系统的网状结构变成以中介者为中心的星形结构。在这个星形结构中，同事对象不再直接与另一个对象联系，它通过中介者对象与另一个对象发生相互作用。中介者对象的存在保证了对象结构上的稳定，也就是说，系统的结构不会因为新对象的引入带来大量的修改工作。</p>
+<pre class="mermaid">classDiagram
+class A
+class B
+class C
+class Mediator
+A ..&gt; Mediator : 
+Mediator ..&gt; A : 
+B ..&gt; Mediator : 
+Mediator ..&gt; B : 
+Mediator ..&gt; C : 
+C ..&gt; Mediator</pre>
+
+<p>如果在一个系统中对象之间存在多对多的相互关系，我们可以将对象之间的一些交互行为从各个对象中分离出来，并集中封装在一个中介者对象中，并由该中介者进行统一协调，这样对象之间多对多的复杂关系就转化为相对简单的一对多关系。通过引入中介者来简化对象之间的复杂交互，中介者模式是“迪米特法则”的一个典型应用。</p>
+<h2 id="中介者模式定义"><a href="#中介者模式定义" class="headerlink" title="中介者模式定义"></a>中介者模式定义</h2><p>中介者模式(Mediator Pattern)：用一个中介对象（中介者）来封装一系列的对象交互，中介者使各对象不需要显式地相互引用，从而使其耦合松散，而且可以独立地改变它们之间的交互。中介者模式又称为调停者模式，它是一种对象行为型模式。</p>
+<p>在中介者模式中，我们引入了用于协调其他对象/类之间相互调用的中介者类，为了让系统具有更好的灵活性和可扩展性，通常还提供了抽象中介者。</p>
+<pre class="mermaid">classDiagram
+class Meidator
+&lt;&lt;interface&gt;&gt; Meidator
+class ConcreteMediator
+ConcreteMediator ..|&gt; Meidator : Realization
+class Colleague
+Colleague: -Meidator mediator
+Colleague --&gt; Meidator : Association
+class ConcreteColleagueA
+Colleague &lt;|-- ConcreteColleagueA : Inheritance
+class ConcreteColleagueB
+Colleague &lt;|-- ConcreteColleagueB : Inheritance</pre>
+
+<p>在中介者模式结构图中包含如下几个角色：</p>
+<ul>
+<li>Mediator（抽象中介者）：它定义一个接口，该接口用于与各同事对象之间进行通信。</li>
+<li>ConcreteMediator（具体中介者）：它是抽象中介者的子类，通过协调各个同事对象来实现协作行为，它维持了对各个同事对象的引用。</li>
+<li>Colleague（抽象同事类）：它定义各个同事类公有的方法，并声明了一些抽象方法来供子类实现，同时它维持了一个对抽象中介者类的引用，其子类可以通过该引用来与中介者通信。</li>
+<li>ConcreteColleague（具体同事类）：它是抽象同事类的子类；每一个同事对象在需要和其他同事对象通信时，先与中介者通信，通过中介者来间接完成与其他同事类的通信；在具体同事类中实现了在抽象同事类中声明的抽象方法。</li>
+</ul>
+<p>中介者模式的核心在于中介者类的引入，在中介者模式中，中介者类承担了两方面的职责：</p>
+<ol>
+<li>中转作用（结构性）：通过中介者提供的中转作用，各个同事对象就不再需要显式引用其他同事，当需要和其他同事进行通信时，可通过中介者来实现间接调用。该中转作用属于中介者在结构上的支持。</li>
+<li>协调作用（行为性）：中介者可以更进一步的对同事之间的关系进行封装，同事可以一致的和中介者进行交互，而不需要指明中介者需要具体怎么做，中介者根据封装在自身内部的协调逻辑，对同事的请求进行进一步处理，将同事成员之间的关系行为进行分离和封装。该协调作用属于中介者在行为上的支持。</li>
+</ol>
+<p>在中介者模式的实际使用过程中:</p>
+<ol>
+<li>如果需要引入新的具体同事类，只需要继承抽象同事类并实现其中的方法即可，由于具体同事类之间并无直接的引用关系，因此原有所有同事类无须进行任何修改，它们与新增同事对象之间的交互可以通过修改或者增加具体中介者类来实现；</li>
+<li>如果需要在原有系统中增加新的具体中介者类，只需要继承抽象中介者类（或已有的具体中介者类）并覆盖其中定义的方法即可，在新的具体中介者中可以通过不同的方式来处理对象之间的交互，也可以增加对新增同事的引用和调用。</li>
+</ol>
+<h2 id="中介者模式的示例"><a href="#中介者模式的示例" class="headerlink" title="中介者模式的示例"></a>中介者模式的示例</h2><ul>
+<li>抽象中介</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Mediator</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">protected</span> ArrayList&lt;Colleague&gt; colleagues; <span class="comment">//用于存储同事对象  </span></span><br><span class="line">  </span><br><span class="line">    <span class="comment">//注册方法，用于增加同事对象  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">register</span><span class="params">(Colleague colleague)</span> </span>&#123;  </span><br><span class="line">        colleagues.add(colleague);  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//声明抽象的业务方法  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span></span>;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<ul>
+<li>具体中介者类</li>
+</ul>
+<p>在抽象中介者中可以定义一个同事类的集合，用于存储同事对象并提供注册方法，同时声明了具体中介者类所具有的方法。在具体中介者类中将实现这些抽象方法。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteMediator</span> <span class="keyword">extends</span> <span class="title">Mediator</span> </span>&#123;  </span><br><span class="line">    <span class="comment">//实现业务方法，封装同事之间的调用  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        ......  </span><br><span class="line">        ((Colleague)(colleagues.get(<span class="number">0</span>))).method1(); <span class="comment">//通过中介者调用同事类的方法  </span></span><br><span class="line">        ......  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<ul>
+<li>抽象同事</li>
+</ul>
+<p>在抽象同事类中维持了一个抽象中介者的引用，用于调用中介者的方法。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Colleague</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">protected</span> Mediator mediator; <span class="comment">//维持一个抽象中介者的引用  </span></span><br><span class="line">      </span><br><span class="line">    <span class="comment">// 同事类必须拥有中介者，所以此处构造器注入</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Colleague</span><span class="params">(Mediator mediator)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.mediator=mediator;  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span></span>; <span class="comment">//声明自身方法，处理自己的行为  </span></span><br><span class="line">      </span><br><span class="line">    <span class="comment">//定义依赖方法，与中介者进行通信  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        mediator.operation();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>具体同事</li>
+</ul>
+<p>在抽象同事类中声明了同事类的抽象方法，而在具体同事类中将实现这些方法。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteColleague</span> <span class="keyword">extends</span> <span class="title">Colleague</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ConcreteColleague</span><span class="params">(Mediator mediator)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">super</span>(mediator);  </span><br><span class="line">    &#125;        </span><br><span class="line">    <span class="comment">//实现自身方法  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        ......  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><p>中介者模式将一个网状的系统结构变成一个以中介者对象为中心的星形结构，在这个星型结构中，使用中介者对象与其他对象的一对多关系来取代原有对象之间的多对多关系。中介者模式在事件驱动类软件中应用较为广泛，特别是基于GUI(Graphical User Interface，图形用户界面)的应用软件，此外，在类与类之间存在错综复杂的关联关系的系统中，中介者模式都能得到较好的应用。</p>
+<h3 id="主要优点"><a href="#主要优点" class="headerlink" title="主要优点"></a>主要优点</h3><p>中介者模式的主要优点如下：</p>
+<ol>
+<li>中介者模式简化了对象之间的交互，它用中介者和同事的一对多交互代替了原来同事之间的多对多交互，一对多关系更容易理解、维护和扩展，将原本难以理解的网状结构转换成相对简单的星型结构。</li>
+<li>中介者模式可将各同事对象解耦。中介者有利于各同事之间的松耦合，我们可以独立的改变和复用每一个同事和中介者，增加新的中介者和新的同事类都比较方便，更好地符合“开闭原则”。</li>
+<li>可以减少子类生成，中介者将原本分布于多个对象间的行为集中在一起，改变这些行为只需生成新的中介者子类即可，这使各个同事类可被重用，无须对同事类进行扩展。</li>
+</ol>
+<h3 id="主要缺点"><a href="#主要缺点" class="headerlink" title="主要缺点"></a>主要缺点</h3><p>中介者模式的主要缺点如下：<br>在具体中介者类中包含了大量同事之间的交互细节，可能会导致具体中介者类非常复杂，使得系统难以维护。</p>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>在以下情况下可以考虑使用中介者模式：</p>
+<ol>
+<li>系统中对象之间存在复杂的引用关系，系统结构混乱且难以理解。</li>
+<li>一个对象由于引用了其他很多对象并且直接和这些对象通信，导致难以复用该对象。</li>
+<li>想通过一个中间类来封装多个类中的行为，而又不想生成太多的子类。可以通过引入中介者类来实现，在中介者中定义对象交互的公共行为，如果需要改变行为则可以增加新的具体中介者类。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Architecture</category>
+        <category>基本设计模式</category>
+      </categories>
+      <tags>
+        <tag>Architecture</tag>
+        <tag>基本设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式之命令模式</title>
+    <url>/posts/933830c7/</url>
+    <content><![CDATA[<h1 id="设计模式之命令模式"><a href="#设计模式之命令模式" class="headerlink" title="设计模式之命令模式"></a>设计模式之命令模式</h1><p>在软件开发中，我们经常需要向某些对象发送请求（调用其中的某个或某些方法），但是并不知道请求的接收者是谁，也不知道被请求的操作是哪个，此时，我们特别希望能够以一种松耦合的方式来设计软件，使得请求发送者与请求接收者能够消除彼此之间的耦合，让对象之间的调用关系更加灵活，可以灵活地指定请求接收者以及被请求的操作。</p>
+<p>命令模式为此类问题提供了一个较为完美的解决方案。命令模式可以将请求发送者和接收者完全解耦，发送者与接收者之间没有直接引用关系，发送请求的对象只需要知道如何发送请求，而不必知道如何完成请求。</p>
+<a id="more"></a>
+<h2 id="命令模式定义"><a href="#命令模式定义" class="headerlink" title="命令模式定义"></a>命令模式定义</h2><p>命令模式(Command Pattern)：将一个请求封装为一个对象，从而让我们可用不同的请求对客户进行参数化；对请求排队或者记录请求日志，以及支持可撤销的操作。命令模式是一种对象行为型模式，其别名为动作(Action)模式或事务(Transaction)模式。</p>
+<pre class="mermaid">classDiagram
+class Invoker
+Invoker: -Command command
+Invoker *-- Command
+class Command
+&lt;&lt;abstract&gt;&gt; Command
+Command: +execute()*
+class ConcreteCommand
+ConcreteCommand: -Receiver receiver
+ConcreteCommand: +execute()
+Command&lt;|-- ConcreteCommand
+class Receiver
+Receiver: +action()
+ConcreteCommand *-- Receiver</pre>
+
+<p>在命令模式结构图中包含如下几个角色：</p>
+<ul>
+<li>Command（抽象命令类）：抽象命令类一般是一个抽象类或接口，在其中声明了用于执行请求的execute()等方法，通过这些方法可以调用请求接收者的相关操作。</li>
+<li>ConcreteCommand（具体命令类）：具体命令类是抽象命令类的子类，实现了在抽象命令类中声明的方法，它对应具体的接收者对象，将接收者对象的动作绑定其中。在实现execute()方法时，将调用接收者对象的相关操作(Action)。</li>
+<li>Invoker（调用者）：调用者即请求发送者，它通过命令对象来执行请求。一个调用者并不需要在设计时确定其接收者，因此它只与抽象命令类之间存在关联关系。在程序运行时可以将一个具体命令对象注入其中，再调用具体命令对象的execute()方法，从而实现间接调用请求接收者的相关操作。</li>
+<li>Receiver（接收者）：接收者执行与请求相关的操作，它具体实现对请求的业务处理。</li>
+</ul>
+<p>命令模式的本质是对请求进行封装，一个请求对应于一个命令，将发出命令的责任和执行命令的责任分割开。每一个命令都是一个操作：请求的一方发出请求要求执行一个操作；接收的一方收到请求，并执行相应的操作。命令模式允许请求的一方和接收的一方独立开来，使得请求的一方不必知道接收请求的一方的接口，更不必知道请求如何被接收、操作是否被执行、何时被执行，以及是怎么被执行的。</p>
+<p>命令模式的关键在于引入了抽象命令类，请求发送者针对抽象命令类编程，只有实现了抽象命令类的具体命令才与请求接收者相关联。在最简单的抽象命令类中只包含了一个抽象的execute()方法，每个具体命令类将一个Receiver类型的对象作为一个实例变量进行存储，从而具体指定一个请求的接收者，不同的具体命令类提供了execute()方法的不同实现，并调用不同接收者的请求处理方法。</p>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 抽象命令类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Command</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span></span>;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体命令类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteCommandA</span> <span class="keyword">extends</span> <span class="title">Command</span></span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Receiver receiver;  <span class="comment">// 如果有多个接受者，此处为 List&lt;Receiver&gt; </span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">ConcreteCommandA</span><span class="params">(Receiver receiver)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.receiver = receiver;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.receiver.action();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 抽象接受者</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Receiver</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">action</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteReceiver</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">action</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// 具体业务</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用者</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Invocator</span></span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Command command;</span><br><span class="line">  <span class="comment">//设值注入  </span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCommand</span><span class="params">(Command command)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.command = command;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//业务方法，用于调用命令类的execute()方法  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        command.execute();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><h3 id="命令队列"><a href="#命令队列" class="headerlink" title="命令队列"></a>命令队列</h3><p>有时候我们需要将多个请求排队，当一个请求发送者发送一个请求时，将不止一个请求接收者产生响应，这些请求接收者将逐个执行业务方法，完成对请求的处理。此时，我们可以通过命令队列来实现。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CommandQueue</span> </span>&#123;  </span><br><span class="line">    <span class="comment">//定义一个ArrayList来存储命令队列  </span></span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Command&gt; commands = <span class="keyword">new</span> ArrayList&lt;Command&gt;();  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCommand</span><span class="params">(Command command)</span> </span>&#123;  </span><br><span class="line">        commands.add(command);  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeCommand</span><span class="params">(Command command)</span> </span>&#123;  </span><br><span class="line">        commands.remove(command);  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="comment">//循环调用每一个命令对象的execute()方法  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">for</span> (Object command : commands) &#123;  </span><br><span class="line">            ((Command)command).execute();  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<p>当一个发送者发送请求后，将有一系列接收者对请求作出响应，命令队列可以用于设计批处理应用程序，如果请求接收者的接收次序没有严格的先后次序，我们还可以使用多线程技术来并发调用命令对象的execute()方法，从而提高程序的执行效率。</p>
+<h3 id="宏命令"><a href="#宏命令" class="headerlink" title="宏命令"></a>宏命令</h3><p>命令队列的进一步扩展是宏命令，宏命令是一个具体命令类，它拥有一个集合属性，在该集合中包含了对其他命令对象的引用。通常宏命令不直接与请求接收者交互，而是通过它的成员来调用接收者的方法。当调用宏命令的execute()方法时，将递归调用它所包含的每个成员命令的execute()方法，一个宏命令的成员可以是简单命令，还可以继续是宏命令。执行一个宏命令将触发多个具体命令的执行，从而实现对命令的批处理。</p>
+<h3 id="撤销操作的实现"><a href="#撤销操作的实现" class="headerlink" title="撤销操作的实现"></a>撤销操作的实现</h3><p>在命令模式中，我们可以通过调用一个命令对象的execute()方法来实现对请求的处理，如果需要撤销(Undo)请求，可通过在命令类中增加一个逆向操作来实现。简单地单次撤销，只要维护execute前的目标状态，如果要实现多次撤销操作，可以通过引入一个命令集合或其他方式来存储每一次操作时命令的状态。除了Undo操作外，还可以采用类似的方式实现恢复(Redo)操作，即恢复所撤销的操作（或称为二次撤销）。</p>
+<h3 id="日志文件"><a href="#日志文件" class="headerlink" title="日志文件"></a>日志文件</h3><p>undo，redo 的进一步扩展是日志文件， 可以将命令队列中的所有命令对象都存储在一个日志文件中，每执行一个命令则从日志文件中删除一个对应的命令对象，防止因为断电或者系统重启等原因造成请求丢失，而且可以避免重新发送全部请求时造成某些命令的重复执行，只需读取请求日志文件，再继续执行文件中剩余的命令即可。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="主要优点"><a href="#主要优点" class="headerlink" title="主要优点"></a>主要优点</h3><p>命令模式的主要优点如下：</p>
+<ol>
+<li>降低系统的耦合度。由于请求者与接收者之间不存在直接引用，因此请求者与接收者之间实现完全解耦，相同的请求者可以对应不同的接收者，同样，相同的接收者也可以供不同的请求者使用，两者之间具有良好的独立性。</li>
+<li>新的命令可以很容易地加入到系统中。由于增加新的具体命令类不会影响到其他类，因此增加新的具体命令类很容易，无须修改原有系统源代码，甚至客户类代码，满足“开闭原则”的要求。</li>
+<li>可以比较容易地设计一个命令队列或宏命令（组合命令）。</li>
+<li>为请求的撤销(Undo)和恢复(Redo)操作提供了一种设计和实现方案。</li>
+</ol>
+<h3 id="主要缺点"><a href="#主要缺点" class="headerlink" title="主要缺点"></a>主要缺点</h3><p>命令模式的主要缺点如下：</p>
+<ul>
+<li>使用命令模式可能会导致某些系统有过多的具体命令类。因为针对每一个对请求接收者的调用操作都需要设计一个具体命令类，因此在某些系统中可能需要提供大量的具体命令类，这将影响命令模式的使用。</li>
+</ul>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>在以下情况下可以考虑使用命令模式：</p>
+<ol>
+<li>系统需要将请求调用者和请求接收者解耦，使得调用者和接收者不直接交互。请求调用者无须知道接收者的存在，也无须知道接收者是谁，接收者也无须关心何时被调用。</li>
+<li>系统需要在不同的时间指定请求、将请求排队和执行请求。一个命令对象和请求的初始调用者可以有不同的生命期，换言之，最初的请求发出者可能已经不在了，而命令对象本身仍然是活动的，可以通过该命令对象去调用请求接收者，而无须关心请求调用者的存在性，可以通过请求日志文件等机制来具体实现。</li>
+<li>系统需要支持命令的撤销(Undo)操作和恢复(Redo)操作。</li>
+<li>系统需要将一组操作组合在一起形成宏命令。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Architecture</category>
+        <category>基本设计模式</category>
+      </categories>
+      <tags>
+        <tag>Architecture</tag>
+        <tag>基本设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式之责任链模式</title>
+    <url>/posts/eea759ed/</url>
+    <content><![CDATA[<h1 id="设计模式之责任链模式"><a href="#设计模式之责任链模式" class="headerlink" title="设计模式之责任链模式"></a>设计模式之责任链模式</h1><p>职责链可以是一条直线、一个环或者一个树形结构，最常见的职责链是直线型，即沿着一条单向的链来传递请求。链上的每一个对象都是请求处理者，职责链模式可以将请求的处理者组织成一条链，并让请求沿着链传递，由链上的处理者对请求进行相应的处理，客户端无须关心请求的处理细节以及请求的传递，只需将请求发送到链上即可，实现请求发送者和请求处理者解耦。</p>
+<a id="more"></a>
+<h2 id="责任链的定义"><a href="#责任链的定义" class="headerlink" title="责任链的定义"></a>责任链的定义</h2><p>职责链模式(Chain of Responsibility  Pattern)：避免请求发送者与接收者耦合在一起，让多个对象都有可能接收请求，将这些对象连接成一条链，并且沿着这条链传递请求，直到有对象处理它为止。职责链模式是一种对象行为型模式。</p>
+<p>职责链模式结构的核心在于引入了一个抽象处理者。职责链模式结构如图所示：</p>
+<pre class="mermaid">classDiagram
+class Client
+class Request
+class Response
+class Handler
+Handler:-Handler next
+Handler:+handle(Request request)* Response
+Handler:+canConsume(Request request)* Boolean
+Handler:+dispatchRequest(Request request) Response
+class ConcreteHandlerA
+ConcreteHandlerA:+handle(Request request) Response
+ConcreteHandlerA:+canConsume(Request request) Boolean
+class ConcreteHandlerB
+ConcreteHandlerB:+handle(Request request) Response
+ConcreteHandlerB:+canConsume(Request request) Boolean
+Handler &lt;|-- ConcreteHandlerA
+Handler &lt;|-- ConcreteHandlerB
+Handler ..&gt; Response
+Handler ..&gt; Request
+Client --&gt;Handler</pre>
+
+<p>在职责链模式结构图中包含如下几个角色：</p>
+<ul>
+<li>Handler（抽象处理者）：它定义了一个处理请求的接口，一般设计为抽象类，由于不同的具体处理者处理请求的方式不同，因此在其中定义了抽象请求处理方法。因为每一个处理者的下家还是一个处理者，因此在抽象处理者中定义了一个抽象处理者类型的对象（如结构图中的next），作为其对下家的引用。通过该引用，处理者可以连成一条链。</li>
+<li>ConcreteHandler（具体处理者）：它是抽象处理者的子类，可以处理用户请求，在具体处理者类中实现了抽象处理者中定义的抽象请求处理方法，在处理请求之前需要进行判断，看是否有相应的处理权限，如果可以处理请求就处理它，否则将请求转发给后继者；在具体处理者中可以访问链中下一个对象，以便请求的转发。</li>
+</ul>
+<p>在职责链模式里，很多对象由每一个对象对其下家的引用而连接起来形成一条链。请求在这个链上传递，直到链上的某一个对象决定处理此请求。发出这个请求的客户端并不知道链上的哪一个对象最终处理这个请求，这使得系统可以在不影响客户端的情况下动态地重新组织链和分配责任。</p>
+<h2 id="纯与不纯的职责链模式"><a href="#纯与不纯的职责链模式" class="headerlink" title="纯与不纯的职责链模式"></a>纯与不纯的职责链模式</h2><ol>
+<li>纯的职责链模式<br>一个纯的职责链模式要求一个具体处理者对象只能在两个行为中选择一个：要么承担全部责任，要么将责任推给下家，不允许出现某一个具体处理者对象在承担了一部分或全部责任后又将责任向下传递的情况。而且在纯的职责链模式中，要求一个请求必须被某一个处理者对象所接收，不能出现某个请求未被任何一个处理者对象处理的情况。</li>
+<li>不纯的职责链模式<br>在一个不纯的职责链模式中允许某个请求被一个具体处理者部分处理后再向下传递，或者一个具体处理者处理完某请求后其后继处理者可以继续处理该请求，而且一个请求可以最终不被任何处理者对象所接收。</li>
+</ol>
+<h2 id="代码例子"><a href="#代码例子" class="headerlink" title="代码例子"></a>代码例子</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 纯的责任链</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Handler</span> </span>&#123;  </span><br><span class="line">  <span class="comment">//维持对下家的引用  </span></span><br><span class="line">  <span class="keyword">protected</span> Handler next;  </span><br><span class="line">      </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNext</span><span class="params">(Handler next)</span> </span>&#123;  </span><br><span class="line">      <span class="keyword">this</span>.next=next;  </span><br><span class="line">  &#125;  </span><br><span class="line">  <span class="comment">// 判断是否可以消费</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">boolean</span> <span class="title">canConsume</span><span class="params">(Request request)</span></span>;</span><br><span class="line">  <span class="comment">// 处理请求的业务代码    </span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> Response <span class="title">handle</span><span class="params">(Request request)</span></span>;  </span><br><span class="line"></span><br><span class="line">  <span class="comment">// 模板方法</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Response <span class="title">dispatchRequest</span><span class="params">(Request request)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span>.canConsume(request))&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.handle(request);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      <span class="comment">// 注意，链尾handler 能消费所有。</span></span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.next.dispatchRequest(request);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="职责链模式总结"><a href="#职责链模式总结" class="headerlink" title="职责链模式总结"></a>职责链模式总结</h2><h3 id="主要优点"><a href="#主要优点" class="headerlink" title="主要优点"></a>主要优点</h3><p>职责链模式的主要优点如下：</p>
+<ol>
+<li>职责链模式使得一个对象无须知道是其他哪一个对象处理其请求，对象仅需知道该请求会被处理即可，接收者和发送者都没有对方的明确信息，且链中的对象不需要知道链的结构，由客户端负责链的创建，降低了系统的耦合度。</li>
+<li>请求处理对象仅需维持一个指向其后继者的引用，而不需要维持它对所有的候选处理者的引用，可简化对象的相互连接。</li>
+<li>在给对象分派职责时，职责链可以给我们更多的灵活性，可以通过在运行时对该链进行动态的增加或修改来增加或改变处理一个请求的职责。</li>
+<li>在系统中增加一个新的具体请求处理者时无须修改原有系统的代码，只需要在客户端重新建链即可，从这一点来看是符合“开闭原则”的。</li>
+</ol>
+<h3 id="主要缺点"><a href="#主要缺点" class="headerlink" title="主要缺点"></a>主要缺点</h3><p>职责链模式的主要缺点如下：</p>
+<ol>
+<li>由于一个请求没有明确的接收者，那么就不能保证它一定会被处理，该请求可能一直到链的末端都得不到处理；一个请求也可能因职责链没有被正确配置而得不到处理。</li>
+<li>对于比较长的职责链，请求的处理可能涉及到多个处理对象，系统性能将受到一定影响，而且在进行代码调试时不太方便。</li>
+<li>如果建链不当，可能会造成循环调用，将导致系统陷入死循环。</li>
+</ol>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>在以下情况下可以考虑使用职责链模式：</p>
+<ol>
+<li>有多个对象可以处理同一个请求，具体哪个对象处理该请求待运行时刻再确定，客户端只需将请求提交到链上，而无须关心请求的处理对象是谁以及它是如何处理的。</li>
+<li>在不明确指定接收者的情况下，向多个对象中的一个提交一个请求。</li>
+<li>可动态指定一组对象处理请求，客户端可以动态创建职责链来处理请求，还可以改变链中处理者之间的先后次序。 </li>
+</ol>
+]]></content>
+      <categories>
+        <category>Architecture</category>
+        <category>基本设计模式</category>
+      </categories>
+      <tags>
+        <tag>Architecture</tag>
+        <tag>基本设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式之装饰模式</title>
+    <url>/posts/d5a7dab/</url>
+    <content><![CDATA[<h1 id="设计模式之装饰模式"><a href="#设计模式之装饰模式" class="headerlink" title="设计模式之装饰模式"></a>设计模式之装饰模式</h1><p>装饰模式是一种用于替代继承的技术，它通过一种无须定义子类的方式来给对象动态增加职责，使用对象之间的关联关系取代类之间的继承关系。在装饰模式中引入了装饰类，在装饰类中既可以调用待装饰的原有类的方法，还可以增加新的方法，以扩充原有类的功能。</p>
+<a id="more"></a>
+<h2 id="装饰模式的定义"><a href="#装饰模式的定义" class="headerlink" title="装饰模式的定义"></a>装饰模式的定义</h2><p>装饰模式(Decorator Pattern)：动态地给一个对象增加一些额外的职责，就增加对象功能来说，装饰模式比生成子类实现更为灵活。装饰模式是一种对象结构型模式。</p>
+<p>在装饰模式中，为了让系统具有更好的灵活性和可扩展性，我们通常会定义一个抽象装饰类，而将具体的装饰类作为它的子类，装饰模式结构如图所示：</p>
+<pre class="mermaid">classDiagram
+class Component
+&lt;&lt;interface&gt;&gt; Component
+Component:+operation() void
+class ConcreteComponent
+ConcreteComponent:+operation() void
+Component &lt;|.. ConcreteComponent
+class Decorator
+&lt;&lt;abstract&gt;&gt; Decorator
+Component &lt;|.. Decorator
+Component --* Decorator
+Decorator: #Component component
+Decorator:+operation() void
+class ConcreteDecorator
+Decorator &lt;|-- ConcreteDecorator
+ConcreteDecorator: +operation() void
+ConcreteDecorator ..&gt; ConcreteComponent</pre>
+
+<p>在装饰模式结构图中包含如下几个角色：</p>
+<ul>
+<li>Component（抽象构件）：它是具体构件和抽象装饰类的共同父类，声明了在具体构件中实现的业务方法，它的引入可以使客户端以一致的方式处理未被装饰的对象以及装饰之后的对象，实现客户端的透明操作。</li>
+<li>ConcreteComponent（具体构件）：它是抽象构件类的子类，用于定义具体的构件对象，实现了在抽象构件中声明的方法，装饰器可以给它增加额外的职责（方法）。</li>
+<li>Decorator（抽象装饰类）：它也是抽象构件类的子类，用于给具体构件增加职责，但是具体职责在其子类中实现。它维护一个指向抽象构件对象的引用，通过该引用可以调用装饰之前构件对象的方法，并通过其子类扩展该方法，以达到装饰的目的。</li>
+<li>ConcreteDecorator（具体装饰类）：它是抽象装饰类的子类，负责向构件添加新的职责。每一个具体装饰类都定义了一些新的行为，它可以调用在抽象装饰类中定义的方法，并可以增加新的方法用以扩充对象的行为。</li>
+</ul>
+<p>由于具体构件类和装饰类都实现了相同的抽象构件接口，因此装饰模式以对客户透明的方式动态地给一个对象附加上更多的责任，换言之，客户端并不会觉得对象在装饰前和装饰后有什么不同。装饰模式可以在不需要创造更多子类的情况下，将对象的功能加以扩展。</p>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 抽象装饰类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Decorator</span> <span class="keyword">implements</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Component component;  <span class="comment">//维持一个对抽象构件对象的引用</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Decorator</span><span class="params">(Component component)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.component=component;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span></span>&#123;</span><br><span class="line">     component.operation();  <span class="comment">//调用原有业务方法</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 具体装饰类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteDecorator</span> <span class="keyword">extends</span> <span class="title">Decorator</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ConcreteDecorator</span><span class="params">(Component  component)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(component);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.operation();  <span class="comment">//调用原有业务方法</span></span><br><span class="line">        decoration();  <span class="comment">//调用新增业务方法</span></span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">//新增业务方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">decoration</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// 具体装饰</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>由于在抽象装饰类Decorator中注入的是Component类型的对象，因此我们可以将一个具体构件对象注入其中，再通过具体装饰类来进行装饰；此外，我们还可以将一个已经装饰过的Decorator子类的对象再注入其中进行多次装饰，从而对原有功能的多次扩展。</strong></p>
+</blockquote>
+<h2 id="装饰模式总结"><a href="#装饰模式总结" class="headerlink" title="装饰模式总结"></a>装饰模式总结</h2><h3 id="主要优点"><a href="#主要优点" class="headerlink" title="主要优点"></a>主要优点</h3><p>装饰模式的主要优点如下：</p>
+<ol>
+<li>对于扩展一个对象的功能，装饰模式比继承更加灵活性，不会导致类的个数急剧增加。</li>
+<li>可以通过一种动态的方式来扩展一个对象的功能，通过配置文件可以在运行时选择不同的具体装饰类，从而实现不同的行为。</li>
+<li>可以对一个对象进行多次装饰，通过使用不同的具体装饰类以及这些装饰类的排列组合，可以创造出很多不同行为的组合，得到功能更为强大的对象。</li>
+<li>具体构件类与具体装饰类可以独立变化，用户可以根据需要增加新的具体构件类和具体装饰类，原有类库代码无须改变，符合“开闭原则”。</li>
+</ol>
+<h3 id="主要缺点"><a href="#主要缺点" class="headerlink" title="主要缺点"></a>主要缺点</h3><p>装饰模式的主要缺点如下：</p>
+<ol>
+<li>使用装饰模式进行系统设计时将产生很多小对象，这些对象的区别在于它们之间相互连接的方式有所不同，而不是它们的类或者属性值有所不同，大量小对象的产生势必会占用更多的系统资源，在一定程序上影响程序的性能。</li>
+<li>装饰模式提供了一种比继承更加灵活机动的解决方案，但同时也意味着比继承更加易于出错，排错也很困难，对于多次装饰的对象，调试时寻找错误可能需要逐级排查，较为繁琐。</li>
+</ol>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>在以下情况下可以考虑使用装饰模式：</p>
+<ol>
+<li>在不影响其他对象的情况下，以动态、透明的方式给单个对象添加职责。</li>
+<li>当不能采用继承的方式对系统进行扩展或者采用继承不利于系统扩展和维护时可以使用装饰模式。不能采用继承的情况主要有两类：第一类是系统中存在大量独立的扩展，为支持每一种扩展或者扩展之间的组合将产生大量的子类，使得子类数目呈爆炸性增长；第二类是因为类已定义为不能被继承（如Java语言中的final类）。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Architecture</category>
+        <category>基本设计模式</category>
+      </categories>
+      <tags>
+        <tag>Architecture</tag>
+        <tag>基本设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式之策略模式</title>
+    <url>/posts/99c8c8b1/</url>
+    <content><![CDATA[<h1 id="设计模式之策略模式"><a href="#设计模式之策略模式" class="headerlink" title="设计模式之策略模式"></a>设计模式之策略模式</h1><p>在策略模式中，我们可以定义一些独立的类来封装不同的算法，每一个类封装一种具体的算法，在这里，每一个封装算法的类我们都可以称之为一种策略(Strategy)，为了保证这些策略在使用时具有一致性，一般会提供一个抽象的策略类来做规则的定义，而每种算法则对应于一个具体策略类。</p>
+<a id="more"></a>
+<h2 id="策略模式的定义"><a href="#策略模式的定义" class="headerlink" title="策略模式的定义"></a>策略模式的定义</h2><p>策略模式的主要目的是将算法的定义与使用分开，也就是将算法的行为和环境分开，将算法的定义放在专门的策略类中，每一个策略类封装了一种实现算法，使用算法的环境类针对抽象策略类进行编程，符合“依赖倒转原则”。在出现新的算法时，只需要增加一个新的实现了抽象策略类的具体策略类即可。策略模式定义如下：</p>
+<p>策略模式(Strategy Pattern)：定义一系列算法类，将每一个算法封装起来，并让它们可以相互替换，策略模式让算法独立于使用它的客户而变化，也称为政策模式(Policy)。策略模式是一种对象行为型模式。</p>
+<pre class="mermaid">classDiagram
+class Context{
+    -Strategy strategy
+    +algorithm() void
+}
+
+class Strategy{
+    +algorithm() void
+}
+&lt;&lt;abstract&gt;&gt; Strategy
+
+class ConcreteStrategyA{
+    +algorithm() void
+}
+class ConcreteStrategyB{
+    +algorithm() void
+}
+
+Strategy&lt;|-- ConcreteStrategyA
+Strategy&lt;|-- ConcreteStrategyB
+Context *--Strategy</pre>
+
+<p>在策略模式结构图中包含如下几个角色：</p>
+<ul>
+<li>Context（环境类）：环境类是使用算法的角色，它在解决某个问题（即实现某个方法）时可以采用多种策略。在环境类中维持一个对抽象策略类的引用实例，用于定义所采用的策略。</li>
+<li>Strategy（抽象策略类）：它为所支持的算法声明了抽象方法，是所有策略类的父类，它可以是抽象类或具体类，也可以是接口。环境类通过抽象策略类中声明的方法在运行时调用具体策略类中实现的算法。</li>
+<li>ConcreteStrategy（具体策略类）：它实现了在抽象策略类中声明的算法，在运行时，具体策略类将覆盖在环境类中定义的抽象策略类对象，使用一种具体的算法实现某个业务处理。</li>
+</ul>
+<p>策略模式是一个比较容易理解和使用的设计模式，策略模式是对算法的封装，它把算法的责任和算法本身分割开，委派给不同的对象管理。策略模式通常把一个系列的算法封装到一系列具体策略类里面，作为抽象策略类的子类。在策略模式中，对环境类和抽象策略类的理解非常重要，环境类是需要使用算法的类。在一个系统中可以存在多个环境类，它们可能需要重用一些相同的算法。</p>
+<h2 id="代码例子"><a href="#代码例子" class="headerlink" title="代码例子"></a>代码例子</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractStrategy</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">algorithm</span><span class="params">()</span></span>; <span class="comment">//声明抽象算法  </span></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteStrategyA</span> <span class="keyword">extends</span> <span class="title">AbstractStrategy</span> </span>&#123;  </span><br><span class="line">    <span class="comment">//算法的具体实现  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">algorithm</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">       <span class="comment">//算法A  </span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Context</span> </span>&#123;  </span><br><span class="line"><span class="keyword">private</span> AbstractStrategy strategy; <span class="comment">//维持一个对抽象策略类的引用  </span></span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setStrategy</span><span class="params">(AbstractStrategy strategy)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.strategy= strategy;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//调用策略类中的算法  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">algorithm</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        strategy.algorithm();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">……  </span><br><span class="line">Context context = <span class="keyword">new</span> Context();  </span><br><span class="line">AbstractStrategy strategy;  </span><br><span class="line">strategy = <span class="keyword">new</span> ConcreteStrategyA(); <span class="comment">//可在运行时指定类型  </span></span><br><span class="line">context.setStrategy(strategy);  </span><br><span class="line">context.algorithm();  </span><br><span class="line">…… </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="策略模式总结"><a href="#策略模式总结" class="headerlink" title="策略模式总结"></a>策略模式总结</h2><p> 策略模式用于算法的自由切换和扩展，它是应用较为广泛的设计模式之一。策略模式对应于解决某一问题的一个算法族，允许用户从该算法族中任选一个算法来解决某一问题，同时可以方便地更换算法或者增加新的算法。只要涉及到算法的封装、复用和切换都可以考虑使用策略模式。</p>
+<h3 id="主要优点"><a href="#主要优点" class="headerlink" title="主要优点"></a>主要优点</h3><p>策略模式的主要优点如下：</p>
+<ol>
+<li>策略模式提供了对“开闭原则”的完美支持，用户可以在不修改原有系统的基础上选择算法或行为，也可以灵活地增加新的算法或行为。</li>
+<li>策略模式提供了管理相关的算法族的办法。策略类的等级结构定义了一个算法或行为族，恰当使用继承可以把公共的代码移到抽象策略类中，从而避免重复的代码。</li>
+<li>策略模式提供了一种可以替换继承关系的办法。如果不使用策略模式，那么使用算法的环境类就可能会有一些子类，每一个子类提供一种不同的算法。但是，这样一来算法的使用就和算法本身混在一起，不符合“单一职责原则”，决定使用哪一种算法的逻辑和该算法本身混合在一起，从而不可能再独立演化；而且使用继承无法实现算法或行为在程序运行时的动态切换。</li>
+<li>使用策略模式可以避免多重条件选择语句。多重条件选择语句不易维护，它把采取哪一种算法或行为的逻辑与算法或行为本身的实现逻辑混合在一起，将它们全部硬编码(Hard Coding)在一个庞大的多重条件选择语句中，比直接继承环境类的办法还要原始和落后。</li>
+<li>策略模式提供了一种算法的复用机制，由于将算法单独提取出来封装在策略类中，因此不同的环境类可以方便地复用这些策略类。</li>
+</ol>
+<h3 id="主要缺点"><a href="#主要缺点" class="headerlink" title="主要缺点"></a>主要缺点</h3><p>策略模式的主要缺点如下：</p>
+<ol>
+<li>客户端必须知道所有的策略类，并自行决定使用哪一个策略类。这就意味着客户端必须理解这些算法的区别，以便适时选择恰当的算法。换言之，策略模式只适用于客户端知道所有的算法或行为的情况。</li>
+<li>策略模式将造成系统产生很多具体策略类，任何细小的变化都将导致系统要增加一个新的具体策略类。</li>
+<li>无法同时在客户端使用多个策略类，也就是说，在使用策略模式时，客户端每次只能使用一个策略类，不支持使用一个策略类完成部分功能后再使用另一个策略类来完成剩余功能的情况。</li>
+</ol>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>在以下情况下可以考虑使用策略模式：</p>
+<ol>
+<li>一个系统需要动态地在几种算法中选择一种，那么可以将这些算法封装到一个个的具体算法类中，而这些具体算法类都是一个抽象算法类的子类。换言之，这些具体算法类均有统一的接口，根据“里氏代换原则”和面向对象的多态性，客户端可以选择使用任何一个具体算法类，并只需要维持一个数据类型是抽象算法类的对象。</li>
+<li>一个对象有很多的行为，如果不用恰当的模式，这些行为就只好使用多重条件选择语句来实现。此时，使用策略模式，把这些行为转移到相应的具体策略类里面，就可以避免使用难以维护的多重条件选择语句。</li>
+<li>不希望客户端知道复杂的、与算法相关的数据结构，在具体策略类中封装算法与相关的数据结构，可以提高算法的保密性与安全性。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Architecture</category>
+        <category>基本设计模式</category>
+      </categories>
+      <tags>
+        <tag>Architecture</tag>
+        <tag>基本设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式之适配器模式</title>
+    <url>/posts/796a0e79/</url>
+    <content><![CDATA[<h1 id="设计模式之适配器模式"><a href="#设计模式之适配器模式" class="headerlink" title="设计模式之适配器模式"></a>设计模式之适配器模式</h1><p>在适配器模式中引入了一个被称为适配器(Adapter)的包装类，而它所包装的对象称为适配者(Adaptee)，即被适配的类。适配器的实现就是把客户类的请求转化为对适配者的相应接口的调用。也就是说：当客户类调用适配器的方法时，在适配器类的内部将调用适配者类的方法，而这个过程对客户类是透明的，客户类并不直接访问适配者类。因此，适配器让那些由于接口不兼容而不能交互的类可以一起工作。</p>
+<a id="more"></a>
+<h2 id="适配器模式的定义"><a href="#适配器模式的定义" class="headerlink" title="适配器模式的定义"></a>适配器模式的定义</h2><p>适配器模式可以将一个类的接口和另一个类的接口匹配起来，而无须修改原来的适配者接口和抽象目标类接口。适配器模式定义如下：</p>
+<p>适配器模式(Adapter Pattern)：将一个接口转换成客户希望的另一个接口，使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。适配器模式既可以作为类结构型模式，也可以作为对象结构型模式。</p>
+<p>在适配器模式中，我们通过增加一个新的适配器类来解决接口不兼容的问题，使得原本没有任何关系的类可以协同工作。根据适配器类与适配者类的关系不同，适配器模式可分为对象适配器和类适配器两种，在对象适配器模式中，适配器与适配者之间是关联关系；在类适配器模式中，适配器与适配者之间是继承（或实现）关系。</p>
+<h3 id="对象适配器"><a href="#对象适配器" class="headerlink" title="对象适配器"></a>对象适配器</h3><p>在实际开发中，对象适配器的使用频率更高，对象适配器模式结构如图所示：</p>
+<pre class="mermaid">classDiagram
+class Target{
+    +request() void
+}
+class Adapter{
+    +request() void
+}
+Target &lt;|-- Adapter
+class Adaptee{
+    + specificRequest() void
+}
+Adapter *--Adaptee</pre>
+
+<p>在对象适配器模式结构图中包含如下几个角色：</p>
+<ul>
+<li>Target（目标抽象类）：目标抽象类定义客户所需接口，可以是一个抽象类或接口，也可以是具体类。</li>
+<li>Adapter（适配器类）：适配器可以调用另一个接口，作为一个转换器，对Adaptee和Target进行适配，适配器类是适配器模式的核心，在对象适配器中，它通过继承Target并关联一个Adaptee对象使二者产生联系。</li>
+<li>Adaptee（适配者类）：适配者即被适配的角色，它定义了一个已经存在的接口，这个接口需要适配，适配者类一般是一个具体类，包含了客户希望使用的业务方法，在某些情况下可能没有适配者类的源代码。</li>
+</ul>
+<p>根据对象适配器模式结构图，在对象适配器中，客户端需要调用request()方法，而适配者类Adaptee没有该方法，但是它所提供的specificRequest()方法却是客户端所需要的。为了使客户端能够使用适配者类，需要提供一个包装类Adapter，即适配器类。这个包装类包装了一个适配者的实例，从而将客户端与适配者衔接起来，在适配器的request()方法中调用适配者的specificRequest()方法。因为适配器类与适配者类是关联关系（也可称之为委派关系），所以这种适配器模式称为对象适配器模式。典型的对象适配器代码如下所示:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Adapter</span> <span class="keyword">extends</span> <span class="title">Target</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> Adaptee adaptee; <span class="comment">//维持一个对适配者对象的引用  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Adapter</span><span class="params">(Adaptee adaptee)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.adaptee=adaptee;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        adaptee.specificRequest(); <span class="comment">//转发调用  </span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<h3 id="类适配器"><a href="#类适配器" class="headerlink" title="类适配器"></a>类适配器</h3><p>类适配器模式和对象适配器模式最大的区别在于适配器和适配者之间的关系不同，对象适配器模式中适配器和适配者之间是关联关系，而类适配器模式中适配器和适配者是继承关系，类适配器模式结构如图所示:</p>
+<pre class="mermaid">classDiagram
+class Target{
+    +request() void
+}
+&lt;&lt;interface&gt;&gt; Target
+class Adapter{
+    +request() void
+}
+Target &lt;|.. Adapter
+class Adaptee{
+    +request() void
+    +specificRequest() void
+}
+Adapter --|&gt; Adaptee</pre>
+
+<p>根据类适配器模式结构图，适配器类实现了抽象目标类接口Target，并继承了适配者类，在适配器类的request()方法中调用所继承的适配者类的specificRequest()方法，实现了适配。典型的类适配器代码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Adapter</span> <span class="keyword">extends</span> <span class="title">Adaptee</span> <span class="keyword">implements</span> <span class="title">Target</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        specificRequest();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>由于Java不支持多重类继承，因此类适配器的使用受到很多限制，例如如果目标抽象类Target不是接口，而是一个类，就无法使用类适配器；此外，如果适配者Adapter为最终(Final)类，也无法使用类适配器。在Java等面向对象编程语言中，大部分情况下我们使用的是对象适配器，类适配器较少使用。</p>
+</blockquote>
+<h3 id="双向适配器"><a href="#双向适配器" class="headerlink" title="双向适配器"></a>双向适配器</h3><p>在对象适配器的使用过程中，如果在适配器中同时包含对目标类和适配者类的引用，适配者可以通过它调用目标类中的方法，目标类也可以通过它调用适配者类中的方法，那么该适配器就是一个双向适配器，其结构示意图如图所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Adapter</span> <span class="keyword">implements</span> <span class="title">Target</span>,<span class="title">Adaptee</span> </span>&#123;  </span><br><span class="line">    <span class="comment">//同时维持对抽象目标类和适配者的引用  </span></span><br><span class="line">    <span class="keyword">private</span> Target target;  </span><br><span class="line">    <span class="keyword">private</span> Adaptee adaptee;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Adapter</span><span class="params">(Target target)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.target = target;  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Adapter</span><span class="params">(Adaptee adaptee)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.adaptee = adaptee;  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        adaptee.specificRequest();  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">specificRequest</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        target.request();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<h3 id="缺省适配器"><a href="#缺省适配器" class="headerlink" title="缺省适配器"></a>缺省适配器</h3><p>缺省适配器模式是适配器模式的一种变体，其应用也较为广泛。缺省适配器模式的定义如下：</p>
+<p>缺省适配器模式(Default Adapter Pattern)：当不需要实现一个接口所提供的所有方法时，可先设计一个抽象类实现该接口，并为接口中每个方法提供一个默认实现（空方法），那么该抽象类的子类可以选择性地覆盖父类的某些方法来实现需求，它适用于不想使用一个接口中的所有方法的情况，又称为单接口适配器模式。</p>
+<pre class="mermaid">classDiagram
+class ServiceInterface{
+    +serviceMethod1() void
+    +serviceMethod2() void
+    +serviceMethod3() void
+}
+&lt;&lt;interface&gt;&gt; ServiceInterface
+class AbstractServiceClass{
+    +serviceMethod1() void
+    +serviceMethod2() void
+    +serviceMethod3() void
+}
+ServiceInterface &lt;|.. AbstractServiceClass
+class ConcreteServiceClass{
+    +serviceMethod1() void
+}
+AbstractServiceClass &lt;|-- ConcreteServiceClass</pre>
+
+<p>在缺省适配器模式中，包含如下三个角色：</p>
+<ul>
+<li>ServiceInterface（适配者接口）：它是一个接口，通常在该接口中声明了大量的方法。</li>
+<li>AbstractServiceClass（缺省适配器类）：它是缺省适配器模式的核心类，使用空方法的形式实现了在ServiceInterface接口中声明的方法。通常将它定义为抽象类，因为对它进行实例化没有任何意义。</li>
+<li>ConcreteServiceClass（具体业务类）：它是缺省适配器类的子类，在没有引入适配器之前，它需要实现适配者接口，因此需要实现在适配者接口中定义的所有方法，而对于一些无须使用的方法也不得不提供空实现。在有了缺省适配器之后，可以直接继承该适配器类，根据需要有选择性地覆盖在适配器类中定义的方法。</li>
+</ul>
+<h2 id="适配器模式总结"><a href="#适配器模式总结" class="headerlink" title="适配器模式总结"></a>适配器模式总结</h2><h3 id="主要优点"><a href="#主要优点" class="headerlink" title="主要优点"></a>主要优点</h3><p>无论是对象适配器模式还是类适配器模式都具有如下优点：</p>
+<ol>
+<li>将目标类和适配者类解耦，通过引入一个适配器类来重用现有的适配者类，无须修改原有结构。</li>
+<li>增加了类的透明性和复用性，将具体的业务实现过程封装在适配者类中，对于客户端类而言是透明的，而且提高了适配者的复用性，同一个适配者类可以在多个不同的系统中复用。</li>
+<li>灵活性和扩展性都非常好，通过使用配置文件，可以很方便地更换适配器，也可以在不修改原有代码的基础上增加新的适配器类，完全符合“开闭原则”。</li>
+</ol>
+<p>具体来说，类适配器模式还有如下优点：</p>
+<p>由于适配器类是适配者类的子类，因此可以在适配器类中置换一些适配者的方法，使得适配器的灵活性更强。对象适配器模式还有如下优点：</p>
+<ol>
+<li>一个对象适配器可以把多个不同的适配者适配到同一个目标；</li>
+<li>可以适配一个适配者的子类，由于适配器和适配者之间是关联关系，根据“里氏代换原则”，适配者的子类也可通过该适配器进行适配。</li>
+</ol>
+<h3 id="主要缺点"><a href="#主要缺点" class="headerlink" title="主要缺点"></a>主要缺点</h3><p>类适配器模式的缺点如下：</p>
+<ol>
+<li>对于Java、C#等不支持多重类继承的语言，一次最多只能适配一个适配者类，不能同时适配多个适配者；</li>
+<li>适配者类不能为最终类，如在Java中不能为final类，C#中不能为sealed类；</li>
+<li>在Java、C#等语言中，类适配器模式中的目标抽象类只能为接口，不能为类，其使用有一定的局限性。</li>
+</ol>
+<p>对象适配器模式的缺点如下：</p>
+<ul>
+<li>与类适配器模式相比，要在适配器中置换适配者类的某些方法比较麻烦。如果一定要置换掉适配者类的一个或多个方法，可以先做一个适配者类的子类，将适配者类的方法置换掉，然后再把适配者类的子类当做真正的适配者进行适配，实现过程较为复杂。</li>
+</ul>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>在以下情况下可以考虑使用适配器模式：</p>
+<ol>
+<li>系统需要使用一些现有的类，而这些类的接口（如方法名）不符合系统的需要，甚至没有这些类的源代码。</li>
+<li>想创建一个可以重复使用的类，用于与一些彼此之间没有太大关联的一些类，包括一些可能在将来引进的类一起工作。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Architecture</category>
+        <category>基本设计模式</category>
+      </categories>
+      <tags>
+        <tag>Architecture</tag>
+        <tag>基本设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式之迭代器模式</title>
+    <url>/posts/1cfae984/</url>
+    <content><![CDATA[<h1 id="设计模式之迭代器模式"><a href="#设计模式之迭代器模式" class="headerlink" title="设计模式之迭代器模式"></a>设计模式之迭代器模式</h1><p>在软件开发中，我们经常需要使用聚合对象来存储一系列数据。聚合对象拥有两个职责：一是存储数据；二是遍历数据。从依赖性来看，前者是聚合对象的基本职责；而后者既是可变化的，又是可分离的。因此，可以将遍历数据的行为从聚合对象中分离出来，封装在一个被称之为“迭代器”的对象中，由迭代器来提供遍历聚合对象内部数据的行为，这将简化聚合对象的设计，更符合“单一职责原则”的要求。</p>
+<a id="more"></a>
+<h2 id="迭代器模式定义"><a href="#迭代器模式定义" class="headerlink" title="迭代器模式定义"></a>迭代器模式定义</h2><p>迭代器模式定义如下：迭代器模式(Iterator Pattern)：提供一种方法来访问聚合对象，而不用暴露这个对象的内部表示，其别名为游标(Cursor)。迭代器模式是一种对象行为型模式。在迭代器模式结构中包含聚合和迭代器两个层次结构，考虑到系统的灵活性和可扩展性，在迭代器模式中应用了工厂方法模式，其模式结构如图所示：</p>
+<pre class="mermaid">classDiagram
+class Aggragate{
+    +iterator() int
+}
+&lt;&lt;interface&gt;&gt; Aggragate
+class ConcreteAggregate{
+    +iterator() int
+}
+Aggragate &lt;|.. ConcreteAggregate
+class Iterator{
+    +first() Aggragate
+    +next() Aggragate
+    +hasNext() Aggragate
+    +currentItem() Aggragate
+}
+&lt;&lt;interface&gt;&gt; Iterator
+class ConcreteIterator{
+    -Aggragate aggragate
+    +first() Aggragate
+    +next() Aggragate
+    +hasNext() Aggragate
+    +currentItem() Aggragate
+}
+Iterator &lt;|.. ConcreteIterator
+Aggragate ..*ConcreteIterator</pre>
+
+<p>在迭代器模式结构图中包含如下几个角色：</p>
+<ul>
+<li>Iterator（抽象迭代器）：它定义了访问和遍历元素的接口，声明了用于遍历数据元素的方法，例如：用于获取第一个元素的first()方法，用于访问下一个元素的next()方法，用于判断是否还有下一个元素的hasNext()方法，用于获取当前元素的currentItem()方法等，在具体迭代器中将实现这些方法。</li>
+<li>ConcreteIterator（具体迭代器）：它实现了抽象迭代器接口，完成对聚合对象的遍历，同时在具体迭代器中通过游标来记录在聚合对象中所处的当前位置，在具体实现时，游标通常是一个表示位置的非负整数。</li>
+<li>Aggregate（抽象聚合类）：它用于存储和管理元素对象，声明一个createIterator()方法用于创建一个迭代器对象，充当抽象迭代器工厂角色。</li>
+<li>ConcreteAggregate（具体聚合类）：它实现了在抽象聚合类中声明的createIterator()方法，该方法返回一个与该具体聚合类对应的具体迭代器ConcreteIterator实例。</li>
+</ul>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 在抽象迭代器中声明了用于遍历聚合对象中所存储元素的方法</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Iterator</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Aggregate <span class="title">first</span><span class="params">()</span></span>; <span class="comment">//将游标指向第一个元素  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Aggregate <span class="title">next</span><span class="params">()</span></span>; <span class="comment">//将游标指向下一个元素  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>; <span class="comment">//判断是否存在下一个元素  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Aggregate <span class="title">currentItem</span><span class="params">()</span></span>; <span class="comment">//获取游标指向的当前元素  </span></span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">// 在具体迭代器中将实现抽象迭代器声明的遍历数据的方法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteIterator</span> <span class="keyword">implements</span> <span class="title">Iterator</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> ConcreteAggregate objects; <span class="comment">//维持一个对具体聚合对象的引用，以便于访问存储在聚合对象中的数据  </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> cursor; <span class="comment">//定义一个游标，用于记录当前访问位置  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ConcreteIterator</span><span class="params">(ConcreteAggregate objects)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.objects=objects;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Aggregate <span class="title">first</span><span class="params">()</span> </span>&#123;  ......  &#125;  </span><br><span class="line">          </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Aggregate <span class="title">next</span><span class="params">()</span> </span>&#123;  ......  &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;  ......  &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Aggregate <span class="title">currentItem</span><span class="params">()</span> </span>&#123;  ......  &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">// 聚合类用于存储数据并负责创建迭代器对象.</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Aggregate</span> </span>&#123;  </span><br><span class="line">    <span class="function">Iterator <span class="title">iterator</span><span class="params">()</span></span>;  </span><br><span class="line">&#125; </span><br><span class="line"><span class="comment">// 具体聚合类作为抽象聚合类的子类，一方面负责存储数据.</span></span><br><span class="line"><span class="comment">// 另一方面实现了在抽象聚合类中声明的工厂方法iterator()，用于返回一个与该具体聚合类对应的具体迭代器对象.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteAggregate</span> <span class="keyword">implements</span> <span class="title">Aggregate</span> </span>&#123;    </span><br><span class="line">    ......    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Iterator <span class="title">iterator</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> iterator(<span class="keyword">this</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">    ......  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<h2 id="迭代器模式总结"><a href="#迭代器模式总结" class="headerlink" title="迭代器模式总结"></a>迭代器模式总结</h2><h3 id="主要优点"><a href="#主要优点" class="headerlink" title="主要优点"></a>主要优点</h3><p>迭代器模式的主要优点如下：</p>
+<ol>
+<li>它支持以不同的方式遍历一个聚合对象，在同一个聚合对象上可以定义多种遍历方式。在迭代器模式中只需要用一个不同的迭代器来替换原有迭代器即可改变遍历算法，我们也可以自己定义迭代器的子类以支持新的遍历方式。</li>
+<li>迭代器简化了聚合类。由于引入了迭代器，在原有的聚合对象中不需要再自行提供数据遍历等方法，这样可以简化聚合类的设计。</li>
+<li>在迭代器模式中，由于引入了抽象层，增加新的聚合类和迭代器类都很方便，无须修改原有代码，满足“开闭原则”的要求。</li>
+</ol>
+<h3 id="主要缺点"><a href="#主要缺点" class="headerlink" title="主要缺点"></a>主要缺点</h3><p>迭代器模式的主要缺点如下：</p>
+<ol>
+<li>由于迭代器模式将存储数据和遍历数据的职责分离，增加新的聚合类需要对应增加新的迭代器类，类的个数成对增加，这在一定程度上增加了系统的复杂性。</li>
+<li>抽象迭代器的设计难度较大，需要充分考虑到系统将来的扩展，例如JDK内置迭代器Iterator就无法实现逆向遍历，如果需要实现逆向遍历，只能通过其子类ListIterator等来实现，而ListIterator迭代器无法用于操作Set类型的聚合对象。在自定义迭代器时，创建一个考虑全面的抽象迭代器并不是件很容易的事情。</li>
+</ol>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>在以下情况下可以考虑使用迭代器模式：</p>
+<ol>
+<li>访问一个聚合对象的内容而无须暴露它的内部表示。将聚合对象的访问与内部数据的存储分离，使得访问聚合对象时无须了解其内部实现细节。</li>
+<li>需要为一个聚合对象提供多种遍历方式。</li>
+<li>为遍历不同的聚合结构提供一个统一的接口，在该接口的实现类中为不同的聚合结构提供不同的遍历方式，而客户端可以一致性地操作该接口。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Architecture</category>
+        <category>基本设计模式</category>
+      </categories>
+      <tags>
+        <tag>Architecture</tag>
+        <tag>基本设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式之备忘录模式</title>
+    <url>/posts/4fb85fc6/</url>
+    <content><![CDATA[<h1 id="设计模式之备忘录模式"><a href="#设计模式之备忘录模式" class="headerlink" title="设计模式之备忘录模式"></a>设计模式之备忘录模式</h1><p>备忘录模式提供了一种状态恢复的实现机制，使得用户可以方便地回到一个特定的历史步骤，当新的状态无效或者存在问题时，可以使用暂时存储起来的备忘录将状态复原，当前很多软件都提供了撤销(Undo)操作，其中就使用了备忘录模式。</p>
+<a id="more"></a>
+<h2 id="备忘录模式定义"><a href="#备忘录模式定义" class="headerlink" title="备忘录模式定义"></a>备忘录模式定义</h2><p>备忘录模式(Memento Pattern)：在不破坏封装的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态，这样可以在以后将对象恢复到原先保存的状态。它是一种对象行为型模式。</p>
+<pre class="mermaid">classDiagram
+class Memento{
+  -String state
+  +getStatus() String
+  +setStatus(String status) void
+}
+class Caretaker{
+  -Memento memento
+}
+Memento --* Caretaker
+class Originator{
+  -String state
+  +getStatus() String
+  +setStatus(String status) void
+  +createMemento() Memento
+  +restoreMemento(Memento memento) void
+}
+Originator ..&gt; Memento</pre>
+
+<p>在备忘录模式结构图中包含如下几个角色：</p>
+<ul>
+<li>Originator（原发器）：它是一个普通类，可以创建一个备忘录，并存储它的当前内部状态，也可以使用备忘录来恢复其内部状态，一般将需要保存内部状态的类设计为原发器。</li>
+<li>Memento（备忘录)：存储原发器的内部状态，根据原发器来决定保存哪些内部状态。备忘录的设计一般可以参考原发器的设计，根据实际需要确定备忘录类中的属性。需要注意的是，<strong>除了原发器本身与负责人类之外，备忘录对象不能直接供其他类使用，原发器的设计在不同的编程语言中实现机制会有所不同</strong>。</li>
+<li>Caretaker（负责人）：负责人又称为管理者，它负责保存备忘录，但是不能对备忘录的内容进行操作或检查。在负责人类中可以存储一个或多个备忘录对象，它只负责存储对象，而不能修改对象，也无须知道对象的实现细节。</li>
+</ul>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Originator</span></span>&#123;</span><br><span class="line">  <span class="keyword">private</span> String state;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getState</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.state;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setState</span><span class="params">(String state)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.state = state;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Memento <span class="title">createMemento</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Memento(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">restoreMemento</span><span class="params">(Memento m)</span> </span>&#123;  </span><br><span class="line">　　　　 <span class="keyword">this</span>.setState(m.getSate());</span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Memento</span> </span>&#123;  <span class="comment">// 此处不能为 public </span></span><br><span class="line">  <span class="comment">// 备忘录状态</span></span><br><span class="line">  <span class="keyword">private</span> String state;  </span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Memento</span><span class="params">(Originator o)</span> </span>&#123;  </span><br><span class="line">　　　state = o.getState();  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setState</span><span class="params">(String state)</span> </span>&#123;  </span><br><span class="line">     <span class="keyword">this</span>.state=state;  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getState</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.state;  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="comment">// 在Caretaker类中不应该直接调用Memento中的状态改变方法，它的作用仅仅用于存储备忘录对象。</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Caretaker</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> Memento memento;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Memento <span class="title">getMemento</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> memento;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMemento</span><span class="params">(Memento memento)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.memento=memento;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<h2 id="封装备份类"><a href="#封装备份类" class="headerlink" title="封装备份类"></a>封装备份类</h2><p>在设计备忘录类时需要考虑其封装性，除了Originator类，不允许其他类来调用备忘录类Memento的构造函数与相关方法，如果不考虑封装性，允许其他类调用setState()等方法，将导致在备忘录中保存的历史状态发生改变，通过撤销操作所恢复的状态就不再是真实的历史状态，备忘录模式也就失去了本身的意义。</p>
+<p>在使用Java语言实现备忘录模式时，一般通过将Memento类与Originator类定义在同一个包(package)中来实现封装，在Java语言中可使用默认访问标识符来定义Memento类，即保证其包内可见。只有Originator类可以对Memento进行访问，而限制了其他类对Memento的访问。在 Memento中保存了Originator的state值，如果Originator中的state值改变之后需撤销，可以通过调用它的restoreMemento()方法进行恢复。</p>
+<h3 id="clone-方式的备忘录模式"><a href="#clone-方式的备忘录模式" class="headerlink" title="clone 方式的备忘录模式"></a>clone 方式的备忘录模式</h3><p>原发器(Originator)融合备忘录和负责人角色，将备忘录变成private属性，并且不提供对其修改的方法，这样保证了备忘录的封装性。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Originator</span> <span class="keyword">implements</span> <span class="title">Cloneable</span></span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Originator backup;</span><br><span class="line">  <span class="keyword">private</span> String state;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getState</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.state;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setState</span><span class="params">(String state)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.state = state;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Memento <span class="title">createMemento</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.backup = <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">restoreMemento</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">　　　　 <span class="keyword">this</span>.setState(<span class="keyword">this</span>.backup.getSate());</span><br><span class="line">  &#125;  </span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> Originator <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ()<span class="keyword">super</span>.clone();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="更好的封装"><a href="#更好的封装" class="headerlink" title="更好的封装"></a>更好的封装</h3><p>上述的基于clone 模式的备忘录模式，合并了Originator，Memento，Caretaker三个角色，适用于简单地场景。</p>
+<pre class="mermaid">classDiagram
+class IMemento
+&lt;&lt;interface&gt;&gt; IMemento
+
+class Memento{
+  -String state
+  +getStatus() String
+  +setStatus(String status) void
+}
+IMemento &lt;|.. Memento
+class Originator{
+  -String state
+  +getStatus() String
+  +setStatus(String status) void
+  +createMemento() IMemento
+  +restoreMemento(IMemento memento) void
+}
+Originator ..&gt; IMemento
+class Caretaker{
+  -Memento memento
+}
+IMemento --* Caretaker</pre>
+
+<p>使用了双重接口设计，对原发器采用宽接口，对负责人采用窄接口。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Originator</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> String state;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getState</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.state;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setState</span><span class="params">(String state)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.state = state;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> IMemento <span class="title">createMemento</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Memento(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">restoreMemento</span><span class="params">(IMemento m)</span> </span>&#123;  </span><br><span class="line">　　　　 <span class="keyword">this</span>.setState(m.getSate());</span><br><span class="line">  &#125;  </span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">Memento</span> <span class="keyword">implements</span> <span class="title">IMemento</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String state;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Memento</span><span class="params">(Originator o)</span> </span>&#123;  </span><br><span class="line">　　　 state = o.getState();  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setState</span><span class="params">(String state)</span> </span>&#123;  </span><br><span class="line">      <span class="keyword">this</span>.state=state;  </span><br><span class="line">   &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getState</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.state;  </span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IMemento</span></span>&#123;</span><br><span class="line">  <span class="comment">// 无法通过IMemento接口修改备份数据</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Caretaker</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> IMemento memento;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> IMemento <span class="title">getMemento</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> memento;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMemento</span><span class="params">(IMemento memento)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.memento=memento;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<h2 id="备忘录模式的扩展"><a href="#备忘录模式的扩展" class="headerlink" title="备忘录模式的扩展"></a>备忘录模式的扩展</h2><h3 id="多状态的备忘录实现"><a href="#多状态的备忘录实现" class="headerlink" title="多状态的备忘录实现"></a>多状态的备忘录实现</h3><p>多个属性状态备份，可以通过将属性以属性名为key存储在Map中来实现。下面是实现多属性备份和恢复的方法:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MementoUtils</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> HashMap&lt;String,Object&gt; <span class="title">backup</span><span class="params">(Object bean)</span></span>&#123;</span><br><span class="line">        HashMap&lt;String,Object&gt; map = <span class="keyword">new</span> HashMap&lt;String,Object&gt;();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            BeanInfo beanInfo = Introspector.getBeanInfo(bean.getClass());</span><br><span class="line">            PropertyDescriptor[] descriptors = beanInfo.getPropertyDescriptors();</span><br><span class="line">            <span class="keyword">for</span>(PropertyDescriptor des : descriptors)&#123;</span><br><span class="line">                <span class="comment">//读取属性的名称</span></span><br><span class="line">                String fileName = des.getName();</span><br><span class="line">                <span class="comment">//读取属性的方法</span></span><br><span class="line">                Method getter = des.getReadMethod();</span><br><span class="line">                Object fieldValue = getter.invoke(bean, <span class="keyword">new</span> Object[]&#123;&#125;);</span><br><span class="line">                <span class="keyword">if</span>(!fileName.equalsIgnoreCase(<span class="string">&quot;class&quot;</span>))</span><br><span class="line">                    map.put(fileName, fieldValue);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IntrospectionException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) &#123;</span><br><span class="line">            <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> map;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">restoreMap</span><span class="params">(Object bean, HashMap&lt;String,Object&gt; map)</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            BeanInfo beanInfo = Introspector.getBeanInfo(bean.getClass());</span><br><span class="line">            <span class="comment">//获取属性描述</span></span><br><span class="line">            PropertyDescriptor[] descriptor = beanInfo.getPropertyDescriptors();</span><br><span class="line">            <span class="keyword">for</span>(PropertyDescriptor des : descriptor)&#123;</span><br><span class="line">                <span class="comment">//属性名称</span></span><br><span class="line">                String fileName = des.getName();</span><br><span class="line">                <span class="keyword">if</span>(map.containsKey(fileName))&#123;</span><br><span class="line">                    Method setter = des.getWriteMethod();</span><br><span class="line">                    setter.invoke(bean, <span class="keyword">new</span> Object[]&#123;map.get(fileName)&#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IntrospectionException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) &#123;</span><br><span class="line">            <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="多备份的备忘录实现"><a href="#多备份的备忘录实现" class="headerlink" title="多备份的备忘录实现"></a>多备份的备忘录实现</h3><p>关于多次备份，可以针对每次备份保存下备份对应的检查点，通常是指时间点。只需要对负责人类稍作修改。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Caretaker</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> HashMap&lt;String,Memento&gt; mementoMap = <span class="keyword">new</span> HashMap&lt;String,Memento&gt;();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMemento</span><span class="params">(String id,Memento4 memento)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.mementoMap.put(id, memento);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Memento <span class="title">getMemento</span><span class="params">(String id)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.mementoMap.get(id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>因为Map中的备份实例一直不会被销毁，为了避免内存溢出问题，最好设置备份数量的上限。</p>
+</blockquote>
+<h2 id="备忘录模式总结"><a href="#备忘录模式总结" class="headerlink" title="备忘录模式总结"></a>备忘录模式总结</h2><h3 id="主要优点"><a href="#主要优点" class="headerlink" title="主要优点"></a>主要优点</h3><p>备忘录模式的主要优点如下：</p>
+<ol>
+<li>它提供了一种状态恢复的实现机制，使得用户可以方便地回到一个特定的历史步骤，当新的状态无效或者存在问题时，可以使用暂时存储起来的备忘录将状态复原。</li>
+<li>备忘录实现了对信息的封装，一个备忘录对象是一种原发器对象状态的表示，不会被其他代码所改动。备忘录保存了原发器的状态，采用列表、堆栈等集合来存储备忘录对象可以实现多次撤销操作。</li>
+</ol>
+<h3 id="主要缺点"><a href="#主要缺点" class="headerlink" title="主要缺点"></a>主要缺点</h3><p>备忘录模式的主要缺点如下：</p>
+<ul>
+<li>资源消耗过大，如果需要保存的原发器类的成员变量太多，就不可避免需要占用大量的存储空间，每保存一次对象的状态都需要消耗一定的系统资源。</li>
+</ul>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>在以下情况下可以考虑使用备忘录模式：</p>
+<ol>
+<li>保存一个对象在某一个时刻的全部状态或部分状态，这样以后需要时它能够恢复到先前的状态，实现撤销操作。</li>
+<li>防止外界对象破坏一个对象历史状态的封装性，避免将对象历史状态的实现细节暴露给外界对象。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Architecture</category>
+        <category>基本设计模式</category>
+      </categories>
+      <tags>
+        <tag>Architecture</tag>
+        <tag>基本设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式之组合模式</title>
+    <url>/posts/34ace952/</url>
+    <content><![CDATA[<h1 id="设计模式之组合模式"><a href="#设计模式之组合模式" class="headerlink" title="设计模式之组合模式"></a>设计模式之组合模式</h1><p>对于树形结构，当容器对象的某一个方法被调用时，将遍历整个树形结构，寻找也包含这个方法的成员对象（可以是容器对象，也可以是叶子对象）并调用执行，牵一而动百，其中使用了递归调用的机制来对整个结构进行处理。由于容器对象和叶子对象在功能上的区别，在使用这些对象的代码中必须有区别地对待容器对象和叶子对象，而实际上大多数情况下我们希望一致地处理它们，因为对于这些对象的区别对待将会使得程序非常复杂。组合模式为解决此类问题而诞生，它可以让叶子对象和容器对象的使用具有一致性。</p>
+<a id="more"></a>
+<h2 id="组合模式的定义"><a href="#组合模式的定义" class="headerlink" title="组合模式的定义"></a>组合模式的定义</h2><p>组合模式(Composite Pattern)：组合多个对象形成树形结构以表示具有“整体—部分”关系的层次结构。组合模式对单个对象（即叶子对象）和组合对象（即容器对象）的使用具有一致性，组合模式又可以称为“整体—部分”(Part-Whole)模式，它是一种对象结构型模式。</p>
+<pre class="mermaid">classDiagram
+class Component{
+  +operation() void
+  +add(Component component) void
+  +remove(Component component) void
+  +getChild(int index) Component
+}
+class Leaf{
+  +operation() void
+}
+class Composite{
+  -List&lt;Component&gt; compoents
+  +operation() void
+  +add(Component component) void
+  +remove(Component component) void
+  +getChild(int index) Component
+}
+Component &lt;|-- Leaf
+Component &lt;|-- Composite
+Composite *-- Component</pre>
+
+<p>在组合模式结构图中包含如下几个角色：</p>
+<ul>
+<li>Component（抽象构件）：它可以是接口或抽象类，为叶子构件和容器构件对象声明接口，在该角色中可以包含所有子类共有行为的声明和实现。在抽象构件中定义了访问及管理它的子构件的方法，如增加子构件、删除子构件、获取子构件等。</li>
+<li>Leaf（叶子构件）：它在组合结构中表示叶子节点对象，叶子节点没有子节点，它实现了在抽象构件中定义的行为。对于那些访问及管理子构件的方法，可以通过异常等方式进行处理。</li>
+<li>Composite（容器构件）：它在组合结构中表示容器节点对象，容器节点包含子节点，其子节点可以是叶子节点，也可以是容器节点，它提供一个集合用于存储子节点，实现了在抽象构件中定义的行为，包括那些访问及管理子构件的方法，在其业务方法中可以递归调用其子节点的业务方法。</li>
+</ul>
+<p>组合模式的关键是定义了一个抽象构件类，它既可以代表叶子，又可以代表容器，而客户端针对该抽象构件类进行编程，无须知道它到底表示的是叶子还是容器，可以对其进行统一处理。同时容器对象与抽象构件类之间还建立一个聚合关联关系，在容器对象中既可以包含叶子，也可以包含容器，以此实现递归组合，形成一个树形结构。</p>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Component</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Component c)</span></span>; <span class="comment">//增加成员  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(Component c)</span></span>; <span class="comment">//删除成员  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> Component <span class="title">getChild</span><span class="params">(<span class="keyword">int</span> i)</span></span>; <span class="comment">//获取成员  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span></span>;  <span class="comment">//业务方法  </span></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Leaf</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Component c)</span> </span>&#123;   </span><br><span class="line">      <span class="comment">//异常处理或错误提示   </span></span><br><span class="line">  &#125;     </span><br><span class="line">          </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(Component c)</span> </span>&#123;   </span><br><span class="line">      <span class="comment">//异常处理或错误提示   </span></span><br><span class="line">  &#125;  </span><br><span class="line">      </span><br><span class="line">  <span class="function"><span class="keyword">public</span> Component <span class="title">getChild</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;   </span><br><span class="line">      <span class="comment">//异常处理或错误提示  </span></span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;   </span><br><span class="line">  &#125;  </span><br><span class="line">      </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">      <span class="comment">//叶子构件具体业务方法的实现  </span></span><br><span class="line">  &#125;   </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Composite</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;  </span><br><span class="line">  <span class="keyword">private</span> ArrayList&lt;Component&gt; list = <span class="keyword">new</span> ArrayList&lt;Component&gt;();  </span><br><span class="line">      </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Component c)</span> </span>&#123;  </span><br><span class="line">      list.add(c);  </span><br><span class="line">  &#125;  </span><br><span class="line">      </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(Component c)</span> </span>&#123;  </span><br><span class="line">      list.remove(c);  </span><br><span class="line">  &#125;  </span><br><span class="line">      </span><br><span class="line">  <span class="function"><span class="keyword">public</span> Component <span class="title">getChild</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;  </span><br><span class="line">      <span class="keyword">return</span> (Component)list.get(i);  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="comment">//容器构件具体业务方法的实现  </span></span><br><span class="line">    <span class="comment">//递归调用成员构件的业务方法  </span></span><br><span class="line">    <span class="keyword">for</span>(Object obj:list) &#123;  </span><br><span class="line">      ((Component)obj).operation();  </span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="透明组合模式和安全组合模式"><a href="#透明组合模式和安全组合模式" class="headerlink" title="透明组合模式和安全组合模式"></a>透明组合模式和安全组合模式</h2><p>在使用组合模式时，根据抽象构件类的定义形式，我们可将组合模式分为透明组合模式和安全组合模式两种形式：</p>
+<h3 id="透明组合模式"><a href="#透明组合模式" class="headerlink" title="透明组合模式"></a>透明组合模式</h3><p>透明组合模式中，抽象构件Component中声明了所有用于管理成员对象的方法，包括add()、remove()以及getChild()等方法，这样做的好处是确保所有的构件类都有相同的接口。在客户端看来，叶子对象与容器对象所提供的方法是一致的，客户端可以相同地对待所有的对象。</p>
+<blockquote>
+<p>之前的类图描述的就是透明组合模式</p>
+</blockquote>
+<p>透明组合模式的缺点是不够安全，因为叶子对象和容器对象在本质上是有区别的。叶子对象不可能有下一个层次的对象，即不可能包含成员对象，因此为其提供add()、remove()以及getChild()等方法是没有意义的，这在编译阶段不会出错，但在运行阶段如果调用这些方法可能会出错（如果没有提供相应的错误处理代码）。</p>
+<blockquote>
+<p>可以考虑加上判断类别的钩子方法。 </p>
+</blockquote>
+<h3 id="安全组合模式"><a href="#安全组合模式" class="headerlink" title="安全组合模式"></a>安全组合模式</h3><p>安全组合模式中，在抽象构件Component中没有声明任何用于管理成员对象的方法，而是在Composite类中声明并实现这些方法。这种做法是安全的，因为根本不向叶子对象提供这些管理成员对象的方法，对于叶子对象，客户端不可能调用到这些方法。</p>
+<pre class="mermaid">classDiagram
+class Component{
+  +operation() void
+}
+class Leaf{
+  +operation() void
+}
+class Composite{
+  -List&lt;Component&gt; compoents
+  +operation() void
+  +add(Component component) void
+  +remove(Component component) void
+  +getChild(int index) Component
+}
+Component &lt;|-- Leaf
+Component &lt;|-- Composite
+Composite *-- Component</pre>
+
+
+<p>安全组合模式的缺点是不够透明，因为叶子构件和容器构件具有不同的方法，且容器构件中那些用于管理成员对象的方法没有在抽象构件类中定义，因此客户端不能完全针对抽象编程，必须有区别地对待叶子构件和容器构件。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="主要优点"><a href="#主要优点" class="headerlink" title="主要优点"></a>主要优点</h3><p>组合模式的主要优点如下：</p>
+<ol>
+<li>组合模式可以清楚地定义分层次的复杂对象，表示对象的全部或部分层次，它让客户端忽略了层次的差异，方便对整个层次结构进行控制。</li>
+<li>客户端可以一致地使用一个组合结构或其中单个对象，不必关心处理的是单个对象还是整个组合结构，简化了客户端代码。</li>
+<li>在组合模式中增加新的容器构件和叶子构件都很方便，无须对现有类库进行任何修改，符合“开闭原则”。</li>
+<li>组合模式为树形结构的面向对象实现提供了一种灵活的解决方案，通过叶子对象和容器对象的递归组合，可以形成复杂的树形结构，但对树形结构的控制却非常简单。</li>
+</ol>
+<h3 id="主要缺点"><a href="#主要缺点" class="headerlink" title="主要缺点"></a>主要缺点</h3><p>组合模式的主要缺点如下：</p>
+<ul>
+<li>在增加新构件时很难对容器中的构件类型进行限制。有时候我们希望一个容器中只能有某些特定类型的对象，例如在某个文件夹中只能包含文本文件，使用组合模式时，不能依赖类型系统来施加这些约束，因为它们都来自于相同的抽象层，在这种情况下，必须通过在运行时进行类型检查来实现，这个实现过程较为复杂。</li>
+</ul>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>在以下情况下可以考虑使用组合模式：</p>
+<ol>
+<li>在具有整体和部分的层次结构中，希望通过一种方式忽略整体与部分的差异，客户端可以一致地对待它们。</li>
+<li>在一个使用面向对象语言开发的系统中需要处理一个树形结构。</li>
+<li>在一个系统中能够分离出叶子对象和容器对象，而且它们的类型不固定，需要增加一些新的类型。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Architecture</category>
+        <category>基本设计模式</category>
+      </categories>
+      <tags>
+        <tag>Architecture</tag>
+        <tag>基本设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式之观察者模式</title>
+    <url>/posts/168b5985/</url>
+    <content><![CDATA[<h1 id="设计模式之观察者模式"><a href="#设计模式之观察者模式" class="headerlink" title="设计模式之观察者模式"></a>设计模式之观察者模式</h1><p>观察者模式是使用频率最高的设计模式之一，它用于建立一种对象与对象之间的依赖关系，一个对象发生改变时将自动通知其他对象，其他对象将相应作出反应。在观察者模式中，发生改变的对象称为观察目标，而被通知的对象称为观察者，一个观察目标可以对应多个观察者，而且这些观察者之间可以没有任何相互联系，可以根据需要增加和删除观察者，使得系统更易于扩展。</p>
+<a id="more"></a>
+<h2 id="观察者模式的定义"><a href="#观察者模式的定义" class="headerlink" title="观察者模式的定义"></a>观察者模式的定义</h2><p>观察者模式(Observer Pattern)：定义对象之间的一种一对多依赖关系，使得每当一个对象状态发生改变时，其相关依赖对象皆得到通知并被自动更新。观察者模式的别名包括发布-订阅（Publish/Subscribe）模式、模型-视图（Model/View）模式、源-监听器（Source/Listener）模式或从属者（Dependents）模式。观察者模式是一种对象行为型模式。</p>
+<pre class="mermaid">classDiagram
+class Subject{
+  -List&lt;Observer&gt; observers
+  +attash(Observer observer) void
+  +detash(Observer observer) void
+  +notify() void
+}
+class ConcreteSubject
+Subject &lt;|-- ConcreteSubject
+class Observer{
+  +update(Subject Observable,Object arg) void
+}
+Subject *..Observer
+Observer &lt;|-- ConcreteObserver</pre>
+
+<p>在观察者模式结构图中包含如下几个角色：</p>
+<ul>
+<li>Subject（目标）：目标又称为主题，它是指被观察的对象。在目标中定义了一个观察者集合，一个观察目标可以接受任意数量的观察者来观察，它提供一系列方法来增加和删除观察者对象，同时它定义了通知方法notify()。目标类可以是接口，也可以是抽象类或具体类。</li>
+<li>ConcreteSubject（具体目标）：具体目标是目标类的子类，通常它包含有经常发生改变的数据，当它的状态发生改变时，向它的各个观察者发出通知；同时它还实现了在目标类中定义的抽象业务逻辑方法（如果有的话）。如果无须扩展目标类，则具体目标类可以省略。</li>
+<li>Observer（观察者）：观察者将对观察目标的改变做出反应，观察者一般定义为接口，该接口声明了更新数据的方法update()，因此又称为抽象观察者。</li>
+<li>ConcreteObserver（具体观察者）：在具体观察者中维护一个指向具体目标对象的引用，它存储具体观察者的有关状态，这些状态需要和具体目标的状态保持一致；它实现了在抽象观察者Observer中定义的update()方法。通常在实现时，可以调用具体目标类的attach()方法将自己添加到目标类的集合中或通过detach()方法将自己从目标类的集合中删除。</li>
+</ul>
+<p>观察者模式描述了如何建立对象与对象之间的依赖关系，以及如何构造满足这种需求的系统。观察者模式包含观察目标和观察者两类对象，一个目标可以有任意数目的与之相依赖的观察者，一旦观察目标的状态发生改变，所有的观察者都将得到通知。作为对这个通知的响应，每个观察者都将监视观察目标的状态以使其状态与目标状态同步，这种交互也称为发布-订阅(Publish-Subscribe)。观察目标是通知的发布者，它发出通知时并不需要知道谁是它的观察者，可以有任意数目的观察者订阅它并接收通知。</p>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;  </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Subject</span> </span>&#123;  </span><br><span class="line">  <span class="comment">//定义一个观察者集合用于存储所有观察者对象  </span></span><br><span class="line">  <span class="keyword">protected</span> ArrayList observers&lt;Observer&gt; = <span class="keyword">new</span> ArrayList();  </span><br><span class="line">  </span><br><span class="line">  <span class="comment">//注册方法，用于向观察者集合中增加一个观察者  </span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attach</span><span class="params">(Observer observer)</span> </span>&#123;  </span><br><span class="line">    observers.add(observer);  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">  <span class="comment">//注销方法，用于在观察者集合中删除一个观察者  </span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">detach</span><span class="params">(Observer observer)</span> </span>&#123;  </span><br><span class="line">    observers.remove(observer);  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">  <span class="comment">//声明抽象通知方法  </span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">notify</span><span class="params">()</span></span>;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">notify</span><span class="params">(Object obj)</span></span>;</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteSubject</span> <span class="keyword">extends</span> <span class="title">Subject</span> </span>&#123;</span><br><span class="line">  <span class="comment">//实现通知方法</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notify</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//遍历观察者集合，调用每一个观察者的响应方法</span></span><br><span class="line">    <span class="keyword">for</span>(Object obs:observers) &#123;</span><br><span class="line">      ((Observer)obs).update(<span class="keyword">this</span>,<span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notify</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//遍历观察者集合，调用每一个观察者的响应方法</span></span><br><span class="line">    <span class="keyword">for</span>(Object obs:observers) &#123;</span><br><span class="line">      ((Observer)obs).update(<span class="keyword">this</span>,obj);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">    <span class="comment">//声明响应方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(Subject subject,Object obj)</span></span>;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteObserver</span> <span class="keyword">implements</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">  <span class="comment">//实现响应方法</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(Subject subject,Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//具体响应代码</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>关于观察者模式，在JDK的java.util包中，提供了<code>Observable</code>类以及<code>Observer</code>接口。</p>
+</blockquote>
+<h2 id="扩展：Java事件处理"><a href="#扩展：Java事件处理" class="headerlink" title="扩展：Java事件处理"></a>扩展：Java事件处理</h2><p>java中的事件机制的参与者有3种角色：</p>
+<ol>
+<li>event object：事件状态对象,是一类事件的实例。伴随着事件的发生，相应的状态通常都封装在事件状态对象中，该对象必须继承自java.util.EventObject。事件状态对象作为单参传递给应响应该事件的监听者方法中。</li>
+<li>event source：具体的事件源,事件的生产者。发出某种特定事件的事件源的标识是：遵从规定的设计格式为事件监听者定义注册方法，并接受对指定事件监听者接口实例的引用。</li>
+<li>event listener：事件监听者,事件的消费者。具体的对监听的事件类，当它监听到event object产生的时候，它就调用相应的方法，进行处理。</li>
+</ol>
+<p>java 提供了<code>java.util.Eventobject,java.util.EventListener</code>这两个类来处理事件机制。</p>
+<ul>
+<li><code>EventListener</code>：所有事件侦听器接口必须扩展的标记接口。</li>
+<li><code>EventObject</code>：所有事件状态对象都将从其派生的根类。 所有 Event 在构造时都引用了对象 “source”，在逻辑上认为该对象是最初发生有关 Event 的对象。</li>
+</ul>
+<blockquote>
+<p><code>EventObject</code> 实现了 <code>Serializable</code>接口</p>
+</blockquote>
+<h3 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h3><pre class="mermaid">classDiagram
+class EventObject
+class LightEvent{
+  -Boolean lightState
+  +setLightState(Boolean lightState) void
+  +getLightState() Boolean
+}
+LightEvent ..&gt; LightState
+EventObject &lt;|-- LightEvent
+class LightListener{
+   +listenLight(LightEvent lightEvent) void
+}
+&lt;&lt;interface&gt;&gt; LightListener
+LightListener ..&gt; LightEvent
+class Lightlistener1{
+  +listenLight(LightEvent lightEvent) void
+}
+LightListener&lt;|.. Lightlistener1
+class ListenerRegister{
+  -List~LightListener~ listeners
+  +addListener(LightListener listener) void
+  +removeListener(LightListener listener) void
+  +notifyListeners(LightEvent event) void
+}
+ListenerRegister *-- LightListener
+class Console{
+  -ListenerRegister register
+  -Boolean[] lights
+  +setLight(boolean light, int index) void
+  +addListener(LightListener listener) void
+  +removeListener(LightListener listener) void
+  +notifyListeners(LightEvent event) void
+}
+Console ..&gt; ListenerRegister
+Console ..&gt; LightListener</pre>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 事件状态</span></span><br><span class="line"><span class="keyword">import</span> java.util.EventObject;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LightEvent</span> <span class="keyword">extends</span> <span class="title">EventObject</span> </span>&#123;  </span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">1256654879784096588L</span>;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">boolean</span> lightstate = <span class="keyword">false</span>; </span><br><span class="line">  <span class="keyword">private</span> String lightname;</span><br><span class="line">    </span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getLightname</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> lightname;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">getLightstate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> lightstate;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">LightEvent</span><span class="params">(Object source,String name,<span class="keyword">boolean</span> state)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(source);</span><br><span class="line">    <span class="keyword">this</span>.lightstate = state;</span><br><span class="line">    <span class="keyword">this</span>.lightname = name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听者</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Lightlistener</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">listenlight</span> <span class="params">(LightEvent event)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Lightlistener1</span> <span class="keyword">implements</span> <span class="title">Lightlistener</span></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">listenlight</span> <span class="params">(LightEvent event)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(event.getLightstate())&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;&quot;</span>+event.getLightname()+<span class="string">&quot;&gt;&gt; is on&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;&quot;</span>+event.getLightname()+<span class="string">&quot;&gt;&gt; is off&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="comment">// 注册listener</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Listenerregister</span> </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> List&lt;Lightlistener&gt; listenerlist = <span class="keyword">new</span> ArrayList&lt;Lightlistener&gt;();</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addListener</span><span class="params">(Lightlistener listener)</span> </span>&#123;</span><br><span class="line">    listenerlist.add(listener);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeListener</span><span class="params">(Lightlistener listener)</span> </span>&#123;</span><br><span class="line">    listenerlist.remove(listener);</span><br><span class="line">  &#125;    </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notifylisteners</span><span class="params">(LightEvent event)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(Lightlistener tmplistener : listenerlist)&#123;</span><br><span class="line">      tmplistener.listenlight(event);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="comment">// 事件源</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Console</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> listenerregister register = <span class="keyword">new</span> listenerregister();</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">boolean</span>[] lights = <span class="keyword">new</span> <span class="keyword">boolean</span>[<span class="number">10</span>] ;</span><br><span class="line">  <span class="keyword">private</span> Random randomer = <span class="keyword">new</span> Random();</span><br><span class="line">    </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLights</span><span class="params">(<span class="keyword">boolean</span> light, <span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.lights[index] = light;</span><br><span class="line">    String name = <span class="string">&quot;Light &quot;</span>+ index;</span><br><span class="line">    LightEvent event = <span class="keyword">new</span> LightEvent(<span class="keyword">this</span>,name,light);</span><br><span class="line">    notifylisteners(event);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notifylisteners</span><span class="params">(LightEvent event)</span></span>&#123;</span><br><span class="line">    register.notifylisteners(event);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addListener</span><span class="params">(Lightlistener listener)</span> </span>&#123;</span><br><span class="line">    register.addListener(listener);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeListener</span><span class="params">(Lightlistener listener)</span> </span>&#123;</span><br><span class="line">    register.removeListener(listener);</span><br><span class="line">  &#125;</span><br><span class="line">    </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Console&gt;&gt; Console is started.&quot;</span>);</span><br><span class="line">    Console console = <span class="keyword">new</span> Console();</span><br><span class="line">    console.addListener(<span class="keyword">new</span> lightlistener1());</span><br><span class="line">    <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;lights&gt;&gt; lights are changing.&quot;</span>);</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">        console.setLights(console.randomer.nextBoolean(), i);</span><br><span class="line">      &#125;</span><br><span class="line">      Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="观察者模式总结"><a href="#观察者模式总结" class="headerlink" title="观察者模式总结"></a>观察者模式总结</h2><h3 id="主要优点"><a href="#主要优点" class="headerlink" title="主要优点"></a>主要优点</h3><p>观察者模式的主要优点如下：</p>
+<ol>
+<li>观察者模式可以实现表示层和数据逻辑层的分离，定义了稳定的消息更新传递机制，并抽象了更新接口，使得可以有各种各样不同的表示层充当具体观察者角色。</li>
+<li>观察者模式在观察目标和观察者之间建立一个抽象的耦合。观察目标只需要维持一个抽象观察者的集合，无须了解其具体观察者。由于观察目标和观察者没有紧密地耦合在一起，因此它们可以属于不同的抽象化层次。</li>
+<li>观察者模式支持广播通信，观察目标会向所有已注册的观察者对象发送通知，简化了一对多系统设计的难度。</li>
+<li>观察者模式满足“开闭原则”的要求，增加新的具体观察者无须修改原有系统代码，在具体观察者与观察目标之间不存在关联关系的情况下，增加新的观察目标也很方便。</li>
+</ol>
+<h3 id="主要缺点"><a href="#主要缺点" class="headerlink" title="主要缺点"></a>主要缺点</h3><p>观察者模式的主要缺点如下：</p>
+<ol>
+<li>如果一个观察目标对象有很多直接和间接观察者，将所有的观察者都通知到会花费很多时间。</li>
+<li>如果在观察者和观察目标之间存在循环依赖，观察目标会触发它们之间进行循环调用，可能导致系统崩溃。</li>
+<li>观察者模式没有相应的机制让观察者知道所观察的目标对象是怎么发生变化的，而仅仅只是知道观察目标发生了变化。</li>
+</ol>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>在以下情况下可以考虑使用观察者模式：</p>
+<ol>
+<li>一个抽象模型有两个方面，其中一个方面依赖于另一个方面，将这两个方面封装在独立的对象中使它们可以各自独立地改变和复用。</li>
+<li>一个对象的改变将导致一个或多个其他对象也发生改变，而并不知道具体有多少对象将发生改变，也不知道这些对象是谁。</li>
+<li>需要在系统中创建一个触发链，A对象的行为将影响B对象，B对象的行为将影响C对象……，可以使用观察者模式创建一种链式触发机制。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Architecture</category>
+        <category>基本设计模式</category>
+      </categories>
+      <tags>
+        <tag>Architecture</tag>
+        <tag>基本设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式之门面模式</title>
+    <url>/posts/12864415/</url>
+    <content><![CDATA[<h1 id="设计模式之门面模式"><a href="#设计模式之门面模式" class="headerlink" title="设计模式之门面模式"></a>设计模式之门面模式</h1><p>门面模式是一种使用频率非常高的结构型设计模式，它通过引入一个外观角色来简化客户端与子系统之间的交互，为复杂的子系统调用提供一个统一的入口，降低子系统与客户端的耦合度，且客户端调用非常方便。</p>
+<a id="more"></a>
+<h2 id="门面模式的定义"><a href="#门面模式的定义" class="headerlink" title="门面模式的定义"></a>门面模式的定义</h2><p>门面模式：为子系统中的一组接口提供一个统一的入口。门面模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。门面模式又被称为外观模式，是一种对象结构型模式。</p>
+<pre class="mermaid">graph TB
+    client1 --&gt; service1
+    client1 --&gt; service2
+    client1 --&gt; service3
+    client1 --&gt; service4
+    client2 --&gt; service1
+    client2 --&gt; service2
+    client2 --&gt; service3
+    client2 --&gt; service4
+    client3 --&gt; service1
+    client3 --&gt; service2
+    client3 --&gt; service3
+    client3 --&gt; service4</pre>
+
+<p>门面模式是迪米特法则的一种具体实现，通过引入一个新的外观角色可以降低原有系统的复杂度，同时降低客户类与子系统的耦合度。</p>
+<pre class="mermaid">graph TB
+    client1--&gt;facade
+    client2--&gt;facade
+    client3--&gt;facade
+    subgraph subsystem
+    facade--&gt;service1
+    facade--&gt;service2
+    facade--&gt;service3
+    facade--&gt;service4
+    end</pre>
+
+<p>门面模式包含如下两个角色：</p>
+<ol>
+<li>Facade（门面角色）：在客户端可以调用它的方法，在门面角色中可以知道相关的（一个或者多个）子系统的功能和责任；在正常情况下，它将所有从客户端发来的请求委派到相应的子系统去，传递给相应的子系统对象处理。</li>
+<li>SubSystem（子系统角色）：在软件系统中可以有一个或者多个子系统角色，每一个子系统可以不是一个单独的类，而是一个类的集合，它实现子系统的功能；每一个子系统都可以被客户端直接调用，或者被门面角色调用，它处理由门面类传过来的请求；子系统并不知道门面的存在，对于子系统而言，门面角色仅仅是另外一个客户端而已。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubSystemA</span>  </span></span><br><span class="line"><span class="class"></span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">MethodA</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        <span class="comment">//业务实现代码  </span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubSystemB</span>  </span></span><br><span class="line"><span class="class"></span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">MethodB</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        <span class="comment">//业务实现代码  </span></span><br><span class="line">     &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubSystemC</span>  </span></span><br><span class="line"><span class="class"></span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">MethodC</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        <span class="comment">//业务实现代码  </span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Facade</span>  </span></span><br><span class="line"><span class="class"></span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> SubSystemA obj1 = <span class="keyword">new</span> SubSystemA();  </span><br><span class="line">    <span class="keyword">private</span> SubSystemB obj2 = <span class="keyword">new</span> SubSystemB();  </span><br><span class="line">    <span class="keyword">private</span> SubSystemC obj3 = <span class="keyword">new</span> SubSystemC();  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Method</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        obj1.MethodA();  </span><br><span class="line">        obj2.MethodB();  </span><br><span class="line">        obj3.MethodC();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<h2 id="门面模式总结"><a href="#门面模式总结" class="headerlink" title="门面模式总结"></a>门面模式总结</h2><h3 id="模式优点"><a href="#模式优点" class="headerlink" title="模式优点"></a>模式优点</h3><p>外观模式的主要优点如下：</p>
+<ol>
+<li>它对客户端屏蔽了子系统组件，减少了客户端所需处理的对象数目，并使得子系统使用起来更加容易。通过引入外观模式，客户端代码将变得很简单，与之关联的对象也很少。</li>
+<li>它实现了子系统与客户端之间的松耦合关系，这使得子系统的变化不会影响到调用它的客户端，只需要调整外观类即可。<br>3.一个子系统的修改对其他子系统没有任何影响，而且子系统内部变化也不会影响到外观对象。</li>
+</ol>
+<h3 id="模式缺点"><a href="#模式缺点" class="headerlink" title="模式缺点"></a>模式缺点</h3><p>外观模式的主要缺点如下：</p>
+<ol>
+<li>不能很好地限制客户端直接使用子系统类，如果对客户端访问子系统类做太多的限制则减少了可变性和灵活 性。</li>
+<li>如果设计不当，增加新的子系统可能需要修改外观类的源代码，违背了开闭原则。</li>
+</ol>
+<h3 id="模式适用场景"><a href="#模式适用场景" class="headerlink" title="模式适用场景"></a>模式适用场景</h3><p>在以下情况下可以考虑使用外观模式：</p>
+<ol>
+<li>当要为访问一系列复杂的子系统提供一个简单入口时可以使用外观模式。</li>
+<li>客户端程序与多个子系统之间存在很大的依赖性。引入外观类可以将子系统与客户端解耦，从而提高子系统的独立性和可移植性。</li>
+<li>在层次化结构中，可以使用外观模式定义系统中每一层的入口，层与层之间不直接产生联系，而通过外观类建立联系，降低层之间的耦合度。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Architecture</category>
+        <category>基本设计模式</category>
+      </categories>
+      <tags>
+        <tag>Architecture</tag>
+        <tag>基本设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式之享元模式</title>
+    <url>/posts/ab6d78a/</url>
+    <content><![CDATA[<h1 id="设计模式之享元模式"><a href="#设计模式之享元模式" class="headerlink" title="设计模式之享元模式"></a>设计模式之享元模式</h1><p>享元模式以共享的方式高效地支持大量细粒度对象的重用，享元对象能做到共享的关键是区分了内部状态(Intrinsic State)和外部状态(Extrinsic State)。下面将对享元的内部状态和外部状态进行简单的介绍：</p>
+<ol>
+<li>内部状态是存储在享元对象内部并且不会随环境改变而改变的状态，内部状态可以共享。如字符的内容，不会随外部环境的变化而变化，无论在任何环境下字符“a”始终是“a”，都不会变成“b”。</li>
+<li>外部状态是随环境改变而改变的、不可以共享的状态。享元对象的外部状态通常由客户端保存，并在享元对象被创建之后，需要使用的时候再传入到享元对象内部。一个外部状态与另一个外部状态之间是相互独立的。如字符的颜色，可以在不同的地方有不同的颜色，例如有的“a”是红色的，有的“a”是绿色的，字符的大小也是如此，有的“a”是五号字，有的“a”是四号字。</li>
+</ol>
+<p>通过区分内部状态和外部状态，我们可以将具有相同内部状态的对象存储在享元池中，享元池中的对象是可以实现共享的，需要的时候就将对象从享元池中取出，实现对象的复用。通过向取出的对象注入不同的外部状态，可以得到一系列相似的对象，而这些对象在内存中实际上只存储一份。</p>
+<a id="more"></a>
+<h2 id="享元模式的定义"><a href="#享元模式的定义" class="headerlink" title="享元模式的定义"></a>享元模式的定义</h2><p>享元模式(Flyweight Pattern)：运用共享技术有效地支持大量细粒度对象的复用。系统只使用少量的对象，而这些对象都很相似，状态变化很小，可以实现对象的多次复用。由于享元模式要求能够共享的对象必须是细粒度对象，因此它又称为轻量级模式，它是一种对象结构型模式。</p>
+<p>在享元模式结构图中包含如下几个角色：</p>
+<p><img data-src="/posts/ab6d78a/享元模式.svg" alt="享元模式"></p>
+<ol>
+<li>Flyweight（抽象享元类）：通常是一个接口或抽象类，在抽象享元类中声明了具体享元类公共的方法，这些方法可以向外界提供享元对象的内部数据（内部状态），同时也可以通过这些方法来设置外部数据（外部状态）。</li>
+<li>ConcreteFlyweight（具体享元类）：它实现了抽象享元类，其实例称为享元对象；在具体享元类中为内部状态提供了存储空间。通常我们可以结合单例模式来设计具体享元类，为每一个具体享元类提供唯一的享元对象。</li>
+<li>UnsharedConcreteFlyweight（非共享具体享元类）：并不是所有的抽象享元类的子类都需要被共享，不能被共享的子类可设计为非共享具体享元类；当需要一个非共享具体享元类的对象时可以直接通过实例化创建。</li>
+<li>FlyweightFactory（享元工厂类）：享元工厂类用于创建并管理享元对象，它针对抽象享元类编程，将各种类型的具体享元对象存储在一个享元池中，享元池一般设计为一个存储“键值对”的集合（也可以是其他类型的集合），可以结合工厂模式进行设计；当用户请求一个具体享元对象时，享元工厂提供一个存储在享元池中已创建的实例或者创建一个新的实例（如果不存在的话），返回新创建的实例并将其存储在享元池中。</li>
+</ol>
+<p>在享元模式中引入了享元工厂类，享元工厂类的作用在于提供一个用于存储享元对象的享元池，当用户需要对象时，首先从享元池中获取，如果享元池中不存在，则创建一个新的享元对象返回给用户，并在享元池中保存该新增对象。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FlyweightFactory</span> </span>&#123;</span><br><span class="line">  <span class="comment">//定义一个HashMap用于存储享元对象，实现享元池</span></span><br><span class="line">  <span class="keyword">private</span> HashMap flyweights = newHashMap();</span><br><span class="line">  <span class="function"><span class="keyword">public</span> Flyweight <span class="title">getFlyweight</span><span class="params">(String key)</span></span>&#123;</span><br><span class="line">    <span class="comment">//如果对象存在，则直接从享元池获取</span></span><br><span class="line">    <span class="keyword">if</span>(flyweights.containsKey(key))&#123;</span><br><span class="line">      <span class="keyword">return</span>(Flyweight)flyweights.get(key);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果对象不存在，先创建一个新的对象添加到享元池中，然后返回</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      Flyweight fw = newConcreteFlyweight();</span><br><span class="line">      flyweights.put(key,fw);</span><br><span class="line">      <span class="keyword">return</span> fw;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>享元类的设计是享元模式的要点之一，在享元类中要将内部状态和外部状态分开处理，通常将内部状态作为享元类的成员变量，而外部状态通过注入的方式添加到享元类中。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Flyweight</span> </span>&#123;</span><br><span class="line">  <span class="comment">//内部状态intrinsicState作为成员变量，同一个享元对象其内部状态是一致的</span></span><br><span class="line">  <span class="keyword">private</span> String intrinsicState;</span><br><span class="line">      </span><br><span class="line">  <span class="function"><span class="keyword">public</span>  <span class="title">Flyweight</span><span class="params">(String intrinsicState)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.intrinsicState=intrinsicState;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//外部状态extrinsicState在使用时由外部设置，不保存在享元对象中，即使是同一个对象，在每一次调用时也可以传入不同的外部状态</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">(String  extrinsicState)</span> </span>&#123;</span><br><span class="line">    ......</span><br><span class="line">  &#125;     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>单纯享元模式: 在单纯享元模式中，所有的具体享元类都是可以共享的，不存在非共享具体享元类。<br>复合享元模式: 将一些单纯享元对象使用组合模式加以组合，还可以形成复合享元对象，这样的复合享元对象本身不能共享，但是它们可以分解成单纯享元对象，而后者则可以共享。 通过复合享元模式，可以确保复合享元类CompositeConcreteFlyweight中所包含的每个单纯享元类ConcreteFlyweight都具有相同的外部状态，而这些单纯享元的内部状态往往可以不同。如果希望为多个内部状态不同的享元对象设置相同的外部状态，可以考虑使用复合享元模式。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// UnsharedConcreteFlyweight  非共享具体享元类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CompositeConcreteFlyweight</span> <span class="keyword">extends</span> <span class="title">Flyweight</span></span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> List&lt;Flyweight&gt; flyweights;</span><br><span class="line">      </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Flyweight flyweight)</span></span>&#123;</span><br><span class="line">    ......</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(Flyweight flyweight)</span></span>&#123;</span><br><span class="line">    ......</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//外部状态extrinsicState在使用时由外部设置，不保存在享元对象中，即使是同一个对象，在每一次调用时也可以传入不同的外部状态</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">(String  extrinsicState)</span> </span>&#123;</span><br><span class="line">    ......</span><br><span class="line">  &#125;     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="与其他模式的联用"><a href="#与其他模式的联用" class="headerlink" title="与其他模式的联用"></a>与其他模式的联用</h2><p>享元模式通常需要和其他模式一起联用，几种常见的联用方式如下：</p>
+<ol>
+<li>在享元模式的享元工厂类中通常提供一个静态的工厂方法用于返回享元对象，使用简单工厂模式来生成享元对象。</li>
+<li>在一个系统中，通常只有唯一一个享元工厂，因此可以使用单例模式进行享元工厂类的设计。</li>
+<li>享元模式可以结合组合模式形成复合享元模式，统一对多个享元对象设置外部状态。</li>
+</ol>
+<h2 id="享元模式总结"><a href="#享元模式总结" class="headerlink" title="享元模式总结"></a>享元模式总结</h2><p>当系统中存在大量相同或者相似的对象时，享元模式是一种较好的解决方案，它通过共享技术实现相同或相似的细粒度对象的复用，从而节约了内存空间，提高了系统性能。相比其他结构型设计模式，享元模式的使用频率并不算太高，但是作为一种以“节约内存，提高性能”为出发点的设计模式，它在软件开发中还是得到了一定程度的应用。</p>
+<h3 id="主要优点"><a href="#主要优点" class="headerlink" title="主要优点"></a>主要优点</h3><p>享元模式的主要优点如下：</p>
+<ol>
+<li>可以减少内存中对象的数量，使得相同或相似对象在内存中只保存一份，从而可以节约系统资源，提高系统性能。</li>
+<li>享元模式的外部状态相对独立，而且不会影响其内部状态，从而使得享元对象可以在不同的环境中被共享。</li>
+</ol>
+<h3 id="主要缺点"><a href="#主要缺点" class="headerlink" title="主要缺点"></a>主要缺点</h3><p>享元模式的主要缺点如下：</p>
+<ol>
+<li>享元模式使得系统变得复杂，需要分离出内部状态和外部状态，这使得程序的逻辑复杂化。</li>
+<li>为了使对象可以共享，享元模式需要将享元对象的部分状态外部化，而读取外部状态将使得运行时间变长。</li>
+</ol>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>在以下情况下可以考虑使用享元模式：</p>
+<ol>
+<li>一个系统有大量相同或者相似的对象，造成内存的大量耗费。</li>
+<li>对象的大部分状态都可以外部化，可以将这些外部状态传入对象中。</li>
+<li>在使用享元模式时需要维护一个存储享元对象的享元池，而这需要耗费一定的系统资源，因此，应当在需要多次重复使用享元对象时才值得使用享元模式。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Architecture</category>
+        <category>基本设计模式</category>
+      </categories>
+      <tags>
+        <tag>Architecture</tag>
+        <tag>基本设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hr 面试</title>
+    <url>/posts/daa4c03f/</url>
+    <content><![CDATA[<h1 id="hr-面试"><a href="#hr-面试" class="headerlink" title="hr 面试"></a>hr 面试</h1><p>收集了一些常见的HR面试题</p>
+<div class="note default">
+            <p>持续更新中</p>
+          </div>
+<a id="more"></a>
+<h2 id="HRG"><a href="#HRG" class="headerlink" title="HRG"></a>HRG</h2><p>你回答每一个问题都要三思而后答，围绕STAR原则：</p>
+<p>STAR法则即为Situation、Task、Action、Result的缩写，具体含义是:</p>
+<p>Situation: 项目是在什么情况下发生？</p>
+<p>Task: 你在项目中要完成的任务/目标是哪些？</p>
+<p>Action: 为了完成任务，你采取了哪些行动？</p>
+<p>Result: 最终的结果是怎样的？从中你学习到了什么？</p>
+<p>HR通过追问项目细节，一方面判断人选做的事情的真实性、客观性，另一方面来分析判断人选相关的能力：沟通能力、逻辑能力，复盘总结能力（特别在聊失败的项目，经常会追问一个问题：如果重新做一次，怎样做的更好）等。我们在准备的时候，也是可以把相关的项目经历按照Star的法则进行梳理的。</p>
+<h2 id="你最大的优点是什么？"><a href="#你最大的优点是什么？" class="headerlink" title="你最大的优点是什么？"></a>你最大的优点是什么？</h2><p>分析：这个问题你如果没怎么想过的话，估计上来会有点蒙，优点很多啊，能吃还不胖，呵呵，开个玩笑。比较普遍中庸的回答：做事比较认真负责，具有owner精神，能够让别人放心的把后背交给自己的人。然后举例说明，注意STAR原则，什么情景，发生了什么事情，你怎么处理的，最终的结果是什么。</p>
+<h2 id="你最大的缺点是什么？"><a href="#你最大的缺点是什么？" class="headerlink" title="你最大的缺点是什么？"></a>你最大的缺点是什么？</h2><p>分析：这个也是有点坑的，你的缺点吧，必须是实实在在的缺点，又不能太大，或者太没意义，如果说的太大，那岂不是说明你这个人很low，我凭什么要你？如果说的太没意义，那不是跟没说一样，避免回答，比较懒，自制力差等，或者把自己的优点故意说成缺点，比如说我太负责了。</p>
+<p>推荐回答：现在工作已经有几年了，慢慢开始带人，但是大多数事情因为只有自己比较熟悉，更偏向于自己做，事必躬亲，意识到这是不对的。老板和直属领导也总是对我说要注意转型。然后结合STAR原则，具体举例说明。然后补充自己现在正慢慢注意，只有把一些人，团结起来形成合力，共同完成事情，才是更大的考验。</p>
+<h2 id="你经历最失败的项目是什么？"><a href="#你经历最失败的项目是什么？" class="headerlink" title="你经历最失败的项目是什么？"></a>你经历最失败的项目是什么？</h2><p>这个就得结合自己的实际去说了，没有统一标准。但请注意，这个项目一定是失败的，但失败有大有小。与其说问你失败的项目，其实更多的是想了解，你从这个失败的项目中学到了什么，对你自己有什么提升，如果让你从头来一遍，你能不能转败为赢。</p>
+<h2 id="你经历的最大挫折是什么？"><a href="#你经历的最大挫折是什么？" class="headerlink" title="你经历的最大挫折是什么？"></a>你经历的最大挫折是什么？</h2><p>人的一生很长，难免会经历挫折，既然是最大，那必然是在你的人生重要阶段或重要节点。</p>
+<p>中考、高考、考研or就业选择，感情都是可能让你经历挫折的。</p>
+<p>hr这些都想听，但她更想知道的是，你是怎么走出挫折阴影的，这对你的人生有什么影响，比如你的耐挫能力是不是变强了许多啊，这也能反映出你这个人是不是够皮实么。一个有故事，经历丰富的人，毕竟会与生活在温室里人有很大差别。</p>
+<h2 id="你跳槽的原因是什么？"><a href="#你跳槽的原因是什么？" class="headerlink" title="你跳槽的原因是什么？"></a>你跳槽的原因是什么？</h2><p>分析：这个问题非常常规，既然你都开始找工作了，那必然有离职原因啊，但是离职原因也是不能瞎说的，比如说你说跟领导不合，净给我干一些不想干的事情，额。。你换新的工作，就能跟领导合了，给的事情就能是你想干的了？hr会觉得你这个人很难合作，基本听到这一句，你已经被pass了。有的人比较直接，说薪资太低，哥哥，你能保证我这份工作就能给的工资高？当然hr心知肚明大家换工作普遍是薪资不满意了，但请不要这么诚实嘛！</p>
+<p>推荐回答：一般无非是个人发展原因啊，职业发展空间有限，这种回答多高大上啊，显得你很上进，一直在追求更加卓越的自己！</p>
+<h2 id="由于你的原因导致失败的项目？"><a href="#由于你的原因导致失败的项目？" class="headerlink" title="由于你的原因导致失败的项目？"></a>由于你的原因导致失败的项目？</h2><p>请审题，由于你的原因导致的？这可是说你要负主要责任的项目了，这个坑就挖的有点深了。这个过失可就主要是你的了，这件事可大可小，可谓是无论怎么回到，首先错误肯定是你的了，也就是甩给你一个锅。</p>
+<p>锅来之，就背之吧，更重要的是主要STAR原则，你从这个失败学到了什么？以后应该怎么做避免失败。</p>
+<p>这道题目不求有多大亮点，只求不扣分即可。</p>
+<h2 id="绩效被打3-25怎么办？"><a href="#绩效被打3-25怎么办？" class="headerlink" title="绩效被打3.25怎么办？"></a>绩效被打3.25怎么办？</h2><p>呵呵，很坑人吧，上来丢给你一个3.25，首先你要承认已成事实，其次同志还需努力啊！</p>
+<p>表态，在态度与能力上，自己会全情投入去把工作做好，避免3.25的发生；如果真的发生了，做好复盘、做好沟通，找到问题的关键点，并进行提升。</p>
+<p>其他团队的挑战、不配合、竞争等：做好自己，把外部压力与挑战转化成自我提升的动力，感到难受的时候就是进步的时候。</p>
+<h2 id="996的工作节奏可以接受吗？"><a href="#996的工作节奏可以接受吗？" class="headerlink" title="996的工作节奏可以接受吗？"></a>996的工作节奏可以接受吗？</h2><p>现在互联网公司，如果不是996，好像都不能证明自己是互联网公司一样，面对这种问题，一定要以乐观的心态回答。这是在给你考验呢？</p>
+<p>996、007加班：很多时候为了完成目标，加班加点在所难免，把事情做成功都需要有大量的付出，愿意all in的心态去把事情做成，过往的经历中有哪些类似的经历……（举例）</p>
+<h2 id="你希望通过这份工作获得什么？"><a href="#你希望通过这份工作获得什么？" class="headerlink" title="你希望通过这份工作获得什么？"></a>你希望通过这份工作获得什么？</h2><p>自杀式回答：</p>
+<ul>
+<li>我希望自己为之工作的企业能够重视质量，而且会给做得好的员工予以奖励。我希望通过这份工作锻炼自己，提升自己的能力，能让公司更加重视我。<ul>
+<li>“我希望通过这份工作锻炼自己，提升自己的能力。”同学，公司又不是学校，是希望你过来干活的，学习的目的也是更好的工作。你居然准备拿我们的工作机会练手和锻炼自己?我们还是找一些更靠谱的人吧。</li>
+<li>“我希望自己为之工作的企业能够重视质量，而且会给做得好的员工予以奖励。由于我期望比同事们做得好，因此我期待能凭自己的成就获得适当的补偿。”这里再次出现了自大的问题。在这种回答中，求职者表达了一种不恰当的优越感，同时也向面试人发出了一个红色信号，说明这个求职者可能是个“难缠的人”。</li>
+</ul>
+</li>
+</ul>
+<p>正确回答：这里需要记住的另外一个原则是——“不要谈论金钱”。</p>
+<p>除非是在薪金谈判中，否则一定要避免谈及金钱。在这里，你的回答将再次反映出你的成熟度以及你所采取的立场。这里需要记住的另外一个原则是——“不要谈论金钱”。除非是在薪金谈判中，否则一定要避免谈及金钱。 </p>
+<p>例如：“对我来说，最重要的是自己所做的工作是否适合我。我的意思是说，这份工作应该能让我发挥专长——这会给我带来一种满足感。我还希望所做的工作能够对我目前的技能水平形成挑战，从而能促使我提升自己。”这是个一箭双雕的回答——既表达了出色地完成工作时自己能够获得满足感，也说明了挑战自我极限和自我发展的重要——这种回答将使面试人对你情有独钟，而且会非常迫切地希望聘用你。</p>
+<h2 id="你个人短期和长期目标分别是什么"><a href="#你个人短期和长期目标分别是什么" class="headerlink" title="你个人短期和长期目标分别是什么"></a>你个人短期和长期目标分别是什么</h2><p>自杀式回答：我的目标就是确保自己不落伍，而且我相信面对现实是十分重要的。  </p>
+<p>正确回答：不论长期还是短期，我的策略是根据当前目标评价自己并修改自己的计划。</p>
+<p>同所有现实目标一样，我的目标经常改变。不论在长期还是短期，我的个人策略是根据当前目标评价自己所处的位置，然后相应地修改自己的计划。比如，我每五年就制定一项个人计划，这个计划中包含一个总体目标和一系列短期目标。每6个月我就回顾一下自己的进展，然后做出必要的修改。很明显，我当前的计划就是实现职业转变，也就是找到更满意的工作。除此之外，我已经实现了近期制定的个人目标。</p>
+<h2 id="给你一个任务，你会怎么做"><a href="#给你一个任务，你会怎么做" class="headerlink" title="给你一个任务，你会怎么做"></a>给你一个任务，你会怎么做</h2><p>自杀式回答：“我应该能够做好吧”或者“我不能保证做好，但会试试看”。</p>
+<p>正确回答：尝试谈谈，你会怎么做。如果做到你会怎么样,做不到你会如何去调整 。</p>
+<p>回答时可以尝试这样的分析交流：第一、分析项目的优劣点，明确项目的目标，然后开始分析，看自己的角度和领导的想法、产品的方向是否相契合。这个主要处理问题站的角度不一样，或者利弊分析不一样。所以首先要会站在领导的角度去考虑这个问题。</p>
+<h2 id="请简单介绍一下你自己"><a href="#请简单介绍一下你自己" class="headerlink" title="请简单介绍一下你自己"></a>请简单介绍一下你自己</h2><p>自杀式回答：我是一个很普通的人，且今天有关这个问题没有准备太好。</p>
+<ul>
+<li>“我是一个很普通的人……”，当你说出这句话时，意味着你已经失去了这次的机会。给你机会,就是让你证明自己的优秀的!但是这样的回答让人觉得你连想都不想。</li>
+<li>“我今天准备得不太好……”面试官听到的意思却是：没准备好还来干什么，太不尊重我了。请准备好再来！</li>
+</ul>
+<p>正确回答：回答最好在90秒内，说明过去的工作成绩和对应聘岗位的职业规划。</p>
+<p>回答的时间最好在90秒，最长不超过3分钟。一般人回答这个问题过于平常，只说姓名、年龄、爱好、工作经验，这些在简历上都有。其实，企业最希望知道的是求职者能否胜任工作，包括：最强的技能、最深入研究的知识领域、个性中最积极的部分、做过的最成功的事。</p>
+<h2 id="你还有什么问题"><a href="#你还有什么问题" class="headerlink" title="你还有什么问题"></a>你还有什么问题</h2><p>自杀式回答：我想问一下工资大概是多少?还能高些么?</p>
+<p>一般来说，工资完全可以在公司的网站、一般的行业网站找到，或者私下沟通。在大公司面试的时候问这个问题不太合适。因为很多HR会认为，就业是一种双向选择，你还没有展示你的能力呢，我凭什么买你?建议可以在基本意向确定以后再问。</p>
+<p>正确回答：贵公司对新入公司的员工有没有什么培训项目，我可以参加吗？</p>
+<p>这个问题看上去可有可无，其实很关键，HR不喜欢说“没有问题”的人，因为其很注重员工的个性和创新能力。HR不喜欢求职者问个人福利之类的问题，如果有人这样问：贵公司对新入公司的员工有没有什么培训项目，我可以参加吗？或者说贵公司的晋升机制是什么样的？</p>
+<h2 id="说说自己的优缺点"><a href="#说说自己的优缺点" class="headerlink" title="说说自己的优缺点"></a>说说自己的优缺点</h2><p>自杀式回答：我性格比较急躁，领导布置的工作总会提前完成，这是我的缺点。</p>
+<p>在面试的过程中，有时总不免会遇到让被面试者总结自己不足的问题。但若你的回答类似于这样就完蛋了。例如：</p>
+<ul>
+<li>“自己太追求完美，这个不足的提及率差不多最高了，被试者说自己特别追求完美，以至于自己的同事和下级不能忍受，给其他人带来压力，在今后的工作中应该改正”等等。</li>
+</ul>
+<p>*自己性格急躁这个不足，乍听起来好像真是个性上的缺点，但听其一解释，又不得不又有点哭笑了。“我性子急，领导布置我工作，本来可以三天完成，我一天就想干完。今后的工作中应该改正”.把自己夸了个天花乱坠。我知道你是从别处学来的，但这样回答实在是太蹩脚了。</p>
+<ul>
+<li>自己学习不够。被试者无论怎么爱看书学习，也说自己学习不够。当追问为什么的时候，说到相对于竞聘的岗位来说，总是学习不够的，“学无止境”吗！持这种答案的人纯粹是为了应付问题，尽管显得浅陋，但却好像没太自夸什么。下面一个就又开始夸奖自己了。</li>
+<li>自己不太注意家庭生活。被试者说到自己是个工作狂，整天加班加点，耽误了与家人在一起的时间，影响了身体和家庭生活。最后还是不忘在今后的工作中应加以注意，但为了工作也没办法。</li>
+</ul>
+<p>正确回答：事先准备三个和求职的岗位相关联的优点进行阐述，缺点诚实作答为好。</p>
+<ul>
+<li><p>如实回答缺点，但要说明你在进步。表述缺点的态度和方法：人非圣贤，孰能无过?但作为求职面试，用人单位更关心的还是你的优点，当然作为求职者，谁也不会想到通过坦陈自己的缺点来寻找理想的职业岗位。</p>
+</li>
+<li><p>面试过程中切忌吹嘘自己。吹嘘自己并不是展示自己的优点，而是在附加自己的缺点，这种吹嘘与个人的实际努力南辕北辙。</p>
+</li>
+</ul>
+<h2 id="你为什么要离开前一家公司"><a href="#你为什么要离开前一家公司" class="headerlink" title="你为什么要离开前一家公司"></a>你为什么要离开前一家公司</h2><p>自杀式回答：工资太低，领导的为人也不是特别好，所以才离开。</p>
+<p>你回答的如果不合适，对方就可能产生这样的想法，离开前一个单位是不是你不得已而为之，问题在你个人，你会因为同样或者类似的原因离开我们？而你如果回答说是因为工资太低，所以离开，这样人家会认为你只注重工资方面而给招聘者留下不好的印象。</p>
+<p>正确回答：避免过多的抱怨前一雇主，要强调自己个人发展的原因，不要归咎于别人。</p>
+<p>回答这个问题时一定要小心，就算在前一个工作受到再大的委屈，对公司有多少的怨言，都千万不要表现出来，尤其要避免对公司本身主管的批评，避免面试官的负面情绪及印象。建议此时最好的回答方式是将问题归咎在自己身上，例如觉得工作没有学习发展的空间。</p>
+<h2 id="为什么你希望来我们公司工作"><a href="#为什么你希望来我们公司工作" class="headerlink" title="为什么你希望来我们公司工作"></a>为什么你希望来我们公司工作</h2><p>自杀式回答：最糟糕的答案就是\”因为我喜欢人\”.要是你喜欢动物，那你去哪工作呢？</p>
+<p>在这个问题的回答上，并且贯穿整个面试的过程中，一个优秀的答案总是来自于你所作的调查研究，这样的话你可以从公司的需要那个方面来回答。你之前的准备必须包括对这个公司做详尽的了解，来避免到一个你无法发挥才干或者根本不想去的公司面试。</p>
+<p>正确回答：贵公司所做的正是我所希望参与的，并且这个工作方式极大的吸引了我。</p>
+<p>面试官试图从中了解你求职的动机、愿望以及对此项工作的态度。所以建议从行业、企业和岗位这三个角度来回答。 比如说：你可能说你的研究表明这个公司所做的工作正是你说希望参与的，并且他们做这个工作的方式极大的吸引了你。</p>
+<h2 id="你希望这个职位的薪水是多少"><a href="#你希望这个职位的薪水是多少" class="headerlink" title="你希望这个职位的薪水是多少"></a>你希望这个职位的薪水是多少</h2><p>自杀式回答：过早的暴露你之前的薪资，或者将自己的薪资定得比较低。</p>
+<p>不要轻易说出你以前的薪资水平。一位经理就因为这个举动，丧失了主动争取高薪的机会，面试伊始，她向招聘经理说出了现在的薪资水平，并表示她的技能和经验被低估了。结果，招聘经理因此降低了她的工作技巧评级，并根据此级别定义了她的薪资标准。</p>
+<p>2）、正确回答：事先了解薪水行情，当面试官主动询问时，尽可能用精确数字来回答。</p>
+<p>讨论薪水是一个很微妙的问题。我们建议你在条件允许的情况下尽可能的拖延用一个精确的数据来回答这个问题。你可以说,“我知道这个工作的薪水的大概范围是￥—-到￥—-。这个对于我来说是合适的价位。”你也可以用一个问题来回答这个问题: “你可能在这个问题上可以帮助我。</p>
+<h2 id="你将会如何面对你的新工作呢？"><a href="#你将会如何面对你的新工作呢？" class="headerlink" title="你将会如何面对你的新工作呢？"></a>你将会如何面对你的新工作呢？</h2><p>自杀式回答：我会认真努力，尽全力做好的。</p>
+<p>“(眼神坚定，满脸通红)我会认真努力，尽全力做好。”商业社会,态度不等于能力。不管你是全力以赴还是认真努力,没有达到目标, 也是无用。你可以尝试提供你准备的具体的行动步骤和目标,否则这个问题基本等于没有回答。</p>
+<p>正确回答：尝试提供具体的行动步骤和目标,否则这个问题基本等于没有回答。</p>
+<p>新工作的前三个月至关重要；它将定义人们如何看待你以及他们是否会帮助你。把这件事情做好，剩下的就简单了。阐述和分析清楚一下三步骤就可以：</p>
+<p>a、给自己时间去思考和制定计划。你永远不要在上任的前三个月就去注意问题、优点和缺点。因此，利用这一时间去吸收，并在着手去完成一件事情之前找到新的见解。</p>
+<p>b、建立信任。坦率地说，你应该在每项工作中做这件事情。但你在和对你是否正直，你的政治立场是什么，以及你的忠诚所在尚存疑虑的人打交道。这是一件至关重要的事情，你的新同事想要了解你，所以请确保你把这件事情做好了。</p>
+<p>c、了解你的前任。他或她有哪些长处？如果还能联系到他们，他们能提供指导吗？如果联系不到他们，谁是他们信任的同 事？在高级职位上，重要的是发出这样的信号，你不是个替换者；你就是你自己。但明白你的前任看重什么是明智之举，只要确保你不会不知不觉地受到挫折。在职位描述之外还有很多东西，所以确保你明白了每个人都希望什么。</p>
+<hr>
+<p>参考资料：</p>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/88516815">https://zhuanlan.zhihu.com/p/88516815</a></li>
+<li><a href="https://yq.aliyun.com/articles/297003">https://yq.aliyun.com/articles/297003</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>面试</category>
+        <category>HR</category>
+      </categories>
+      <tags>
+        <tag>continue</tag>
+        <tag>面试</tag>
+      </tags>
+  </entry>
+</search>

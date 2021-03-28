@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.victorchu.info","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":"mac","style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"appID":"X9UOD4FSUP","apiKey":"fa32db1f02073025c69da8ebad0a6aa6","indexName":"hexo-next-blog","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="ubuntu tweakubuntu桌面的一些优化调整和一些常用应用程序。              持续更新中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ubuntu tweak">
+<meta property="og:url" content="http://www.victorchu.info/posts/aa450f3f/index.html">
+<meta property="og:site_name" content="Victor.Chu&#39;s Blog">
+<meta property="og:description" content="ubuntu tweakubuntu桌面的一些优化调整和一些常用应用程序。              持续更新中">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-12-13T14:17:32.000Z">
+<meta property="article:modified_time" content="2021-02-17T09:46:15.383Z">
+<meta property="article:author" content="Victor Chu">
+<meta property="article:tag" content="ubuntu">
+<meta property="article:tag" content="continue">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.victorchu.info/posts/aa450f3f/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ubuntu tweak | Victor.Chu's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Victor.Chu's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Victor.Chu's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">I love Coding !</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">21</span></a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">6</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">8</span></a>
+
+  </li>
+        <li class="menu-item menu-item-messageboard">
+
+    <a href="/guestbook" rel="section"><i class="fa fa-comments fa-fw"></i>留言板</a>
+
+  </li>
+        <li class="menu-item menu-item-top">
+
+    <a href="/top/" rel="section"><i class="fa fa-signal fa-fw"></i>阅读排行</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="algolia-results">
+  <div id="algolia-stats"></div>
+  <div id="algolia-hits"></div>
+  <div id="algolia-pagination" class="algolia-pagination"></div>
+</div>
+
+      
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.victorchu.info/posts/aa450f3f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/victor-blog-head.jpg">
+      <meta itemprop="name" content="Victor Chu">
+      <meta itemprop="description" content="blog about programming.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Victor.Chu's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ubuntu tweak
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-12-13 22:17:32" itemprop="dateCreated datePublished" datetime="2016-12-13T22:17:32+08:00">2016-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-17 17:46:15" itemprop="dateModified" datetime="2021-02-17T17:46:15+08:00">2021-02-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ubuntu/" itemprop="url" rel="index"><span itemprop="name">Ubuntu</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ubuntu/Desktop/" itemprop="url" rel="index"><span itemprop="name">Desktop</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/posts/aa450f3f/" class="post-meta-item leancloud_visitors" data-flag-title="ubuntu tweak" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/aa450f3f/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/aa450f3f/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="ubuntu-tweak"><a href="#ubuntu-tweak" class="headerlink" title="ubuntu tweak"></a>ubuntu tweak</h1><p>ubuntu桌面的一些优化调整和一些常用应用程序。</p>
+<div class="note default">
+            <p>持续更新中</p>
+          </div>
+<a id="more"></a>
+<h2 id="gnome-安装"><a href="#gnome-安装" class="headerlink" title="gnome 安装"></a>gnome 安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install gnome-tweak-tool</span><br></pre></td></tr></table></figure>
+<h2 id="桌面-tweak"><a href="#桌面-tweak" class="headerlink" title="桌面 tweak"></a>桌面 tweak</h2><p>gnome3 桌面的优化主要通过 gnome shell 扩展.gnome shell 快速安装方法：</p>
+<ul>
+<li>打开网站<a target="_blank" rel="noopener" href="https://extensions.gnome.org/">gnome extension</a><ul>
+<li>选择想要安装的扩展，点击右侧ON-OFF按钮(需要浏览器安装gnome shell 插件)。</li>
+<li>或者把扩展包下载到<code>~/.local/share/gnome-shell/extensions/</code>或者<code>/usr/share/gnome-shell/extensions/</code>目录</li>
+</ul>
+</li>
+</ul>
+<h3 id="主题优化"><a href="#主题优化" class="headerlink" title="主题优化"></a>主题优化</h3><ul>
+<li>安装用户主题扩展<a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/19/user-themes/">user themes</a> </li>
+<li>打开 Tweak Tool -&gt; 扩展 -&gt; User themes. // 开启用户主题</li>
+<li>到<a target="_blank" rel="noopener" href="https://www.gnome-look.org/">gome look</a>网站找到主题下载</li>
+</ul>
+<p>例如:</p>
+<ul>
+<li>McMojava:<ul>
+<li>GTK主题: <a target="_blank" rel="noopener" href="https://www.gnome-look.org/p/1275087">McMojave-theme</a></li>
+<li>ICON主题: <a target="_blank" rel="noopener" href="https://www.opendesktop.org/p/1305429">McMojave-circle</a></li>
+<li>cursor主题: <a target="_blank" rel="noopener" href="https://www.opendesktop.org/p/1355701">McMojave-cursors</a></li>
+</ul>
+</li>
+<li><p>sweet </p>
+<ul>
+<li>GTK主题: <a target="_blank" rel="noopener" href="https://www.gnome-look.org/p/1253385/">sweet</a></li>
+<li>cursor主题: <a target="_blank" rel="noopener" href="https://www.gnome-look.org/p/1393084/">sweet cursor</a></li>
+<li>folder主题: <a target="_blank" rel="noopener" href="https://www.gnome-look.org/p/1284047/">sweet folder</a></li>
+<li>icon主题: <a target="_blank" rel="noopener" href="https://www.gnome-look.org/p/1305251/">candy icons</a><h3 id="扩展插件"><a href="#扩展插件" class="headerlink" title="扩展插件"></a>扩展插件</h3></li>
+</ul>
+</li>
+<li><p>manage</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/1036/extensions/">Extensions</a> : 快速开关扩展</li>
+</ul>
+</li>
+<li>menu<ul>
+<li><a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/1228/arc-menu/">Arc Menu</a> : 菜单</li>
+</ul>
+</li>
+<li>Top Bar:<ul>
+<li><a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/1031/topicons/">Top Icons Plus</a> : 状态栏</li>
+<li><a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/1301/ubuntu-appindicators/">ubuntu-appindicators</a>: 状态栏</li>
+<li><a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/545/hide-top-bar/">Hide Top Bar</a> : 隐藏顶栏</li>
+<li><a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/885/dynamic-top-bar/">Dynamic Top Bar</a> : 动态顶栏</li>
+</ul>
+</li>
+<li>Dash<ul>
+<li><a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/307/dash-to-dock/">Dash to Dock</a> : 启动器</li>
+</ul>
+</li>
+<li>Desktop<ul>
+<li><a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/657/shelltile/">Shell Tile</a> : 桌面排版</li>
+<li><a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/1131/desk-changer/">Desk Changer</a> : 自动更换桌面背景</li>
+<li><a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/1465/desktop-icons/">Desktop Icons</a>: 桌面图标</li>
+</ul>
+</li>
+<li>wifi<ul>
+<li><a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/904/disconnect-wifi/">Disconnect Wifi</a>: wifi断连</li>
+<li><a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/905/refresh-wifi-connections/">Refresh Wifi Connections</a> : 刷新wifi</li>
+</ul>
+</li>
+<li>Monitor<ul>
+<li><a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/921/multi-monitors-add-on/">Multi Monitors Add-On</a> : 多显示器</li>
+</ul>
+</li>
+<li>增强<ul>
+<li><a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/21/workspace-indicator/">workspace-indicator</a>: 工作区</li>
+<li><a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/906/sound-output-device-chooser/">Sound Chooser</a> : 声音设备</li>
+<li><a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/442/drop-down-terminal/">Drop Down Terminal</a> : 弹出terminal</li>
+<li><a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/97/coverflow-alt-tab/">Coverflow Alt-Tab</a> : 窗口切换</li>
+<li><a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/779/clipboard-indicator/">Clipboard Indicator</a> : 剪贴版</li>
+</ul>
+</li>
+<li>sensor<ul>
+<li><a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/120/system-monitor/">Syetem Monitor</a> : 系统指示器</li>
+<li><a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/1460/vitals/">vitals</a>: 系统指示器</li>
+</ul>
+</li>
+<li>效率<ul>
+<li><a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/120/system-monitor/">To Do</a> : TODO</li>
+<li><a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/53/pomodoro/">Pomodora</a> : 计时器</li>
+</ul>
+</li>
+</ul>
+<h2 id="Kde"><a href="#Kde" class="headerlink" title="Kde"></a>Kde</h2><p>ubuntu 默认使用gnome桌面，kde桌面安装的命令如下:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install kubuntu-desktop</span><br></pre></td></tr></table></figure>
+<p>kde桌面主题可以在<code>系统设置&gt;外观</code>菜单下的全局主题，plasma样式，颜色主题，图标主题中安装设置。此处就不赘述了。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://store.kde.org/p/1310500/">McMojave kde</a></li>
+<li><a target="_blank" rel="noopener" href="https://store.kde.org/p/1294729/">Sweet Kde</a></li>
+<li><a target="_blank" rel="noopener" href="https://store.kde.org/p/1393507/">Sweet Mars Kde</a></li>
+</ul>
+<p>推荐安装<a target="_blank" rel="noopener" href="https://github.com/tsujan/Kvantum">Kvantum</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:papirus&#x2F;papirus</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install qt5-style-kvantum qt5-style-kvantum-themes</span><br></pre></td></tr></table></figure><br>然后使用 kvantum-manager来设置 kvantum 主题。</p>
+<h3 id="扩展插件-1"><a href="#扩展插件-1" class="headerlink" title="扩展插件"></a>扩展插件</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/rbn42/panon">panon</a>:音效可视化插件，播放音乐时顶栏上多余的空间显示音效，美观而且可以充分利用顶栏空间。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Zren/plasma-applet-sysmonitordash">System Monitor Dashboard</a>: 系统监控面板</li>
+<li><a target="_blank" rel="noopener" href="https://store.kde.org/p/998901/">Event Calendar</a>: 日历+天气</li>
+<li><a target="_blank" rel="noopener" href="https://store.kde.org/p/1169519/">Latte Dock</a>: dock</li>
+</ul>
+<h2 id="设备"><a href="#设备" class="headerlink" title="设备"></a>设备</h2><h3 id="笔记本禁用触摸板"><a href="#笔记本禁用触摸板" class="headerlink" title="笔记本禁用触摸板"></a>笔记本禁用触摸板</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ xinput</span><br></pre></td></tr></table></figure>
+<p>查看输入设备的id,例如知道了id=12之后，就可以通过命令关闭/开启触控板: </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 关闭命令</span></span><br><span class="line">xinput --<span class="built_in">disable</span> 12</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启命令</span></span><br><span class="line">xinput --<span class="built_in">enable</span> 12 </span><br></pre></td></tr></table></figure>
+<ul>
+<li>对于gnome桌面也可以使用gnome extension <a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/935/toggle-touchpad/">toggle-touchpad</a></li>
+<li>kde桌面可以使用触摸板设置来快速切换</li>
+</ul>
+<h2 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行</h2><h3 id="安装zsh"><a href="#安装zsh" class="headerlink" title="安装zsh"></a>安装zsh</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install zsh</span><br></pre></td></tr></table></figure>
+<h3 id="安装-oh-my-zsh"><a href="#安装-oh-my-zsh" class="headerlink" title="安装 oh-my-zsh"></a>安装 oh-my-zsh</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install curl</span><br><span class="line">sh -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;robbyrussell&#x2F;oh-my-zsh&#x2F;master&#x2F;tools&#x2F;install.sh)&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="zsh-插件"><a href="#zsh-插件" class="headerlink" title="zsh 插件"></a>zsh 插件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">plugins&#x3D;(</span><br><span class="line">    alias-finder              # 内置插件: 输入alias-finder搜索定义的别名，并输出与输入命令匹配的任何别名</span><br><span class="line">    sudo                      # 内置插件: 连按两次ESC,在命令行前自动添加 sudo</span><br><span class="line">    last-working-dir          # 内置插件: 回到上次工作目录</span><br><span class="line">    git                       # 内置插件: 提供对git支持</span><br><span class="line">    history                   # 内置插件: history 命令定制,设置时间格式&#96;HIST_STAMPS&#x3D;&quot;yyyy-mm-dd&quot;&#96;</span><br><span class="line">    extract                   # 内置插件: 提供快速解压功能,输入&#96;x&#96;解压。</span><br><span class="line">    ubuntu                    # 内置插件: 提供对ubuntu支持</span><br><span class="line">    docker                    # 内置插件: 提供对docker支持</span><br><span class="line">    wd                        # 内置插件: 使用wd命令添加路径书签,快速跳转。</span><br><span class="line">    zsh_reload                # 内置插件: zsh reload</span><br><span class="line">    mvn                       # 内置插件: 提供对maven支持</span><br><span class="line">    z                         # 内置插件: 使用z命令快速跳转历史浏览路径。</span><br><span class="line">    aws                       # 外部依赖: 需要安装aws-cli </span><br><span class="line">    fzf                       # 外部依赖: 需要安装fzf</span><br><span class="line">    zsh-syntax-highlighting   # 第三方插件: 命令行语法高亮</span><br><span class="line">    git-open                  # 第三方插件: 浏览器打开git远程仓库</span><br><span class="line">    zsh-completions           # 第三方插件: zsh 自动补齐</span><br><span class="line"></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="fzf"><a href="#fzf" class="headerlink" title="fzf"></a>fzf</h3><p><a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf">官方地址</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install fzf</span><br></pre></td></tr></table></figure>
+<ul>
+<li>CTRL-T -将选定的文件和目录粘贴到命令行上</li>
+<li>CTRL-R -从历史记录中将所选命令粘贴到命令行上</li>
+<li>ALT-C  -进入所选目录</li>
+</ul>
+<h4 id="fzf-tab-completion"><a href="#fzf-tab-completion" class="headerlink" title="fzf-tab-completion"></a>fzf-tab-completion</h4><p>在使用tab键补齐时,使用fzf查找。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/lincheney/fzf-tab-completion.git <span class="variable">$&#123;ZSH_CUSTOM:=~/.oh-my-zsh/custom&#125;</span>/plugins/fzf-tab-completion</span><br><span class="line"><span class="comment">#then edit ~/.zsh file.</span></span><br><span class="line"><span class="built_in">source</span> <span class="variable">$HOME</span>/.oh-my-zsh/custom/plugins/fzf-tab-completion/zsh/fzf-zsh-completion.sh</span><br><span class="line"><span class="comment"># only aws command completion </span></span><br><span class="line"><span class="built_in">zstyle</span> <span class="string">&#x27;:completion:*:*:aws&#x27;</span> fzf-search-display <span class="literal">true</span></span><br><span class="line"><span class="comment"># or for everything</span></span><br><span class="line"><span class="built_in">zstyle</span> <span class="string">&#x27;:completion:*&#x27;</span> fzf-search-display <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h3 id="AWS-CLI"><a href="#AWS-CLI" class="headerlink" title="AWS-CLI"></a>AWS-CLI</h3><p><a target="_blank" rel="noopener" href="https://github.com/aws/aws-cli">官方地址</a></p>
+<h3 id="zsh-syntax-highlighting"><a href="#zsh-syntax-highlighting" class="headerlink" title="zsh-syntax-highlighting"></a>zsh-syntax-highlighting</h3><p><a target="_blank" rel="noopener" href="https://github.com/zsh-users/zsh-syntax-highlighting">官方地址</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-syntax-highlighting.git <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-syntax-highlighting</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 开启</span><br><span class="line">plugins&#x3D;(zsh-syntax-highlighting)</span><br></pre></td></tr></table></figure>
+<h3 id="zsh-autosuggestions"><a href="#zsh-autosuggestions" class="headerlink" title="zsh-autosuggestions"></a>zsh-autosuggestions</h3><p><a target="_blank" rel="noopener" href="https://github.com/zsh-users/zsh-autosuggestions">官方地址</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git://github.com/zsh-users/zsh-autosuggestions <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 开启</span><br><span class="line">plugins&#x3D;(zsh-autosuggestions)</span><br></pre></td></tr></table></figure>
+<h3 id="git-open"><a href="#git-open" class="headerlink" title="git open"></a>git open</h3><p><a target="_blank" rel="noopener" href="https://github.com/paulirish/git-open">官方地址</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/paulirish/git-open.git <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/git-open</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 开启</span><br><span class="line">plugins&#x3D;(git-open)</span><br></pre></td></tr></table></figure>
+<h3 id="zsh-completion"><a href="#zsh-completion" class="headerlink" title="zsh-completion"></a>zsh-completion</h3><p><a target="_blank" rel="noopener" href="https://github.com/zsh-users/zsh-completions">官方地址</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-completions  <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-completions</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 开启</span><br><span class="line">plugins&#x3D;(zsh-completions)</span><br></pre></td></tr></table></figure>
+<h3 id="thefuck"><a href="#thefuck" class="headerlink" title="thefuck"></a>thefuck</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install python3-dev python3-pip python3-setuptools</span><br><span class="line">sudo pip3 install thefuck</span><br><span class="line"><span class="comment"># eidt .zshrc</span></span><br><span class="line"><span class="built_in">eval</span> $(thefuck --<span class="built_in">alias</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="APPS"><a href="#APPS" class="headerlink" title="APPS"></a>APPS</h2><h3 id="terminator"><a href="#terminator" class="headerlink" title="terminator"></a>terminator</h3><p>安装terminator作为终端工具。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install terminator</span><br></pre></td></tr></table></figure>
+<h3 id="trash-cli"><a href="#trash-cli" class="headerlink" title="trash-cli"></a>trash-cli</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install trash-cli</span><br></pre></td></tr></table></figure>
+<p>给 rm 设置一个别名来提醒你不要使用它</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias rm=&#x27;echo &quot;This is not the command you are looking for.&quot;; false&#x27;</span><br></pre></td></tr></table></figure>
+<p>如果你真的要用 rm，那就在 rm 前加上斜杠来取消别名：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\rm file-without-hope</span><br></pre></td></tr></table></figure>
+<h3 id="hyper"><a href="#hyper" class="headerlink" title="hyper"></a>hyper</h3><p>如果想体验高颜值的终端可以尝试下 <a target="_blank" rel="noopener" href="https://hyper.is/">hyper</a></p>
+<h3 id="Variety"><a href="#Variety" class="headerlink" title="Variety"></a>Variety</h3><p><a target="_blank" rel="noopener" href="https://github.com/varietywalls/variety">Variety</a> 支持自动切换墙纸,还包括一系列的图像效果。</p>
+<h3 id="Yakuake"><a href="#Yakuake" class="headerlink" title="Yakuake"></a>Yakuake</h3><p><a target="_blank" rel="noopener" href="https://github.com/KDE/yakuake">yakuake</a> drop-down terminal emulator based on KDE Konsole technology.</p>
+<h3 id="stacer"><a href="#stacer" class="headerlink" title="stacer"></a>stacer</h3><p><a target="_blank" rel="noopener" href="https://www.fossmint.com/stacer-ubuntu-system-optimizer/">stacer</a>方便的系统管理工具</p>
+<h3 id="slimbook-battery"><a href="#slimbook-battery" class="headerlink" title="slimbook-battery"></a>slimbook-battery</h3><p><a target="_blank" rel="noopener" href="https://slimbook.es/en/tutoriales/aplicaciones-slimbook/398-slimbook-battery-3-application-for-optimize-battery-of-your-laptop"></a> cpu和电池模式设置</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/posts/daa4c03f/" rel="bookmark">hr 面试</a></div>
+    </li>
+  </ul>
+
+        <div class="reward-container">
+  <div>坚持分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/weixin.png" alt="Victor Chu 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alpay.jpg" alt="Victor Chu 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Victor Chu
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.victorchu.info/posts/aa450f3f/" title="ubuntu tweak">http://www.victorchu.info/posts/aa450f3f/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/ubuntu/" rel="tag"><i class="fa fa-tag"></i> ubuntu</a>
+              <a href="/tags/continue/" rel="tag"><i class="fa fa-tag"></i> continue</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/e1817b32/" rel="prev" title="Hexo Next tag插件">
+      <i class="fa fa-chevron-left"></i> Hexo Next tag插件
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/daa4c03f/" rel="next" title="hr 面试">
+      hr 面试 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ubuntu-tweak"><span class="nav-number">1.</span> <span class="nav-text">ubuntu tweak</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#gnome-%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.</span> <span class="nav-text">gnome 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%8C%E9%9D%A2-tweak"><span class="nav-number">1.2.</span> <span class="nav-text">桌面 tweak</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96"><span class="nav-number">1.2.1.</span> <span class="nav-text">主题优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6"><span class="nav-number">1.2.2.</span> <span class="nav-text">扩展插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kde"><span class="nav-number">1.3.</span> <span class="nav-text">Kde</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%E6%8F%92%E4%BB%B6-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">扩展插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E5%A4%87"><span class="nav-number">1.4.</span> <span class="nav-text">设备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%A6%81%E7%94%A8%E8%A7%A6%E6%91%B8%E6%9D%BF"><span class="nav-number">1.4.1.</span> <span class="nav-text">笔记本禁用触摸板</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C"><span class="nav-number">1.5.</span> <span class="nav-text">命令行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85zsh"><span class="nav-number">1.5.1.</span> <span class="nav-text">安装zsh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-oh-my-zsh"><span class="nav-number">1.5.2.</span> <span class="nav-text">安装 oh-my-zsh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zsh-%E6%8F%92%E4%BB%B6"><span class="nav-number">1.5.3.</span> <span class="nav-text">zsh 插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fzf"><span class="nav-number">1.5.4.</span> <span class="nav-text">fzf</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fzf-tab-completion"><span class="nav-number">1.5.4.1.</span> <span class="nav-text">fzf-tab-completion</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AWS-CLI"><span class="nav-number">1.5.5.</span> <span class="nav-text">AWS-CLI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zsh-syntax-highlighting"><span class="nav-number">1.5.6.</span> <span class="nav-text">zsh-syntax-highlighting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zsh-autosuggestions"><span class="nav-number">1.5.7.</span> <span class="nav-text">zsh-autosuggestions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git-open"><span class="nav-number">1.5.8.</span> <span class="nav-text">git open</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zsh-completion"><span class="nav-number">1.5.9.</span> <span class="nav-text">zsh-completion</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#thefuck"><span class="nav-number">1.5.10.</span> <span class="nav-text">thefuck</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#APPS"><span class="nav-number">1.6.</span> <span class="nav-text">APPS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#terminator"><span class="nav-number">1.6.1.</span> <span class="nav-text">terminator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#trash-cli"><span class="nav-number">1.6.2.</span> <span class="nav-text">trash-cli</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hyper"><span class="nav-number">1.6.3.</span> <span class="nav-text">hyper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Variety"><span class="nav-number">1.6.4.</span> <span class="nav-text">Variety</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Yakuake"><span class="nav-number">1.6.5.</span> <span class="nav-text">Yakuake</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stacer"><span class="nav-number">1.6.6.</span> <span class="nav-text">stacer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slimbook-battery"><span class="nav-number">1.6.7.</span> <span class="nav-text">slimbook-battery</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Victor Chu"
+      src="/images/victor-blog-head.jpg">
+  <p class="site-author-name" itemprop="name">Victor Chu</p>
+  <div class="site-description" itemprop="description">blog about programming.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chutian0610" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chutian0610" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:victorchu0610@outlook.com" title="E-Mail → mailto:victorchu0610@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/victorchu" title="Zhihu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;victorchu" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>Zhihu</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">浙ICP备18037908号-1 </a>
+      <img src="/images/gongan_icon.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010902002043" rel="noopener" target="_blank">浙公网安备 33010902002043号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Victor Chu</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">74k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:03</span>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-602cdf671abc4d97" async="async"></script>
+  </div>
+
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"w9V76fnWW4i1CDUcoU050WMR-gzGzoHsz","app_key":"z2Os3jXWQPRyBgAaNTVPLMsc","server_url":"http://blog-counter.victorchu.info","security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script>
+<script src="/js/algolia-search.js"></script>
+
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 't6HLuSRr4YwCQfsRp';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'default',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'YL6wYttLzz3BHuF4UweHkwrR-gzGzoHsz',
+      appKey     : 'Ht27TVDRb5eqChY1wuGCjwcF',
+      placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

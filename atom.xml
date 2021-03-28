@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Victor.Chu&#39;s Blog</title>
+  <icon>http://www.victorchu.info/icon.png</icon>
+  <subtitle>I love Coding !</subtitle>
+  <link href="http://www.victorchu.info/atom.xml" rel="self"/>
+  
+  <link href="http://www.victorchu.info/"/>
+  <updated>2021-03-28T05:05:23.693Z</updated>
+  <id>http://www.victorchu.info/</id>
+  
+  <author>
+    <name>Victor Chu</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>设计模式之享元模式</title>
+    <link href="http://www.victorchu.info/posts/ab6d78a/"/>
+    <id>http://www.victorchu.info/posts/ab6d78a/</id>
+    <published>2017-01-20T14:09:15.000Z</published>
+    <updated>2021-03-28T05:05:23.693Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;设计模式之享元模式&quot;&gt;&lt;a href=&quot;#设计模式之享元模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之享元模式&quot;&gt;&lt;/a&gt;设计模式之享元模式&lt;/h1&gt;&lt;p&gt;享元模式以共享的方式高效地支持大量细粒度对象的重用，享元对象能做到共享的关键是区分了内部状态(Intrinsic State)和外部状态(Extrinsic State)。下面将对享元的内部状态和外部状态进行简单的介绍：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;内部状态是存储在享元对象内部并且不会随环境改变而改变的状态，内部状态可以共享。如字符的内容，不会随外部环境的变化而变化，无论在任何环境下字符“a”始终是“a”，都不会变成“b”。&lt;/li&gt;
+&lt;li&gt;外部状态是随环境改变而改变的、不可以共享的状态。享元对象的外部状态通常由客户端保存，并在享元对象被创建之后，需要使用的时候再传入到享元对象内部。一个外部状态与另一个外部状态之间是相互独立的。如字符的颜色，可以在不同的地方有不同的颜色，例如有的“a”是红色的，有的“a”是绿色的，字符的大小也是如此，有的“a”是五号字，有的“a”是四号字。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;通过区分内部状态和外部状态，我们可以将具有相同内部状态的对象存储在享元池中，享元池中的对象是可以实现共享的，需要的时候就将对象从享元池中取出，实现对象的复用。通过向取出的对象注入不同的外部状态，可以得到一系列相似的对象，而这些对象在内存中实际上只存储一份。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之门面模式</title>
+    <link href="http://www.victorchu.info/posts/12864415/"/>
+    <id>http://www.victorchu.info/posts/12864415/</id>
+    <published>2017-01-18T17:44:04.000Z</published>
+    <updated>2021-03-28T04:59:14.943Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;设计模式之门面模式&quot;&gt;&lt;a href=&quot;#设计模式之门面模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之门面模式&quot;&gt;&lt;/a&gt;设计模式之门面模式&lt;/h1&gt;&lt;p&gt;门面模式是一种使用频率非常高的结构型设计模式，它通过引入一个外观角色来简化客户端与子系统之间的交互，为复杂的子系统调用提供一个统一的入口，降低子系统与客户端的耦合度，且客户端调用非常方便。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之观察者模式</title>
+    <link href="http://www.victorchu.info/posts/168b5985/"/>
+    <id>http://www.victorchu.info/posts/168b5985/</id>
+    <published>2017-01-17T17:26:17.000Z</published>
+    <updated>2021-03-28T04:54:01.650Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;设计模式之观察者模式&quot;&gt;&lt;a href=&quot;#设计模式之观察者模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之观察者模式&quot;&gt;&lt;/a&gt;设计模式之观察者模式&lt;/h1&gt;&lt;p&gt;观察者模式是使用频率最高的设计模式之一，它用于建立一种对象与对象之间的依赖关系，一个对象发生改变时将自动通知其他对象，其他对象将相应作出反应。在观察者模式中，发生改变的对象称为观察目标，而被通知的对象称为观察者，一个观察目标可以对应多个观察者，而且这些观察者之间可以没有任何相互联系，可以根据需要增加和删除观察者，使得系统更易于扩展。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之组合模式</title>
+    <link href="http://www.victorchu.info/posts/34ace952/"/>
+    <id>http://www.victorchu.info/posts/34ace952/</id>
+    <published>2017-01-16T16:59:51.000Z</published>
+    <updated>2021-03-28T04:33:19.721Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;设计模式之组合模式&quot;&gt;&lt;a href=&quot;#设计模式之组合模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之组合模式&quot;&gt;&lt;/a&gt;设计模式之组合模式&lt;/h1&gt;&lt;p&gt;对于树形结构，当容器对象的某一个方法被调用时，将遍历整个树形结构，寻找也包含这个方法的成员对象（可以是容器对象，也可以是叶子对象）并调用执行，牵一而动百，其中使用了递归调用的机制来对整个结构进行处理。由于容器对象和叶子对象在功能上的区别，在使用这些对象的代码中必须有区别地对待容器对象和叶子对象，而实际上大多数情况下我们希望一致地处理它们，因为对于这些对象的区别对待将会使得程序非常复杂。组合模式为解决此类问题而诞生，它可以让叶子对象和容器对象的使用具有一致性。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之备忘录模式</title>
+    <link href="http://www.victorchu.info/posts/4fb85fc6/"/>
+    <id>http://www.victorchu.info/posts/4fb85fc6/</id>
+    <published>2017-01-14T17:29:05.000Z</published>
+    <updated>2021-03-28T04:23:19.311Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;设计模式之备忘录模式&quot;&gt;&lt;a href=&quot;#设计模式之备忘录模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之备忘录模式&quot;&gt;&lt;/a&gt;设计模式之备忘录模式&lt;/h1&gt;&lt;p&gt;备忘录模式提供了一种状态恢复的实现机制，使得用户可以方便地回到一个特定的历史步骤，当新的状态无效或者存在问题时，可以使用暂时存储起来的备忘录将状态复原，当前很多软件都提供了撤销(Undo)操作，其中就使用了备忘录模式。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之迭代器模式</title>
+    <link href="http://www.victorchu.info/posts/1cfae984/"/>
+    <id>http://www.victorchu.info/posts/1cfae984/</id>
+    <published>2017-01-13T16:48:22.000Z</published>
+    <updated>2021-03-28T04:10:28.398Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;设计模式之迭代器模式&quot;&gt;&lt;a href=&quot;#设计模式之迭代器模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之迭代器模式&quot;&gt;&lt;/a&gt;设计模式之迭代器模式&lt;/h1&gt;&lt;p&gt;在软件开发中，我们经常需要使用聚合对象来存储一系列数据。聚合对象拥有两个职责：一是存储数据；二是遍历数据。从依赖性来看，前者是聚合对象的基本职责；而后者既是可变化的，又是可分离的。因此，可以将遍历数据的行为从聚合对象中分离出来，封装在一个被称之为“迭代器”的对象中，由迭代器来提供遍历聚合对象内部数据的行为，这将简化聚合对象的设计，更符合“单一职责原则”的要求。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之适配器模式</title>
+    <link href="http://www.victorchu.info/posts/796a0e79/"/>
+    <id>http://www.victorchu.info/posts/796a0e79/</id>
+    <published>2017-01-13T15:58:23.000Z</published>
+    <updated>2021-03-27T12:13:40.877Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;设计模式之适配器模式&quot;&gt;&lt;a href=&quot;#设计模式之适配器模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之适配器模式&quot;&gt;&lt;/a&gt;设计模式之适配器模式&lt;/h1&gt;&lt;p&gt;在适配器模式中引入了一个被称为适配器(Adapter)的包装类，而它所包装的对象称为适配者(Adaptee)，即被适配的类。适配器的实现就是把客户类的请求转化为对适配者的相应接口的调用。也就是说：当客户类调用适配器的方法时，在适配器类的内部将调用适配者类的方法，而这个过程对客户类是透明的，客户类并不直接访问适配者类。因此，适配器让那些由于接口不兼容而不能交互的类可以一起工作。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之策略模式</title>
+    <link href="http://www.victorchu.info/posts/99c8c8b1/"/>
+    <id>http://www.victorchu.info/posts/99c8c8b1/</id>
+    <published>2017-01-12T15:08:37.000Z</published>
+    <updated>2021-03-25T09:50:19.677Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;设计模式之策略模式&quot;&gt;&lt;a href=&quot;#设计模式之策略模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之策略模式&quot;&gt;&lt;/a&gt;设计模式之策略模式&lt;/h1&gt;&lt;p&gt;在策略模式中，我们可以定义一些独立的类来封装不同的算法，每一个类封装一种具体的算法，在这里，每一个封装算法的类我们都可以称之为一种策略(Strategy)，为了保证这些策略在使用时具有一致性，一般会提供一个抽象的策略类来做规则的定义，而每种算法则对应于一个具体策略类。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之装饰模式</title>
+    <link href="http://www.victorchu.info/posts/d5a7dab/"/>
+    <id>http://www.victorchu.info/posts/d5a7dab/</id>
+    <published>2017-01-10T16:50:28.000Z</published>
+    <updated>2021-03-25T09:05:15.154Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;设计模式之装饰模式&quot;&gt;&lt;a href=&quot;#设计模式之装饰模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之装饰模式&quot;&gt;&lt;/a&gt;设计模式之装饰模式&lt;/h1&gt;&lt;p&gt;装饰模式是一种用于替代继承的技术，它通过一种无须定义子类的方式来给对象动态增加职责，使用对象之间的关联关系取代类之间的继承关系。在装饰模式中引入了装饰类，在装饰类中既可以调用待装饰的原有类的方法，还可以增加新的方法，以扩充原有类的功能。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之责任链模式</title>
+    <link href="http://www.victorchu.info/posts/eea759ed/"/>
+    <id>http://www.victorchu.info/posts/eea759ed/</id>
+    <published>2017-01-10T15:41:24.000Z</published>
+    <updated>2021-03-18T14:18:12.143Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;设计模式之责任链模式&quot;&gt;&lt;a href=&quot;#设计模式之责任链模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之责任链模式&quot;&gt;&lt;/a&gt;设计模式之责任链模式&lt;/h1&gt;&lt;p&gt;职责链可以是一条直线、一个环或者一个树形结构，最常见的职责链是直线型，即沿着一条单向的链来传递请求。链上的每一个对象都是请求处理者，职责链模式可以将请求的处理者组织成一条链，并让请求沿着链传递，由链上的处理者对请求进行相应的处理，客户端无须关心请求的处理细节以及请求的传递，只需将请求发送到链上即可，实现请求发送者和请求处理者解耦。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之命令模式</title>
+    <link href="http://www.victorchu.info/posts/933830c7/"/>
+    <id>http://www.victorchu.info/posts/933830c7/</id>
+    <published>2017-01-09T15:25:32.000Z</published>
+    <updated>2021-03-18T14:18:31.935Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;设计模式之命令模式&quot;&gt;&lt;a href=&quot;#设计模式之命令模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之命令模式&quot;&gt;&lt;/a&gt;设计模式之命令模式&lt;/h1&gt;&lt;p&gt;在软件开发中，我们经常需要向某些对象发送请求（调用其中的某个或某些方法），但是并不知道请求的接收者是谁，也不知道被请求的操作是哪个，此时，我们特别希望能够以一种松耦合的方式来设计软件，使得请求发送者与请求接收者能够消除彼此之间的耦合，让对象之间的调用关系更加灵活，可以灵活地指定请求接收者以及被请求的操作。&lt;/p&gt;
+&lt;p&gt;命令模式为此类问题提供了一个较为完美的解决方案。命令模式可以将请求发送者和接收者完全解耦，发送者与接收者之间没有直接引用关系，发送请求的对象只需要知道如何发送请求，而不必知道如何完成请求。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之中介者模式</title>
+    <link href="http://www.victorchu.info/posts/5c993c8f/"/>
+    <id>http://www.victorchu.info/posts/5c993c8f/</id>
+    <published>2017-01-08T15:43:52.000Z</published>
+    <updated>2021-03-13T10:26:06.817Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;设计模式之中介者模式&quot;&gt;&lt;a href=&quot;#设计模式之中介者模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之中介者模式&quot;&gt;&lt;/a&gt;设计模式之中介者模式&lt;/h1&gt;&lt;p&gt;如果在一个系统中对象之间的联系呈现为网状结构。对象之间存在大量的多对多联系，将导致系统非常复杂，这些对象既会影响别的对象，也会被别的对象所影响，这些对象称为同事对象，它们之间通过彼此的相互作用实现系统的行为。在网状结构中，几乎每个对象都需要与其他对象发生相互作用，而这种相互作用表现为一个对象与另外一个对象的直接耦合，这将导致一个过度耦合的系统。&lt;/p&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;classDiagram
+class A
+class B
+class C
+A ..&amp;gt; B : 
+A ..&amp;gt; C : 
+B ..&amp;gt; A : 
+B ..&amp;gt; C : 
+C ..&amp;gt; A : 
+C ..&amp;gt; B&lt;/pre&gt;</summary>
+    
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之原型模式</title>
+    <link href="http://www.victorchu.info/posts/7a86e223/"/>
+    <id>http://www.victorchu.info/posts/7a86e223/</id>
+    <published>2017-01-06T17:16:41.000Z</published>
+    <updated>2021-03-18T14:19:24.361Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;设计模式之原型模式&quot;&gt;&lt;a href=&quot;#设计模式之原型模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之原型模式&quot;&gt;&lt;/a&gt;设计模式之原型模式&lt;/h1&gt;&lt;p&gt;原型模式(Prototype  Pattern)：使用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。原型模式是一种对象创建型模式。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之模板方法模式</title>
+    <link href="http://www.victorchu.info/posts/6948162f/"/>
+    <id>http://www.victorchu.info/posts/6948162f/</id>
+    <published>2017-01-05T17:59:19.000Z</published>
+    <updated>2021-03-18T14:19:37.395Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;设计模式-模板方法模式&quot;&gt;&lt;a href=&quot;#设计模式-模板方法模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式-模板方法模式&quot;&gt;&lt;/a&gt;设计模式-模板方法模式&lt;/h1&gt;&lt;p&gt;在软件开发中，会遇到下面这种情况：&lt;/p&gt;
+&lt;p&gt;某个方法的实现需要多个步骤，其中有些步骤是固定的，而有些步骤并不固定，存在可变性。为了提高代码的复用性和系统的灵活性，可以使用一种称之为模板方法模式的设计模式来对这类情况进行设计。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之建造者模式</title>
+    <link href="http://www.victorchu.info/posts/722e57af/"/>
+    <id>http://www.victorchu.info/posts/722e57af/</id>
+    <published>2017-01-05T15:02:12.000Z</published>
+    <updated>2021-03-18T14:21:18.691Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;设计模式之建造者模式&quot;&gt;&lt;a href=&quot;#设计模式之建造者模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之建造者模式&quot;&gt;&lt;/a&gt;设计模式之建造者模式&lt;/h1&gt;&lt;p&gt;建造者模式是较为复杂的创建型模式，它将客户端与包含多个组成部分（或部件）的复杂对象的创建过程分离，客户端无须知道复杂对象的内部组成部分与装配方式，只需要知道所需建造者的类型即可。&lt;br&gt;它关注如何一步一步创建一个的复杂对象，不同的具体建造者定义了不同的创建过程，且具体建造者相互独立，增加新的建造者非常方便，无须修改已有代码，系统具有较好的扩展性。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之抽象工厂模式</title>
+    <link href="http://www.victorchu.info/posts/1ef33906/"/>
+    <id>http://www.victorchu.info/posts/1ef33906/</id>
+    <published>2017-01-03T18:52:02.000Z</published>
+    <updated>2021-03-18T14:21:35.883Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;设计模式之抽象工厂模式&quot;&gt;&lt;a href=&quot;#设计模式之抽象工厂模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之抽象工厂模式&quot;&gt;&lt;/a&gt;设计模式之抽象工厂模式&lt;/h1&gt;&lt;p&gt;工厂方法模式通过引入工厂等级结构，解决了简单工厂模式中工厂类职责太重的问题，但由于工厂方法模式中的每个工厂只生产一类产品，可能会导致系统中存在大量的工厂类，势必会增加系统的开销。&lt;/p&gt;
+&lt;p&gt;此时，我们可以考虑将一些相关的产品组成一个“产品族”，由同一个工厂来统一生产，这就是我们本文将要学习的抽象工厂模式的基本思想。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式之工厂模式</title>
+    <link href="http://www.victorchu.info/posts/bf53f1b3/"/>
+    <id>http://www.victorchu.info/posts/bf53f1b3/</id>
+    <published>2017-01-03T15:21:13.000Z</published>
+    <updated>2021-03-18T14:21:44.919Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;工厂模式&quot;&gt;&lt;a href=&quot;#工厂模式&quot; class=&quot;headerlink&quot; title=&quot;工厂模式&quot;&gt;&lt;/a&gt;工厂模式&lt;/h1&gt;&lt;p&gt;在面向对象编程中, 最通常的方法是一个new操作符产生一个对象实例,new操作符就是用来构造对象实例的。但是在一些情况下,new操作符直接生成对象会带来一些问题。举例来说,许多类型对象的创造需要一系列的步骤: 你可能需要计算或取得对象的初始设置;选择生成哪个子对象实例;或在生成你需要的对象之前必须先生成一些辅助功能的对象。在这些情况,新对象的建立就是一个“过程”，不仅是一个操作，像一部大机器中的一个齿轮传动。&lt;/p&gt;
+&lt;p&gt;那么如何能轻松方便地构造对象实例，而不必关心构造对象实例的细节和复杂过程呢？答案就是工厂模式。&lt;br&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>面向对象设计原则</title>
+    <link href="http://www.victorchu.info/posts/f9c29644/"/>
+    <id>http://www.victorchu.info/posts/f9c29644/</id>
+    <published>2017-01-01T14:17:32.000Z</published>
+    <updated>2021-02-18T13:52:50.775Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;面向对象设计原则&quot;&gt;&lt;a href=&quot;#面向对象设计原则&quot; class=&quot;headerlink&quot; title=&quot;面向对象设计原则&quot;&gt;&lt;/a&gt;面向对象设计原则&lt;/h1&gt;&lt;blockquote class=&quot;blockquote-center&quot;&gt;
+            &lt;i class=&quot;fa fa-quote-left&quot;&gt;&lt;/i&gt;
+            &lt;p&gt;如何同时提高一个软件系统的可维护性和可复用性是面向对象设计需要解决的核心问题之一。&lt;/p&gt;
+
+            &lt;i class=&quot;fa fa-quote-right&quot;&gt;&lt;/i&gt;
+          &lt;/blockquote&gt;
+&lt;p&gt;在面向对象设计中，可维护性的复用是以设计原则为基础的。每一个原则都蕴含一些面向对象设计的思想，可以从不同的角度提升一个软件结构的设计水平。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hr 面试</title>
+    <link href="http://www.victorchu.info/posts/daa4c03f/"/>
+    <id>http://www.victorchu.info/posts/daa4c03f/</id>
+    <published>2016-12-14T11:50:42.000Z</published>
+    <updated>2021-02-17T10:10:21.840Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;hr-面试&quot;&gt;&lt;a href=&quot;#hr-面试&quot; class=&quot;headerlink&quot; title=&quot;hr 面试&quot;&gt;&lt;/a&gt;hr 面试&lt;/h1&gt;&lt;p&gt;收集了一些常见的HR面试题&lt;/p&gt;
+&lt;div class=&quot;note default&quot;&gt;
+            &lt;p&gt;持续更新中&lt;/p&gt;
+          &lt;/div&gt;</summary>
+    
+    
+    
+    <category term="面试" scheme="http://www.victorchu.info/categories/%E9%9D%A2%E8%AF%95/"/>
+    
+    <category term="HR" scheme="http://www.victorchu.info/categories/%E9%9D%A2%E8%AF%95/HR/"/>
+    
+    
+    <category term="continue" scheme="http://www.victorchu.info/tags/continue/"/>
+    
+    <category term="面试" scheme="http://www.victorchu.info/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ubuntu tweak</title>
+    <link href="http://www.victorchu.info/posts/aa450f3f/"/>
+    <id>http://www.victorchu.info/posts/aa450f3f/</id>
+    <published>2016-12-13T14:17:32.000Z</published>
+    <updated>2021-02-17T09:46:15.383Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;ubuntu-tweak&quot;&gt;&lt;a href=&quot;#ubuntu-tweak&quot; class=&quot;headerlink&quot; title=&quot;ubuntu tweak&quot;&gt;&lt;/a&gt;ubuntu tweak&lt;/h1&gt;&lt;p&gt;ubuntu桌面的一些优化调整和一些常用应用程序。&lt;/p&gt;
+&lt;div class=&quot;note default&quot;&gt;
+            &lt;p&gt;持续更新中&lt;/p&gt;
+          &lt;/div&gt;</summary>
+    
+    
+    
+    <category term="Ubuntu" scheme="http://www.victorchu.info/categories/Ubuntu/"/>
+    
+    <category term="Desktop" scheme="http://www.victorchu.info/categories/Ubuntu/Desktop/"/>
+    
+    
+    <category term="ubuntu" scheme="http://www.victorchu.info/tags/ubuntu/"/>
+    
+    <category term="continue" scheme="http://www.victorchu.info/tags/continue/"/>
+    
+  </entry>
+  
+</feed>
