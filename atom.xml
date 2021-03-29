@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Victor.Chu&#39;s Blog</title>
-  <icon>http://www.victorchu.info/icon.png</icon>
+  <icon>https://github-blog.victorchu.info/icon.png</icon>
   <subtitle>I love Coding !</subtitle>
-  <link href="http://www.victorchu.info/atom.xml" rel="self"/>
+  <link href="https://github-blog.victorchu.info/atom.xml" rel="self"/>
   
-  <link href="http://www.victorchu.info/"/>
+  <link href="https://github-blog.victorchu.info/"/>
   <updated>2021-03-28T07:03:43.946Z</updated>
-  <id>http://www.victorchu.info/</id>
+  <id>https://github-blog.victorchu.info/</id>
   
   <author>
     <name>Victor Chu</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>设计模式之享元模式</title>
-    <link href="http://www.victorchu.info/posts/ab6d78a/"/>
-    <id>http://www.victorchu.info/posts/ab6d78a/</id>
+    <link href="https://github-blog.victorchu.info/posts/ab6d78a/"/>
+    <id>https://github-blog.victorchu.info/posts/ab6d78a/</id>
     <published>2017-01-20T14:09:15.000Z</published>
     <updated>2021-03-28T07:03:43.946Z</updated>
     
@@ -33,21 +33,21 @@
     
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>设计模式之门面模式</title>
-    <link href="http://www.victorchu.info/posts/12864415/"/>
-    <id>http://www.victorchu.info/posts/12864415/</id>
+    <link href="https://github-blog.victorchu.info/posts/12864415/"/>
+    <id>https://github-blog.victorchu.info/posts/12864415/</id>
     <published>2017-01-18T17:44:04.000Z</published>
     <updated>2021-03-28T04:59:14.943Z</updated>
     
@@ -56,21 +56,21 @@
     
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>设计模式之观察者模式</title>
-    <link href="http://www.victorchu.info/posts/168b5985/"/>
-    <id>http://www.victorchu.info/posts/168b5985/</id>
+    <link href="https://github-blog.victorchu.info/posts/168b5985/"/>
+    <id>https://github-blog.victorchu.info/posts/168b5985/</id>
     <published>2017-01-17T17:26:17.000Z</published>
     <updated>2021-03-28T04:54:01.650Z</updated>
     
@@ -79,21 +79,21 @@
     
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>设计模式之组合模式</title>
-    <link href="http://www.victorchu.info/posts/34ace952/"/>
-    <id>http://www.victorchu.info/posts/34ace952/</id>
+    <link href="https://github-blog.victorchu.info/posts/34ace952/"/>
+    <id>https://github-blog.victorchu.info/posts/34ace952/</id>
     <published>2017-01-16T16:59:51.000Z</published>
     <updated>2021-03-28T04:33:19.721Z</updated>
     
@@ -102,21 +102,21 @@
     
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>设计模式之备忘录模式</title>
-    <link href="http://www.victorchu.info/posts/4fb85fc6/"/>
-    <id>http://www.victorchu.info/posts/4fb85fc6/</id>
+    <link href="https://github-blog.victorchu.info/posts/4fb85fc6/"/>
+    <id>https://github-blog.victorchu.info/posts/4fb85fc6/</id>
     <published>2017-01-14T17:29:05.000Z</published>
     <updated>2021-03-28T04:23:19.311Z</updated>
     
@@ -125,21 +125,21 @@
     
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>设计模式之迭代器模式</title>
-    <link href="http://www.victorchu.info/posts/1cfae984/"/>
-    <id>http://www.victorchu.info/posts/1cfae984/</id>
+    <link href="https://github-blog.victorchu.info/posts/1cfae984/"/>
+    <id>https://github-blog.victorchu.info/posts/1cfae984/</id>
     <published>2017-01-13T16:48:22.000Z</published>
     <updated>2021-03-28T04:10:28.398Z</updated>
     
@@ -148,21 +148,21 @@
     
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>设计模式之适配器模式</title>
-    <link href="http://www.victorchu.info/posts/796a0e79/"/>
-    <id>http://www.victorchu.info/posts/796a0e79/</id>
+    <link href="https://github-blog.victorchu.info/posts/796a0e79/"/>
+    <id>https://github-blog.victorchu.info/posts/796a0e79/</id>
     <published>2017-01-13T15:58:23.000Z</published>
     <updated>2021-03-27T12:13:40.877Z</updated>
     
@@ -171,21 +171,21 @@
     
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>设计模式之策略模式</title>
-    <link href="http://www.victorchu.info/posts/99c8c8b1/"/>
-    <id>http://www.victorchu.info/posts/99c8c8b1/</id>
+    <link href="https://github-blog.victorchu.info/posts/99c8c8b1/"/>
+    <id>https://github-blog.victorchu.info/posts/99c8c8b1/</id>
     <published>2017-01-12T15:08:37.000Z</published>
     <updated>2021-03-25T09:50:19.677Z</updated>
     
@@ -194,21 +194,21 @@
     
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>设计模式之装饰模式</title>
-    <link href="http://www.victorchu.info/posts/d5a7dab/"/>
-    <id>http://www.victorchu.info/posts/d5a7dab/</id>
+    <link href="https://github-blog.victorchu.info/posts/d5a7dab/"/>
+    <id>https://github-blog.victorchu.info/posts/d5a7dab/</id>
     <published>2017-01-10T16:50:28.000Z</published>
     <updated>2021-03-25T09:05:15.154Z</updated>
     
@@ -217,21 +217,21 @@
     
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>设计模式之责任链模式</title>
-    <link href="http://www.victorchu.info/posts/eea759ed/"/>
-    <id>http://www.victorchu.info/posts/eea759ed/</id>
+    <link href="https://github-blog.victorchu.info/posts/eea759ed/"/>
+    <id>https://github-blog.victorchu.info/posts/eea759ed/</id>
     <published>2017-01-10T15:41:24.000Z</published>
     <updated>2021-03-18T14:18:12.143Z</updated>
     
@@ -240,21 +240,21 @@
     
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>设计模式之命令模式</title>
-    <link href="http://www.victorchu.info/posts/933830c7/"/>
-    <id>http://www.victorchu.info/posts/933830c7/</id>
+    <link href="https://github-blog.victorchu.info/posts/933830c7/"/>
+    <id>https://github-blog.victorchu.info/posts/933830c7/</id>
     <published>2017-01-09T15:25:32.000Z</published>
     <updated>2021-03-18T14:18:31.935Z</updated>
     
@@ -264,21 +264,21 @@
     
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>设计模式之中介者模式</title>
-    <link href="http://www.victorchu.info/posts/5c993c8f/"/>
-    <id>http://www.victorchu.info/posts/5c993c8f/</id>
+    <link href="https://github-blog.victorchu.info/posts/5c993c8f/"/>
+    <id>https://github-blog.victorchu.info/posts/5c993c8f/</id>
     <published>2017-01-08T15:43:52.000Z</published>
     <updated>2021-03-13T10:26:06.817Z</updated>
     
@@ -297,21 +297,21 @@ C ..&amp;gt; B&lt;/pre&gt;</summary>
     
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>设计模式之原型模式</title>
-    <link href="http://www.victorchu.info/posts/7a86e223/"/>
-    <id>http://www.victorchu.info/posts/7a86e223/</id>
+    <link href="https://github-blog.victorchu.info/posts/7a86e223/"/>
+    <id>https://github-blog.victorchu.info/posts/7a86e223/</id>
     <published>2017-01-06T17:16:41.000Z</published>
     <updated>2021-03-18T14:19:24.361Z</updated>
     
@@ -320,21 +320,21 @@ C ..&amp;gt; B&lt;/pre&gt;</summary>
     
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>设计模式之模板方法模式</title>
-    <link href="http://www.victorchu.info/posts/6948162f/"/>
-    <id>http://www.victorchu.info/posts/6948162f/</id>
+    <link href="https://github-blog.victorchu.info/posts/6948162f/"/>
+    <id>https://github-blog.victorchu.info/posts/6948162f/</id>
     <published>2017-01-05T17:59:19.000Z</published>
     <updated>2021-03-18T14:19:37.395Z</updated>
     
@@ -344,21 +344,21 @@ C ..&amp;gt; B&lt;/pre&gt;</summary>
     
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>设计模式之建造者模式</title>
-    <link href="http://www.victorchu.info/posts/722e57af/"/>
-    <id>http://www.victorchu.info/posts/722e57af/</id>
+    <link href="https://github-blog.victorchu.info/posts/722e57af/"/>
+    <id>https://github-blog.victorchu.info/posts/722e57af/</id>
     <published>2017-01-05T15:02:12.000Z</published>
     <updated>2021-03-18T14:21:18.691Z</updated>
     
@@ -367,21 +367,21 @@ C ..&amp;gt; B&lt;/pre&gt;</summary>
     
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>设计模式之抽象工厂模式</title>
-    <link href="http://www.victorchu.info/posts/1ef33906/"/>
-    <id>http://www.victorchu.info/posts/1ef33906/</id>
+    <link href="https://github-blog.victorchu.info/posts/1ef33906/"/>
+    <id>https://github-blog.victorchu.info/posts/1ef33906/</id>
     <published>2017-01-03T18:52:02.000Z</published>
     <updated>2021-03-18T14:21:35.883Z</updated>
     
@@ -391,21 +391,21 @@ C ..&amp;gt; B&lt;/pre&gt;</summary>
     
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>设计模式之工厂模式</title>
-    <link href="http://www.victorchu.info/posts/bf53f1b3/"/>
-    <id>http://www.victorchu.info/posts/bf53f1b3/</id>
+    <link href="https://github-blog.victorchu.info/posts/bf53f1b3/"/>
+    <id>https://github-blog.victorchu.info/posts/bf53f1b3/</id>
     <published>2017-01-03T15:21:13.000Z</published>
     <updated>2021-03-18T14:21:44.919Z</updated>
     
@@ -415,21 +415,21 @@ C ..&amp;gt; B&lt;/pre&gt;</summary>
     
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>面向对象设计原则</title>
-    <link href="http://www.victorchu.info/posts/f9c29644/"/>
-    <id>http://www.victorchu.info/posts/f9c29644/</id>
+    <link href="https://github-blog.victorchu.info/posts/f9c29644/"/>
+    <id>https://github-blog.victorchu.info/posts/f9c29644/</id>
     <published>2017-01-01T14:17:32.000Z</published>
     <updated>2021-02-18T13:52:50.775Z</updated>
     
@@ -444,21 +444,21 @@ C ..&amp;gt; B&lt;/pre&gt;</summary>
     
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/categories/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="Architecture" scheme="http://www.victorchu.info/tags/Architecture/"/>
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
     
-    <category term="基本设计模式" scheme="http://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>hr 面试</title>
-    <link href="http://www.victorchu.info/posts/daa4c03f/"/>
-    <id>http://www.victorchu.info/posts/daa4c03f/</id>
+    <link href="https://github-blog.victorchu.info/posts/daa4c03f/"/>
+    <id>https://github-blog.victorchu.info/posts/daa4c03f/</id>
     <published>2016-12-14T11:50:42.000Z</published>
     <updated>2021-02-17T10:10:21.840Z</updated>
     
@@ -470,21 +470,21 @@ C ..&amp;gt; B&lt;/pre&gt;</summary>
     
     
     
-    <category term="面试" scheme="http://www.victorchu.info/categories/%E9%9D%A2%E8%AF%95/"/>
+    <category term="面试" scheme="https://github-blog.victorchu.info/categories/%E9%9D%A2%E8%AF%95/"/>
     
-    <category term="HR" scheme="http://www.victorchu.info/categories/%E9%9D%A2%E8%AF%95/HR/"/>
+    <category term="HR" scheme="https://github-blog.victorchu.info/categories/%E9%9D%A2%E8%AF%95/HR/"/>
     
     
-    <category term="continue" scheme="http://www.victorchu.info/tags/continue/"/>
+    <category term="continue" scheme="https://github-blog.victorchu.info/tags/continue/"/>
     
-    <category term="面试" scheme="http://www.victorchu.info/tags/%E9%9D%A2%E8%AF%95/"/>
+    <category term="面试" scheme="https://github-blog.victorchu.info/tags/%E9%9D%A2%E8%AF%95/"/>
     
   </entry>
   
   <entry>
     <title>ubuntu tweak</title>
-    <link href="http://www.victorchu.info/posts/aa450f3f/"/>
-    <id>http://www.victorchu.info/posts/aa450f3f/</id>
+    <link href="https://github-blog.victorchu.info/posts/aa450f3f/"/>
+    <id>https://github-blog.victorchu.info/posts/aa450f3f/</id>
     <published>2016-12-13T14:17:32.000Z</published>
     <updated>2021-02-17T09:46:15.383Z</updated>
     
@@ -496,14 +496,14 @@ C ..&amp;gt; B&lt;/pre&gt;</summary>
     
     
     
-    <category term="Ubuntu" scheme="http://www.victorchu.info/categories/Ubuntu/"/>
+    <category term="Ubuntu" scheme="https://github-blog.victorchu.info/categories/Ubuntu/"/>
     
-    <category term="Desktop" scheme="http://www.victorchu.info/categories/Ubuntu/Desktop/"/>
+    <category term="Desktop" scheme="https://github-blog.victorchu.info/categories/Ubuntu/Desktop/"/>
     
     
-    <category term="ubuntu" scheme="http://www.victorchu.info/tags/ubuntu/"/>
+    <category term="ubuntu" scheme="https://github-blog.victorchu.info/tags/ubuntu/"/>
     
-    <category term="continue" scheme="http://www.victorchu.info/tags/continue/"/>
+    <category term="continue" scheme="https://github-blog.victorchu.info/tags/continue/"/>
     
   </entry>
   
