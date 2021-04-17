@@ -21,30 +21,34 @@
     var CONFIG = {"hostname":"github-blog.victorchu.info","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":"mac","style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"appID":"X9UOD4FSUP","apiKey":"fa32db1f02073025c69da8ebad0a6aa6","indexName":"hexo-next-blog","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="blog about programming.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Victor.Chu&#39;s Blog">
-<meta property="og:url" content="https://github-blog.victorchu.info/page/3/index.html">
+  <meta name="description" content="设计模式之桥梁模式如果软件系统中某个类存在两个独立变化的维度，通过该模式可以将这两个维度分离出来，使两者可以独立扩展，让系统更加符合“单一职责原则”。与多层继承方案不同，它将两个独立变化的维度设计为两个独立的继承等级结构，并且在抽象层建立一个抽象关联，该关联关系类似一条连接两个独立继承结构的桥，故名桥梁模式。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式之桥梁模式">
+<meta property="og:url" content="https://github-blog.victorchu.info/posts/28327c8a/index.html">
 <meta property="og:site_name" content="Victor.Chu&#39;s Blog">
-<meta property="og:description" content="blog about programming.">
+<meta property="og:description" content="设计模式之桥梁模式如果软件系统中某个类存在两个独立变化的维度，通过该模式可以将这两个维度分离出来，使两者可以独立扩展，让系统更加符合“单一职责原则”。与多层继承方案不同，它将两个独立变化的维度设计为两个独立的继承等级结构，并且在抽象层建立一个抽象关联，该关联关系类似一条连接两个独立继承结构的桥，故名桥梁模式。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-01-21T03:36:22.000Z">
+<meta property="article:modified_time" content="2021-04-17T03:46:11.197Z">
 <meta property="article:author" content="Victor Chu">
+<meta property="article:tag" content="Architecture">
+<meta property="article:tag" content="基本设计模式">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://github-blog.victorchu.info/page/3/">
+<link rel="canonical" href="https://github-blog.victorchu.info/posts/28327c8a/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>Victor.Chu's Blog</title>
+  <title>设计模式之桥梁模式 | Victor.Chu's Blog</title>
   
 
 
@@ -192,13 +196,14 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github-blog.victorchu.info/posts/aa450f3f/">
+    <link itemprop="mainEntityOfPage" href="https://github-blog.victorchu.info/posts/28327c8a/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/victor-blog-head.jpg">
@@ -210,10 +215,9 @@
       <meta itemprop="name" content="Victor.Chu's Blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/aa450f3f/" class="post-title-link" itemprop="url">ubuntu tweak</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          设计模式之桥梁模式
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -222,14 +226,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2016-12-13 22:17:32" itemprop="dateCreated datePublished" datetime="2016-12-13T22:17:32+08:00">2016-12-13</time>
+              <time title="创建时间：2017-01-21 11:36:22" itemprop="dateCreated datePublished" datetime="2017-01-21T11:36:22+08:00">2017-01-21</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-17 17:46:15" itemprop="dateModified" datetime="2021-02-17T17:46:15+08:00">2021-02-17</time>
+                <time title="修改时间：2021-04-17 11:46:11" itemprop="dateModified" datetime="2021-04-17T11:46:11+08:00">2021-04-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -237,16 +241,16 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Ubuntu/" itemprop="url" rel="index"><span itemprop="name">Ubuntu</span></a>
+                  <a href="/categories/Architecture/" itemprop="url" rel="index"><span itemprop="name">Architecture</span></a>
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Ubuntu/Desktop/" itemprop="url" rel="index"><span itemprop="name">Desktop</span></a>
+                  <a href="/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">基本设计模式</span></a>
                 </span>
             </span>
 
           
-            <span id="/posts/aa450f3f/" class="post-meta-item leancloud_visitors" data-flag-title="ubuntu tweak" title="阅读次数">
+            <span id="/posts/28327c8a/" class="post-meta-item leancloud_visitors" data-flag-title="设计模式之桥梁模式" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -261,8 +265,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/posts/aa450f3f/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/aa450f3f/" itemprop="commentCount"></span>
+    <a title="valine" href="/posts/28327c8a/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/28327c8a/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -272,14 +276,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.1k</span>
+              <span>2.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -291,162 +295,169 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="ubuntu-tweak"><a href="#ubuntu-tweak" class="headerlink" title="ubuntu tweak"></a>ubuntu tweak</h1><p>ubuntu桌面的一些优化调整和一些常用应用程序。</p>
-<div class="note default">
-            <p>持续更新中</p>
-          </div>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/aa450f3f/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
+        <h1 id="设计模式之桥梁模式"><a href="#设计模式之桥梁模式" class="headerlink" title="设计模式之桥梁模式"></a>设计模式之桥梁模式</h1><p>如果软件系统中某个类存在两个独立变化的维度，通过该模式可以将这两个维度分离出来，使两者可以独立扩展，让系统更加符合“单一职责原则”。与多层继承方案不同，它将两个独立变化的维度设计为两个独立的继承等级结构，并且在抽象层建立一个抽象关联，该关联关系类似一条连接两个独立继承结构的桥，故名桥梁模式。</p>
+<a id="more"></a>
+<h2 id="桥梁模式的定义"><a href="#桥梁模式的定义" class="headerlink" title="桥梁模式的定义"></a>桥梁模式的定义</h2><p>桥梁模式(Bridge Pattern)：将抽象部分与它的实现部分分离，使它们都可以独立地变化。它是一种对象结构型模式，又称为柄体(Handle and Body)模式或接口(Interface)模式。</p>
+<pre class="mermaid">classDiagram
+class Abstraction{
+  -Implementor impl
+  +operation() void
+}
+class Implementor{
+  +operationImpl() void
+}
+Abstraction o-- Implementor
+class ConcreteImplementor{
+  +operationImpl() void
+}
+Implementor &lt;|-- ConcreteImplementor
+class RefinedAbstraction{
+  +operation() void
+}
+Abstraction &lt;|-- RefinedAbstraction</pre>
+
+<p>在桥梁模式结构图中包含如下几个角色：</p>
+<ul>
+<li>Abstraction（抽象类）：用于定义抽象类的接口，它一般是抽象类而不是接口，其中定义了一个Implementor（实现类接口）类型的对象并可以维护该对象，它与Implementor之间具有关联关系，它既可以包含抽象业务方法，也可以包含具体业务方法。</li>
+<li>RefinedAbstraction（扩充抽象类）：扩充由Abstraction定义的接口，通常情况下它不再是抽象类而是具体类，它实现了在Abstraction中声明的抽象业务方法，在RefinedAbstraction中可以调用在Implementor中定义的业务方法。</li>
+<li>Implementor（实现类接口）：定义实现类的接口，这个接口不一定要与Abstraction的接口完全一致，事实上这两个接口可以完全不同，一般而言，Implementor接口仅提供基本操作，而Abstraction定义的接口可能会做更多更复杂的操作。Implementor接口对这些基本操作进行了声明，而具体实现交给其子类。通过关联关系，在Abstraction中不仅拥有自己的方法，还可以调用到Implementor中定义的方法，使用关联关系来替代继承关系。</li>
+<li>ConcreteImplementor（具体实现类）：具体实现Implementor接口，在不同的ConcreteImplementor中提供基本操作的不同实现，在程序运行时，ConcreteImplementor对象将替换其父类对象，提供给抽象类具体的业务操作方法。</li>
+</ul>
+<p>在使用桥接模式时，我们首先应该识别出一个类所具有的两个独立变化的维度，将它们设计为两个独立的继承等级结构，为两个维度都提供抽象层，并建立抽象耦合。通常情况下，我们将具有两个独立变化维度的类的一些普通业务方法和与之关系最密切的维度设计为“抽象类”层次结构（抽象部分），而将另一个维度设计为“实现类”层次结构（实现部分）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Implementor</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operationImpl</span><span class="params">()</span></span>;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Abstraction</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">protected</span> Implementor impl; <span class="comment">//定义实现类接口对象  </span></span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setImpl</span><span class="params">(Implementor impl)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.impl=impl;  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span></span>;  <span class="comment">//声明抽象业务方法  </span></span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<p>在抽象类Abstraction中定义了一个实现类接口类型的成员对象impl，再通过注入的方式给该对象赋值，一般将该对象的可见性定义为protected，以便在其子类中访问Implementor的方法，其子类一般称为扩充抽象类或细化抽象类(RefinedAbstraction)。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RefinedAbstraction</span> <span class="keyword">extends</span> <span class="title">Abstraction</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="comment">//业务代码  </span></span><br><span class="line">        impl.operationImpl();  <span class="comment">//调用实现类的方法  </span></span><br><span class="line">        <span class="comment">//业务代码  </span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<h2 id="桥接模式总结"><a href="#桥接模式总结" class="headerlink" title="桥接模式总结"></a>桥接模式总结</h2><h3 id="主要优点"><a href="#主要优点" class="headerlink" title="主要优点"></a>主要优点</h3><p>桥接模式的主要优点如下：</p>
+<ol>
+<li>分离抽象接口及其实现部分。桥接模式使用“对象间的关联关系”解耦了抽象和实现之间固有的绑定关系，使得抽象和实现可以沿着各自的维度来变化。所谓抽象和实现沿着各自维度的变化，也就是说抽象和实现不再在同一个继承层次结构中，而是“子类化”它们，使它们各自都具有自己的子类，以便任何组合子类，从而获得多维度组合对象。</li>
+<li>在很多情况下，桥接模式可以取代多层继承方案，多层继承方案违背了“单一职责原则”，复用性较差，且类的个数非常多，桥接模式是比多层继承方案更好的解决方法，它极大减少了子类的个数。</li>
+<li>桥接模式提高了系统的可扩展性，在两个变化维度中任意扩展一个维度，都不需要修改原有系统，符合“开闭原则”。</li>
+</ol>
+<h3 id="主要缺点"><a href="#主要缺点" class="headerlink" title="主要缺点"></a>主要缺点</h3><p>桥接模式的主要缺点如下：</p>
+<ol>
+<li>桥接模式的使用会增加系统的理解与设计难度，由于关联关系建立在抽象层，要求开发者一开始就针对抽象层进行设计与编程。</li>
+<li>桥接模式要求正确识别出系统中两个独立变化的维度，因此其使用范围具有一定的局限性，如何正确识别两个独立维度也需要一定的经验积累。</li>
+</ol>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>在以下情况下可以考虑使用桥接模式：</p>
+<ol>
+<li>如果一个系统需要在抽象化和具体化之间增加更多的灵活性，避免在两个层次之间建立静态的继承关系，通过桥接模式可以使它们在抽象层建立一个关联关系。</li>
+<li>“抽象部分”和“实现部分”可以以继承的方式独立扩展而互不影响，在程序运行时可以动态将一个抽象化子类的对象和一个实现化子类的对象进行组合，即系统需要对抽象化角色和实现化角色进行动态耦合。</li>
+<li>一个类存在两个（或多个）独立变化的维度，且这两个（或多个）维度都需要独立进行扩展。</li>
+<li>对于那些不希望使用继承或因为多层继承导致系统类的个数急剧增加的系统，桥接模式尤为适用。</li>
+</ol>
+
     </div>
 
     
     
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
       
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github-blog.victorchu.info/posts/e1817b32/">
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/posts/f9c29644/" rel="bookmark">面向对象设计原则</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/posts/bf53f1b3/" rel="bookmark">设计模式之工厂模式</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/posts/1ef33906/" rel="bookmark">设计模式之抽象工厂模式</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/posts/722e57af/" rel="bookmark">设计模式之建造者模式</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/posts/6948162f/" rel="bookmark">设计模式之模板方法模式</a></div>
+    </li>
+  </ul>
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/victor-blog-head.jpg">
-      <meta itemprop="name" content="Victor Chu">
-      <meta itemprop="description" content="blog about programming.">
-    </span>
+        <div class="reward-container">
+  <div>坚持分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/weixin.png" alt="Victor Chu 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alpay.jpg" alt="Victor Chu 支付宝">
+        <p>支付宝</p>
+      </div>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Victor.Chu's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/e1817b32/" class="post-title-link" itemprop="url">Hexo Next tag插件</a>
-        </h2>
+  </div>
+</div>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        
 
-              <time title="创建时间：2016-12-12 17:50:54" itemprop="dateCreated datePublished" datetime="2016-12-12T17:50:54+08:00">2016-12-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-17 17:59:34" itemprop="dateModified" datetime="2021-02-17T17:59:34+08:00">2021-02-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hexo/Next/" itemprop="url" rel="index"><span itemprop="name">Next</span></a>
-                </span>
-            </span>
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Victor Chu
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://github-blog.victorchu.info/posts/28327c8a/" title="设计模式之桥梁模式">https://github-blog.victorchu.info/posts/28327c8a/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
 
-          
-            <span id="/posts/e1817b32/" class="post-meta-item leancloud_visitors" data-flag-title="Hexo Next tag插件" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/posts/e1817b32/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/e1817b32/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
             </span>
 
+            <span class="label">RSS</span>
+          </a>
         </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Hexo-Next-tag插件"><a href="#Hexo-Next-tag插件" class="headerlink" title="Hexo Next tag插件"></a>Hexo Next tag插件</h1><p>Tag Plugin 是一种使 Hexo 支持特殊样式内容的方法。例如，我们无法在标准 Markdown 中显示具有自定义尺寸的图像。然后我们可以使用标签插件来解决它。 Hexo 有很多可以帮助用户的标签。 Hexo 还具有主题接口，使主题能够创建自己的标签。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/e1817b32/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
     </div>
+  </div>
 
-    
-    
-    
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+          
+          <div class="post-tags">
+              <a href="/tags/Architecture/" rel="tag"><i class="fa fa-tag"></i> Architecture</a>
+              <a href="/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 基本设计模式</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/ab6d78a/" rel="prev" title="设计模式之享元模式">
+      <i class="fa fa-chevron-left"></i> 设计模式之享元模式
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
+    
   </article>
   
   
   
 
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
-  </nav>
-
-
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -493,6 +504,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E6%A1%A5%E6%A2%81%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">设计模式之桥梁模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%A5%E6%A2%81%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">桥梁模式的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93"><span class="nav-number">1.2.</span> <span class="nav-text">桥接模式总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E4%BC%98%E7%82%B9"><span class="nav-number">1.2.1.</span> <span class="nav-text">主要优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E7%BC%BA%E7%82%B9"><span class="nav-number">1.2.2.</span> <span class="nav-text">主要缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.2.3.</span> <span class="nav-text">适用场景</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

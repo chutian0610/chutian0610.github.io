@@ -6,7 +6,7 @@
   <link href="https://github-blog.victorchu.info/atom.xml" rel="self"/>
   
   <link href="https://github-blog.victorchu.info/"/>
-  <updated>2021-03-28T07:03:43.946Z</updated>
+  <updated>2021-04-17T03:46:11.197Z</updated>
   <id>https://github-blog.victorchu.info/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>设计模式之桥梁模式</title>
+    <link href="https://github-blog.victorchu.info/posts/28327c8a/"/>
+    <id>https://github-blog.victorchu.info/posts/28327c8a/</id>
+    <published>2017-01-21T03:36:22.000Z</published>
+    <updated>2021-04-17T03:46:11.197Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;设计模式之桥梁模式&quot;&gt;&lt;a href=&quot;#设计模式之桥梁模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之桥梁模式&quot;&gt;&lt;/a&gt;设计模式之桥梁模式&lt;/h1&gt;&lt;p&gt;如果软件系统中某个类存在两个独立变化的维度，通过该模式可以将这两个维度分离出来，使两者可以独立扩展，让系统更加符合“单一职责原则”。与多层继承方案不同，它将两个独立变化的维度设计为两个独立的继承等级结构，并且在抽象层建立一个抽象关联，该关联关系类似一条连接两个独立继承结构的桥，故名桥梁模式。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>设计模式之享元模式</title>
@@ -478,32 +501,6 @@ C ..&amp;gt; B&lt;/pre&gt;</summary>
     <category term="continue" scheme="https://github-blog.victorchu.info/tags/continue/"/>
     
     <category term="面试" scheme="https://github-blog.victorchu.info/tags/%E9%9D%A2%E8%AF%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ubuntu tweak</title>
-    <link href="https://github-blog.victorchu.info/posts/aa450f3f/"/>
-    <id>https://github-blog.victorchu.info/posts/aa450f3f/</id>
-    <published>2016-12-13T14:17:32.000Z</published>
-    <updated>2021-02-17T09:46:15.383Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;ubuntu-tweak&quot;&gt;&lt;a href=&quot;#ubuntu-tweak&quot; class=&quot;headerlink&quot; title=&quot;ubuntu tweak&quot;&gt;&lt;/a&gt;ubuntu tweak&lt;/h1&gt;&lt;p&gt;ubuntu桌面的一些优化调整和一些常用应用程序。&lt;/p&gt;
-&lt;div class=&quot;note default&quot;&gt;
-            &lt;p&gt;持续更新中&lt;/p&gt;
-          &lt;/div&gt;</summary>
-    
-    
-    
-    <category term="Ubuntu" scheme="https://github-blog.victorchu.info/categories/Ubuntu/"/>
-    
-    <category term="Desktop" scheme="https://github-blog.victorchu.info/categories/Ubuntu/Desktop/"/>
-    
-    
-    <category term="ubuntu" scheme="https://github-blog.victorchu.info/tags/ubuntu/"/>
-    
-    <category term="continue" scheme="https://github-blog.victorchu.info/tags/continue/"/>
     
   </entry>
   
