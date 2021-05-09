@@ -1,67 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hexo Next tag插件</title>
-    <url>/posts/e1817b32/</url>
-    <content><![CDATA[<h1 id="Hexo-Next-tag插件"><a href="#Hexo-Next-tag插件" class="headerlink" title="Hexo Next tag插件"></a>Hexo Next tag插件</h1><p>Tag Plugin 是一种使 Hexo 支持特殊样式内容的方法。例如，我们无法在标准 Markdown 中显示具有自定义尺寸的图像。然后我们可以使用标签插件来解决它。 Hexo 有很多可以帮助用户的标签。 Hexo 还具有主题接口，使主题能够创建自己的标签。</p>
-<a id="more"></a>
-<h2 id="文本居中引用"><a href="#文本居中引用" class="headerlink" title="文本居中引用"></a>文本居中引用</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% cq %&#125;世间所有的相遇，都是久别重逢&#123;% endcq %&#125;</span><br></pre></td></tr></table></figure>
-<p>显示效果：</p>
-<blockquote class="blockquote-center">
-            <i class="fa fa-quote-left"></i>
-            <p>世间所有的相遇，都是久别重逢</p>
-
-            <i class="fa fa-quote-right"></i>
-          </blockquote>
-<h2 id="提示块"><a href="#提示块" class="headerlink" title="提示块"></a>提示块</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% note default %&#125;</span><br><span class="line">default 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note primary %&#125;</span><br><span class="line">primary 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note success %&#125;</span><br><span class="line">success 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note info %&#125;</span><br><span class="line">info 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note warning %&#125;</span><br><span class="line">warning 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note danger %&#125;</span><br><span class="line">danger 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
-<p>显示效果：</p>
-<div class="note default">
-            <p>default 提示块标签</p>
-          </div>
-<div class="note primary">
-            <p>primary 提示块标签</p>
-          </div>
-<div class="note success">
-            <p>success 提示块标签</p>
-          </div>
-<div class="note info">
-            <p>info 提示块标签</p>
-          </div>
-<div class="note warning">
-            <p>warning 提示块标签</p>
-          </div>
-<div class="note danger">
-            <p>danger 提示块标签</p>
-          </div>
-<h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Note tag (bs-callout).</span></span><br><span class="line"><span class="attr">note:</span></span><br><span class="line">  <span class="comment"># Note tag style values:</span></span><br><span class="line">  <span class="comment">#  - simple    bs-callout old alert style. Default.</span></span><br><span class="line">  <span class="comment">#  - modern    bs-callout new (v2-v3) alert style.</span></span><br><span class="line">  <span class="comment">#  - flat      flat callout style with background, like on Mozilla or StackOverflow.</span></span><br><span class="line">  <span class="comment">#  - disabled  disable all CSS styles import of note tag.</span></span><br><span class="line">  <span class="comment"># 风格</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">flat</span></span><br><span class="line">  <span class="comment"># 要不要图标</span></span><br><span class="line">  <span class="attr">icons:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># 圆角矩形</span></span><br><span class="line">  <span class="attr">border_radius:</span> <span class="number">3</span></span><br><span class="line">  <span class="comment"># Offset lighter of background in % for modern and flat styles (modern: -12 | 12; flat: -18 | 6).</span></span><br><span class="line">  <span class="comment"># Offset also applied to label tag variables. This option can work with disabled note tag.</span></span><br><span class="line">  <span class="attr">light_bg_offset:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
-<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% label default@默认 %&#125; &#123;% label primary@主要 %&#125; &#123;% label success@成功 %&#125; &#123;% label info@信息 %&#125; &#123;% label warning@警告 %&#125; &#123;% label danger@危险 %&#125; </span><br><span class="line">&#123;% label success@这是成功的信息%&#125;</span><br></pre></td></tr></table></figure>
-<p>显示效果：</p>
-<span class="label default">默认</span> <span class="label primary">主要</span> <span class="label success">成功</span> <span class="label info">信息</span> <span class="label warning">警告</span> <span class="label danger">危险</span> 
-<span class="label success">这是成功的信息</span>
-<h2 id="选项卡"><a href="#选项卡" class="headerlink" title="选项卡"></a>选项卡</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% tabs tab,1 %&#125; 名字为tab，默认在第1个选项卡，如果是-1则隐藏</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**选项卡 1** </span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**选项卡 2**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&lt;!-- tab A --&gt;</span><br><span class="line">**选项卡 3** 名字为A</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&#123;% endtabs %&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="修改配置文件-1"><a href="#修改配置文件-1" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Tabs tag</span></span><br><span class="line"><span class="attr">tabs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">transition:</span></span><br><span class="line">    <span class="attr">tabs:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">labels:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">border_radius:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
-<div class="tabs" id="tab"><ul class="nav-tabs"><li class="tab active"><a href="#tab-1">tab 1</a></li><li class="tab"><a href="#tab-2">tab 2</a></li><li class="tab"><a href="#tab-3">A</a></li></ul><div class="tab-content"><div class="tab-pane active" id="tab-1"><p><strong>选项卡 1</strong> </p></div><div class="tab-pane" id="tab-2"><p><strong>选项卡 2</strong></p></div><div class="tab-pane" id="tab-3"><p><strong>选项卡 3</strong> 名字为A</p></div></div></div>
-<h2 id="按钮"><a href="#按钮" class="headerlink" title="按钮"></a>按钮</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% button url, text, icon [class], [title] %&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>url : 绝对或相对 URL</li>
-<li>text : 按钮文字，如果未指定图标则为必须</li>
-<li>icon : FontAwesome 图标名称（开头没有’fa-‘）。如果未指定文本，则为必需</li>
-<li><code>[class]</code> : FontAwesome 类：fa-fw | fa-lg | fa-2x | fa-3x | fa-4x | fa-5X ，可选参数。</li>
-<li><code>[title]</code> : 鼠标悬停时的工具提示，可选参数。</li>
-</ul>
-<p>显示效果：</p>
-<a class="btn" href="https://www.baidu.com/ " title="百度">
-            <i class="fa fa-baidu"></i>go baidu
-          </a>]]></content>
-      <categories>
-        <category>Hexo</category>
-        <category>Next</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ubuntu tweak</title>
     <url>/posts/aa450f3f/</url>
     <content><![CDATA[<h1 id="ubuntu-tweak"><a href="#ubuntu-tweak" class="headerlink" title="ubuntu tweak"></a>ubuntu tweak</h1><p>ubuntu桌面的一些优化调整和一些常用应用程序。</p>
@@ -221,6 +160,67 @@
       <tags>
         <tag>ubuntu</tag>
         <tag>continue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo Next tag插件</title>
+    <url>/posts/e1817b32/</url>
+    <content><![CDATA[<h1 id="Hexo-Next-tag插件"><a href="#Hexo-Next-tag插件" class="headerlink" title="Hexo Next tag插件"></a>Hexo Next tag插件</h1><p>Tag Plugin 是一种使 Hexo 支持特殊样式内容的方法。例如，我们无法在标准 Markdown 中显示具有自定义尺寸的图像。然后我们可以使用标签插件来解决它。 Hexo 有很多可以帮助用户的标签。 Hexo 还具有主题接口，使主题能够创建自己的标签。</p>
+<a id="more"></a>
+<h2 id="文本居中引用"><a href="#文本居中引用" class="headerlink" title="文本居中引用"></a>文本居中引用</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% cq %&#125;世间所有的相遇，都是久别重逢&#123;% endcq %&#125;</span><br></pre></td></tr></table></figure>
+<p>显示效果：</p>
+<blockquote class="blockquote-center">
+            <i class="fa fa-quote-left"></i>
+            <p>世间所有的相遇，都是久别重逢</p>
+
+            <i class="fa fa-quote-right"></i>
+          </blockquote>
+<h2 id="提示块"><a href="#提示块" class="headerlink" title="提示块"></a>提示块</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% note default %&#125;</span><br><span class="line">default 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note primary %&#125;</span><br><span class="line">primary 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note success %&#125;</span><br><span class="line">success 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note info %&#125;</span><br><span class="line">info 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note warning %&#125;</span><br><span class="line">warning 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note danger %&#125;</span><br><span class="line">danger 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<p>显示效果：</p>
+<div class="note default">
+            <p>default 提示块标签</p>
+          </div>
+<div class="note primary">
+            <p>primary 提示块标签</p>
+          </div>
+<div class="note success">
+            <p>success 提示块标签</p>
+          </div>
+<div class="note info">
+            <p>info 提示块标签</p>
+          </div>
+<div class="note warning">
+            <p>warning 提示块标签</p>
+          </div>
+<div class="note danger">
+            <p>danger 提示块标签</p>
+          </div>
+<h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Note tag (bs-callout).</span></span><br><span class="line"><span class="attr">note:</span></span><br><span class="line">  <span class="comment"># Note tag style values:</span></span><br><span class="line">  <span class="comment">#  - simple    bs-callout old alert style. Default.</span></span><br><span class="line">  <span class="comment">#  - modern    bs-callout new (v2-v3) alert style.</span></span><br><span class="line">  <span class="comment">#  - flat      flat callout style with background, like on Mozilla or StackOverflow.</span></span><br><span class="line">  <span class="comment">#  - disabled  disable all CSS styles import of note tag.</span></span><br><span class="line">  <span class="comment"># 风格</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">flat</span></span><br><span class="line">  <span class="comment"># 要不要图标</span></span><br><span class="line">  <span class="attr">icons:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># 圆角矩形</span></span><br><span class="line">  <span class="attr">border_radius:</span> <span class="number">3</span></span><br><span class="line">  <span class="comment"># Offset lighter of background in % for modern and flat styles (modern: -12 | 12; flat: -18 | 6).</span></span><br><span class="line">  <span class="comment"># Offset also applied to label tag variables. This option can work with disabled note tag.</span></span><br><span class="line">  <span class="attr">light_bg_offset:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% label default@默认 %&#125; &#123;% label primary@主要 %&#125; &#123;% label success@成功 %&#125; &#123;% label info@信息 %&#125; &#123;% label warning@警告 %&#125; &#123;% label danger@危险 %&#125; </span><br><span class="line">&#123;% label success@这是成功的信息%&#125;</span><br></pre></td></tr></table></figure>
+<p>显示效果：</p>
+<span class="label default">默认</span> <span class="label primary">主要</span> <span class="label success">成功</span> <span class="label info">信息</span> <span class="label warning">警告</span> <span class="label danger">危险</span> 
+<span class="label success">这是成功的信息</span>
+<h2 id="选项卡"><a href="#选项卡" class="headerlink" title="选项卡"></a>选项卡</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% tabs tab,1 %&#125; 名字为tab，默认在第1个选项卡，如果是-1则隐藏</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**选项卡 1** </span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**选项卡 2**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&lt;!-- tab A --&gt;</span><br><span class="line">**选项卡 3** 名字为A</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&#123;% endtabs %&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="修改配置文件-1"><a href="#修改配置文件-1" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Tabs tag</span></span><br><span class="line"><span class="attr">tabs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">transition:</span></span><br><span class="line">    <span class="attr">tabs:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">labels:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">border_radius:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<div class="tabs" id="tab"><ul class="nav-tabs"><li class="tab active"><a href="#tab-1">tab 1</a></li><li class="tab"><a href="#tab-2">tab 2</a></li><li class="tab"><a href="#tab-3">A</a></li></ul><div class="tab-content"><div class="tab-pane active" id="tab-1"><p><strong>选项卡 1</strong> </p></div><div class="tab-pane" id="tab-2"><p><strong>选项卡 2</strong></p></div><div class="tab-pane" id="tab-3"><p><strong>选项卡 3</strong> 名字为A</p></div></div></div>
+<h2 id="按钮"><a href="#按钮" class="headerlink" title="按钮"></a>按钮</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% button url, text, icon [class], [title] %&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>url : 绝对或相对 URL</li>
+<li>text : 按钮文字，如果未指定图标则为必须</li>
+<li>icon : FontAwesome 图标名称（开头没有’fa-‘）。如果未指定文本，则为必需</li>
+<li><code>[class]</code> : FontAwesome 类：fa-fw | fa-lg | fa-2x | fa-3x | fa-4x | fa-5X ，可选参数。</li>
+<li><code>[title]</code> : 鼠标悬停时的工具提示，可选参数。</li>
+</ul>
+<p>显示效果：</p>
+<a class="btn" href="https://www.baidu.com/ " title="百度">
+            <i class="fa fa-baidu"></i>go baidu
+          </a>]]></content>
+      <categories>
+        <category>Hexo</category>
+        <category>Next</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -1195,7 +1195,7 @@ class ConcreteIterator{
     +currentItem() Aggragate
 }
 Iterator &lt;|.. ConcreteIterator
-Aggragate ..*ConcreteIterator</pre>
+Aggragate --*ConcreteIterator</pre>
 
 <p>在迭代器模式结构图中包含如下几个角色：</p>
 <ul>
@@ -1435,7 +1435,7 @@ Subject &lt;|-- ConcreteSubject
 class Observer{
   +update(Subject Observable,Object arg) void
 }
-Subject *..Observer
+Subject *--Observer
 Observer &lt;|-- ConcreteObserver</pre>
 
 <p>在观察者模式结构图中包含如下几个角色：</p>
@@ -1724,6 +1724,157 @@ Abstraction &lt;|-- RefinedAbstraction</pre>
 <li>“抽象部分”和“实现部分”可以以继承的方式独立扩展而互不影响，在程序运行时可以动态将一个抽象化子类的对象和一个实现化子类的对象进行组合，即系统需要对抽象化角色和实现化角色进行动态耦合。</li>
 <li>一个类存在两个（或多个）独立变化的维度，且这两个（或多个）维度都需要独立进行扩展。</li>
 <li>对于那些不希望使用继承或因为多层继承导致系统类的个数急剧增加的系统，桥接模式尤为适用。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Architecture</category>
+        <category>基本设计模式</category>
+      </categories>
+      <tags>
+        <tag>Architecture</tag>
+        <tag>基本设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式之状态模式</title>
+    <url>/posts/61e067b6/</url>
+    <content><![CDATA[<h1 id="设计模式之状态模式"><a href="#设计模式之状态模式" class="headerlink" title="设计模式之状态模式"></a>设计模式之状态模式</h1><p>状态模式用于解决系统中复杂对象的状态转换以及不同状态下行为的封装问题。当系统中某个对象存在多个状态，这些状态之间可以进行转换，而且对象在不同状态下行为不相同时可以使用状态模式。状态模式将一个对象的状态从该对象中分离出来，封装到专门的状态类中，使得对象状态可以灵活变化，对于客户端而言，无须关心对象状态的转换以及对象所处的当前状态，无论对于何种状态的对象，客户端都可以一致处理。</p>
+<a id="more"></a>
+<h2 id="状态模式的定义"><a href="#状态模式的定义" class="headerlink" title="状态模式的定义"></a>状态模式的定义</h2><p>状态模式(State Pattern)：允许一个对象在其内部状态改变时改变它的行为，对象看起来似乎修改了它的类。其别名为状态对象(Objects for States)，状态模式是一种对象行为型模式。</p>
+<pre class="mermaid">classDiagram
+class Context{
+  -State state
+  +request() void
+  +setState(State state) void
+}
+class State{
+  +handle() void
+}
+Context *-- State
+class ConcreteState{
+  +handle() void
+}
+State &lt;|-- ConcreteState</pre>
+
+<p>在状态模式结构图中包含如下几个角色：</p>
+<ul>
+<li>Context（环境类）：环境类又称为上下文类，它是拥有多种状态的对象。由于环境类的状态存在多样性且在不同状态下对象的行为有所不同，因此将状态独立出去形成单独的状态类。在环境类中维护一个抽象状态类State的实例，这个实例定义当前状态，在具体实现时，它是一个State子类的对象。</li>
+<li>State（抽象状态类）：它用于定义一个接口以封装与环境类的一个特定状态相关的行为，在抽象状态类中声明了各种不同状态对应的方法，而在其子类中实现类这些方法，由于不同状态下对象的行为可能不同，因此在不同子类中方法的实现可能存在不同，相同的方法可以写在抽象状态类中。</li>
+<li>ConcreteState（具体状态类）：它是抽象状态类的子类，每一个子类实现一个与环境类的一个状态相关的行为，每一个具体状态类对应环境的一个具体状态，不同的具体状态类其行为有所不同。</li>
+</ul>
+<p>在状态模式中，我们将对象在不同状态下的行为封装到不同的状态类中，为了让系统具有更好的灵活性和可扩展性，同时对各状态下的共有行为进行封装，我们需要对状态进行抽象，引入了抽象状态类角色。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">State</span> </span>&#123;  </span><br><span class="line">  <span class="comment">//声明抽象业务方法，不同的具体状态类可以不同的实现  </span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">()</span></span>;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<p>在抽象状态类的子类即具体状态类中实现了在抽象状态类中声明的业务方法，不同的具体状态类可以提供完全不同的方法实现，在实际使用时，在一个状态类中可能包含多个业务方法，如果在具体状态类中某些业务方法的实现完全相同，可以将这些方法移至抽象状态类，实现代码的复用。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteState</span> <span class="keyword">extends</span> <span class="title">State</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="comment">//方法具体实现代码  </span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>环境类维持一个对抽象状态类的引用，通过setState()方法可以向环境类注入不同的状态对象，再在环境类的业务方法中调用状态对象的方法.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Context</span> </span>&#123;  </span><br><span class="line">  <span class="keyword">private</span> State state; <span class="comment">//维持一个对抽象状态对象的引用  </span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> value; <span class="comment">//其他属性值，该属性值的变化可能会导致对象状态发生变化  </span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">//设置状态对象  </span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setState</span><span class="params">(State state)</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">this</span>.state = state;  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="comment">//其他代码  </span></span><br><span class="line">    state.handle(); <span class="comment">//调用状态对象的业务方法  </span></span><br><span class="line">    <span class="comment">//其他代码  </span></span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<p>环境类实际上是真正拥有状态的对象，我们只是将环境类中与状态有关的代码提取出来封装到专门的状态类中。在状态模式结构图中，环境类Context与抽象状态类State之间存在单向关联关系，在Context中定义了一个State对象。在实际使用时，它们之间可能存在更为复杂的关系，State与Context之间可能也存在依赖或者关联关系。</p>
+<p>在状态模式的使用过程中，一个对象的状态之间还可以进行相互转换，通常有两种实现状态转换的方式：</p>
+<ul>
+<li><p>统一由环境类来负责状态之间的转换，此时，环境类还充当了状态管理器(State Manager)角色，在环境类的业务方法中通过对某些属性值的判断实现状态转换，还可以提供一个专门的方法用于实现属性判断和状态转换:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">changeState</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">  <span class="comment">//判断属性值，根据属性值进行状态转换  </span></span><br><span class="line">   <span class="keyword">if</span> (value == <span class="number">0</span>) &#123;  </span><br><span class="line">      <span class="keyword">this</span>.setState(<span class="keyword">new</span> ConcreteStateA());  </span><br><span class="line">  &#125;  </span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (value == <span class="number">1</span>) &#123;  </span><br><span class="line">      <span class="keyword">this</span>.setState(<span class="keyword">new</span> ConcreteStateB());  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure></li>
+<li><p>由具体状态类来负责状态之间的转换，可以在具体状态类的业务方法中判断环境类的某些属性值再根据情况为环境类设置新的状态对象，实现状态转换，同样，也可以提供一个专门的方法来负责属性值的判断和状态转换。此时，状态类与环境类之间就将存在依赖或关联关系，因为状态类需要访问环境类中的属性值.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">changeState</span><span class="params">(Context ctx)</span> </span>&#123;  </span><br><span class="line">  <span class="comment">//根据环境对象中的属性值进行状态转换  </span></span><br><span class="line">   <span class="keyword">if</span> (ctx.getValue() == <span class="number">1</span>) &#123;  </span><br><span class="line">      ctx.setState(<span class="keyword">new</span> ConcreteStateB());  </span><br><span class="line">  &#125;  </span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (ctx.getValue() == <span class="number">2</span>) &#123;  </span><br><span class="line">      ctx.setState(<span class="keyword">new</span> ConcreteStateC());  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>当状态过多时，可以考虑使用由具体状态类来负责状态之间的转换，一个状态只关心自己的可达状态，便于管理状态。在这种情况下,只使用状态机(State Machine)管理状态的流转过程。</p>
+</blockquote>
+</li>
+</ul>
+<p>当需要多个环境对象共享一个或多个状态对象，那么需要将这些状态对象定义为环境类的静态成员对象。</p>
+<h2 id="状态模式总结"><a href="#状态模式总结" class="headerlink" title="状态模式总结"></a>状态模式总结</h2><p>状态模式将一个对象在不同状态下的不同行为封装在一个个状态类中，通过设置不同的状态对象可以让环境对象拥有不同的行为，而状态转换的细节对于客户端而言是透明的，方便了客户端的使用。</p>
+<h3 id="主要优点"><a href="#主要优点" class="headerlink" title="主要优点"></a>主要优点</h3><p>状态模式的主要优点如下：</p>
+<ol>
+<li>封装了状态的转换规则，在状态模式中可以将状态的转换代码封装在环境类或者具体状态类中，可以对状态转换代码进行集中管理，而不是分散在一个个业务方法中。</li>
+<li>将所有与某个状态有关的行为放到一个类中，只需要注入一个不同的状态对象即可使环境对象拥有不同的行为。</li>
+<li>允许状态转换逻辑与状态对象合成一体，而不是提供一个巨大的条件语句块，状态模式可以让我们避免使用庞大的条件语句来将业务方法和状态转换代码交织在一起。</li>
+<li>可以让多个环境对象共享一个状态对象，从而减少系统中对象的个数。</li>
+</ol>
+<h3 id="主要缺点"><a href="#主要缺点" class="headerlink" title="主要缺点"></a>主要缺点</h3><p>状态模式的主要缺点如下：</p>
+<ol>
+<li>状态模式的使用必然会增加系统中类和对象的个数，导致系统运行开销增大。</li>
+<li>状态模式的结构与实现都较为复杂，如果使用不当将导致程序结构和代码的混乱，增加系统设计的难度。</li>
+<li>状态模式对“开闭原则”的支持并不太好，增加新的状态类需要修改那些负责状态转换的源代码，否则无法转换到新增状态；而且修改某个状态类的行为也需修改对应类的源代码。</li>
+</ol>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>在以下情况下可以考虑使用状态模式：</p>
+<ol>
+<li>对象的行为依赖于它的状态（如某些属性值），状态的改变将导致行为的变化。</li>
+<li>在代码中包含大量与对象状态有关的条件语句，这些条件语句的出现，会导致代码的可维护性和灵活性变差，不能方便地增加和删除状态，并且导致客户类与类库之间的耦合增强。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Architecture</category>
+        <category>基本设计模式</category>
+      </categories>
+      <tags>
+        <tag>Architecture</tag>
+        <tag>基本设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式之解释器模式</title>
+    <url>/posts/bc603741/</url>
+    <content><![CDATA[<h1 id="设计模式之解释器模式"><a href="#设计模式之解释器模式" class="headerlink" title="设计模式之解释器模式"></a>设计模式之解释器模式</h1><p>解释器模式用于描述如何使用面向对象语言构成一个简单的语言解释器。在某些情况下，为了更好地描述某一些特定类型的问题，我们可以创建一种新的语言，这种语言拥有自己的表达式和结构，即文法规则，这些问题的实例将对应为该语言中的句子。此时，可以使用解释器模式来设计这种新的语言。对解释器模式的学习能够加深我们对面向对象思想的理解，并且掌握编程语言中文法规则的解释过程。</p>
+<a id="more"></a>
+<h2 id="解释器模式的定义"><a href="#解释器模式的定义" class="headerlink" title="解释器模式的定义"></a>解释器模式的定义</h2><p>解释器模式(Interpreter Pattern)：定义一个语言的文法，并且建立一个解释器来解释该语言中的句子，这里的“语言”是指使用规定格式和语法的代码。解释器模式是一种类行为型模式。</p>
+<p>由于表达式可分为终结符表达式和非终结符表达式，因此解释器模式的结构与组合模式的结构有些类似，但在解释器模式中包含更多的组成元素。</p>
+<pre class="mermaid">classDiagram
+class Context{
+  +assign(String key, String value) void
+  +lookup(String key) String
+}
+class AbstractExpression{
+  +interpret(Context context) void
+}
+&lt;&lt;abstract&gt;&gt; AbstractExpression
+
+Context &lt;.. AbstractExpression
+class TerminalExpression{
+  +interpret(Context context) void
+}
+AbstractExpression &lt;|-- TerminalExpression
+
+class NonterminalExpression{
+  +interpret(Context context) void
+}
+AbstractExpression &lt;|-- NonterminalExpression
+NonterminalExpression *-- AbstractExpression</pre>
+
+<p>在解释器模式结构图中包含如下几个角色：</p>
+<ul>
+<li>AbstractExpression（抽象表达式）：在抽象表达式中声明了抽象的解释操作，它是所有终结符表达式和非终结符表达式的公共父类。</li>
+<li>TerminalExpression（终结符表达式）：终结符表达式是抽象表达式的子类，它实现了与文法中的终结符相关联的解释操作，在句子中的每一个终结符都是该类的一个实例。通常在一个解释器模式中只有少数几个终结符表达式类，它们的实例可以通过非终结符表达式组成较为复杂的句子。</li>
+<li>NonterminalExpression（非终结符表达式）：非终结符表达式也是抽象表达式的子类，它实现了文法中非终结符的解释操作，由于在非终结符表达式中可以包含终结符表达式，也可以继续包含非终结符表达式，因此其解释操作一般通过递归的方式来完成。</li>
+<li>Context（环境类）：环境类又称为上下文类，它用于存储解释器之外的一些全局信息，通常它临时存储了需要解释的语句。</li>
+</ul>
+<p>在解释器模式中，每一种终结符和非终结符都有一个具体类与之对应，正因为使用类来表示每一条文法规则，所以系统将具有较好的灵活性和可扩展性。对于所有的终结符和非终结符，我们首先需要抽象出一个公共父类，即抽象表达式类。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractExpression</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">interpret</span><span class="params">(Context ctx)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>终结符表达式和非终结符表达式类都是抽象表达式类的子类，对于终结符表达式，其代码很简单，主要是对终结符元素的处理。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TerminalExpression</span> <span class="keyword">extends</span>  <span class="title">AbstractExpression</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">interpret</span><span class="params">(Context ctx)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//终结符表达式的解释操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于非终结符表达式，其代码相对比较复杂，因为可以通过非终结符将表达式组合成更加复杂的结构，例如对于包含两个操作元素的非终结符表达式类。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinocularNonterminalExpression</span> <span class="keyword">extends</span>  <span class="title">AbstractExpression</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span>  AbstractExpression left;</span><br><span class="line">    <span class="keyword">private</span>  AbstractExpression right;</span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="title">BinocularNonterminalExpression</span><span class="params">(AbstractExpression left,AbstractExpression right)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.left=left;</span><br><span class="line">        <span class="keyword">this</span>.right=right;</span><br><span class="line">    &#125;</span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">interpret</span><span class="params">(Context ctx)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//递归调用每一个组成部分的interpret()方法</span></span><br><span class="line">        <span class="comment">//在递归调用时指定组成部分的连接方式，即非终结符的功能</span></span><br><span class="line">    &#125;     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>除了上述用于表示表达式的类以外，通常在解释器模式中还提供了一个环境类Context，用于存储一些全局信息，通常在Context中包含了一个HashMap或ArrayList等类型的集合对象（也可以直接由HashMap等集合类充当环境类），存储一系列公共信息，如变量名与值的映射关系（key/value）等，用于在进行具体的解释操作时从中获取相关信息。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Context</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> HashMap map = <span class="keyword">new</span> HashMap();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">assign</span><span class="params">(String key, String value)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//往环境类中设值</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String  <span class="title">lookup</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//获取存储在环境类中的值</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h3><p>当系统无须提供全局公共信息时可以省略环境类，可根据实际情况决定是否需要环境类。</p>
+<p>在解释器模式中，环境类Context用于存储解释器之外的一些全局信息，它通常作为参数被传递到所有表达式的解释方法interpret()中，可以在Context对象中存储和访问表达式解释器的状态，向表达式解释器提供一些全局的、公共的数据，此外还可以在Context中增加一些所有表达式解释器都共有的功能，减轻解释器的职责。</p>
+<h2 id="解释器模式总结"><a href="#解释器模式总结" class="headerlink" title="解释器模式总结"></a>解释器模式总结</h2><p>解释器模式为自定义语言的设计和实现提供了一种解决方案，它用于定义一组文法规则并通过这组文法规则来解释语言中的句子。虽然解释器模式的使用频率不是特别高，但是它在正则表达式、XML文档解释等领域还是得到了广泛使用。与解释器模式类似，目前还诞生了很多基于抽象语法树的源代码处理工具，例如Eclipse中的Eclipse AST，它可以用于表示Java语言的语法结构，用户可以通过扩展其功能，创建自己的文法规则。</p>
+<h3 id="主要优点"><a href="#主要优点" class="headerlink" title="主要优点"></a>主要优点</h3><p>解释器模式的主要优点如下：</p>
+<ol>
+<li>易于改变和扩展文法。由于在解释器模式中使用类来表示语言的文法规则，因此可以通过继承等机制来改变或扩展文法。</li>
+<li>每一条文法规则都可以表示为一个类，因此可以方便地实现一个简单的语言。</li>
+<li>实现文法较为容易。在抽象语法树中每一个表达式节点类的实现方式都是相似的，这些类的代码编写都不会特别复杂，还可以通过一些工具自动生成节点类代码。</li>
+<li>增加新的解释表达式较为方便。如果用户需要增加新的解释表达式只需要对应增加一个新的终结符表达式或非终结符表达式类，原有表达式类代码无须修改，符合“开闭原则”。</li>
+</ol>
+<h3 id="主要缺点"><a href="#主要缺点" class="headerlink" title="主要缺点"></a>主要缺点</h3><p>解释器模式的主要缺点如下：</p>
+<ol>
+<li>对于复杂文法难以维护。在解释器模式中，每一条规则至少需要定义一个类，因此如果一个语言包含太多文法规则，类的个数将会急剧增加，导致系统难以管理和维护，此时可以考虑使用语法分析程序等方式来取代解释器模式。</li>
+<li>执行效率较低。由于在解释器模式中使用了大量的循环和递归调用，因此在解释较为复杂的句子时其速度很慢，而且代码的调试过程也比较麻烦。</li>
+</ol>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>在以下情况下可以考虑使用解释器模式：</p>
+<ol>
+<li>可以将一个需要解释执行的语言中的句子表示为一个抽象语法树。</li>
+<li>一些重复出现的问题可以用一种简单的语言来进行表达。</li>
+<li>一个语言的文法较为简单。</li>
+<li>执行效率不是关键问题。【注：高效的解释器通常不是通过直接解释抽象语法树来实现的，而是需要将它们转换成其他形式，使用解释器模式的执行效率并不高。】</li>
 </ol>
 ]]></content>
       <categories>
