@@ -6,7 +6,7 @@
   <link href="https://github-blog.victorchu.info/atom.xml" rel="self"/>
   
   <link href="https://github-blog.victorchu.info/"/>
-  <updated>2021-05-09T07:45:47.709Z</updated>
+  <updated>2021-05-11T15:19:27.758Z</updated>
   <id>https://github-blog.victorchu.info/</id>
   
   <author>
@@ -17,11 +17,34 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>设计模式之代理模式</title>
+    <link href="https://github-blog.victorchu.info/posts/907a70d0/"/>
+    <id>https://github-blog.victorchu.info/posts/907a70d0/</id>
+    <published>2017-01-24T03:36:22.000Z</published>
+    <updated>2021-05-11T15:19:27.758Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;设计模式之代理模式&quot;&gt;&lt;a href=&quot;#设计模式之代理模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之代理模式&quot;&gt;&lt;/a&gt;设计模式之代理模式&lt;/h1&gt;&lt;p&gt;代理模式：给某一个对象提供一个代理或占位符，并由代理对象来控制对原对象的访问。代理模式是一种对象结构型模式。在代理模式中引入了一个新的代理对象，代理对象在客户端对象和目标对象之间起到中介的作用，它去掉客户不能看到的内容和服务或者增添客户需要的额外的新服务。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>设计模式之解释器模式</title>
     <link href="https://github-blog.victorchu.info/posts/bc603741/"/>
     <id>https://github-blog.victorchu.info/posts/bc603741/</id>
     <published>2017-01-23T03:36:22.000Z</published>
-    <updated>2021-05-09T07:45:47.709Z</updated>
+    <updated>2021-05-09T07:46:01.250Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;设计模式之解释器模式&quot;&gt;&lt;a href=&quot;#设计模式之解释器模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之解释器模式&quot;&gt;&lt;/a&gt;设计模式之解释器模式&lt;/h1&gt;&lt;p&gt;解释器模式用于描述如何使用面向对象语言构成一个简单的语言解释器。在某些情况下，为了更好地描述某一些特定类型的问题，我们可以创建一种新的语言，这种语言拥有自己的表达式和结构，即文法规则，这些问题的实例将对应为该语言中的句子。此时，可以使用解释器模式来设计这种新的语言。对解释器模式的学习能够加深我们对面向对象思想的理解，并且掌握编程语言中文法规则的解释过程。&lt;/p&gt;</summary>
@@ -44,7 +67,7 @@
     <link href="https://github-blog.victorchu.info/posts/61e067b6/"/>
     <id>https://github-blog.victorchu.info/posts/61e067b6/</id>
     <published>2017-01-22T03:36:22.000Z</published>
-    <updated>2021-05-09T07:33:55.211Z</updated>
+    <updated>2021-05-09T07:46:01.247Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;设计模式之状态模式&quot;&gt;&lt;a href=&quot;#设计模式之状态模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之状态模式&quot;&gt;&lt;/a&gt;设计模式之状态模式&lt;/h1&gt;&lt;p&gt;状态模式用于解决系统中复杂对象的状态转换以及不同状态下行为的封装问题。当系统中某个对象存在多个状态，这些状态之间可以进行转换，而且对象在不同状态下行为不相同时可以使用状态模式。状态模式将一个对象的状态从该对象中分离出来，封装到专门的状态类中，使得对象状态可以灵活变化，对于客户端而言，无须关心对象状态的转换以及对象所处的当前状态，无论对于何种状态的对象，客户端都可以一致处理。&lt;/p&gt;</summary>
@@ -457,30 +480,6 @@ C ..&amp;gt; B&lt;/pre&gt;</summary>
     
     <summary type="html">&lt;h1 id=&quot;设计模式之抽象工厂模式&quot;&gt;&lt;a href=&quot;#设计模式之抽象工厂模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之抽象工厂模式&quot;&gt;&lt;/a&gt;设计模式之抽象工厂模式&lt;/h1&gt;&lt;p&gt;工厂方法模式通过引入工厂等级结构，解决了简单工厂模式中工厂类职责太重的问题，但由于工厂方法模式中的每个工厂只生产一类产品，可能会导致系统中存在大量的工厂类，势必会增加系统的开销。&lt;/p&gt;
 &lt;p&gt;此时，我们可以考虑将一些相关的产品组成一个“产品族”，由同一个工厂来统一生产，这就是我们本文将要学习的抽象工厂模式的基本思想。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
-    
-    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
-    
-    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式之工厂模式</title>
-    <link href="https://github-blog.victorchu.info/posts/bf53f1b3/"/>
-    <id>https://github-blog.victorchu.info/posts/bf53f1b3/</id>
-    <published>2017-01-03T15:21:13.000Z</published>
-    <updated>2021-03-18T14:21:44.919Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;工厂模式&quot;&gt;&lt;a href=&quot;#工厂模式&quot; class=&quot;headerlink&quot; title=&quot;工厂模式&quot;&gt;&lt;/a&gt;工厂模式&lt;/h1&gt;&lt;p&gt;在面向对象编程中, 最通常的方法是一个new操作符产生一个对象实例,new操作符就是用来构造对象实例的。但是在一些情况下,new操作符直接生成对象会带来一些问题。举例来说,许多类型对象的创造需要一系列的步骤: 你可能需要计算或取得对象的初始设置;选择生成哪个子对象实例;或在生成你需要的对象之前必须先生成一些辅助功能的对象。在这些情况,新对象的建立就是一个“过程”，不仅是一个操作，像一部大机器中的一个齿轮传动。&lt;/p&gt;
-&lt;p&gt;那么如何能轻松方便地构造对象实例，而不必关心构造对象实例的细节和复杂过程呢？答案就是工厂模式。&lt;br&gt;&lt;/p&gt;</summary>
     
     
     

@@ -1,6 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hexo Next tag插件</title>
+    <url>/posts/e1817b32/</url>
+    <content><![CDATA[<h1 id="Hexo-Next-tag插件"><a href="#Hexo-Next-tag插件" class="headerlink" title="Hexo Next tag插件"></a>Hexo Next tag插件</h1><p>Tag Plugin 是一种使 Hexo 支持特殊样式内容的方法。例如，我们无法在标准 Markdown 中显示具有自定义尺寸的图像。然后我们可以使用标签插件来解决它。 Hexo 有很多可以帮助用户的标签。 Hexo 还具有主题接口，使主题能够创建自己的标签。</p>
+<a id="more"></a>
+<h2 id="文本居中引用"><a href="#文本居中引用" class="headerlink" title="文本居中引用"></a>文本居中引用</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% cq %&#125;世间所有的相遇，都是久别重逢&#123;% endcq %&#125;</span><br></pre></td></tr></table></figure>
+<p>显示效果：</p>
+<blockquote class="blockquote-center">
+            <i class="fa fa-quote-left"></i>
+            <p>世间所有的相遇，都是久别重逢</p>
+
+            <i class="fa fa-quote-right"></i>
+          </blockquote>
+<h2 id="提示块"><a href="#提示块" class="headerlink" title="提示块"></a>提示块</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% note default %&#125;</span><br><span class="line">default 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note primary %&#125;</span><br><span class="line">primary 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note success %&#125;</span><br><span class="line">success 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note info %&#125;</span><br><span class="line">info 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note warning %&#125;</span><br><span class="line">warning 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note danger %&#125;</span><br><span class="line">danger 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<p>显示效果：</p>
+<div class="note default">
+            <p>default 提示块标签</p>
+          </div>
+<div class="note primary">
+            <p>primary 提示块标签</p>
+          </div>
+<div class="note success">
+            <p>success 提示块标签</p>
+          </div>
+<div class="note info">
+            <p>info 提示块标签</p>
+          </div>
+<div class="note warning">
+            <p>warning 提示块标签</p>
+          </div>
+<div class="note danger">
+            <p>danger 提示块标签</p>
+          </div>
+<h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Note tag (bs-callout).</span></span><br><span class="line"><span class="attr">note:</span></span><br><span class="line">  <span class="comment"># Note tag style values:</span></span><br><span class="line">  <span class="comment">#  - simple    bs-callout old alert style. Default.</span></span><br><span class="line">  <span class="comment">#  - modern    bs-callout new (v2-v3) alert style.</span></span><br><span class="line">  <span class="comment">#  - flat      flat callout style with background, like on Mozilla or StackOverflow.</span></span><br><span class="line">  <span class="comment">#  - disabled  disable all CSS styles import of note tag.</span></span><br><span class="line">  <span class="comment"># 风格</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">flat</span></span><br><span class="line">  <span class="comment"># 要不要图标</span></span><br><span class="line">  <span class="attr">icons:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># 圆角矩形</span></span><br><span class="line">  <span class="attr">border_radius:</span> <span class="number">3</span></span><br><span class="line">  <span class="comment"># Offset lighter of background in % for modern and flat styles (modern: -12 | 12; flat: -18 | 6).</span></span><br><span class="line">  <span class="comment"># Offset also applied to label tag variables. This option can work with disabled note tag.</span></span><br><span class="line">  <span class="attr">light_bg_offset:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% label default@默认 %&#125; &#123;% label primary@主要 %&#125; &#123;% label success@成功 %&#125; &#123;% label info@信息 %&#125; &#123;% label warning@警告 %&#125; &#123;% label danger@危险 %&#125; </span><br><span class="line">&#123;% label success@这是成功的信息%&#125;</span><br></pre></td></tr></table></figure>
+<p>显示效果：</p>
+<span class="label default">默认</span> <span class="label primary">主要</span> <span class="label success">成功</span> <span class="label info">信息</span> <span class="label warning">警告</span> <span class="label danger">危险</span> 
+<span class="label success">这是成功的信息</span>
+<h2 id="选项卡"><a href="#选项卡" class="headerlink" title="选项卡"></a>选项卡</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% tabs tab,1 %&#125; 名字为tab，默认在第1个选项卡，如果是-1则隐藏</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**选项卡 1** </span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**选项卡 2**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&lt;!-- tab A --&gt;</span><br><span class="line">**选项卡 3** 名字为A</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&#123;% endtabs %&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="修改配置文件-1"><a href="#修改配置文件-1" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Tabs tag</span></span><br><span class="line"><span class="attr">tabs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">transition:</span></span><br><span class="line">    <span class="attr">tabs:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">labels:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">border_radius:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<div class="tabs" id="tab"><ul class="nav-tabs"><li class="tab active"><a href="#tab-1">tab 1</a></li><li class="tab"><a href="#tab-2">tab 2</a></li><li class="tab"><a href="#tab-3">A</a></li></ul><div class="tab-content"><div class="tab-pane active" id="tab-1"><p><strong>选项卡 1</strong> </p></div><div class="tab-pane" id="tab-2"><p><strong>选项卡 2</strong></p></div><div class="tab-pane" id="tab-3"><p><strong>选项卡 3</strong> 名字为A</p></div></div></div>
+<h2 id="按钮"><a href="#按钮" class="headerlink" title="按钮"></a>按钮</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% button url, text, icon [class], [title] %&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>url : 绝对或相对 URL</li>
+<li>text : 按钮文字，如果未指定图标则为必须</li>
+<li>icon : FontAwesome 图标名称（开头没有’fa-‘）。如果未指定文本，则为必需</li>
+<li><code>[class]</code> : FontAwesome 类：fa-fw | fa-lg | fa-2x | fa-3x | fa-4x | fa-5X ，可选参数。</li>
+<li><code>[title]</code> : 鼠标悬停时的工具提示，可选参数。</li>
+</ul>
+<p>显示效果：</p>
+<a class="btn" href="https://www.baidu.com/ " title="百度">
+            <i class="fa fa-baidu"></i>go baidu
+          </a>]]></content>
+      <categories>
+        <category>Hexo</category>
+        <category>Next</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ubuntu tweak</title>
     <url>/posts/aa450f3f/</url>
     <content><![CDATA[<h1 id="ubuntu-tweak"><a href="#ubuntu-tweak" class="headerlink" title="ubuntu tweak"></a>ubuntu tweak</h1><p>ubuntu桌面的一些优化调整和一些常用应用程序。</p>
@@ -160,67 +221,6 @@
       <tags>
         <tag>ubuntu</tag>
         <tag>continue</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo Next tag插件</title>
-    <url>/posts/e1817b32/</url>
-    <content><![CDATA[<h1 id="Hexo-Next-tag插件"><a href="#Hexo-Next-tag插件" class="headerlink" title="Hexo Next tag插件"></a>Hexo Next tag插件</h1><p>Tag Plugin 是一种使 Hexo 支持特殊样式内容的方法。例如，我们无法在标准 Markdown 中显示具有自定义尺寸的图像。然后我们可以使用标签插件来解决它。 Hexo 有很多可以帮助用户的标签。 Hexo 还具有主题接口，使主题能够创建自己的标签。</p>
-<a id="more"></a>
-<h2 id="文本居中引用"><a href="#文本居中引用" class="headerlink" title="文本居中引用"></a>文本居中引用</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% cq %&#125;世间所有的相遇，都是久别重逢&#123;% endcq %&#125;</span><br></pre></td></tr></table></figure>
-<p>显示效果：</p>
-<blockquote class="blockquote-center">
-            <i class="fa fa-quote-left"></i>
-            <p>世间所有的相遇，都是久别重逢</p>
-
-            <i class="fa fa-quote-right"></i>
-          </blockquote>
-<h2 id="提示块"><a href="#提示块" class="headerlink" title="提示块"></a>提示块</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% note default %&#125;</span><br><span class="line">default 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note primary %&#125;</span><br><span class="line">primary 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note success %&#125;</span><br><span class="line">success 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note info %&#125;</span><br><span class="line">info 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note warning %&#125;</span><br><span class="line">warning 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% note danger %&#125;</span><br><span class="line">danger 提示块标签</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
-<p>显示效果：</p>
-<div class="note default">
-            <p>default 提示块标签</p>
-          </div>
-<div class="note primary">
-            <p>primary 提示块标签</p>
-          </div>
-<div class="note success">
-            <p>success 提示块标签</p>
-          </div>
-<div class="note info">
-            <p>info 提示块标签</p>
-          </div>
-<div class="note warning">
-            <p>warning 提示块标签</p>
-          </div>
-<div class="note danger">
-            <p>danger 提示块标签</p>
-          </div>
-<h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Note tag (bs-callout).</span></span><br><span class="line"><span class="attr">note:</span></span><br><span class="line">  <span class="comment"># Note tag style values:</span></span><br><span class="line">  <span class="comment">#  - simple    bs-callout old alert style. Default.</span></span><br><span class="line">  <span class="comment">#  - modern    bs-callout new (v2-v3) alert style.</span></span><br><span class="line">  <span class="comment">#  - flat      flat callout style with background, like on Mozilla or StackOverflow.</span></span><br><span class="line">  <span class="comment">#  - disabled  disable all CSS styles import of note tag.</span></span><br><span class="line">  <span class="comment"># 风格</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">flat</span></span><br><span class="line">  <span class="comment"># 要不要图标</span></span><br><span class="line">  <span class="attr">icons:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># 圆角矩形</span></span><br><span class="line">  <span class="attr">border_radius:</span> <span class="number">3</span></span><br><span class="line">  <span class="comment"># Offset lighter of background in % for modern and flat styles (modern: -12 | 12; flat: -18 | 6).</span></span><br><span class="line">  <span class="comment"># Offset also applied to label tag variables. This option can work with disabled note tag.</span></span><br><span class="line">  <span class="attr">light_bg_offset:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
-<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% label default@默认 %&#125; &#123;% label primary@主要 %&#125; &#123;% label success@成功 %&#125; &#123;% label info@信息 %&#125; &#123;% label warning@警告 %&#125; &#123;% label danger@危险 %&#125; </span><br><span class="line">&#123;% label success@这是成功的信息%&#125;</span><br></pre></td></tr></table></figure>
-<p>显示效果：</p>
-<span class="label default">默认</span> <span class="label primary">主要</span> <span class="label success">成功</span> <span class="label info">信息</span> <span class="label warning">警告</span> <span class="label danger">危险</span> 
-<span class="label success">这是成功的信息</span>
-<h2 id="选项卡"><a href="#选项卡" class="headerlink" title="选项卡"></a>选项卡</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% tabs tab,1 %&#125; 名字为tab，默认在第1个选项卡，如果是-1则隐藏</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**选项卡 1** </span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&lt;!-- tab --&gt;</span><br><span class="line">**选项卡 2**</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&lt;!-- tab A --&gt;</span><br><span class="line">**选项卡 3** 名字为A</span><br><span class="line">&lt;!-- endtab --&gt;</span><br><span class="line">&#123;% endtabs %&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="修改配置文件-1"><a href="#修改配置文件-1" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Tabs tag</span></span><br><span class="line"><span class="attr">tabs:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">transition:</span></span><br><span class="line">    <span class="attr">tabs:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">labels:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">border_radius:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
-<div class="tabs" id="tab"><ul class="nav-tabs"><li class="tab active"><a href="#tab-1">tab 1</a></li><li class="tab"><a href="#tab-2">tab 2</a></li><li class="tab"><a href="#tab-3">A</a></li></ul><div class="tab-content"><div class="tab-pane active" id="tab-1"><p><strong>选项卡 1</strong> </p></div><div class="tab-pane" id="tab-2"><p><strong>选项卡 2</strong></p></div><div class="tab-pane" id="tab-3"><p><strong>选项卡 3</strong> 名字为A</p></div></div></div>
-<h2 id="按钮"><a href="#按钮" class="headerlink" title="按钮"></a>按钮</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% button url, text, icon [class], [title] %&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>url : 绝对或相对 URL</li>
-<li>text : 按钮文字，如果未指定图标则为必须</li>
-<li>icon : FontAwesome 图标名称（开头没有’fa-‘）。如果未指定文本，则为必需</li>
-<li><code>[class]</code> : FontAwesome 类：fa-fw | fa-lg | fa-2x | fa-3x | fa-4x | fa-5X ，可选参数。</li>
-<li><code>[title]</code> : 鼠标悬停时的工具提示，可选参数。</li>
-</ul>
-<p>显示效果：</p>
-<a class="btn" href="https://www.baidu.com/ " title="百度">
-            <i class="fa fa-baidu"></i>go baidu
-          </a>]]></content>
-      <categories>
-        <category>Hexo</category>
-        <category>Next</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -1875,6 +1875,99 @@ NonterminalExpression *-- AbstractExpression</pre>
 <li>一些重复出现的问题可以用一种简单的语言来进行表达。</li>
 <li>一个语言的文法较为简单。</li>
 <li>执行效率不是关键问题。【注：高效的解释器通常不是通过直接解释抽象语法树来实现的，而是需要将它们转换成其他形式，使用解释器模式的执行效率并不高。】</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Architecture</category>
+        <category>基本设计模式</category>
+      </categories>
+      <tags>
+        <tag>Architecture</tag>
+        <tag>基本设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式之代理模式</title>
+    <url>/posts/907a70d0/</url>
+    <content><![CDATA[<h1 id="设计模式之代理模式"><a href="#设计模式之代理模式" class="headerlink" title="设计模式之代理模式"></a>设计模式之代理模式</h1><p>代理模式：给某一个对象提供一个代理或占位符，并由代理对象来控制对原对象的访问。代理模式是一种对象结构型模式。在代理模式中引入了一个新的代理对象，代理对象在客户端对象和目标对象之间起到中介的作用，它去掉客户不能看到的内容和服务或者增添客户需要的额外的新服务。</p>
+<a id="more"></a>
+<h2 id="代理模式的结构"><a href="#代理模式的结构" class="headerlink" title="代理模式的结构"></a>代理模式的结构</h2><pre class="mermaid">classDiagram
+class Subject{
+    +request() void
+}
+&lt;&lt;interface&gt;&gt; Subject
+
+class RealSubject{
+    +request() void
+}
+Subject &lt;|.. RealSubject
+
+class Proxy{
+    -RealSubject realSubject
+    +before() void
+    +request() void
+    +after() void
+}
+Subject &lt;|.. Proxy
+Proxy *-- RealSubject</pre>
+
+<p>代理模式包含如下三个角色：</p>
+<ol>
+<li>Subject(抽象主题角色)：它声明了真实主题和代理主题的共同接口，这样一来在任何使用真实主题的地方都可以使用代理主题，客户端通常需要针对抽象主题角色进行编程。</li>
+<li>Proxy(代理主题角色)：它包含了对真实主题的引用，从而可以在任何时候操作真实主题对象；在代理主题角色中提供一个与真实主题角色相同的接口，以便在任何时候都可以替代真实主题；代理主题角色还可以控制对真实主题的使用，负责在需要的时候创建和删除真实主题对象，并对真实主题对象的使用加以约束。通常，在代理主题角色中，客户端在调用所引用的真实主题操作之前或之后还需要执行其他操作，而不仅仅是单纯调用真实主题对象中的操作。</li>
+<li>RealSubject(真实主题角色)：它定义了代理角色所代表的真实对象，在真实主题角色中实现了真实的业务操作，客户端可以通过代理主题角色间接调用真实主题角色中定义的操作。</li>
+</ol>
+<h2 id="代理模式的扩展"><a href="#代理模式的扩展" class="headerlink" title="代理模式的扩展"></a>代理模式的扩展</h2><h3 id="普通代理"><a href="#普通代理" class="headerlink" title="普通代理"></a>普通代理</h3><p>普通代理要求客户端只能访问代理角色，不能访问真实角色。在这个模式下，代理角色屏蔽了真实角色变化对高层模块的影响，下面举个例子：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 抽象接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IExecutor</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 业务</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 代理角色</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyExecutor</span> <span class="keyword">implements</span> <span class="title">IExecutor</span></span>&#123;</span><br><span class="line">    <span class="comment">// 真实角色实例</span></span><br><span class="line">    <span class="keyword">private</span> IExecutor executor = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ProxyExecutor</span><span class="params">(Stirng name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            executor = <span class="keyword">new</span> Executor(<span class="keyword">this</span>,name);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">            <span class="comment">//TODO</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span></span>&#123;</span><br><span class="line">        executor.execute();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 真实角色</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Executor</span> <span class="keyword">implements</span> <span class="title">IExecutor</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name = <span class="keyword">null</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Executor</span><span class="params">(IExecutor proxyExecutor,String name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(proxyExecutor == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">&quot;init error&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.name = name;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;execute something here&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="强制代理"><a href="#强制代理" class="headerlink" title="强制代理"></a>强制代理</h3><p>强制代理必须通过真实角色找到代理角色，使用真实角色制定的代理角色才能访问。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 抽象接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IExecutor</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 业务</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 用于返回代理，代理角色的返回值是this</span></span><br><span class="line">    <span class="function">IExecutor <span class="title">getProxy</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 代理角色</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyExecutor</span> <span class="keyword">implements</span> <span class="title">IExecutor</span></span>&#123;</span><br><span class="line">    <span class="comment">// 真实角色实例</span></span><br><span class="line">    <span class="keyword">private</span> IExecutor executor = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ProxyExecutor</span><span class="params">(IExecutor executor)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.executor = executor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span></span>&#123;</span><br><span class="line">        executor.execute();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IExecutor <span class="title">getProxy</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 真实角色</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Executor</span> <span class="keyword">implements</span> <span class="title">IExecutor</span></span>&#123;</span><br><span class="line">    <span class="comment">// 管理代理角色</span></span><br><span class="line">    <span class="keyword">private</span> IExecutor proxyExecutor = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">private</span> String name = <span class="keyword">null</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Executor</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(proxyExecutor != <span class="keyword">null</span>)&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;execute something here&quot;</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;请使用代理&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IExecutor <span class="title">getProxy</span><span class="params">()</span></span>&#123;</span><br><span class="line">        proxyExecutor = <span class="keyword">new</span> ProxyExecutor(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.proxyExecutor;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// client 使用</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">client</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        IExecutor executor = <span class="keyword">new</span> Executor(<span class="string">&quot;A&quot;</span>);</span><br><span class="line">        IExecutor proxy = executor.getProxy();</span><br><span class="line">        proxy.execute();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="虚拟代理"><a href="#虚拟代理" class="headerlink" title="虚拟代理"></a>虚拟代理</h3><p>虚拟代理只有在需要时才初始化真实角色，避免被代理对象过多，导致初始化慢。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Proxy</span> <span class="keyword">implements</span> <span class="title">Subject</span></span>&#123;</span><br><span class="line">    <span class="comment">// 被代理对象</span></span><br><span class="line">    <span class="keyword">private</span> Subject subject = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(subject == <span class="keyword">null</span>)&#123;</span><br><span class="line">            subject = <span class="keyword">new</span> RealSubject();</span><br><span class="line">        &#125;</span><br><span class="line">        subject.request();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><p>动态代理在实现阶段不关心代理谁，而在运行时才指定代理哪个对象，一个典型的例子是<strong>Java基于接口的动态代理</strong>。</p>
+<pre class="mermaid">classDiagram
+class Subject{
+    +request() void
+}
+&lt;&lt;interface&gt;&gt; Subject
+
+class RealSubject{
+    +request() void
+}
+Subject &lt;|.. RealSubject
+
+class Proxy{
+    -InvocationHandler invocationHandler
+}
+
+class InvocationHandler{
+    -Subject subject
+    +invoke(Object proxy, Method method, Object[] args) Object
+}
+&lt;&lt;interface&gt;&gt; InvocationHandler
+
+class DynamicProxyInvocationHandler{
+    +invoke(Object proxy, Method method, Object[] args) Object
+}
+InvocationHandler &lt;|..DynamicProxyInvocationHandler
+
+class DynamicProxy{
+    +request() void
+}
+Subject &lt;|.. DynamicProxy
+Proxy &lt;|-- DynamicProxy
+Proxy *-- InvocationHandler
+DynamicProxyInvocationHandler *-- RealSubject</pre>
+
+<p>在java的动态代理机制中，有两个重要的类或接口，一个是 InvocationHandler(Interface)、另一个则是 Proxy(Class)，这一个类和接口是实现我们动态代理所必须用到的。</p>
+<p>每一个动态代理类都必须要实现InvocationHandler这个接口，并且每个代理类的实例都关联到了一个handler，当我们通过代理对象调用一个方法的时候，这个方法的调用就会被转发为由InvocationHandler这个接口的 invoke 方法来进行调用。我们来看看InvocationHandler这个接口的唯一方法 invoke 方法。</p>
+<p>动态代理类在运行期被创建时实现了被代理类所实现的一组接口，代理类中的组件中包含了实现<code>InvocationHandler</code>接口的代理方法实例。对于被代理类方法的调用，都会被实现同样接口的动态代理类分发给内部的<code>InvocationHandler</code>实例，被分发的参数包括：被代理类实例，反射的方法实例，以及方法的入参数组。</p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<li>能够协调调用者和被调用者，在一定程度上降低了系统的耦合度。</li>
+<li>客户端可以针对抽象主题角色进行编程，增加和更换代理类无须修改源代码，符合开闭原则，系统具有较好的灵活性和可扩展性。</li>
+</ol>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
+<li>由于在客户端和真实主题之间增加了代理对象，因此有些类型的代理模式可能会造成请求的处理速度变慢。</li>
+<li>实现代理模式需要额外的工作，而且有些代理模式的实现过程较为复杂。</li>
 </ol>
 ]]></content>
       <categories>
