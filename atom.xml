@@ -6,7 +6,7 @@
   <link href="https://github-blog.victorchu.info/atom.xml" rel="self"/>
   
   <link href="https://github-blog.victorchu.info/"/>
-  <updated>2021-05-12T03:14:23.261Z</updated>
+  <updated>2021-05-12T08:28:39.280Z</updated>
   <id>https://github-blog.victorchu.info/</id>
   
   <author>
@@ -17,11 +17,34 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>设计模式之访问者模式</title>
+    <link href="https://github-blog.victorchu.info/posts/e81a254a/"/>
+    <id>https://github-blog.victorchu.info/posts/e81a254a/</id>
+    <published>2017-01-26T03:36:22.000Z</published>
+    <updated>2021-05-12T08:28:39.280Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;设计模式之访问者模式&quot;&gt;&lt;a href=&quot;#设计模式之访问者模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之访问者模式&quot;&gt;&lt;/a&gt;设计模式之访问者模式&lt;/h1&gt;&lt;p&gt;访问者模式是一种较为复杂的行为型设计模式，它包含访问者和被访问元素两个主要组成部分，这些被访问的元素通常具有不同的类型，且不同的访问者可以对它们进行不同的访问操作。问者模式使得用户可以在不修改现有系统的情况下扩展系统的功能，为这些不同类型的元素增加新的操作。在使用访问者模式时，被访问元素通常不是单独存在的，它们存储在一个集合中，这个集合被称为“对象结构”，访问者通过遍历对象结构实现对其中存储的元素的逐个操作。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>设计模式之单例模式</title>
     <link href="https://github-blog.victorchu.info/posts/1a4b62fe/"/>
     <id>https://github-blog.victorchu.info/posts/1a4b62fe/</id>
     <published>2017-01-25T03:36:22.000Z</published>
-    <updated>2021-05-12T03:14:23.261Z</updated>
+    <updated>2021-05-12T03:16:35.486Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;单例模式&quot;&gt;&lt;a href=&quot;#单例模式&quot; class=&quot;headerlink&quot; title=&quot;单例模式&quot;&gt;&lt;/a&gt;单例模式&lt;/h1&gt;&lt;p&gt;单例模式(Singleton Pattern)：确保某一个类只有一个实例，而且自行实例化并向整个系统提供这个实例，这个类称为单例类，它提供全局访问的方法。单例模式是一种对象创建型模式。&lt;/p&gt;</summary>
@@ -44,7 +67,7 @@
     <link href="https://github-blog.victorchu.info/posts/907a70d0/"/>
     <id>https://github-blog.victorchu.info/posts/907a70d0/</id>
     <published>2017-01-24T03:36:22.000Z</published>
-    <updated>2021-05-11T15:19:27.758Z</updated>
+    <updated>2021-05-12T04:13:56.834Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;设计模式之代理模式&quot;&gt;&lt;a href=&quot;#设计模式之代理模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之代理模式&quot;&gt;&lt;/a&gt;设计模式之代理模式&lt;/h1&gt;&lt;p&gt;代理模式：给某一个对象提供一个代理或占位符，并由代理对象来控制对原对象的访问。代理模式是一种对象结构型模式。在代理模式中引入了一个新的代理对象，代理对象在客户端对象和目标对象之间起到中介的作用，它去掉客户不能看到的内容和服务或者增添客户需要的额外的新服务。&lt;/p&gt;</summary>
@@ -456,29 +479,6 @@ C ..&amp;gt; B&lt;/pre&gt;</summary>
     
     <summary type="html">&lt;h1 id=&quot;设计模式-模板方法模式&quot;&gt;&lt;a href=&quot;#设计模式-模板方法模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式-模板方法模式&quot;&gt;&lt;/a&gt;设计模式-模板方法模式&lt;/h1&gt;&lt;p&gt;在软件开发中，会遇到下面这种情况：&lt;/p&gt;
 &lt;p&gt;某个方法的实现需要多个步骤，其中有些步骤是固定的，而有些步骤并不固定，存在可变性。为了提高代码的复用性和系统的灵活性，可以使用一种称之为模板方法模式的设计模式来对这类情况进行设计。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
-    
-    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
-    
-    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式之建造者模式</title>
-    <link href="https://github-blog.victorchu.info/posts/722e57af/"/>
-    <id>https://github-blog.victorchu.info/posts/722e57af/</id>
-    <published>2017-01-05T15:02:12.000Z</published>
-    <updated>2021-03-18T14:21:18.691Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;设计模式之建造者模式&quot;&gt;&lt;a href=&quot;#设计模式之建造者模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之建造者模式&quot;&gt;&lt;/a&gt;设计模式之建造者模式&lt;/h1&gt;&lt;p&gt;建造者模式是较为复杂的创建型模式，它将客户端与包含多个组成部分（或部件）的复杂对象的创建过程分离，客户端无须知道复杂对象的内部组成部分与装配方式，只需要知道所需建造者的类型即可。&lt;br&gt;它关注如何一步一步创建一个的复杂对象，不同的具体建造者定义了不同的创建过程，且具体建造者相互独立，增加新的建造者非常方便，无须修改已有代码，系统具有较好的扩展性。&lt;/p&gt;</summary>
     
     
     

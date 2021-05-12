@@ -21,21 +21,21 @@
     var CONFIG = {"hostname":"github-blog.victorchu.info","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":"mac","style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"appID":"X9UOD4FSUP","apiKey":"fa32db1f02073025c69da8ebad0a6aa6","indexName":"hexo-next-blog","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="设计模式之状态模式状态模式用于解决系统中复杂对象的状态转换以及不同状态下行为的封装问题。当系统中某个对象存在多个状态，这些状态之间可以进行转换，而且对象在不同状态下行为不相同时可以使用状态模式。状态模式将一个对象的状态从该对象中分离出来，封装到专门的状态类中，使得对象状态可以灵活变化，对于客户端而言，无须关心对象状态的转换以及对象所处的当前状态，无论对于何种状态的对象，客户端都可以一致处理。">
+  <meta name="description" content="设计模式之访问者模式访问者模式是一种较为复杂的行为型设计模式，它包含访问者和被访问元素两个主要组成部分，这些被访问的元素通常具有不同的类型，且不同的访问者可以对它们进行不同的访问操作。问者模式使得用户可以在不修改现有系统的情况下扩展系统的功能，为这些不同类型的元素增加新的操作。在使用访问者模式时，被访问元素通常不是单独存在的，它们存储在一个集合中，这个集合被称为“对象结构”，访问者通过遍历对象结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="设计模式之状态模式">
-<meta property="og:url" content="https://github-blog.victorchu.info/posts/61e067b6/index.html">
+<meta property="og:title" content="设计模式之访问者模式">
+<meta property="og:url" content="https://github-blog.victorchu.info/posts/e81a254a/index.html">
 <meta property="og:site_name" content="Victor.Chu&#39;s Blog">
-<meta property="og:description" content="设计模式之状态模式状态模式用于解决系统中复杂对象的状态转换以及不同状态下行为的封装问题。当系统中某个对象存在多个状态，这些状态之间可以进行转换，而且对象在不同状态下行为不相同时可以使用状态模式。状态模式将一个对象的状态从该对象中分离出来，封装到专门的状态类中，使得对象状态可以灵活变化，对于客户端而言，无须关心对象状态的转换以及对象所处的当前状态，无论对于何种状态的对象，客户端都可以一致处理。">
+<meta property="og:description" content="设计模式之访问者模式访问者模式是一种较为复杂的行为型设计模式，它包含访问者和被访问元素两个主要组成部分，这些被访问的元素通常具有不同的类型，且不同的访问者可以对它们进行不同的访问操作。问者模式使得用户可以在不修改现有系统的情况下扩展系统的功能，为这些不同类型的元素增加新的操作。在使用访问者模式时，被访问元素通常不是单独存在的，它们存储在一个集合中，这个集合被称为“对象结构”，访问者通过遍历对象结构">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2017-01-22T03:36:22.000Z">
-<meta property="article:modified_time" content="2021-05-09T07:46:01.247Z">
+<meta property="article:published_time" content="2017-01-26T03:36:22.000Z">
+<meta property="article:modified_time" content="2021-05-12T08:28:39.280Z">
 <meta property="article:author" content="Victor Chu">
 <meta property="article:tag" content="Architecture">
 <meta property="article:tag" content="基本设计模式">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://github-blog.victorchu.info/posts/61e067b6/">
+<link rel="canonical" href="https://github-blog.victorchu.info/posts/e81a254a/">
 
 
 <script id="page-configurations">
@@ -48,7 +48,7 @@
   };
 </script>
 
-  <title>设计模式之状态模式 | Victor.Chu's Blog</title>
+  <title>设计模式之访问者模式 | Victor.Chu's Blog</title>
   
 
 
@@ -203,7 +203,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://github-blog.victorchu.info/posts/61e067b6/">
+    <link itemprop="mainEntityOfPage" href="https://github-blog.victorchu.info/posts/e81a254a/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/victor-blog-head.jpg">
@@ -216,7 +216,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          设计模式之状态模式
+          设计模式之访问者模式
         </h1>
 
         <div class="post-meta">
@@ -226,14 +226,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-01-22 11:36:22" itemprop="dateCreated datePublished" datetime="2017-01-22T11:36:22+08:00">2017-01-22</time>
+              <time title="创建时间：2017-01-26 11:36:22" itemprop="dateCreated datePublished" datetime="2017-01-26T11:36:22+08:00">2017-01-26</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-09 15:46:01" itemprop="dateModified" datetime="2021-05-09T15:46:01+08:00">2021-05-09</time>
+                <time title="修改时间：2021-05-12 16:28:39" itemprop="dateModified" datetime="2021-05-12T16:28:39+08:00">2021-05-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -250,7 +250,7 @@
             </span>
 
           
-            <span id="/posts/61e067b6/" class="post-meta-item leancloud_visitors" data-flag-title="设计模式之状态模式" title="阅读次数">
+            <span id="/posts/e81a254a/" class="post-meta-item leancloud_visitors" data-flag-title="设计模式之访问者模式" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -265,8 +265,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/posts/61e067b6/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/posts/61e067b6/" itemprop="commentCount"></span>
+    <a title="valine" href="/posts/e81a254a/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/e81a254a/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -276,14 +276,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.2k</span>
+              <span>4.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
+              <span>7 分钟</span>
             </span>
 
         </div>
@@ -295,67 +295,89 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="设计模式之状态模式"><a href="#设计模式之状态模式" class="headerlink" title="设计模式之状态模式"></a>设计模式之状态模式</h1><p>状态模式用于解决系统中复杂对象的状态转换以及不同状态下行为的封装问题。当系统中某个对象存在多个状态，这些状态之间可以进行转换，而且对象在不同状态下行为不相同时可以使用状态模式。状态模式将一个对象的状态从该对象中分离出来，封装到专门的状态类中，使得对象状态可以灵活变化，对于客户端而言，无须关心对象状态的转换以及对象所处的当前状态，无论对于何种状态的对象，客户端都可以一致处理。</p>
+        <h1 id="设计模式之访问者模式"><a href="#设计模式之访问者模式" class="headerlink" title="设计模式之访问者模式"></a>设计模式之访问者模式</h1><p>访问者模式是一种较为复杂的行为型设计模式，它包含访问者和被访问元素两个主要组成部分，这些被访问的元素通常具有不同的类型，且不同的访问者可以对它们进行不同的访问操作。问者模式使得用户可以在不修改现有系统的情况下扩展系统的功能，为这些不同类型的元素增加新的操作。在使用访问者模式时，被访问元素通常不是单独存在的，它们存储在一个集合中，这个集合被称为“对象结构”，访问者通过遍历对象结构实现对其中存储的元素的逐个操作。</p>
 <a id="more"></a>
-<h2 id="状态模式的定义"><a href="#状态模式的定义" class="headerlink" title="状态模式的定义"></a>状态模式的定义</h2><p>状态模式(State Pattern)：允许一个对象在其内部状态改变时改变它的行为，对象看起来似乎修改了它的类。其别名为状态对象(Objects for States)，状态模式是一种对象行为型模式。</p>
+<h2 id="访问者模式的定义"><a href="#访问者模式的定义" class="headerlink" title="访问者模式的定义"></a>访问者模式的定义</h2><p>访问者模式(Visitor Pattern):提供一个作用于某对象结构中的各元素的操作表示，它使我们可以在不改变各元素的类的前提下定义作用于这些元素的新操作。访问者模式是一种对象行为型模式。</p>
 <pre class="mermaid">classDiagram
-class Context{
-  -State state
-  +request() void
-  +setState(State state) void
+class Visitor{
+    +visit(ConcreteElementA element) void
+    +visit(ConcreteElementB element) void
 }
-class State{
-  +handle() void
+&lt;&lt;abstract&gt;&gt; Visitor
+class ConcreteVisitor{
+    +visit(ConcreteElementA element) void
+    +visit(ConcreteElementB element) void
 }
-Context *-- State
-class ConcreteState{
-  +handle() void
-}
-State &lt;|-- ConcreteState</pre>
+Visitor &lt;|--ConcreteVisitor
 
-<p>在状态模式结构图中包含如下几个角色：</p>
+class Element{
+    +accept(Visitor visitor) void
+}
+&lt;&lt;abstract&gt;&gt; Element
+class ConcreteElementA{
+    +accept(Visitor visitor) void
+}
+
+class ConcreteElementB{
+    +accept(Visitor visitor) void
+}
+
+Element &lt;|--ConcreteElementA
+Element &lt;|--ConcreteElementB
+
+Element ..&gt; Visitor
+Visitor ..&gt; Element
+
+class ObjectStructure{
+    -Collection&lt;Element&gt; elements
+}
+ObjectStructure *-- Element</pre>
+
+<p>在访问者模式结构图中包含如下几个角色：</p>
 <ul>
-<li>Context（环境类）：环境类又称为上下文类，它是拥有多种状态的对象。由于环境类的状态存在多样性且在不同状态下对象的行为有所不同，因此将状态独立出去形成单独的状态类。在环境类中维护一个抽象状态类State的实例，这个实例定义当前状态，在具体实现时，它是一个State子类的对象。</li>
-<li>State（抽象状态类）：它用于定义一个接口以封装与环境类的一个特定状态相关的行为，在抽象状态类中声明了各种不同状态对应的方法，而在其子类中实现类这些方法，由于不同状态下对象的行为可能不同，因此在不同子类中方法的实现可能存在不同，相同的方法可以写在抽象状态类中。</li>
-<li>ConcreteState（具体状态类）：它是抽象状态类的子类，每一个子类实现一个与环境类的一个状态相关的行为，每一个具体状态类对应环境的一个具体状态，不同的具体状态类其行为有所不同。</li>
+<li>Vistor（抽象访问者）：抽象访问者为对象结构中每一个具体元素类ConcreteElement声明一个访问操作，从这个操作的名称或参数类型可以清楚知道需要访问的具体元素的类型，具体访问者需要实现这些操作方法，定义对这些元素的访问操作。</li>
+<li>ConcreteVisitor（具体访问者）：具体访问者实现了每个由抽象访问者声明的操作，每一个操作用于访问对象结构中一种类型的元素。</li>
+<li>Element（抽象元素）：抽象元素一般是抽象类或者接口，它定义一个accept()方法，该方法通常以一个抽象访问者作为参数。</li>
+<li>ConcreteElement（具体元素）：具体元素实现了accept()方法，在accept()方法中调用访问者的访问方法以便完成对一个元素的操作。</li>
+<li>ObjectStructure（对象结构）：对象结构是一个元素的集合，它用于存放元素对象，并且提供了遍历其内部元素的方法。它可以结合组合模式来实现，也可以是一个简单的集合对象，如一个List对象或一个Set对象。</li>
 </ul>
-<p>在状态模式中，我们将对象在不同状态下的行为封装到不同的状态类中，为了让系统具有更好的灵活性和可扩展性，同时对各状态下的共有行为进行封装，我们需要对状态进行抽象，引入了抽象状态类角色。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">State</span> </span>&#123;  </span><br><span class="line">  <span class="comment">//声明抽象业务方法，不同的具体状态类可以不同的实现  </span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">()</span></span>;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
-<p>在抽象状态类的子类即具体状态类中实现了在抽象状态类中声明的业务方法，不同的具体状态类可以提供完全不同的方法实现，在实际使用时，在一个状态类中可能包含多个业务方法，如果在具体状态类中某些业务方法的实现完全相同，可以将这些方法移至抽象状态类，实现代码的复用。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteState</span> <span class="keyword">extends</span> <span class="title">State</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="comment">//方法具体实现代码  </span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>环境类维持一个对抽象状态类的引用，通过setState()方法可以向环境类注入不同的状态对象，再在环境类的业务方法中调用状态对象的方法.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Context</span> </span>&#123;  </span><br><span class="line">  <span class="keyword">private</span> State state; <span class="comment">//维持一个对抽象状态对象的引用  </span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> value; <span class="comment">//其他属性值，该属性值的变化可能会导致对象状态发生变化  </span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">//设置状态对象  </span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setState</span><span class="params">(State state)</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">this</span>.state = state;  </span><br><span class="line">  &#125;  </span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="comment">//其他代码  </span></span><br><span class="line">    state.handle(); <span class="comment">//调用状态对象的业务方法  </span></span><br><span class="line">    <span class="comment">//其他代码  </span></span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
-<p>环境类实际上是真正拥有状态的对象，我们只是将环境类中与状态有关的代码提取出来封装到专门的状态类中。在状态模式结构图中，环境类Context与抽象状态类State之间存在单向关联关系，在Context中定义了一个State对象。在实际使用时，它们之间可能存在更为复杂的关系，State与Context之间可能也存在依赖或者关联关系。</p>
-<p>在状态模式的使用过程中，一个对象的状态之间还可以进行相互转换，通常有两种实现状态转换的方式：</p>
-<ul>
-<li><p>统一由环境类来负责状态之间的转换，此时，环境类还充当了状态管理器(State Manager)角色，在环境类的业务方法中通过对某些属性值的判断实现状态转换，还可以提供一个专门的方法用于实现属性判断和状态转换:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">changeState</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">  <span class="comment">//判断属性值，根据属性值进行状态转换  </span></span><br><span class="line">   <span class="keyword">if</span> (value == <span class="number">0</span>) &#123;  </span><br><span class="line">      <span class="keyword">this</span>.setState(<span class="keyword">new</span> ConcreteStateA());  </span><br><span class="line">  &#125;  </span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (value == <span class="number">1</span>) &#123;  </span><br><span class="line">      <span class="keyword">this</span>.setState(<span class="keyword">new</span> ConcreteStateB());  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure></li>
-<li><p>由具体状态类来负责状态之间的转换，可以在具体状态类的业务方法中判断环境类的某些属性值再根据情况为环境类设置新的状态对象，实现状态转换，同样，也可以提供一个专门的方法来负责属性值的判断和状态转换。此时，状态类与环境类之间就将存在依赖或关联关系，因为状态类需要访问环境类中的属性值.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">changeState</span><span class="params">(Context ctx)</span> </span>&#123;  </span><br><span class="line">  <span class="comment">//根据环境对象中的属性值进行状态转换  </span></span><br><span class="line">   <span class="keyword">if</span> (ctx.getValue() == <span class="number">1</span>) &#123;  </span><br><span class="line">      ctx.setState(<span class="keyword">new</span> ConcreteStateB());  </span><br><span class="line">  &#125;  </span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (ctx.getValue() == <span class="number">2</span>) &#123;  </span><br><span class="line">      ctx.setState(<span class="keyword">new</span> ConcreteStateC());  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>当状态过多时，可以考虑使用由具体状态类来负责状态之间的转换，一个状态只关心自己的可达状态，便于管理状态。在这种情况下,只使用状态机(State Machine)管理状态的流转过程。</p>
-</blockquote>
-</li>
-</ul>
-<p>当需要多个环境对象共享一个或多个状态对象，那么需要将这些状态对象定义为环境类的静态成员对象。</p>
-<h2 id="状态模式总结"><a href="#状态模式总结" class="headerlink" title="状态模式总结"></a>状态模式总结</h2><p>状态模式将一个对象在不同状态下的不同行为封装在一个个状态类中，通过设置不同的状态对象可以让环境对象拥有不同的行为，而状态转换的细节对于客户端而言是透明的，方便了客户端的使用。</p>
-<h3 id="主要优点"><a href="#主要优点" class="headerlink" title="主要优点"></a>主要优点</h3><p>状态模式的主要优点如下：</p>
+<p>访问者模式中对象结构存储了不同类型的元素对象，以供不同访问者访问。访问者模式包括两个层次结构，一个是访问者层次结构，提供了抽象访问者和具体访问者，一个是元素层次结构，提供了抽象元素和具体元素。相同的访问者可以以不同的方式访问不同的元素，相同的元素可以接受不同访问者以不同访问方式访问。在访问者模式中，增加新的访问者无须修改原有系统，系统具有较好的可扩展性。</p>
+<p>在访问者模式中，抽象访问者定义了访问元素对象的方法，通常为每一种类型的元素对象都提供一个访问方法，而具体访问者可以实现这些访问方法。这些访问方法的命名一般有两种方式：一种是直接在方法名中标明待访问元素对象的具体类型，如visitElementA(ElementA elementA)，还有一种是统一取名为visit()，通过参数类型的不同来定义一系列重载的visit()方法。如果所有的访问者对某一类型的元素的访问操作都相同，则可以将操作代码移到抽象访问者类中，代码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Visitor</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(ConcreteElementA elementA)</span></span>;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(ConcreteElementB elementB)</span></span>;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(ConcreteElementC elementC)</span>  </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        <span class="comment">//元素ConcreteElementC操作代码  </span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<div class="note info">
+            <p>注意，Visitor的visit方法不会接受抽象类作为参数，通过运行时类型动态分配到对应的方法上！！！</p>
+          </div>
+<p>在这里使用了重载visit()方法的方式来定义多个方法用于操作不同类型的元素对象。在抽象访问者Visitor类的子类ConcreteVisitor中实现了抽象的访问方法，用于定义对不同类型元素对象的操作，具体访问者类代码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteVisitor</span> <span class="keyword">extends</span> <span class="title">Visitor</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(ConcreteElementA elementA)</span>  </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        <span class="comment">//元素ConcreteElementA操作代码  </span></span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">visit</span><span class="params">(ConcreteElementB elementB)</span>  </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        <span class="comment">//元素ConcreteElementB操作代码  </span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<p>对于元素类而言，在其中一般都定义了一个accept()方法，用于接受访问者的访问，抽象元素类代码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Element</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(Visitor visitor)</span></span>;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<p>该方法传入了一个抽象访问者Visitor类型的参数，即针对抽象访问者进行编程，而不是具体访问者，在程序运行时再确定具体访问者的类型，并调用具体访问者对象的visit()方法实现对元素对象的操作。在抽象元素类Element的子类中实现了accept()方法，用于接受访问者的访问，在具体元素类中还可以定义不同类型的元素所特有的业务方法，其代码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteElementA</span> <span class="keyword">implements</span> <span class="title">Element</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(Visitor visitor)</span>  </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        visitor.visit(<span class="keyword">this</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operationA</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        <span class="comment">//业务方法  </span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<p>在具体元素类ConcreteElementA的accept()方法中，通过调用Visitor类的visit()方法实现对元素的访问，并以当前对象作为visit()方法的参数。其具体执行过程如下：</p>
 <ol>
-<li>封装了状态的转换规则，在状态模式中可以将状态的转换代码封装在环境类或者具体状态类中，可以对状态转换代码进行集中管理，而不是分散在一个个业务方法中。</li>
-<li>将所有与某个状态有关的行为放到一个类中，只需要注入一个不同的状态对象即可使环境对象拥有不同的行为。</li>
-<li>允许状态转换逻辑与状态对象合成一体，而不是提供一个巨大的条件语句块，状态模式可以让我们避免使用庞大的条件语句来将业务方法和状态转换代码交织在一起。</li>
-<li>可以让多个环境对象共享一个状态对象，从而减少系统中对象的个数。</li>
+<li>调用具体元素类的accept(Visitor visitor)方法，并将Visitor子类对象作为其参数；</li>
+<li>在具体元素类accept(Visitor visitor)方法内部调用传入的Visitor对象的visit()方法，如visit(ConcreteElementA elementA)，将当前具体元素类对象(this)作为参数，如visitor.visit(this)；</li>
+<li>执行Visitor对象的visit()方法，在其中还可以调用具体元素对象的业务方法。</li>
 </ol>
-<h3 id="主要缺点"><a href="#主要缺点" class="headerlink" title="主要缺点"></a>主要缺点</h3><p>状态模式的主要缺点如下：</p>
+<p>这种调用机制也称为“双重分派”，正因为使用了双重分派机制，使得增加新的访问者无须修改现有类库代码，只需将新的访问者对象作为参数传入具体元素对象的accept()方法，程序运行时将回调在新增Visitor类中定义的visit()方法，从而增加新的元素访问方式。</p>
+<p>在访问者模式中，对象结构是一个集合，它用于存储元素对象并接受访问者的访问，在对象结构中可以使用迭代器对存储在集合中的元素对象进行遍历，并逐个调用每一个对象的accept()方法，实现对元素对象的访问操作。</p>
+<h2 id="访问者模式总结"><a href="#访问者模式总结" class="headerlink" title="访问者模式总结"></a>访问者模式总结</h2><p>由于访问者模式的使用条件较为苛刻，本身结构也较为复杂，因此在实际应用中使用频率不是特别高。当系统中存在一个较为复杂的对象结构，且不同访问者对其所采取的操作也不相同时，可以考虑使用访问者模式进行设计。在XML文档解析、编译器的设计、复杂集合对象的处理等领域访问者模式得到了一定的应用。</p>
+<h3 id="主要优点"><a href="#主要优点" class="headerlink" title="主要优点"></a>主要优点</h3><p>访问者模式的主要优点如下：</p>
 <ol>
-<li>状态模式的使用必然会增加系统中类和对象的个数，导致系统运行开销增大。</li>
-<li>状态模式的结构与实现都较为复杂，如果使用不当将导致程序结构和代码的混乱，增加系统设计的难度。</li>
-<li>状态模式对“开闭原则”的支持并不太好，增加新的状态类需要修改那些负责状态转换的源代码，否则无法转换到新增状态；而且修改某个状态类的行为也需修改对应类的源代码。</li>
+<li>增加新的访问操作很方便。使用访问者模式，增加新的访问操作就意味着增加一个新的具体访问者类，实现简单，无须修改源代码，符合“开闭原则”。</li>
+<li>将有关元素对象的访问行为集中到一个访问者对象中，而不是分散在一个个的元素类中。类的职责更加清晰，有利于对象结构中元素对象的复用，相同的对象结构可以供多个不同的访问者访问。</li>
+<li>让用户能够在不修改现有元素类层次结构的情况下，定义作用于该层次结构的操作。</li>
 </ol>
-<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>在以下情况下可以考虑使用状态模式：</p>
+<h3 id="主要缺点"><a href="#主要缺点" class="headerlink" title="主要缺点"></a>主要缺点</h3><p>访问者模式的主要缺点如下：</p>
 <ol>
-<li>对象的行为依赖于它的状态（如某些属性值），状态的改变将导致行为的变化。</li>
-<li>在代码中包含大量与对象状态有关的条件语句，这些条件语句的出现，会导致代码的可维护性和灵活性变差，不能方便地增加和删除状态，并且导致客户类与类库之间的耦合增强。</li>
+<li>增加新的元素类很困难。在访问者模式中，每增加一个新的元素类都意味着要在抽象访问者角色中增加一个新的抽象操作，并在每一个具体访问者类中增加相应的具体操作，这违背了“开闭原则”的要求。</li>
+<li>破坏封装。访问者模式要求访问者对象访问并调用每一个元素对象的操作，这意味着元素对象有时候必须暴露一些自己的内部操作和内部状态，否则无法供访问者访问。</li>
+</ol>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><p>在以下情况下可以考虑使用访问者模式：</p>
+<ol>
+<li>一个对象结构包含多个类型的对象，希望对这些对象实施一些依赖其具体类型的操作。在访问者中针对每一种具体的类型都提供了一个访问操作，不同类型的对象可以有不同的访问操作。</li>
+<li>需要对一个对象结构中的对象进行很多不同的并且不相关的操作，而需要避免让这些操作“污染”这些对象的类，也不希望在增加新操作时修改这些类。访问者模式使得我们可以将相关的访问操作集中起来定义在访问者类中，对象结构可以被多个不同的访问者类所使用，将对象本身与对象的访问操作分离。</li>
+<li>对象结构中对象对应的类很少改变，但经常需要在此对象结构上定义新的操作。</li>
 </ol>
 
     </div>
@@ -412,7 +434,7 @@ State &lt;|-- ConcreteState</pre>
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://github-blog.victorchu.info/posts/61e067b6/" title="设计模式之状态模式">https://github-blog.victorchu.info/posts/61e067b6/</a>
+    <a href="https://github-blog.victorchu.info/posts/e81a254a/" title="设计模式之访问者模式">https://github-blog.victorchu.info/posts/e81a254a/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -453,13 +475,10 @@ State &lt;|-- ConcreteState</pre>
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/posts/28327c8a/" rel="prev" title="设计模式之桥梁模式">
-      <i class="fa fa-chevron-left"></i> 设计模式之桥梁模式
+    <a href="/posts/1a4b62fe/" rel="prev" title="设计模式之单例模式">
+      <i class="fa fa-chevron-left"></i> 设计模式之单例模式
     </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/bc603741/" rel="next" title="设计模式之解释器模式">
-      设计模式之解释器模式 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -519,7 +538,7 @@ State &lt;|-- ConcreteState</pre>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">设计模式之状态模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">状态模式的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93"><span class="nav-number">1.2.</span> <span class="nav-text">状态模式总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E4%BC%98%E7%82%B9"><span class="nav-number">1.2.1.</span> <span class="nav-text">主要优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E7%BC%BA%E7%82%B9"><span class="nav-number">1.2.2.</span> <span class="nav-text">主要缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.2.3.</span> <span class="nav-text">适用场景</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">设计模式之访问者模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">访问者模式的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93"><span class="nav-number">1.2.</span> <span class="nav-text">访问者模式总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E4%BC%98%E7%82%B9"><span class="nav-number">1.2.1.</span> <span class="nav-text">主要优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E7%BC%BA%E7%82%B9"><span class="nav-number">1.2.2.</span> <span class="nav-text">主要缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.2.3.</span> <span class="nav-text">适用场景</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
