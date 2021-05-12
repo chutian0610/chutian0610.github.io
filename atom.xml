@@ -6,7 +6,7 @@
   <link href="https://github-blog.victorchu.info/atom.xml" rel="self"/>
   
   <link href="https://github-blog.victorchu.info/"/>
-  <updated>2021-05-11T15:19:27.758Z</updated>
+  <updated>2021-05-12T03:14:23.261Z</updated>
   <id>https://github-blog.victorchu.info/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>设计模式之单例模式</title>
+    <link href="https://github-blog.victorchu.info/posts/1a4b62fe/"/>
+    <id>https://github-blog.victorchu.info/posts/1a4b62fe/</id>
+    <published>2017-01-25T03:36:22.000Z</published>
+    <updated>2021-05-12T03:14:23.261Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;单例模式&quot;&gt;&lt;a href=&quot;#单例模式&quot; class=&quot;headerlink&quot; title=&quot;单例模式&quot;&gt;&lt;/a&gt;单例模式&lt;/h1&gt;&lt;p&gt;单例模式(Singleton Pattern)：确保某一个类只有一个实例，而且自行实例化并向整个系统提供这个实例，这个类称为单例类，它提供全局访问的方法。单例模式是一种对象创建型模式。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
+    
+    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>设计模式之代理模式</title>
@@ -456,30 +479,6 @@ C ..&amp;gt; B&lt;/pre&gt;</summary>
     
     
     <summary type="html">&lt;h1 id=&quot;设计模式之建造者模式&quot;&gt;&lt;a href=&quot;#设计模式之建造者模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之建造者模式&quot;&gt;&lt;/a&gt;设计模式之建造者模式&lt;/h1&gt;&lt;p&gt;建造者模式是较为复杂的创建型模式，它将客户端与包含多个组成部分（或部件）的复杂对象的创建过程分离，客户端无须知道复杂对象的内部组成部分与装配方式，只需要知道所需建造者的类型即可。&lt;br&gt;它关注如何一步一步创建一个的复杂对象，不同的具体建造者定义了不同的创建过程，且具体建造者相互独立，增加新的建造者非常方便，无须修改已有代码，系统具有较好的扩展性。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
-    
-    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
-    
-    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式之抽象工厂模式</title>
-    <link href="https://github-blog.victorchu.info/posts/1ef33906/"/>
-    <id>https://github-blog.victorchu.info/posts/1ef33906/</id>
-    <published>2017-01-03T18:52:02.000Z</published>
-    <updated>2021-03-18T14:21:35.883Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;设计模式之抽象工厂模式&quot;&gt;&lt;a href=&quot;#设计模式之抽象工厂模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之抽象工厂模式&quot;&gt;&lt;/a&gt;设计模式之抽象工厂模式&lt;/h1&gt;&lt;p&gt;工厂方法模式通过引入工厂等级结构，解决了简单工厂模式中工厂类职责太重的问题，但由于工厂方法模式中的每个工厂只生产一类产品，可能会导致系统中存在大量的工厂类，势必会增加系统的开销。&lt;/p&gt;
-&lt;p&gt;此时，我们可以考虑将一些相关的产品组成一个“产品族”，由同一个工厂来统一生产，这就是我们本文将要学习的抽象工厂模式的基本思想。&lt;/p&gt;</summary>
     
     
     
