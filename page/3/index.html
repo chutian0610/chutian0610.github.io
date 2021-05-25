@@ -121,7 +121,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">27</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">29</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -131,12 +131,12 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">6</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">7</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">8</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a>
 
   </li>
         <li class="menu-item menu-item-messageboard">
@@ -686,6 +686,262 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github-blog.victorchu.info/posts/79ea612a/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/victor-blog-head.jpg">
+      <meta itemprop="name" content="Victor Chu">
+      <meta itemprop="description" content="blog about programming.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Victor.Chu's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/79ea612a/" class="post-title-link" itemprop="url">shell命令集合</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-12-15 19:50:42" itemprop="dateCreated datePublished" datetime="2016-12-15T19:50:42+08:00">2016-12-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-25 17:48:45" itemprop="dateModified" datetime="2021-05-25T17:48:45+08:00">2021-05-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tools/" itemprop="url" rel="index"><span itemprop="name">tools</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tools/shells/" itemprop="url" rel="index"><span itemprop="name">shells</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/posts/79ea612a/" class="post-meta-item leancloud_visitors" data-flag-title="shell命令集合" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/79ea612a/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/79ea612a/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="shell命令集合"><a href="#shell命令集合" class="headerlink" title="shell命令集合"></a>shell命令集合</h1><p>收集了一些工作中常用的shell命令的使用</p>
+<div class="note default">
+            <p>持续更新中</p>
+          </div>
+<h2 id="MACOS-使用-GNU-工具"><a href="#MACOS-使用-GNU-工具" class="headerlink" title="MACOS 使用 GNU 工具"></a>MACOS 使用 GNU 工具</h2><p>Mac OS X自带的sed等命令行工具是基于BSD的，有一些缺陷和不足，可以安装gnu命令行工具来替代Mac自带的这些常用工具。</p>
+<h3 id="preinstall"><a href="#preinstall" class="headerlink" title="preinstall"></a>preinstall</h3><p>在安装GNU工具前，确保mac 已安装 <a target="_blank" rel="noopener" href="https://brew.sh/">HomeBrew</a>，安装方法见链接。</p>
+<h3 id="install"><a href="#install" class="headerlink" title="install"></a>install</h3><ol>
+<li>首先安装最重要的－－GNU Coreutils</li>
+</ol>
+<p>GNU Coreutils包含了UNIX最基本的命令，如ls，cat等。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> brew install coreutils</span></span><br></pre></td></tr></table></figure>
+<p>为了使用默认工具名字，例如使用 ls 而不是 gls 来执行ls命令。需要在bashrc或zshrc配置文件中加上下面这段配置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if brew list --formula | grep coreutils &gt; &#x2F;dev&#x2F;null ; then</span><br><span class="line">  export PATH&#x3D;&quot;$(brew --prefix coreutils)&#x2F;libexec&#x2F;gnubin:$PATH&quot;</span><br><span class="line">  export MANPATH&#x3D;&quot;$(brew --prefix coreutils)&#x2F;libexec&#x2F;gnuman:$MANPATH&quot;</span><br><span class="line">  # GNU ls 设置</span><br><span class="line">  alias ls&#x3D;&#39;ls -F --show-control-chars --color&#x3D;auto&#39;</span><br><span class="line">  # 设置ls命令使用的环境变量LS_COLORS</span><br><span class="line">  eval &#96;gdircolors -b $HOME&#x2F;.dir_colors&#96;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<ol>
+<li>其他命令</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">brew install binutils</span><br><span class="line"><span class="meta">#</span><span class="bash"> add to bashrc</span></span><br><span class="line">export PATH=&quot;/usr/local/opt/binutils/bin:$PATH&quot;</span><br><span class="line"></span><br><span class="line">brew install ed </span><br><span class="line"><span class="meta">#</span><span class="bash"> add to bashrc</span></span><br><span class="line">export PATH=&quot;/usr/local/opt/ed/bin:$PATH&quot;</span><br><span class="line"></span><br><span class="line">brew install findutils </span><br><span class="line"><span class="meta">#</span><span class="bash"> add to bashrc</span></span><br><span class="line">export PATH=&quot;/usr/local/opt/findutils/libexec/gnubin:$PATH&quot;</span><br><span class="line"></span><br><span class="line">brew install gawk</span><br><span class="line">brew install gnu-indent </span><br><span class="line"><span class="meta">#</span><span class="bash">add to bashrc</span></span><br><span class="line">export PATH=&quot;/usr/local/opt/gnu-indent/libexec/gnubin:$PATH&quot;</span><br><span class="line"></span><br><span class="line">brew install gnu-sed </span><br><span class="line"><span class="meta">#</span><span class="bash">add to bashrc</span></span><br><span class="line">export PATH=&quot;/usr/local/opt/gnu-sed/libexec/gnubin:$PATH&quot;</span><br><span class="line"></span><br><span class="line">brew install gnu-tar </span><br><span class="line"><span class="meta">#</span><span class="bash">add to bashrc</span></span><br><span class="line">export PATH=&quot;/usr/local/opt/gnu-tar/libexec/gnubin:$PATH&quot;</span><br><span class="line"></span><br><span class="line">brew install gnu-which</span><br><span class="line"><span class="meta">#</span><span class="bash"> add to bashrc</span></span><br><span class="line">export PATH=&quot;/usr/local/opt/gnu-which/libexec/gnubin:$PATH&quot;</span><br><span class="line"></span><br><span class="line">brew install grep </span><br><span class="line"><span class="meta">#</span><span class="bash"> add to bashrc</span></span><br><span class="line">export PATH=&quot;/usr/local/opt/grep/libexec/gnubin:$PATH&quot;</span><br><span class="line"></span><br><span class="line">brew install gnutls</span><br><span class="line">brew install gzip</span><br><span class="line">brew install screen</span><br><span class="line">brew install watch</span><br><span class="line">brew install wdiff</span><br><span class="line">brew install wget</span><br></pre></td></tr></table></figure>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p><a href="/posts/ab7d6f7c/">linux命令sed</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github-blog.victorchu.info/posts/ab7d6f7c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/victor-blog-head.jpg">
+      <meta itemprop="name" content="Victor Chu">
+      <meta itemprop="description" content="blog about programming.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Victor.Chu's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/ab7d6f7c/" class="post-title-link" itemprop="url">linux命令sed</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-12-15 09:50:42" itemprop="dateCreated datePublished" datetime="2016-12-15T09:50:42+08:00">2016-12-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-25 17:46:29" itemprop="dateModified" datetime="2021-05-25T17:46:29+08:00">2021-05-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tools/" itemprop="url" rel="index"><span itemprop="name">tools</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tools/shells/" itemprop="url" rel="index"><span itemprop="name">shells</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/posts/ab7d6f7c/" class="post-meta-item leancloud_visitors" data-flag-title="linux命令sed" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/posts/ab7d6f7c/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/posts/ab7d6f7c/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>18k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>30 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="linux命令sed"><a href="#linux命令sed" class="headerlink" title="linux命令sed"></a>linux命令sed</h1><p>sed 是linux 中的流式编辑器，用于过滤和修改文本。sed 会根据脚本命令来处理文本文件中的数据，这些命令要么从命令行中输入，要么存储在一个文本文件中，此命令执行数据的顺序如下：</p>
+<ol>
+<li>每次仅读取一行内容；</li>
+<li>根据提供的规则命令匹配并修改数据。注意，sed 默认不会直接修改源文件数据，而是会将数据复制到缓冲区中，修改也仅限于缓冲区中的数据；</li>
+<li>将执行结果输出。</li>
+<li>当一行数据匹配完成后，它会继续读取下一行数据，并重复这个过程，直到将文件中所有数据处理完毕。</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/ab7d6f7c/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://github-blog.victorchu.info/posts/daa4c03f/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1119,20 +1375,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1191,12 +1447,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">101k</span>
+    <span title="站点总字数">120k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:48</span>
+    <span title="站点阅读时长">3:20</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-602cdf671abc4d97" async="async"></script>
