@@ -6,7 +6,7 @@
   <link href="https://github-blog.victorchu.info/atom.xml" rel="self"/>
   
   <link href="https://github-blog.victorchu.info/"/>
-  <updated>2021-05-12T08:29:48.935Z</updated>
+  <updated>2021-05-26T06:04:47.707Z</updated>
   <id>https://github-blog.victorchu.info/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MapReduce面向大型集群的简化数据处理</title>
+    <link href="https://github-blog.victorchu.info/posts/6fd40c2d/"/>
+    <id>https://github-blog.victorchu.info/posts/6fd40c2d/</id>
+    <published>2020-05-18T12:50:00.000Z</published>
+    <updated>2021-05-26T06:04:47.707Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;MapReduce-面向大型集群的简化数据处理&quot;&gt;&lt;a href=&quot;#MapReduce-面向大型集群的简化数据处理&quot; class=&quot;headerlink&quot; title=&quot;MapReduce 面向大型集群的简化数据处理&quot;&gt;&lt;/a&gt;MapReduce 面向大型集群的简化数据处理&lt;/h1&gt;&lt;p&gt;什么是MapReduce？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;MapReduce既是一种编程模型，也是一种用于处理和产生大数据集的实现&lt;/strong&gt;。用户使用一个特定的map程序去处理key/value对，并产生中间key/value对的集合，以及一个特定的reduce程序去合并有着相同key的所有中间key/value对。本文指出，许多实际的任务都可以用这种模型来表示。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;用这种函数式风格写出的程序自动就拥有了在一个大的机器集群上并行执行的能力&lt;/strong&gt;。运行时系统会负责细节：输入数据分区，在一组机器上执行调度程序，处理机器错误，以及管理所需的机器间内部通信。这允许不具备任何并行和分布式系统经验的程序员也能轻松地利用一个大型分布式系统的资源。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Paper" scheme="https://github-blog.victorchu.info/categories/Paper/"/>
+    
+    <category term="BigData" scheme="https://github-blog.victorchu.info/categories/Paper/BigData/"/>
+    
+    
+    <category term="Bigdata" scheme="https://github-blog.victorchu.info/tags/Bigdata/"/>
+    
+    <category term="Distributed" scheme="https://github-blog.victorchu.info/tags/Distributed/"/>
+    
+  </entry>
   
   <entry>
     <title>设计模式之访问者模式</title>
@@ -455,30 +480,6 @@ C ..&amp;gt; B&lt;/pre&gt;</summary>
     
     
     <summary type="html">&lt;h1 id=&quot;设计模式之原型模式&quot;&gt;&lt;a href=&quot;#设计模式之原型模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式之原型模式&quot;&gt;&lt;/a&gt;设计模式之原型模式&lt;/h1&gt;&lt;p&gt;原型模式(Prototype  Pattern)：使用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。原型模式是一种对象创建型模式。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Architecture" scheme="https://github-blog.victorchu.info/categories/Architecture/"/>
-    
-    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="Architecture" scheme="https://github-blog.victorchu.info/tags/Architecture/"/>
-    
-    <category term="基本设计模式" scheme="https://github-blog.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式之模板方法模式</title>
-    <link href="https://github-blog.victorchu.info/posts/6948162f/"/>
-    <id>https://github-blog.victorchu.info/posts/6948162f/</id>
-    <published>2017-01-05T17:59:19.000Z</published>
-    <updated>2021-03-18T14:19:37.395Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;设计模式-模板方法模式&quot;&gt;&lt;a href=&quot;#设计模式-模板方法模式&quot; class=&quot;headerlink&quot; title=&quot;设计模式-模板方法模式&quot;&gt;&lt;/a&gt;设计模式-模板方法模式&lt;/h1&gt;&lt;p&gt;在软件开发中，会遇到下面这种情况：&lt;/p&gt;
-&lt;p&gt;某个方法的实现需要多个步骤，其中有些步骤是固定的，而有些步骤并不固定，存在可变性。为了提高代码的复用性和系统的灵活性，可以使用一种称之为模板方法模式的设计模式来对这类情况进行设计。&lt;/p&gt;</summary>
     
     
     
