@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>代码之旅</title>
+  <icon>https://www.victorchu.info/icon.png</icon>
+  <subtitle>I love Coding !</subtitle>
+  <link href="https://www.victorchu.info/atom.xml" rel="self"/>
+  
+  <link href="https://www.victorchu.info/"/>
+  <updated>2024-02-02T10:10:38.000Z</updated>
+  <id>https://www.victorchu.info/</id>
+  
+  <author>
+    <name>Victor Chu</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用物化视图优化查询:一个实用的、可扩展的解决方案</title>
+    <link href="https://www.victorchu.info/posts/4e6dffa/"/>
+    <id>https://www.victorchu.info/posts/4e6dffa/</id>
+    <published>2024-02-02T09:58:19.000Z</published>
+    <updated>2024-02-02T10:10:38.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1&gt;使用物化视图优化查询:一个实用的、可扩展的解决方案&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;本篇是&lt;a href=&quot;https://courses.cs.washington.edu/courses/cse591d/01sp/opt_views.pdf&quot;&gt;论文&lt;/a&gt;的中文简单翻译&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;物化视图可以大大缩短查询处理时间，特别是对于大型表的聚合查询。要释放这种潜力，查询优化器必须知道如何以及何时利用物化视图。本文提出了一种快速且可扩展的算法，用于确定是否可以从物化视图中计算查询的部分或全部，并描述了如何将其纳入基于转换的优化器中。当前版本处理由selections、joins和group by组成的视图。优化仍然完全基于成本，也就是说，启发式规则不会选择单个“最佳”重写，而是生成多个重写，优化器以正常方式选择最佳替代方案。实验结果表明，该算法在Microsoft SQL Server上实现了良好的性能和可扩展性。优化时间随着视图数的增加而缓慢增加，但即使视图数达到1000次，优化耗时仍然很低。&lt;/p&gt;
+&lt;p&gt;关键字:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;物化视图&lt;/li&gt;
+&lt;li&gt;视图匹配&lt;/li&gt;
+&lt;li&gt;查询优化&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="Paper" scheme="https://www.victorchu.info/categories/Paper/"/>
+    
+    <category term="BigData" scheme="https://www.victorchu.info/categories/Paper/BigData/"/>
+    
+    
+    <category term="Distributed" scheme="https://www.victorchu.info/tags/Distributed/"/>
+    
+    <category term="BigData" scheme="https://www.victorchu.info/tags/BigData/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>形式化关系查询语言</title>
+    <link href="https://www.victorchu.info/posts/9e3f23c9/"/>
+    <id>https://www.victorchu.info/posts/9e3f23c9/</id>
+    <published>2023-10-03T08:25:05.000Z</published>
+    <updated>2024-01-03T08:36:18.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1&gt;形式化关系查询语言&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;本文是数据库系统概念第六章节的读书笔记。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;查询语言是用户用来从数据库中请求信息的语言。查询语言可以分为过程化和非过程化的。在过程化语言中用户指导系统对数据库执行一系列操作以计算出结果。在非过程化语言中，用户只需要描述所需信息，而不用给出具体过程。&lt;/p&gt;
+&lt;p&gt;实际上使用的查询语言既包含过程化的成分，又包含非过程化的成分。在一些&amp;quot;纯&amp;quot;查询语言中，关系代数是过程化的，而元组关系演算和域关系演算是非过程的。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在关系模型中，关系指表。表的一行是元组。表中一列是属性。域是属性的取值范围。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="ReadNotes" scheme="https://www.victorchu.info/categories/ReadNotes/"/>
+    
+    
+    <category term="Query" scheme="https://www.victorchu.info/tags/Query/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Trino Sql优化:Removing redundant ORDER BY</title>
+    <link href="https://www.victorchu.info/posts/422b2ff2/"/>
+    <id>https://www.victorchu.info/posts/422b2ff2/</id>
+    <published>2023-09-01T06:38:06.000Z</published>
+    <updated>2023-11-23T02:18:07.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1&gt;Trino Sql优化:Removing redundant ORDER BY&lt;/h1&gt;
+&lt;p&gt;一些SQL构造（如ORDER BY）在许多情况下不会影响查询结果，并且会产生影响性能的负面影响(查询中的每个ORDER BY子句都代表一个排序执行计划)。如果用户无意中在没有效果的地方使用ORDER BY，可能会导致严重的性能下降和资源浪费。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sql规范(ISO 9075 Part 2)中说明:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;一个&lt;code&gt;&amp;lt;query expression&amp;gt;&lt;/code&gt;可以包含一个可选的&lt;code&gt;&amp;lt;order by clause&amp;gt;&lt;/code&gt;。&lt;br&gt;
+&lt;code&gt;&amp;lt;query expression&amp;gt;&lt;/code&gt;z中行的顺序仅由&lt;code&gt;&amp;lt;query expression&amp;gt;&lt;/code&gt;直接包含的&lt;code&gt;&amp;lt;order by clause&amp;gt;&lt;/code&gt;指定。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;上述规范意味着，查询引擎可以自由地忽略任何不适合上下文的ORDER BY子句。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
+    
+    
+    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
+    
+    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Trino源码学习-自定义函数</title>
+    <link href="https://www.victorchu.info/posts/8147f19c/"/>
+    <id>https://www.victorchu.info/posts/8147f19c/</id>
+    <published>2023-08-30T12:20:06.000Z</published>
+    <updated>2023-11-23T02:18:07.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;Trino源码学习-自定义函数&lt;/h1&gt;
+&lt;p&gt;Presto Functions 并不能像 Hive UDF 一样动态加载，需要根据 Function 的类型，实现 Presto 内部定义的不同接口，在 Presto 服务启动时进行注册，然后才能在 SQL</summary>
+        
+      
+    
+    
+    
+    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
+    
+    
+    <category term="TODO" scheme="https://www.victorchu.info/tags/TODO/"/>
+    
+    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
+    
+    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Trino源码学习-SPI&amp;Plugin</title>
+    <link href="https://www.victorchu.info/posts/a7b887a1/"/>
+    <id>https://www.victorchu.info/posts/a7b887a1/</id>
+    <published>2023-08-20T14:20:31.000Z</published>
+    <updated>2023-11-23T02:18:07.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1&gt;Trino源码学习-SPI&amp;amp;Plugin&lt;/h1&gt;
+&lt;p&gt;本篇将介绍Trino的SPI和如何通过Plugin体系扩展SPI。Trino 支持通过SPI（Service Provider Interface）方式对其进行扩展点扩展。当前已有的扩展点有:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Connectors(连接器)&lt;/li&gt;
+&lt;li&gt;block encodings(块编码)&lt;/li&gt;
+&lt;li&gt;Types(类型)&lt;/li&gt;
+&lt;li&gt;Functions(函数)&lt;/li&gt;
+&lt;li&gt;System access control(系统访问权限)&lt;/li&gt;
+&lt;li&gt;Group provider(资源组)&lt;/li&gt;
+&lt;li&gt;Password authenticator(密码验证器)&lt;/li&gt;
+&lt;li&gt;Header authenticator(标头验证器)&lt;/li&gt;
+&lt;li&gt;Certificate authenticator(证书验证器)&lt;/li&gt;
+&lt;li&gt;Event listener(事件侦听器)&lt;/li&gt;
+&lt;li&gt;resource group configuration managers(资源组配置管理器)&lt;/li&gt;
+&lt;li&gt;session property configuration managers(会话属性配置管理器)&lt;/li&gt;
+&lt;li&gt;exchange managers(数据交互管理器)&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
+    
+    
+    <category term="TODO" scheme="https://www.victorchu.info/tags/TODO/"/>
+    
+    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
+    
+    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>蓄水池采样算法</title>
+    <link href="https://www.victorchu.info/posts/d8af9969/"/>
+    <id>https://www.victorchu.info/posts/d8af9969/</id>
+    <published>2023-05-25T03:23:29.000Z</published>
+    <updated>2023-12-12T03:32:44.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1&gt;蓄水池采样算法&lt;/h1&gt;
+&lt;p&gt;蓄水池采样算法是一种随机抽样算法，它能够在一个很大的集合中，抽取一部分样本，并保证每个样本的选取概率都是相等并随机的。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;特点：
+&lt;ul&gt;
+&lt;li&gt;选取集合可以非常大，甚至不知道边界。&lt;/li&gt;
+&lt;li&gt;每个样本的选取随机且概率相等。&lt;/li&gt;
+&lt;li&gt;时间复杂度较低，O(n)，节省内存。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;适用场景：
+&lt;ul&gt;
+&lt;li&gt;在一些非常大的集合，或者未知大小的集合，不知道边界的集合，不知道文件总行数的情况下，随机抽取k个元素。&lt;/li&gt;
+&lt;li&gt;保证每个元素抽取都是均匀随机的并且概率相等。&lt;/li&gt;
+&lt;li&gt;尽量高效，节省内存地抽取&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="Algorithm" scheme="https://www.victorchu.info/categories/Algorithm/"/>
+    
+    <category term="Sampling" scheme="https://www.victorchu.info/categories/Algorithm/Sampling/"/>
+    
+    
+    <category term="Sampling" scheme="https://www.victorchu.info/tags/Sampling/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Trino源码学习-内存管理</title>
+    <link href="https://www.victorchu.info/posts/729a4968/"/>
+    <id>https://www.victorchu.info/posts/729a4968/</id>
+    <published>2023-05-05T13:11:16.000Z</published>
+    <updated>2023-11-23T02:18:07.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1&gt;Trino源码学习-内存管理&lt;/h1&gt;
+&lt;p&gt;Trino中的内存管理分为两块:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;LocalMemoryManager: 在ServerMainModule中声明，用于管理当前节点的内存使用&lt;/li&gt;
+&lt;li&gt;ClusterMemoryManager: 在CoordinatorModule中声明，用于管理集群的内存使用&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
+    
+    
+    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
+    
+    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Trino源码学习-TASK执行</title>
+    <link href="https://www.victorchu.info/posts/fe718156/"/>
+    <id>https://www.victorchu.info/posts/fe718156/</id>
+    <published>2023-03-15T02:35:46.000Z</published>
+    <updated>2023-11-23T02:18:07.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1&gt;Trino源码学习-TASK执行&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;/posts/53a7bc3d/&quot;&gt;上篇&lt;/a&gt;我们介绍了查询是如何调度的。本篇将介绍Task的执行。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
+    
+    
+    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
+    
+    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HikariCP: Failed to validate connection</title>
+    <link href="https://www.victorchu.info/posts/d1f5c023/"/>
+    <id>https://www.victorchu.info/posts/d1f5c023/</id>
+    <published>2023-03-13T08:08:24.000Z</published>
+    <updated>2023-11-23T02:18:07.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;HikariCP: Failed to validate connection&lt;/h1&gt;
+&lt;p&gt;最近在日志中常常看到HikariCP的warnning.&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    <category term="Java" scheme="https://www.victorchu.info/categories/Java/"/>
+    
+    <category term="JDBC" scheme="https://www.victorchu.info/categories/Java/JDBC/"/>
+    
+    
+    <category term="FAQ" scheme="https://www.victorchu.info/tags/FAQ/"/>
+    
+    <category term="HikariCP" scheme="https://www.victorchu.info/tags/HikariCP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Trino源码学习-查询调度</title>
+    <link href="https://www.victorchu.info/posts/53a7bc3d/"/>
+    <id>https://www.victorchu.info/posts/53a7bc3d/</id>
+    <published>2023-02-28T06:26:19.000Z</published>
+    <updated>2023-11-23T02:18:07.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1&gt;Trino源码学习-查询调度&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;/posts/9fa3672f/&quot;&gt;上篇&lt;/a&gt;分析了SQL逻辑执行计划的生成，本篇将继续分析逻辑计划是如何在进行调度的。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
+    
+    
+    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
+    
+    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>The Snowflake Elastic Data Warehouse</title>
+    <link href="https://www.victorchu.info/posts/f3a4a47b/"/>
+    <id>https://www.victorchu.info/posts/f3a4a47b/</id>
+    <published>2023-02-20T08:48:47.000Z</published>
+    <updated>2023-11-23T02:18:07.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1&gt;The Snowflake Elastic Data Warehouse&lt;/h1&gt;
+&lt;h2 id=&quot;摘要&quot;&gt;摘要&lt;/h2&gt;
+&lt;p&gt;我们生活在分布式计算的黄金时代。公有云平台几乎能够按需提供无限的计算和存储资源。同时，SaaS模型(Software-as-a-Service)将企业级系统带给了无法负担成本和相关系统复杂性的用户。传统的数仓系统正在努力的适应新的环境，但是首先，它是为固定资源而设计，从而没办法利用云的弹性能力。另外，传统的数仓依赖复杂的ETL流水线和物理调优，这个是和云的半结构数据和快速解决工作问题的新形式所需要的弹性和快速不一致的。&lt;/p&gt;
+&lt;p&gt;我们决定进行根本性的重新设计。我们的任务是去建立云上的企业级数据仓库的解决方案。就是Snowflake弹性数据仓库，简称Snowflake。Snowflake是一种多租户、事务性、安全、高度可扩展的弹性系统，具备完整的SQL支持和半结构化和schema-less数据模式支持。Snowflake在亚马逊云上提供现付即用的服务。用户只需将数据导入云上，就可以立即利用他们熟悉的工具和界面进行管理和查询。从2012年底，Snowflake开始计划实施，到2015年6月，Snowflake已经可以大体可用。现在，Snowflake被越来越多的大大小小的组织用于生产。这个系统每天运行几百万次查询在几PB的数据上。&lt;/p&gt;
+&lt;p&gt;本文主要介绍Snowflake的设计、多集群共享数据的结构和Snowflake的关键特性：极致的弹性和可用性、半结构化和schema-less的数据支持、时间旅行、端到端的安全性，最后是一些经验总结和对未来工作的展望。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Paper" scheme="https://www.victorchu.info/categories/Paper/"/>
+    
+    <category term="BigData" scheme="https://www.victorchu.info/categories/Paper/BigData/"/>
+    
+    
+    <category term="Distributed" scheme="https://www.victorchu.info/tags/Distributed/"/>
+    
+    <category term="BigData" scheme="https://www.victorchu.info/tags/BigData/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Trino源码学习-SQL语法树解析</title>
+    <link href="https://www.victorchu.info/posts/544755c6/"/>
+    <id>https://www.victorchu.info/posts/544755c6/</id>
+    <published>2023-02-17T06:40:34.000Z</published>
+    <updated>2023-11-23T02:18:07.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1&gt;Trino源码学习-SQL语法树解析&lt;/h1&gt;
+&lt;p&gt;Trino在查询提交时，会将SQL文本解析成语法树。Trino将这一动作分为2个部分:&lt;/p&gt;
+&lt;pre class=&quot;mermaid&quot;&gt;flowchart LR
+    s1(SQL)--&amp;gt;|Parser</summary>
+        
+      
+    
+    
+    
+    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
+    
+    
+    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
+    
+    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Trino源码学习-执行计划生成</title>
+    <link href="https://www.victorchu.info/posts/9fa3672f/"/>
+    <id>https://www.victorchu.info/posts/9fa3672f/</id>
+    <published>2023-02-16T14:28:44.000Z</published>
+    <updated>2023-11-23T02:18:07.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1&gt;Trino源码学习-执行计划生成&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;/posts/e7bc0170/&quot;&gt;上篇&lt;/a&gt;分析了trino提交查询部分的源码，本篇来分析下，构建执行计划部分的源码。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
+    
+    
+    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
+    
+    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Trino源码学习-Page数据结构</title>
+    <link href="https://www.victorchu.info/posts/1820ecd2/"/>
+    <id>https://www.victorchu.info/posts/1820ecd2/</id>
+    <published>2023-02-15T09:34:44.000Z</published>
+    <updated>2023-11-23T02:18:07.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1&gt;Trino源码学习-Page数据结构&lt;/h1&gt;
+&lt;p&gt;本篇来看下在查询执行的过程中，底层的数据结构是什么样的。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
+    
+    
+    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
+    
+    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Guice简介</title>
+    <link href="https://www.victorchu.info/posts/901e9e8/"/>
+    <id>https://www.victorchu.info/posts/901e9e8/</id>
+    <published>2023-02-10T09:32:53.000Z</published>
+    <updated>2023-11-23T02:18:07.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1&gt;Guice简介&lt;/h1&gt;
+&lt;p&gt;Guice是一个轻量级依赖注入框架。关于什么是依赖注入可以查看以前的blog，这里就不赘述了。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Guice" scheme="https://www.victorchu.info/categories/Guice/"/>
+    
+    
+    <category term="DI" scheme="https://www.victorchu.info/tags/DI/"/>
+    
+    <category term="Guice" scheme="https://www.victorchu.info/tags/Guice/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>博客图片优化</title>
+    <link href="https://www.victorchu.info/posts/1280a7d/"/>
+    <id>https://www.victorchu.info/posts/1280a7d/</id>
+    <published>2023-02-10T06:08:03.000Z</published>
+    <updated>2024-01-05T07:01:27.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1&gt;博客图片优化&lt;/h1&gt;
+&lt;p&gt;本篇文章介绍了如何优化博客中使用的图片。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Hexo" scheme="https://www.victorchu.info/categories/Hexo/"/>
+    
+    <category term="Next" scheme="https://www.victorchu.info/categories/Hexo/Next/"/>
+    
+    
+    <category term="Picture" scheme="https://www.victorchu.info/tags/Picture/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LOD表达式</title>
+    <link href="https://www.victorchu.info/posts/3d035478/"/>
+    <id>https://www.victorchu.info/posts/3d035478/</id>
+    <published>2023-02-07T12:53:34.000Z</published>
+    <updated>2023-11-23T02:18:07.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1&gt;LOD表达式&lt;/h1&gt;
+&lt;p&gt;详细级别表达式(LOD Expression)是处理在一个可视化视图中包含多个级别粒度的问题的方法。&lt;/p&gt;
+&lt;p&gt;详细级别指的是数据不同粒度(聚合度)，共有3种不同的详细级别:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;行级别表达式(聚合度最低)&lt;/li&gt;
+&lt;li&gt;视图级别表达式&lt;/li&gt;
+&lt;li&gt;表级别表达式(聚合度最高)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;行级别表达式是直接引用基础表的未聚合数据列的表达式。此时，表达式的维度是行级别的(如果表有主键的话，维度即主键)。例如:&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[Profit Ratio]=[Sales] / [Profit]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;通过将每行的销量除以利润，可以得到利润率[ProfitRatio]的新列。&lt;/p&gt;
+&lt;p&gt;视图级别表达式是引用聚合数据源列的表达式。此时，表达式的维度是当前SQL视图的维度。例如:&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;SUM(Sales)/SUM(Profit)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;表级别表达式是指不使用任何范围关键字的表达式。例如以下表达式返回整个表的最早订单日期:&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;MIN([Order Date])&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;在 Tableau 支持详细级别表达式之前，无法在视图级别以外的详细级别创建计算。例如，用户的意图是将每个商店的商店销售额与所有商店的平均销售额进行比较，如果您尝试保存以下表达式，Tableau 将显示错误消息：“无法使用此函数混合聚合和非聚合参数”：&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[Sales] – AVG([Sales])&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;在这种情况下，详细级别表达式就派上了用场。详细级别表达式提供了对视图详细级别之外的数据计算聚合的简单方法，实现在可视化中以任意的方式组合这些数据。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Design" scheme="https://www.victorchu.info/categories/Design/"/>
+    
+    
+    <category term="BigData" scheme="https://www.victorchu.info/tags/BigData/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Trino源码学习-查询提交</title>
+    <link href="https://www.victorchu.info/posts/e7bc0170/"/>
+    <id>https://www.victorchu.info/posts/e7bc0170/</id>
+    <published>2023-01-21T14:16:06.000Z</published>
+    <updated>2023-11-23T02:18:07.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1&gt;Trino源码学习-查询提交&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;/posts/5707b8da/&quot;&gt;上篇&lt;/a&gt;介绍了Trino的启动流程，这篇我们来学习下查询提交的流程。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
+    
+    
+    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
+    
+    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Trino源码学习-Trino启动</title>
+    <link href="https://www.victorchu.info/posts/5707b8da/"/>
+    <id>https://www.victorchu.info/posts/5707b8da/</id>
+    <published>2023-01-12T02:39:27.000Z</published>
+    <updated>2023-11-23T02:18:07.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1&gt;Trino源码学习-Trino启动&lt;/h1&gt;
+&lt;p&gt;本篇文章开始，我们将进行Trino的源码分析，一切还是从启动开始看起。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
+    
+    
+    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
+    
+    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Trino源码学习-Airlift源码分析</title>
+    <link href="https://www.victorchu.info/posts/50d45236/"/>
+    <id>https://www.victorchu.info/posts/50d45236/</id>
+    <published>2022-12-23T10:34:20.000Z</published>
+    <updated>2023-11-23T02:18:07.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1&gt;Trino 源码学习-Airlift 源码分析&lt;/h1&gt;
+&lt;p&gt;上一篇文章了解了 Trino 的基础 Airlift 框架。本篇将深入 Airlift 源码进行学习，Airlift中的服务都通过guice注入。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
+    
+    
+    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
+    
+    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
+    
+    <category term="Airlift" scheme="https://www.victorchu.info/tags/Airlift/"/>
+    
+  </entry>
+  
+</feed>
