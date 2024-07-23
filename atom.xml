@@ -6,7 +6,7 @@
   <link href="https://www.victorchu.info/atom.xml" rel="self"/>
   
   <link href="https://www.victorchu.info/"/>
-  <updated>2024-06-27T06:53:33.474Z</updated>
+  <updated>2024-07-23T06:47:15.893Z</updated>
   <id>https://www.victorchu.info/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java NIO: Buffer</title>
+    <link href="https://www.victorchu.info/posts/af744943/"/>
+    <id>https://www.victorchu.info/posts/af744943/</id>
+    <published>2024-07-23T06:45:38.000Z</published>
+    <updated>2024-07-23T06:47:15.893Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Java 传统 IO 是面向流的，流的处理是单向「只能从输入流中读取数据，或是向输出流中写入数据」且阻塞的。通常都是从输入流中边读取数据边处理数据，这样 IO 处理效率就会很低，基于上述原因，JDK1.4 引入了 NIO，而 NIO 是面向 Buffer 的，在处理 IO 操作的时候，会一次性将 Channel 中的数据读取到 Buffer 中然后在做后续处理，向 Channel 中写入数据也是一样，也是需要一个 Buffer 做中转，然后将 Buffer 中的数据批量写入 Channel 中。通过增加Buffer支持了数据的灵活处理。&lt;/p&gt;
+&lt;p&gt;除此之外，Nio Buffer 还提供了堆外的直接内存和内存映射相关的访问方式，来避免内存之间的来回拷贝，所以即使在传统 IO 中用到了 BufferedInputStream 也还是没办法和 Nio Buffer 相匹敌。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Java" scheme="https://www.victorchu.info/categories/Java/"/>
+    
+    <category term="JDK" scheme="https://www.victorchu.info/categories/Java/JDK/"/>
+    
+    
+    <category term="IO" scheme="https://www.victorchu.info/tags/IO/"/>
+    
+    <category term="Buffer" scheme="https://www.victorchu.info/tags/Buffer/"/>
+    
+  </entry>
   
   <entry>
     <title>使用物化视图优化查询:一个实用的、可扩展的解决方案</title>
@@ -519,29 +543,6 @@
     <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
     
     <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Trino源码学习-Airlift源码分析</title>
-    <link href="https://www.victorchu.info/posts/50d45236/"/>
-    <id>https://www.victorchu.info/posts/50d45236/</id>
-    <published>2022-12-23T10:34:20.000Z</published>
-    <updated>2024-06-27T06:53:33.468Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;上一篇文章了解了 Trino 的基础 Airlift 框架。本篇将深入 Airlift 源码进行学习，Airlift中的服务都通过guice注入。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
-    
-    
-    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
-    
-    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
-    
-    <category term="Airlift" scheme="https://www.victorchu.info/tags/Airlift/"/>
     
   </entry>
   
