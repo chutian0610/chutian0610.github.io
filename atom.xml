@@ -6,7 +6,7 @@
   <link href="https://www.victorchu.info/atom.xml" rel="self"/>
   
   <link href="https://www.victorchu.info/"/>
-  <updated>2024-06-27T06:53:33.474Z</updated>
+  <updated>2024-10-09T11:43:30.700Z</updated>
   <id>https://www.victorchu.info/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>系统性能分析-CPU 篇</title>
+    <link href="https://www.victorchu.info/posts/c8c5ed6/"/>
+    <id>https://www.victorchu.info/posts/c8c5ed6/</id>
+    <published>2024-09-18T11:40:00.000Z</published>
+    <updated>2024-10-09T11:43:30.700Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文记录一些分析 CPU 性能问题的工具&amp;amp;方法。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Linux" scheme="https://www.victorchu.info/categories/Linux/"/>
+    
+    <category term="CPU" scheme="https://www.victorchu.info/categories/Linux/CPU/"/>
+    
+    
+    <category term="Performance" scheme="https://www.victorchu.info/tags/Performance/"/>
+    
+    <category term="Analysis Tool" scheme="https://www.victorchu.info/tags/Analysis-Tool/"/>
+    
+  </entry>
   
   <entry>
     <title>使用物化视图优化查询:一个实用的、可扩展的解决方案</title>
@@ -519,29 +542,6 @@
     <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
     
     <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Trino源码学习-Airlift源码分析</title>
-    <link href="https://www.victorchu.info/posts/50d45236/"/>
-    <id>https://www.victorchu.info/posts/50d45236/</id>
-    <published>2022-12-23T10:34:20.000Z</published>
-    <updated>2024-06-27T06:53:33.468Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;上一篇文章了解了 Trino 的基础 Airlift 框架。本篇将深入 Airlift 源码进行学习，Airlift中的服务都通过guice注入。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
-    
-    
-    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
-    
-    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
-    
-    <category term="Airlift" scheme="https://www.victorchu.info/tags/Airlift/"/>
     
   </entry>
   
