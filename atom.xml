@@ -6,7 +6,7 @@
   <link href="https://www.victorchu.info/atom.xml" rel="self"/>
   
   <link href="https://www.victorchu.info/"/>
-  <updated>2025-03-11T09:36:26.905Z</updated>
+  <updated>2025-03-11T12:56:21.149Z</updated>
   <id>https://www.victorchu.info/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>系统性能分析-CPU耗时定位</title>
+    <link href="https://www.victorchu.info/posts/34494ba4/"/>
+    <id>https://www.victorchu.info/posts/34494ba4/</id>
+    <published>2025-03-11T11:10:04.000Z</published>
+    <updated>2025-03-11T12:56:21.149Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;上篇博客介绍了 &lt;a href=&quot;/post/c8c5ed6/&quot;&gt;CPU异常分析的工具和方法&lt;/a&gt;。本文将介绍如何定位 CPU 耗时。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Linux" scheme="https://www.victorchu.info/categories/Linux/"/>
+    
+    <category term="CPU" scheme="https://www.victorchu.info/categories/Linux/CPU/"/>
+    
+    
+    <category term="Performance" scheme="https://www.victorchu.info/tags/Performance/"/>
+    
+    <category term="Analysis Tool" scheme="https://www.victorchu.info/tags/Analysis-Tool/"/>
+    
+  </entry>
   
   <entry>
     <title>Rust-特征</title>
@@ -119,11 +142,11 @@
   </entry>
   
   <entry>
-    <title>系统性能分析-CPU 篇</title>
+    <title>系统性能分析-CPU-异常分析</title>
     <link href="https://www.victorchu.info/posts/c8c5ed6/"/>
     <id>https://www.victorchu.info/posts/c8c5ed6/</id>
     <published>2024-09-18T11:40:00.000Z</published>
-    <updated>2024-10-09T11:43:30.700Z</updated>
+    <updated>2025-03-11T12:13:15.691Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文记录一些分析 CPU 性能问题的工具&amp;amp;方法。&lt;/p&gt;</summary>
@@ -516,27 +539,6 @@
     <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
     
     <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Guice简介</title>
-    <link href="https://www.victorchu.info/posts/901e9e8/"/>
-    <id>https://www.victorchu.info/posts/901e9e8/</id>
-    <published>2023-02-10T09:32:53.000Z</published>
-    <updated>2024-06-27T06:53:33.468Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;Guice是一个轻量级依赖注入框架。关于什么是依赖注入可以查看以前的blog，这里就不赘述了。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Guice" scheme="https://www.victorchu.info/categories/Guice/"/>
-    
-    
-    <category term="DI" scheme="https://www.victorchu.info/tags/DI/"/>
-    
-    <category term="Guice" scheme="https://www.victorchu.info/tags/Guice/"/>
     
   </entry>
   
