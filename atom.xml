@@ -6,7 +6,7 @@
   <link href="https://www.victorchu.info/atom.xml" rel="self"/>
   
   <link href="https://www.victorchu.info/"/>
-  <updated>2024-10-09T11:43:30.700Z</updated>
+  <updated>2025-03-11T09:36:26.905Z</updated>
   <id>https://www.victorchu.info/</id>
   
   <author>
@@ -15,6 +15,108 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Rust-特征</title>
+    <link href="https://www.victorchu.info/posts/8c7679f1/"/>
+    <id>https://www.victorchu.info/posts/8c7679f1/</id>
+    <published>2025-03-11T07:23:17.000Z</published>
+    <updated>2025-03-11T09:36:26.905Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;如果不同的类型具有相同的行为，那么我们就可以定义一个特征，然后为这些类型实现该特征。定义特征是把一些方法组合在一起，目的是定义一个实现某些目标所必需的行为的集合。&lt;/p&gt;
+&lt;p&gt;例如，我们现在有文章 Post 和微博 Weibo 两种内容载体，而我们想对相应的内容进行总结，也就是无论是文章内容，还是微博内容，都可以在某个时间点进行总结，那么总结这个行为就是共享的，因此可以用特征来定义：&lt;/p&gt;
+&lt;figure class=&quot;highlight rust&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;pub&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;trait&lt;/span&gt; &lt;span class=&quot;title class_&quot;&gt;Summary&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;title function_&quot;&gt;summarize&lt;/span&gt;(&amp;amp;&lt;span class=&quot;keyword&quot;&gt;self&lt;/span&gt;) &lt;span class=&quot;punctuation&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;type&quot;&gt;String&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;特征只定义行为看起来是什么样的，而不定义行为具体是怎么样的。因此我们需要为实现特征的类型，定义行为具体是怎么样的。&lt;/p&gt;
+&lt;figure class=&quot;highlight rust&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;pub&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;title class_&quot;&gt;Post&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;pub&lt;/span&gt; title: &lt;span class=&quot;type&quot;&gt;String&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;pub&lt;/span&gt; author: &lt;span class=&quot;type&quot;&gt;String&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;pub&lt;/span&gt; content: &lt;span class=&quot;type&quot;&gt;String&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;impl&lt;/span&gt; &lt;span class=&quot;title class_&quot;&gt;Summary&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;title class_&quot;&gt;Post&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;title function_&quot;&gt;summarize&lt;/span&gt;(&amp;amp;&lt;span class=&quot;keyword&quot;&gt;self&lt;/span&gt;) &lt;span class=&quot;punctuation&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;type&quot;&gt;String&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;built_in&quot;&gt;format!&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&amp;quot;文章&amp;#123;&amp;#125;, 作者是&amp;#123;&amp;#125;&amp;quot;&lt;/span&gt;, &lt;span class=&quot;keyword&quot;&gt;self&lt;/span&gt;.title, &lt;span class=&quot;keyword&quot;&gt;self&lt;/span&gt;.author)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="Rust" scheme="https://www.victorchu.info/categories/Rust/"/>
+    
+    
+    <category term="QuickStart" scheme="https://www.victorchu.info/tags/QuickStart/"/>
+    
+    <category term="Rust" scheme="https://www.victorchu.info/tags/Rust/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Rust-智能指针-Box</title>
+    <link href="https://www.victorchu.info/posts/25a24ade/"/>
+    <id>https://www.victorchu.info/posts/25a24ade/</id>
+    <published>2025-03-07T09:32:49.000Z</published>
+    <updated>2025-03-10T06:58:56.343Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;指针是一个包含了内存地址的变量，该内存地址引用或者指向了另外的数据。&lt;/p&gt;
+&lt;p&gt;在 Rust 中，最常见的指针类型是引用，引用通过 &amp;amp; 符号表示。不同于其它语言，引用在 Rust 中被赋予了更深层次的含义，那就是：借用其它变量的值。引用本身很简单，除了指向某个值外并没有其它的功能，也不会造成性能上的额外损耗，因此是 Rust 中使用最多的指针类型。&lt;/p&gt;
+&lt;p&gt;而智能指针则不然，它虽然也号称指针，但是它是一个复杂的家伙：通过比引用更复杂的数据结构，包含比引用更多的信息，例如元数据，当前长度，最大可用长度等。智能指针往往是基于结构体实现，它与我们自定义的结构体最大的区别在于它实现了 Deref 和 Drop 特征：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Deref 可以让智能指针像引用那样工作，这样你就可以写出同时支持智能指针和引用的代码，例如 *T&lt;/li&gt;
+&lt;li&gt;Drop 允许你指定智能指针超出作用域后自动执行的代码，例如做一些数据清除等收尾工作&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;而 Box 指针是最简单的智能指针。本文将介绍 Box 指针以及 Deref 和 Drop 特征。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Rust" scheme="https://www.victorchu.info/categories/Rust/"/>
+    
+    
+    <category term="QuickStart" scheme="https://www.victorchu.info/tags/QuickStart/"/>
+    
+    <category term="Rust" scheme="https://www.victorchu.info/tags/Rust/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java 操作HDFS小结</title>
+    <link href="https://www.victorchu.info/posts/61faea5e/"/>
+    <id>https://www.victorchu.info/posts/61faea5e/</id>
+    <published>2025-03-05T07:06:09.000Z</published>
+    <updated>2025-03-07T06:19:23.102Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文总结了如何使用 Java 客户端操作 HDFS，以及一些注意点。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Java" scheme="https://www.victorchu.info/categories/Java/"/>
+    
+    <category term="HDFS" scheme="https://www.victorchu.info/categories/Java/HDFS/"/>
+    
+    
+    <category term="HDFS" scheme="https://www.victorchu.info/tags/HDFS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Rust 所有权</title>
+    <link href="https://www.victorchu.info/posts/36b20547/"/>
+    <id>https://www.victorchu.info/posts/36b20547/</id>
+    <published>2025-03-03T09:54:30.000Z</published>
+    <updated>2025-03-07T09:34:35.172Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Rust 为了解决内存安全问题，引入了所有权系统。&lt;/p&gt;
+&lt;p&gt;所有的程序都必须和计算机内存打交道，如何从内存中申请空间来存放程序的运行内容，如何在不需要的时候释放这些空间，成了重中之重，也是所有编程语言设计的难点之一。在计算机语言不断演变过程中，出现了三种流派：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;垃圾回收机制(GC)，在程序运行时不断寻找不再使用的内存，典型代表：Java、Go&lt;/li&gt;
+&lt;li&gt;手动管理内存的分配和释放, 在程序中，通过函数调用的方式来申请和释放内存，典型代表：C++&lt;/li&gt;
+&lt;li&gt;通过所有权来管理内存，编译器在编译时会根据一系列规则进行检查。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Rust 选择了第三种，最妙的是，这种检查只发生在编译期，因此对于程序运行期，不会有任何性能上的损失。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Rust" scheme="https://www.victorchu.info/categories/Rust/"/>
+    
+    
+    <category term="QuickStart" scheme="https://www.victorchu.info/tags/QuickStart/"/>
+    
+    <category term="Rust" scheme="https://www.victorchu.info/tags/Rust/"/>
+    
+  </entry>
   
   <entry>
     <title>系统性能分析-CPU 篇</title>
@@ -435,104 +537,6 @@
     <category term="DI" scheme="https://www.victorchu.info/tags/DI/"/>
     
     <category term="Guice" scheme="https://www.victorchu.info/tags/Guice/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>博客图片优化</title>
-    <link href="https://www.victorchu.info/posts/1280a7d/"/>
-    <id>https://www.victorchu.info/posts/1280a7d/</id>
-    <published>2023-02-10T06:08:03.000Z</published>
-    <updated>2024-06-27T06:53:33.474Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本篇文章介绍了如何优化博客中使用的图片。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Hexo" scheme="https://www.victorchu.info/categories/Hexo/"/>
-    
-    <category term="Next" scheme="https://www.victorchu.info/categories/Hexo/Next/"/>
-    
-    
-    <category term="Picture" scheme="https://www.victorchu.info/tags/Picture/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LOD表达式</title>
-    <link href="https://www.victorchu.info/posts/3d035478/"/>
-    <id>https://www.victorchu.info/posts/3d035478/</id>
-    <published>2023-02-07T12:53:34.000Z</published>
-    <updated>2024-06-27T06:53:33.422Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;详细级别表达式(LOD Expression)是处理在一个可视化视图中包含多个级别粒度的问题的方法。&lt;/p&gt;
-&lt;p&gt;详细级别指的是数据不同粒度(聚合度)，共有3种不同的详细级别:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;行级别表达式(聚合度最低)&lt;/li&gt;
-&lt;li&gt;视图级别表达式&lt;/li&gt;
-&lt;li&gt;表级别表达式(聚合度最高)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;行级别表达式是直接引用基础表的未聚合数据列的表达式。此时，表达式的维度是行级别的(如果表有主键的话，维度即主键)。例如:&lt;/p&gt;
-&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[Profit Ratio]=[Sales] / [Profit]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;通过将每行的销量除以利润，可以得到利润率[ProfitRatio]的新列。&lt;/p&gt;
-&lt;p&gt;视图级别表达式是引用聚合数据源列的表达式。此时，表达式的维度是当前SQL视图的维度。例如:&lt;/p&gt;
-&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;SUM(Sales)/SUM(Profit)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;表级别表达式是指不使用任何范围关键字的表达式。例如以下表达式返回整个表的最早订单日期:&lt;/p&gt;
-&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;MIN([Order Date])&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;在 Tableau 支持详细级别表达式之前，无法在视图级别以外的详细级别创建计算。例如，用户的意图是将每个商店的商店销售额与所有商店的平均销售额进行比较，如果您尝试保存以下表达式，Tableau 将显示错误消息：“无法使用此函数混合聚合和非聚合参数”：&lt;/p&gt;
-&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[Sales] – AVG([Sales])&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;在这种情况下，详细级别表达式就派上了用场。详细级别表达式提供了对视图详细级别之外的数据计算聚合的简单方法，实现在可视化中以任意的方式组合这些数据。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Design" scheme="https://www.victorchu.info/categories/Design/"/>
-    
-    
-    <category term="BigData" scheme="https://www.victorchu.info/tags/BigData/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Trino源码学习-查询提交</title>
-    <link href="https://www.victorchu.info/posts/e7bc0170/"/>
-    <id>https://www.victorchu.info/posts/e7bc0170/</id>
-    <published>2023-01-21T14:16:06.000Z</published>
-    <updated>2024-06-27T06:53:33.419Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;/posts/5707b8da/&quot;&gt;上篇&lt;/a&gt;介绍了Trino的启动流程，这篇我们来学习下查询提交的流程。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
-    
-    
-    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
-    
-    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Trino源码学习-Trino启动</title>
-    <link href="https://www.victorchu.info/posts/5707b8da/"/>
-    <id>https://www.victorchu.info/posts/5707b8da/</id>
-    <published>2023-01-12T02:39:27.000Z</published>
-    <updated>2024-06-27T06:53:33.474Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本篇文章开始，我们将进行Trino的源码分析，一切还是从启动开始看起。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
-    
-    
-    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
-    
-    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
     
   </entry>
   
