@@ -6,7 +6,7 @@
   <link href="https://www.victorchu.info/atom.xml" rel="self"/>
   
   <link href="https://www.victorchu.info/"/>
-  <updated>2025-03-11T12:56:21.149Z</updated>
+  <updated>2025-04-15T09:53:44.220Z</updated>
   <id>https://www.victorchu.info/</id>
   
   <author>
@@ -17,11 +17,92 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Rust Struct 字段自引用问题</title>
+    <link href="https://www.victorchu.info/posts/bdfdcebb/"/>
+    <id>https://www.victorchu.info/posts/bdfdcebb/</id>
+    <published>2025-04-11T06:18:50.000Z</published>
+    <updated>2025-04-15T09:53:44.220Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;先来看一段 Java 代码，Application中有version和 logger。logger 依赖了 Version。&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title class_&quot;&gt;Application&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; Version version;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; Logger logger;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;title function_&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        version = &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;title class_&quot;&gt;Version&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        logger =  &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;title class_&quot;&gt;Logger&lt;/span&gt;(version);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title function_&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(String[] args)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;type&quot;&gt;Application&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;application&lt;/span&gt; &lt;span class=&quot;operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;title class_&quot;&gt;Application&lt;/span&gt;();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        application.logger.log(&lt;span class=&quot;string&quot;&gt;&amp;quot;Hello World!&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;// console output:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;// [version 1] Hello World!&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title class_&quot;&gt;Version&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;type&quot;&gt;int&lt;/span&gt; ver;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;title function_&quot;&gt;Version&lt;/span&gt; &lt;span class=&quot;params&quot;&gt;(&lt;span class=&quot;type&quot;&gt;int&lt;/span&gt; ver)&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;built_in&quot;&gt;this&lt;/span&gt;.ver = ver;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; String &lt;span class=&quot;title function_&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; String.format(&lt;span class=&quot;string&quot;&gt;&amp;quot;version %d&amp;quot;&lt;/span&gt;,ver);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title class_&quot;&gt;Logger&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; Version version;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;title function_&quot;&gt;Logger&lt;/span&gt; &lt;span class=&quot;params&quot;&gt;(Version version)&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &lt;span class=&quot;built_in&quot;&gt;this&lt;/span&gt;.version = version;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title function_&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(String msg)&lt;/span&gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            System.out.println(String.format(&lt;span class=&quot;string&quot;&gt;&amp;quot;[%s] %s&amp;quot;&lt;/span&gt;,version,msg));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;那么问题来了，如何在 Rust 中实现相同的代码？&lt;/strong&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Rust" scheme="https://www.victorchu.info/categories/Rust/"/>
+    
+    
+    <category term="QuickStart" scheme="https://www.victorchu.info/tags/QuickStart/"/>
+    
+    <category term="Rust" scheme="https://www.victorchu.info/tags/Rust/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Rust-生命周期</title>
+    <link href="https://www.victorchu.info/posts/671ae328/"/>
+    <id>https://www.victorchu.info/posts/671ae328/</id>
+    <published>2025-04-01T13:08:34.000Z</published>
+    <updated>2025-04-02T08:15:49.748Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;生命周期，简而言之就是引用的有效作用域。在大多数时候，我们无需手动的声明生命周期，因为编译器可以自动进行推导。当多个生命周期存在，且编译器无法推导出某个引用的生命周期时，就需要我们手动标明生命周期。&lt;/p&gt;
+&lt;h1 id=&quot;悬垂指针和生命周期&quot;&gt;悬垂指针和生命周期&lt;/h1&gt;
+&lt;p&gt;生命周期的主要作用是避免悬垂引用，它会导致程序引用了本不该引用的数据：&lt;/p&gt;
+&lt;figure class=&quot;highlight rust&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;r&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;x&lt;/span&gt; = &lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        r = &amp;amp;x;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;    &lt;span class=&quot;comment&quot;&gt;// ^^ borrowed value does not live long enough&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;println!&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&amp;quot;r: &amp;#123;&amp;#125;&amp;quot;&lt;/span&gt;, r);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;此处 r 就是一个悬垂指针，它引用了提前被释放的变量 x。&lt;/p&gt;
+&lt;h1 id=&quot;借用检查&quot;&gt;借用检查&lt;/h1&gt;
+&lt;p&gt;为了保证 Rust 的所有权和借用的正确性，Rust 使用了一个借用检查器(Borrow checker)，来检查我们程序的借用正确性：&lt;/p&gt;
+&lt;figure class=&quot;highlight rust&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;r&lt;/span&gt;;                &lt;span class=&quot;comment&quot;&gt;// ---------+-- &amp;#x27;a&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                          &lt;span class=&quot;comment&quot;&gt;//          |&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;                     &lt;span class=&quot;comment&quot;&gt;//          |&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;x&lt;/span&gt; = &lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;;        &lt;span class=&quot;comment&quot;&gt;// -+-- &amp;#x27;b  |&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        r = &amp;amp;x;           &lt;span class=&quot;comment&quot;&gt;//  |       |&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;                     &lt;span class=&quot;comment&quot;&gt;// -+       |&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                          &lt;span class=&quot;comment&quot;&gt;//          |&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;println!&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&amp;quot;r: &amp;#123;&amp;#125;&amp;quot;&lt;/span&gt;, r); &lt;span class=&quot;comment&quot;&gt;//          |&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;                         &lt;span class=&quot;comment&quot;&gt;// ---------+&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;r 变量被赋予了生命周期 &#39;a，x 被赋予了生命周期 &#39;b，从图示上可以明显看出生命周期 &#39;b 比 &#39;a 小很多。在编译期，Rust 会比较两个变量的生命周期，结果发现 r 明明拥有生命周期 &#39;a，但是却引用了一个小得多的生命周期 &#39;b，在这种情况下，编译器会认为我们的程序存在风险，因此拒绝运行。如果想要编译通过，也很简单，只要 &#39;b 比 &#39;a 大就好。总之，x 变量只要比 r 活得久，那么 r 就能随意引用 x 且不会存在危险：&lt;/p&gt;
+&lt;figure class=&quot;highlight rust&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;x&lt;/span&gt; = &lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;;            &lt;span class=&quot;comment&quot;&gt;// ----------+-- &amp;#x27;b&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                          &lt;span class=&quot;comment&quot;&gt;//           |&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;r&lt;/span&gt; = &amp;amp;x;           &lt;span class=&quot;comment&quot;&gt;// --+-- &amp;#x27;a  |&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                          &lt;span class=&quot;comment&quot;&gt;//   |       |&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;println!&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&amp;quot;r: &amp;#123;&amp;#125;&amp;quot;&lt;/span&gt;, r); &lt;span class=&quot;comment&quot;&gt;//   |       |&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                          &lt;span class=&quot;comment&quot;&gt;// --+       |&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;                         &lt;span class=&quot;comment&quot;&gt;// ----------+&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="Rust" scheme="https://www.victorchu.info/categories/Rust/"/>
+    
+    
+    <category term="QuickStart" scheme="https://www.victorchu.info/tags/QuickStart/"/>
+    
+    <category term="Rust" scheme="https://www.victorchu.info/tags/Rust/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>TCP-超时重传</title>
+    <link href="https://www.victorchu.info/posts/33b8702a/"/>
+    <id>https://www.victorchu.info/posts/33b8702a/</id>
+    <published>2025-03-28T03:43:10.000Z</published>
+    <updated>2025-03-28T04:50:06.851Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;TCP协议是一种面向连接的有状态网络协议。对于发送的每个数据包，一旦TCP堆栈收到特定数据包的ACK，它就认为它已成功传递。&lt;/p&gt;
+&lt;p&gt;TCP使用指数退避超时重传一个未确认的数据包，最多tcp_retries2时间（默认为15），每次重传超时在TCP_RTO_MIN（2</summary>
+        
+      
+    
+    
+    
+    <category term="Network" scheme="https://www.victorchu.info/categories/Network/"/>
+    
+    <category term="TCP" scheme="https://www.victorchu.info/categories/Network/TCP/"/>
+    
+    
+    <category term="TCP" scheme="https://www.victorchu.info/tags/TCP/"/>
+    
+  </entry>
+  
+  <entry>
     <title>系统性能分析-CPU耗时定位</title>
     <link href="https://www.victorchu.info/posts/34494ba4/"/>
     <id>https://www.victorchu.info/posts/34494ba4/</id>
     <published>2025-03-11T11:10:04.000Z</published>
-    <updated>2025-03-11T12:56:21.149Z</updated>
+    <updated>2025-03-28T03:21:16.335Z</updated>
     
     
     <summary type="html">&lt;p&gt;上篇博客介绍了 &lt;a href=&quot;/post/c8c5ed6/&quot;&gt;CPU异常分析的工具和方法&lt;/a&gt;。本文将介绍如何定位 CPU 耗时。&lt;/p&gt;</summary>
@@ -118,7 +199,7 @@
     <link href="https://www.victorchu.info/posts/36b20547/"/>
     <id>https://www.victorchu.info/posts/36b20547/</id>
     <published>2025-03-03T09:54:30.000Z</published>
-    <updated>2025-03-07T09:34:35.172Z</updated>
+    <updated>2025-04-02T08:04:05.357Z</updated>
     
     
     <summary type="html">&lt;p&gt;Rust 为了解决内存安全问题，引入了所有权系统。&lt;/p&gt;
@@ -467,78 +548,6 @@
     <category term="Distributed" scheme="https://www.victorchu.info/tags/Distributed/"/>
     
     <category term="BigData" scheme="https://www.victorchu.info/tags/BigData/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Trino源码学习-SQL语法树解析</title>
-    <link href="https://www.victorchu.info/posts/544755c6/"/>
-    <id>https://www.victorchu.info/posts/544755c6/</id>
-    <published>2023-02-17T06:40:34.000Z</published>
-    <updated>2024-06-27T06:53:33.474Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Trino在查询提交时，会将SQL文本解析成语法树。Trino将这一动作分为2个部分:&lt;/p&gt;
-&lt;pre class=&quot;mermaid&quot;&gt;flowchart LR
-    s1(SQL)--&amp;gt;|Parser base Antlr|s2(ANTLR AST)
-   </summary>
-        
-      
-    
-    
-    
-    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
-    
-    
-    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
-    
-    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Trino源码学习-执行计划生成</title>
-    <link href="https://www.victorchu.info/posts/9fa3672f/"/>
-    <id>https://www.victorchu.info/posts/9fa3672f/</id>
-    <published>2023-02-16T14:28:44.000Z</published>
-    <updated>2024-06-27T06:53:33.400Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;/posts/e7bc0170/&quot;&gt;上篇&lt;/a&gt;分析了trino提交查询部分的源码，本篇来分析下，构建执行计划部分的源码。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
-    
-    
-    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
-    
-    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Trino源码学习-Page数据结构</title>
-    <link href="https://www.victorchu.info/posts/1820ecd2/"/>
-    <id>https://www.victorchu.info/posts/1820ecd2/</id>
-    <published>2023-02-15T09:34:44.000Z</published>
-    <updated>2025-01-09T03:55:32.603Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本篇来看下在查询执行的过程中，底层的数据结构是什么样的。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
-    
-    
-    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
-    
-    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
     
   </entry>
   
