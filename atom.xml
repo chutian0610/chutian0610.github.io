@@ -6,7 +6,7 @@
   <link href="https://www.victorchu.info/atom.xml" rel="self"/>
   
   <link href="https://www.victorchu.info/"/>
-  <updated>2025-04-15T09:53:44.220Z</updated>
+  <updated>2025-05-28T05:11:37.623Z</updated>
   <id>https://www.victorchu.info/</id>
   
   <author>
@@ -17,11 +17,80 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Rust Future 实现原理</title>
+    <link href="https://www.victorchu.info/posts/f6310143/"/>
+    <id>https://www.victorchu.info/posts/f6310143/</id>
+    <published>2025-04-30T08:46:17.000Z</published>
+    <updated>2025-05-28T05:11:37.623Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Rust 既支持了基于系统线程的多线程编程模型，也支持了基于&lt;code&gt;async/await&lt;/code&gt;的异步编程模型。Rust 的async编程有有以下特性:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Future 在 Rust 中是惰性的&lt;/li&gt;
+&lt;li&gt;Async 在 Rust 中使用开销是零&lt;/li&gt;
+&lt;li&gt;Rust 没有内置异步调用所必需的运行时，但是社区生态中已经提供了非常优异的运行时实现，例如 tokio和async-std&lt;/li&gt;
+&lt;li&gt;运行时同时支持单线程和多线程&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="Rust" scheme="https://www.victorchu.info/categories/Rust/"/>
+    
+    
+    <category term="QuickStart" scheme="https://www.victorchu.info/tags/QuickStart/"/>
+    
+    <category term="Rust" scheme="https://www.victorchu.info/tags/Rust/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>发明服务特征</title>
+    <link href="https://www.victorchu.info/posts/ac6fa74c/"/>
+    <id>https://www.victorchu.info/posts/ac6fa74c/</id>
+    <published>2025-04-30T07:36:05.000Z</published>
+    <updated>2025-05-07T06:38:19.264Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://github.com/tower-rs/tower&quot;&gt;Tower&lt;/a&gt;是一个模块化和可重用组件库，用于构建健壮的网络客户端和服务器。其核心是&lt;a href=&quot;https://docs.rs/tower/latest/tower/trait.Service.html&quot;&gt;Service&lt;/a&gt;特征。Service是一个异步函数，它接受请求并产生响应。然而，其设计的某些方面可能并不明显。与其解释目前Tower中存在的Service特征，让我们通过想象如果你从头开始，你会如何发明它来看看Service背后的动机。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Rust" scheme="https://www.victorchu.info/categories/Rust/"/>
+    
+    
+    <category term="QuickStart" scheme="https://www.victorchu.info/tags/QuickStart/"/>
+    
+    <category term="Rust" scheme="https://www.victorchu.info/tags/Rust/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 vscode 开发 Rust</title>
+    <link href="https://www.victorchu.info/posts/fbdef81e/"/>
+    <id>https://www.victorchu.info/posts/fbdef81e/</id>
+    <published>2025-04-19T07:38:02.000Z</published>
+    <updated>2025-04-22T05:52:55.986Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文将介绍如果基于 vscode 搭建 Rust 开发环境。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Rust" scheme="https://www.victorchu.info/categories/Rust/"/>
+    
+    
+    <category term="Rust" scheme="https://www.victorchu.info/tags/Rust/"/>
+    
+    <category term="Tool" scheme="https://www.victorchu.info/tags/Tool/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Rust Struct 字段自引用问题</title>
     <link href="https://www.victorchu.info/posts/bdfdcebb/"/>
     <id>https://www.victorchu.info/posts/bdfdcebb/</id>
     <published>2025-04-11T06:18:50.000Z</published>
-    <updated>2025-04-15T09:53:44.220Z</updated>
+    <updated>2025-04-15T10:07:10.273Z</updated>
     
     
     <summary type="html">&lt;p&gt;先来看一段 Java 代码，Application中有version和 logger。logger 依赖了 Version。&lt;/p&gt;
@@ -44,7 +113,7 @@
     <link href="https://www.victorchu.info/posts/671ae328/"/>
     <id>https://www.victorchu.info/posts/671ae328/</id>
     <published>2025-04-01T13:08:34.000Z</published>
-    <updated>2025-04-02T08:15:49.748Z</updated>
+    <updated>2025-04-15T10:07:10.272Z</updated>
     
     
     <summary type="html">&lt;p&gt;生命周期，简而言之就是引用的有效作用域。在大多数时候，我们无需手动的声明生命周期，因为编译器可以自动进行推导。当多个生命周期存在，且编译器无法推导出某个引用的生命周期时，就需要我们手动标明生命周期。&lt;/p&gt;
@@ -74,7 +143,7 @@
     <link href="https://www.victorchu.info/posts/33b8702a/"/>
     <id>https://www.victorchu.info/posts/33b8702a/</id>
     <published>2025-03-28T03:43:10.000Z</published>
-    <updated>2025-03-28T04:50:06.851Z</updated>
+    <updated>2025-04-15T10:07:10.269Z</updated>
     
     
       
@@ -125,7 +194,7 @@
     <link href="https://www.victorchu.info/posts/8c7679f1/"/>
     <id>https://www.victorchu.info/posts/8c7679f1/</id>
     <published>2025-03-11T07:23:17.000Z</published>
-    <updated>2025-03-11T09:36:26.905Z</updated>
+    <updated>2025-04-16T08:37:25.662Z</updated>
     
     
     <summary type="html">&lt;p&gt;如果不同的类型具有相同的行为，那么我们就可以定义一个特征，然后为这些类型实现该特征。定义特征是把一些方法组合在一起，目的是定义一个实现某些目标所必需的行为的集合。&lt;/p&gt;
@@ -150,7 +219,7 @@
     <link href="https://www.victorchu.info/posts/25a24ade/"/>
     <id>https://www.victorchu.info/posts/25a24ade/</id>
     <published>2025-03-07T09:32:49.000Z</published>
-    <updated>2025-03-10T06:58:56.343Z</updated>
+    <updated>2025-04-18T07:52:21.413Z</updated>
     
     
     <summary type="html">&lt;p&gt;指针是一个包含了内存地址的变量，该内存地址引用或者指向了另外的数据。&lt;/p&gt;
@@ -471,83 +540,6 @@
     <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
     
     <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HikariCP: Failed to validate connection</title>
-    <link href="https://www.victorchu.info/posts/d1f5c023/"/>
-    <id>https://www.victorchu.info/posts/d1f5c023/</id>
-    <published>2023-03-13T08:08:24.000Z</published>
-    <updated>2024-06-27T06:53:33.470Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;最近在日志中常常看到HikariCP的warnning.&lt;/p&gt;
-&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
-        
-      
-    
-    
-    
-    <category term="Java" scheme="https://www.victorchu.info/categories/Java/"/>
-    
-    <category term="JDBC" scheme="https://www.victorchu.info/categories/Java/JDBC/"/>
-    
-    
-    <category term="FAQ" scheme="https://www.victorchu.info/tags/FAQ/"/>
-    
-    <category term="HikariCP" scheme="https://www.victorchu.info/tags/HikariCP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Trino源码学习-查询调度</title>
-    <link href="https://www.victorchu.info/posts/53a7bc3d/"/>
-    <id>https://www.victorchu.info/posts/53a7bc3d/</id>
-    <published>2023-02-28T06:26:19.000Z</published>
-    <updated>2024-06-27T06:53:33.494Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;/posts/9fa3672f/&quot;&gt;上篇&lt;/a&gt;分析了SQL逻辑执行计划的生成，本篇将继续分析逻辑计划是如何在进行调度的。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
-    
-    
-    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
-    
-    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>The Snowflake Elastic Data Warehouse</title>
-    <link href="https://www.victorchu.info/posts/f3a4a47b/"/>
-    <id>https://www.victorchu.info/posts/f3a4a47b/</id>
-    <published>2023-02-20T08:48:47.000Z</published>
-    <updated>2024-06-27T06:53:33.462Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;摘要&quot;&gt;摘要&lt;/h1&gt;
-&lt;p&gt;我们生活在分布式计算的黄金时代。公有云平台几乎能够按需提供无限的计算和存储资源。同时，SaaS模型(Software-as-a-Service)将企业级系统带给了无法负担成本和相关系统复杂性的用户。传统的数仓系统正在努力的适应新的环境，但是首先，它是为固定资源而设计，从而没办法利用云的弹性能力。另外，传统的数仓依赖复杂的ETL流水线和物理调优，这个是和云的半结构数据和快速解决工作问题的新形式所需要的弹性和快速不一致的。&lt;/p&gt;
-&lt;p&gt;我们决定进行根本性的重新设计。我们的任务是去建立云上的企业级数据仓库的解决方案。就是Snowflake弹性数据仓库，简称Snowflake。Snowflake是一种多租户、事务性、安全、高度可扩展的弹性系统，具备完整的SQL支持和半结构化和schema-less数据模式支持。Snowflake在亚马逊云上提供现付即用的服务。用户只需将数据导入云上，就可以立即利用他们熟悉的工具和界面进行管理和查询。从2012年底，Snowflake开始计划实施，到2015年6月，Snowflake已经可以大体可用。现在，Snowflake被越来越多的大大小小的组织用于生产。这个系统每天运行几百万次查询在几PB的数据上。&lt;/p&gt;
-&lt;p&gt;本文主要介绍Snowflake的设计、多集群共享数据的结构和Snowflake的关键特性：极致的弹性和可用性、半结构化和schema-less的数据支持、时间旅行、端到端的安全性，最后是一些经验总结和对未来工作的展望。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Paper" scheme="https://www.victorchu.info/categories/Paper/"/>
-    
-    <category term="BigData" scheme="https://www.victorchu.info/categories/Paper/BigData/"/>
-    
-    
-    <category term="Distributed" scheme="https://www.victorchu.info/tags/Distributed/"/>
-    
-    <category term="BigData" scheme="https://www.victorchu.info/tags/BigData/"/>
     
   </entry>
   
