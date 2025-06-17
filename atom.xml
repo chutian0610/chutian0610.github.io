@@ -6,7 +6,7 @@
   <link href="https://www.victorchu.info/atom.xml" rel="self"/>
   
   <link href="https://www.victorchu.info/"/>
-  <updated>2025-06-17T12:25:21.217Z</updated>
+  <updated>2025-06-17T13:31:40.633Z</updated>
   <id>https://www.victorchu.info/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.victorchu.info/posts/f6310143/"/>
     <id>https://www.victorchu.info/posts/f6310143/</id>
     <published>2025-04-30T08:46:17.000Z</published>
-    <updated>2025-06-17T12:25:21.217Z</updated>
+    <updated>2025-06-17T13:31:40.633Z</updated>
     
     
     <summary type="html">&lt;p&gt;Rust 既支持了基于系统线程的多线程编程模型，也支持了基于&lt;code&gt;async/await&lt;/code&gt;的异步编程模型。Rust 的async编程有有以下特性:&lt;/p&gt;
@@ -319,7 +319,7 @@
     <link href="https://www.victorchu.info/posts/f259f96e/"/>
     <id>https://www.victorchu.info/posts/f259f96e/</id>
     <published>2024-06-17T02:51:15.000Z</published>
-    <updated>2025-06-17T04:01:31.588Z</updated>
+    <updated>2025-06-17T12:28:34.050Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文将介绍两种异步编程模型: Promise 和 Future。在计算机科学中，future、promise，是在某些并发编程语言中，指称用于同步程序执行的一种构造。由于某些计算尚未结束，故而需要一个对象来代理这个未知的结果。Future 和 Promise 的设计理念整体上非常相似，但是在不同的语言和框架实现中又存在一定的区别，对此，这里我们基于最广泛的定义进行介绍。&lt;/p&gt;
