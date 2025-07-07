@@ -2,6 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.victorchu.info/posts/208a3645/</loc>
+    
+    <lastmod>2025-07-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/posts/47fee323/</loc>
+    
+    <lastmod>2025-07-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/posts/36b20547/</loc>
+    
+    <lastmod>2025-06-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/posts/329af0a6/</loc>
+    
+    <lastmod>2025-06-18</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.victorchu.info/posts/f6310143/</loc>
     
     <lastmod>2025-06-17</lastmod>
@@ -101,15 +137,6 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/posts/36b20547/</loc>
-    
-    <lastmod>2025-04-02</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victorchu.info/posts/19e872e/</loc>
     
     <lastmod>2025-03-28</lastmod>
@@ -149,15 +176,6 @@
     <loc>https://www.victorchu.info/posts/a77c497c/</loc>
     
     <lastmod>2025-03-27</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/posts/329af0a6/</loc>
-    
-    <lastmod>2025-03-26</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1100,6 +1118,15 @@
   </url>
   
   <url>
+    <loc>https://www.victorchu.info/posts/fa358471/</loc>
+    
+    <lastmod>2024-06-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.victorchu.info/posts/351dcf8c/</loc>
     
     <lastmod>2024-06-27</lastmod>
@@ -1110,15 +1137,6 @@
   
   <url>
     <loc>https://www.victorchu.info/posts/24470e0/</loc>
-    
-    <lastmod>2024-06-27</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/posts/fa358471/</loc>
     
     <lastmod>2024-06-27</lastmod>
     
@@ -2162,7 +2180,7 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/index.html</loc>
+    <loc>https://www.victorchu.info/categories/index.html</loc>
     
     <lastmod>2023-11-23</lastmod>
     
@@ -2171,7 +2189,7 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/index.html</loc>
+    <loc>https://www.victorchu.info/tags/index.html</loc>
     
     <lastmod>2023-11-23</lastmod>
     
@@ -2182,7 +2200,7 @@
 
   <url>
     <loc>https://www.victorchu.info/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -2190,882 +2208,889 @@
   
   <url>
     <loc>https://www.victorchu.info/tags/Flink/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/TODO/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Calcite/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Java/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Reactive/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Computer/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/QuickStart/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Distributed/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/C/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Git/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Shell/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Hexo/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Desktop/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Command/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/%E6%80%9D%E8%80%83%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Architecture/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/DI/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/JSR/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/IOC/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/JVM/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Shift/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Trick/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Immutable/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Lambda/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/SPI/</loc>
-    <lastmod>2025-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/tags/Exception/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Signal/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/tags/Exception/</loc>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/ShutdownHook/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Bytes/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Memory/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Reference/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Annotation/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Enum/</loc>
-    <lastmod>2025-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/tags/Regex/</loc>
-    <lastmod>2025-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/tags/OOM/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Reflect/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/tags/Regex/</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/tags/OOM/</loc>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Performance/</loc>
-    <lastmod>2025-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/tags/Float/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Concurrency/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/tags/Float/</loc>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/ClassLoader/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Array/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Stack/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Sort/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Stream/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Module/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Picture/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/BitMap/</loc>
-    <lastmod>2025-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/tags/String/</loc>
-    <lastmod>2025-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/tags/Palindrome/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Hash/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/tags/String/</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/tags/Palindrome/</loc>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Consistent-Hash/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Sock5/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Compilers/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/SOCK5/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/CSV/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Apache/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Socket/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/TCP/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Clock/</loc>
-    <lastmod>2025-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/tags/Scripts/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Snippets/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/tags/Scripts/</loc>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/AOP/</loc>
-    <lastmod>2025-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/tags/Game/</loc>
-    <lastmod>2025-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/tags/%E7%89%88%E6%9C%AC%E8%A7%84%E8%8C%83/</loc>
-    <lastmod>2025-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/tags/Build/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/File/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/NIO/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/OpenJdk/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <loc>https://www.victorchu.info/tags/Game/</loc>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Benchmark/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <loc>https://www.victorchu.info/tags/%E7%89%88%E6%9C%AC%E8%A7%84%E8%8C%83/</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/tags/Build/</loc>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Thread/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/tags/OpenJdk/</loc>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/tags/Benchmark/</loc>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Simplify/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Maven/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/FP/</loc>
-    <lastmod>2025-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/tags/Web/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Docker/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Stability/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/tags/Web/</loc>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Unicode/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Security/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Version-Manager/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Contract/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/BigData/</loc>
-    <lastmod>2025-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/tags/Lock/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Cache/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/tags/Lock/</loc>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Version-Manager/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/XSS/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/IO/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Storage/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Buffer/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Channel/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Analysis-Tool/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Gradle/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/FAQ/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Junit5/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/MySQL/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/JDK/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/DateFormat/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/MicroService/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Tracing/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Distributed-System/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Transaction/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/CDC/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Diff/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Process/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Coroutines/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Tree/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Mysql/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/MPP/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Presto/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Trino/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Antlr/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Maven-Plugin/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Clickhouse/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/SIMD/</loc>
-    <lastmod>2025-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/tags/pipeline/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/CPU/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/tags/pipeline/</loc>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Airlift/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Guice/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/HikariCP/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Sampling/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Query/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Rust/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Future/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Promise/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/tags/Encoding/</loc>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/HDFS/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/tags/Tool/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -3074,672 +3099,679 @@
   
   <url>
     <loc>https://www.victorchu.info/categories/Flink/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Computer/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Apache/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Java/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Computer/OS/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Algorithm/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/C/</loc>
-    <lastmod>2025-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/categories/Effective/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Git/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/categories/Effective/</loc>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Hexo/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Ubuntu/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Shell/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Java/Basic/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Architecture/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Effective/Git/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Effective/Zsh/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Hexo/Next/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Java/JSR/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Java/JVM/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Java/JDK/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Trick/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Regex/</loc>
-    <lastmod>2025-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/categories/%E6%A0%87%E5%87%86%E8%A7%84%E8%8C%83/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Java/Concurrency/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/categories/%E6%A0%87%E5%87%86%E8%A7%84%E8%8C%83/</loc>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Algorithm/Data-Structure/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Algorithm/Sort/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Design/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Effective/Java/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Algorithm/BitMap/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Algorithm/Hash/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Compilers/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/RFC/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Apache/Common/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Java/AOP/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Algorithm/Cellular-Automaton/</loc>
-    <lastmod>2025-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/categories/Java/JMH/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Computer/Thread/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/categories/Java/JMH/</loc>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Effective/Maven/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/%E7%BC%96%E7%A8%8B%E8%8C%83%E5%BC%8F/</loc>
-    <lastmod>2025-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/categories/ReadNotes/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Docker/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Architecture/CircuitBreaker/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/categories/ReadNotes/</loc>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Computer/Charset/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Security/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Java/Tool/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Paper/</loc>
-    <lastmod>2025-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/categories/Distributed/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Architecture/Cache/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/categories/Distributed/</loc>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Web/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Computer/IO/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Computer/Storage/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Computer/Memory/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Build-Tool/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Build-Your-Own/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/MySQL/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/MicroService/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Log/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Distributed-System/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Database/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Algorithm/Diff/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/%E6%A0%87%E5%87%86%E8%A7%84%E8%8C%83/IEEE/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Antlr/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Clickhouse/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Algorithm/Cache/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Trino/</loc>
-    <lastmod>2025-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/categories/Computer/CPU/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Kafka/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/categories/Computer/CPU/</loc>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Guice/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Java/JDBC/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Algorithm/Sampling/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Rust/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Asynchronous-Programming/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/categories/Encoding/</loc>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Java/HDFS/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Linux/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Network/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/%E6%A0%87%E5%87%86%E8%A7%84%E8%8C%83/RFC/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/%E6%A0%87%E5%87%86%E8%A7%84%E8%8C%83/%E7%89%88%E6%9C%AC%E8%A7%84%E8%8C%83/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/%E7%BC%96%E7%A8%8B%E8%8C%83%E5%BC%8F/FP/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Docker/Basic/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/%E7%BC%96%E7%A8%8B%E8%8C%83%E5%BC%8F/Contract/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Paper/BigData/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Distributed/Lock/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Web/Security/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Paper/Memory/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/%E6%A0%87%E5%87%86%E8%A7%84%E8%8C%83/Reactive/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Build-Tool/Maven/</loc>
-    <lastmod>2025-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/categories/MicroService/Tracing/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Paper/Tracing/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/categories/MicroService/Tracing/</loc>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Distributed-System/Theorem/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Distributed-System/Consistency/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Database/Transaction/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Paper/DB/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Linux/CPU/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.victorchu.info/categories/Network/TCP/</loc>
-    <lastmod>2025-06-17</lastmod>
+    <lastmod>2025-07-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

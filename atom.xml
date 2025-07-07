@@ -6,7 +6,7 @@
   <link href="https://www.victorchu.info/atom.xml" rel="self"/>
   
   <link href="https://www.victorchu.info/"/>
-  <updated>2025-06-17T13:31:40.633Z</updated>
+  <updated>2025-07-07T02:42:56.678Z</updated>
   <id>https://www.victorchu.info/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Rust 智能指针:Pin</title>
+    <link href="https://www.victorchu.info/posts/47fee323/"/>
+    <id>https://www.victorchu.info/posts/47fee323/</id>
+    <published>2025-06-18T02:57:11.000Z</published>
+    <updated>2025-07-07T02:42:56.678Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Pin 和 Unpin 标记 trait 搭配使用。固定保证了实现了 &lt;code&gt;!Unpin&lt;/code&gt; trait</summary>
+        
+      
+    
+    
+    
+    <category term="Rust" scheme="https://www.victorchu.info/categories/Rust/"/>
+    
+    
+    <category term="QuickStart" scheme="https://www.victorchu.info/tags/QuickStart/"/>
+    
+    <category term="Rust" scheme="https://www.victorchu.info/tags/Rust/"/>
+    
+  </entry>
   
   <entry>
     <title>Rust Future 实现原理</title>
@@ -268,7 +295,7 @@
     <link href="https://www.victorchu.info/posts/36b20547/"/>
     <id>https://www.victorchu.info/posts/36b20547/</id>
     <published>2025-03-03T09:54:30.000Z</published>
-    <updated>2025-04-02T08:04:05.357Z</updated>
+    <updated>2025-06-24T09:55:12.841Z</updated>
     
     
     <summary type="html">&lt;p&gt;Rust 为了解决内存安全问题，引入了所有权系统。&lt;/p&gt;
@@ -311,6 +338,26 @@
     <category term="Performance" scheme="https://www.victorchu.info/tags/Performance/"/>
     
     <category term="Analysis Tool" scheme="https://www.victorchu.info/tags/Analysis-Tool/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>varint编码</title>
+    <link href="https://www.victorchu.info/posts/208a3645/"/>
+    <id>https://www.victorchu.info/posts/208a3645/</id>
+    <published>2024-06-18T09:30:53.000Z</published>
+    <updated>2025-07-07T02:42:56.680Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Varint是一种使用一个或多个字节序列化整数的方法，会把整数编码为变长字节。对于32位整型的4个字节数据经过Varint编码后需要1&lt;sub&gt;5个字节，小的数字使用1个byte，大的数字使用5个bytes。64位整型数据编码后占用1&lt;/sub&gt;10个字节。&lt;/p&gt;
+&lt;p&gt;在实际场景中小数字的使用率远远多于大数字，因此通过Varint编码对于大部分场景都可以起到很好的压缩效果。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Encoding" scheme="https://www.victorchu.info/categories/Encoding/"/>
+    
+    
+    <category term="Encoding" scheme="https://www.victorchu.info/tags/Encoding/"/>
     
   </entry>
   
@@ -479,68 +526,6 @@
     
     
     <category term="TODO" scheme="https://www.victorchu.info/tags/TODO/"/>
-    
-    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
-    
-    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>蓄水池采样算法</title>
-    <link href="https://www.victorchu.info/posts/d8af9969/"/>
-    <id>https://www.victorchu.info/posts/d8af9969/</id>
-    <published>2023-05-25T03:23:29.000Z</published>
-    <updated>2024-06-27T06:53:33.464Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;蓄水池采样算法是一种随机抽样算法，它能够在一个很大的集合中，抽取一部分样本，并保证每个样本的选取概率都是相等并随机的。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;特点：
-&lt;ul&gt;
-&lt;li&gt;选取集合可以非常大，甚至不知道边界。&lt;/li&gt;
-&lt;li&gt;每个样本的选取随机且概率相等。&lt;/li&gt;
-&lt;li&gt;时间复杂度较低，O(n)，节省内存。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;适用场景：
-&lt;ul&gt;
-&lt;li&gt;在一些非常大的集合，或者未知大小的集合，不知道边界的集合，不知道文件总行数的情况下，随机抽取k个元素。&lt;/li&gt;
-&lt;li&gt;保证每个元素抽取都是均匀随机的并且概率相等。&lt;/li&gt;
-&lt;li&gt;尽量高效，节省内存地抽取&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="Algorithm" scheme="https://www.victorchu.info/categories/Algorithm/"/>
-    
-    <category term="Sampling" scheme="https://www.victorchu.info/categories/Algorithm/Sampling/"/>
-    
-    
-    <category term="Sampling" scheme="https://www.victorchu.info/tags/Sampling/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Trino源码学习-内存管理</title>
-    <link href="https://www.victorchu.info/posts/729a4968/"/>
-    <id>https://www.victorchu.info/posts/729a4968/</id>
-    <published>2023-05-05T13:11:16.000Z</published>
-    <updated>2024-06-27T06:53:33.450Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;Trino中的内存管理分为两块:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;LocalMemoryManager: 在ServerMainModule中声明，用于管理当前节点的内存使用&lt;/li&gt;
-&lt;li&gt;ClusterMemoryManager: 在CoordinatorModule中声明，用于管理集群的内存使用&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
-    
     
     <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
     
