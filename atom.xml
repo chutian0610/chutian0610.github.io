@@ -388,6 +388,27 @@
   </entry>
   
   <entry>
+    <title>Java 反射 问题</title>
+    <link href="https://www.victorchu.info/posts/26fa5bc8/"/>
+    <id>https://www.victorchu.info/posts/26fa5bc8/</id>
+    <published>2024-05-25T04:19:49.000Z</published>
+    <updated>2025-07-11T07:45:48.993Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;在前面介绍 &lt;a href=&quot;/posts/fa358471/&quot;&gt;Java 反射&lt;/a&gt;一文中,提到过反射的弊端，本文基于此将展开介绍一些案例。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Java" scheme="https://www.victorchu.info/categories/Java/"/>
+    
+    <category term="Basic" scheme="https://www.victorchu.info/categories/Java/Basic/"/>
+    
+    
+    <category term="Reflect" scheme="https://www.victorchu.info/tags/Reflect/"/>
+    
+  </entry>
+  
+  <entry>
     <title>使用物化视图优化查询:一个实用的、可扩展的解决方案</title>
     <link href="https://www.victorchu.info/posts/4e6dffa/"/>
     <id>https://www.victorchu.info/posts/4e6dffa/</id>
@@ -488,44 +509,6 @@
     
     <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
     
-    
-    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
-    
-    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Trino源码学习-SPI&amp;Plugin</title>
-    <link href="https://www.victorchu.info/posts/a7b887a1/"/>
-    <id>https://www.victorchu.info/posts/a7b887a1/</id>
-    <published>2023-08-20T14:20:31.000Z</published>
-    <updated>2024-06-27T06:53:33.447Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本篇将介绍Trino的SPI和如何通过Plugin体系扩展SPI。Trino 支持通过SPI（Service Provider Interface）方式对其进行扩展点扩展。当前已有的扩展点有:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Connectors(连接器)&lt;/li&gt;
-&lt;li&gt;block encodings(块编码)&lt;/li&gt;
-&lt;li&gt;Types(类型)&lt;/li&gt;
-&lt;li&gt;Functions(函数)&lt;/li&gt;
-&lt;li&gt;System access control(系统访问权限)&lt;/li&gt;
-&lt;li&gt;Group provider(资源组)&lt;/li&gt;
-&lt;li&gt;Password authenticator(密码验证器)&lt;/li&gt;
-&lt;li&gt;Header authenticator(标头验证器)&lt;/li&gt;
-&lt;li&gt;Certificate authenticator(证书验证器)&lt;/li&gt;
-&lt;li&gt;Event listener(事件侦听器)&lt;/li&gt;
-&lt;li&gt;resource group configuration managers(资源组配置管理器)&lt;/li&gt;
-&lt;li&gt;session property configuration managers(会话属性配置管理器)&lt;/li&gt;
-&lt;li&gt;exchange managers(数据交互管理器)&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
-    
-    
-    <category term="TODO" scheme="https://www.victorchu.info/tags/TODO/"/>
     
     <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
     
