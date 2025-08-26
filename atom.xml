@@ -6,7 +6,7 @@
   <link href="https://www.victorchu.info/atom.xml" rel="self"/>
   
   <link href="https://www.victorchu.info/"/>
-  <updated>2025-07-07T02:42:56.678Z</updated>
+  <updated>2025-08-26T12:45:31.209Z</updated>
   <id>https://www.victorchu.info/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Rust Future 共享状态</title>
+    <link href="https://www.victorchu.info/posts/1ff241/"/>
+    <id>https://www.victorchu.info/posts/1ff241/</id>
+    <published>2025-08-20T10:04:53.000Z</published>
+    <updated>2025-08-26T12:45:31.209Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;如何在 Rust 的多线程中共享值？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;共享值的方式是使用&lt;code&gt;Arc&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;修改值的方式是使用&lt;code&gt;Mutex&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="Rust" scheme="https://www.victorchu.info/categories/Rust/"/>
+    
+    
+    <category term="QuickStart" scheme="https://www.victorchu.info/tags/QuickStart/"/>
+    
+    <category term="Future" scheme="https://www.victorchu.info/tags/Future/"/>
+    
+  </entry>
   
   <entry>
     <title>Rust 智能指针:Pin</title>
@@ -48,7 +73,7 @@
     <link href="https://www.victorchu.info/posts/f6310143/"/>
     <id>https://www.victorchu.info/posts/f6310143/</id>
     <published>2025-04-30T08:46:17.000Z</published>
-    <updated>2025-06-17T13:31:40.633Z</updated>
+    <updated>2025-08-21T08:53:22.676Z</updated>
     
     
     <summary type="html">&lt;p&gt;Rust 既支持了基于系统线程的多线程编程模型，也支持了基于&lt;code&gt;async/await&lt;/code&gt;的异步编程模型。Rust 的async编程有有以下特性:&lt;/p&gt;
@@ -483,27 +508,6 @@
 &lt;/blockquote&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;上述规范意味着，查询引擎可以自由地忽略任何不适合上下文的ORDER BY子句。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
-    
-    
-    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
-    
-    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Trino源码学习-自定义函数</title>
-    <link href="https://www.victorchu.info/posts/8147f19c/"/>
-    <id>https://www.victorchu.info/posts/8147f19c/</id>
-    <published>2023-08-30T12:20:06.000Z</published>
-    <updated>2025-01-14T12:51:01.909Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;Presto Functions 并不能像 Hive UDF 一样动态加载，需要根据 Function 的类型，实现 Presto 内部定义的不同接口，在 Presto 服务启动时进行注册，然后才能在 SQL 执行时进行调用。&lt;/p&gt;</summary>
     
     
     
