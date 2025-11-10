@@ -11,25 +11,7 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/posts/3053dd30/</loc>
-    
-    <lastmod>2025-11-10</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victorchu.info/posts/a40cdb91/</loc>
-    
-    <lastmod>2025-11-10</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/posts/8507ead2/</loc>
     
     <lastmod>2025-11-10</lastmod>
     
@@ -1361,6 +1343,15 @@
   </url>
   
   <url>
+    <loc>https://www.victorchu.info/posts/daa4c03f/</loc>
+    
+    <lastmod>2024-06-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.victorchu.info/posts/aa450f3f/</loc>
     
     <lastmod>2024-06-27</lastmod>
@@ -1371,15 +1362,6 @@
   
   <url>
     <loc>https://www.victorchu.info/posts/79ea612a/</loc>
-    
-    <lastmod>2024-06-27</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/posts/daa4c03f/</loc>
     
     <lastmod>2024-06-27</lastmod>
     
@@ -1415,7 +1397,7 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/posts/6948162f/</loc>
+    <loc>https://www.victorchu.info/posts/5c993c8f/</loc>
     
     <lastmod>2024-06-27</lastmod>
     
@@ -1424,7 +1406,7 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/posts/5c993c8f/</loc>
+    <loc>https://www.victorchu.info/posts/6948162f/</loc>
     
     <lastmod>2024-06-27</lastmod>
     
@@ -1460,7 +1442,7 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/posts/1a4b62fe/</loc>
+    <loc>https://www.victorchu.info/posts/e81a254a/</loc>
     
     <lastmod>2024-06-27</lastmod>
     
@@ -1469,7 +1451,7 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/posts/e81a254a/</loc>
+    <loc>https://www.victorchu.info/posts/1a4b62fe/</loc>
     
     <lastmod>2024-06-27</lastmod>
     
@@ -1523,7 +1505,7 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/posts/351dcf8c/</loc>
+    <loc>https://www.victorchu.info/posts/746ad237/</loc>
     
     <lastmod>2024-06-27</lastmod>
     
@@ -1532,7 +1514,7 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/posts/746ad237/</loc>
+    <loc>https://www.victorchu.info/posts/351dcf8c/</loc>
     
     <lastmod>2024-06-27</lastmod>
     
@@ -2531,15 +2513,6 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/about/index.html</loc>
-    
-    <lastmod>2023-11-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victorchu.info/tags/index.html</loc>
     
     <lastmod>2023-11-23</lastmod>
@@ -2557,6 +2530,15 @@
     <priority>0.6</priority>
   </url>
   
+  <url>
+    <loc>https://www.victorchu.info/about/index.html</loc>
+    
+    <lastmod>2023-11-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
   <url>
     <loc>https://www.victorchu.info/</loc>
@@ -2567,14 +2549,14 @@
 
   
   <url>
-    <loc>https://www.victorchu.info/tags/Java/</loc>
+    <loc>https://www.victorchu.info/tags/Hash/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Hash/</loc>
+    <loc>https://www.victorchu.info/tags/Java/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2623,6 +2605,13 @@
   </url>
   
   <url>
+    <loc>https://www.victorchu.info/tags/Distributed-System/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.victorchu.info/tags/Computer/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -2658,6 +2647,13 @@
   </url>
   
   <url>
+    <loc>https://www.victorchu.info/tags/Hexo/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.victorchu.info/tags/Shell/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -2665,7 +2661,7 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Hexo/</loc>
+    <loc>https://www.victorchu.info/tags/%E6%80%9D%E8%80%83%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2680,13 +2676,6 @@
   
   <url>
     <loc>https://www.victorchu.info/tags/Command/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/tags/%E6%80%9D%E8%80%83%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2735,14 +2724,14 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Trick/</loc>
+    <loc>https://www.victorchu.info/tags/Shift/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Shift/</loc>
+    <loc>https://www.victorchu.info/tags/Trick/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2756,7 +2745,7 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Lambda/</loc>
+    <loc>https://www.victorchu.info/tags/Exception/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2770,7 +2759,7 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Exception/</loc>
+    <loc>https://www.victorchu.info/tags/Lambda/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2798,13 +2787,6 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Memory/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victorchu.info/tags/Reference/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -2812,14 +2794,7 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Annotation/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/tags/Regex/</loc>
+    <loc>https://www.victorchu.info/tags/Memory/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2834,6 +2809,20 @@
   
   <url>
     <loc>https://www.victorchu.info/tags/Enum/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/tags/Annotation/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/tags/Regex/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2868,14 +2857,14 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Array/</loc>
+    <loc>https://www.victorchu.info/tags/Stack/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Stack/</loc>
+    <loc>https://www.victorchu.info/tags/Array/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2903,13 +2892,6 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Spring/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victorchu.info/tags/Picture/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -2917,14 +2899,14 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Module/</loc>
+    <loc>https://www.victorchu.info/tags/Spring/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/BitMap/</loc>
+    <loc>https://www.victorchu.info/tags/Module/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2952,6 +2934,13 @@
   </url>
   
   <url>
+    <loc>https://www.victorchu.info/tags/BitMap/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.victorchu.info/tags/String/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -2973,14 +2962,14 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Sock5/</loc>
+    <loc>https://www.victorchu.info/tags/Disruptor/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Search/</loc>
+    <loc>https://www.victorchu.info/tags/Sock5/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2994,14 +2983,14 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Match/</loc>
+    <loc>https://www.victorchu.info/tags/Search/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Disruptor/</loc>
+    <loc>https://www.victorchu.info/tags/Match/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3078,13 +3067,6 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Game/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victorchu.info/tags/File/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -3100,6 +3082,13 @@
   
   <url>
     <loc>https://www.victorchu.info/tags/%E7%89%88%E6%9C%AC%E8%A7%84%E8%8C%83/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/tags/Game/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3155,20 +3144,6 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Docker/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/tags/Unicode/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victorchu.info/tags/Stability/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -3177,6 +3152,20 @@
   
   <url>
     <loc>https://www.victorchu.info/tags/Web/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/tags/Docker/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/tags/Unicode/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3330,13 +3319,6 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Distributed-System/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victorchu.info/tags/Transaction/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -3372,27 +3354,6 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/MPP/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/tags/Presto/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/tags/Trino/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victorchu.info/tags/Tree/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -3414,7 +3375,21 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Maven-Plugin/</loc>
+    <loc>https://www.victorchu.info/tags/MPP/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/tags/Presto/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/tags/Trino/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3428,6 +3403,13 @@
   </url>
   
   <url>
+    <loc>https://www.victorchu.info/tags/Maven-Plugin/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.victorchu.info/tags/SIMD/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -3435,14 +3417,14 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/CPU/</loc>
+    <loc>https://www.victorchu.info/tags/Airlift/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Airlift/</loc>
+    <loc>https://www.victorchu.info/tags/CPU/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3491,13 +3473,6 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/tags/Encoding/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victorchu.info/tags/Future/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -3506,6 +3481,13 @@
   
   <url>
     <loc>https://www.victorchu.info/tags/Promise/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/tags/Encoding/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3563,7 +3545,21 @@
   </url>
   
   <url>
+    <loc>https://www.victorchu.info/categories/Distributed-System/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.victorchu.info/categories/Java/Concurrency/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/categories/Paper/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3584,13 +3580,6 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/Git/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victorchu.info/categories/Effective/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -3598,7 +3587,21 @@
   </url>
   
   <url>
+    <loc>https://www.victorchu.info/categories/Git/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.victorchu.info/categories/Hexo/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/categories/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3619,13 +3622,6 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victorchu.info/categories/Java/Basic/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -3640,13 +3636,6 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/Effective/Zsh/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victorchu.info/categories/Effective/Git/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -3655,6 +3644,13 @@
   
   <url>
     <loc>https://www.victorchu.info/categories/Hexo/Next/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/categories/Effective/Zsh/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3689,14 +3685,14 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <loc>https://www.victorchu.info/categories/Regex/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/Regex/</loc>
+    <loc>https://www.victorchu.info/categories/Architecture/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3745,14 +3741,14 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/Spring/</loc>
+    <loc>https://www.victorchu.info/categories/Design/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/Design/</loc>
+    <loc>https://www.victorchu.info/categories/Spring/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3773,14 +3769,14 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/Algorithm/BitMap/</loc>
+    <loc>https://www.victorchu.info/categories/Algorithm/Question/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/Algorithm/Question/</loc>
+    <loc>https://www.victorchu.info/categories/Algorithm/BitMap/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3794,7 +3790,7 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/Algorithm/Search/</loc>
+    <loc>https://www.victorchu.info/categories/Disruptor/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3808,14 +3804,14 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/Algorithm/String/</loc>
+    <loc>https://www.victorchu.info/categories/Algorithm/Search/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/Disruptor/</loc>
+    <loc>https://www.victorchu.info/categories/Algorithm/String/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3885,20 +3881,6 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/Docker/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/categories/Computer/Charset/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victorchu.info/categories/Architecture/CircuitBreaker/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -3907,6 +3889,20 @@
   
   <url>
     <loc>https://www.victorchu.info/categories/ReadNotes/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/categories/Docker/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/categories/Computer/Charset/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3927,7 +3923,7 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/Paper/</loc>
+    <loc>https://www.victorchu.info/categories/Paper/BigData/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3942,6 +3938,13 @@
   
   <url>
     <loc>https://www.victorchu.info/categories/Architecture/Cache/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/categories/Paper/Memory/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3983,13 +3986,6 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/JVM/GC/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victorchu.info/categories/Build-Tool/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -3997,7 +3993,7 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/%E6%A0%87%E5%87%86%E8%A7%84%E8%8C%83/IEEE/</loc>
+    <loc>https://www.victorchu.info/categories/JVM/GC/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -4011,14 +4007,21 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/JVM/Memory/</loc>
+    <loc>https://www.victorchu.info/categories/MicroService/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/MicroService/</loc>
+    <loc>https://www.victorchu.info/categories/%E6%A0%87%E5%87%86%E8%A7%84%E8%8C%83/IEEE/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/categories/Paper/Tracing/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -4032,7 +4035,14 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/Distributed-System/</loc>
+    <loc>https://www.victorchu.info/categories/Distributed-System/Theorem/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/categories/Distributed-System/Consistency/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -4046,7 +4056,21 @@
   </url>
   
   <url>
+    <loc>https://www.victorchu.info/categories/JVM/Memory/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.victorchu.info/categories/Algorithm/Diff/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/categories/Paper/DB/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -4067,13 +4091,6 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/MySQL/Index/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victorchu.info/categories/Algorithm/Cache/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -4088,7 +4105,7 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/MySQL/Explain/</loc>
+    <loc>https://www.victorchu.info/categories/MySQL/Index/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -4096,6 +4113,13 @@
   
   <url>
     <loc>https://www.victorchu.info/categories/Kafka/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/categories/MySQL/Explain/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -4116,13 +4140,6 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/JVM/CPU/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victorchu.info/categories/Guice/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -4130,14 +4147,14 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/Java/JDBC/</loc>
+    <loc>https://www.victorchu.info/categories/JVM/CPU/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/Spring/Transactional/</loc>
+    <loc>https://www.victorchu.info/categories/Java/JDBC/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -4158,7 +4175,7 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/Encoding/</loc>
+    <loc>https://www.victorchu.info/categories/Spring/Transactional/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -4166,6 +4183,13 @@
   
   <url>
     <loc>https://www.victorchu.info/categories/Asynchronous-Programming/</loc>
+    <lastmod>2025-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.victorchu.info/categories/Encoding/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -4249,13 +4273,6 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/Paper/BigData/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victorchu.info/categories/Distributed/Lock/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -4271,13 +4288,6 @@
   
   <url>
     <loc>https://www.victorchu.info/categories/Web/Security/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/categories/Paper/Memory/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -4305,35 +4315,7 @@
   </url>
   
   <url>
-    <loc>https://www.victorchu.info/categories/Paper/Tracing/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/categories/Distributed-System/Theorem/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/categories/Distributed-System/Consistency/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.victorchu.info/categories/Database/Transaction/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/categories/Paper/DB/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -4348,20 +4330,6 @@
   
   <url>
     <loc>https://www.victorchu.info/categories/Network/TCP/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/categories/Distributed-System/Protocol/</loc>
-    <lastmod>2025-11-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.victorchu.info/categories/Paper/Distributed/</loc>
     <lastmod>2025-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
