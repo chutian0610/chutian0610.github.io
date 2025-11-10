@@ -6,7 +6,7 @@
   <link href="https://www.victorchu.info/atom.xml" rel="self"/>
   
   <link href="https://www.victorchu.info/"/>
-  <updated>2025-08-26T12:45:31.209Z</updated>
+  <updated>2025-11-10T02:54:09.364Z</updated>
   <id>https://www.victorchu.info/</id>
   
   <author>
@@ -15,6 +15,82 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SWIM: Scalable Weakly-consistent Infection-style Process Group Membership Protocol</title>
+    <link href="https://www.victorchu.info/posts/3053dd30/"/>
+    <id>https://www.victorchu.info/posts/3053dd30/</id>
+    <published>2025-10-30T03:37:16.000Z</published>
+    <updated>2025-11-10T02:54:09.364Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;摘要&quot;&gt;摘要&lt;/h1&gt;
+&lt;p&gt;一些分布式点对点应用要求所有参与的进程对进程组成员信息只需达到弱一致性的了解即可。SWIM是一个通用的软件模块，它为大型进程组提供这种成员信息服务。SWIM</summary>
+        
+      
+    
+    
+    
+    <category term="Paper" scheme="https://www.victorchu.info/categories/Paper/"/>
+    
+    <category term="Distributed" scheme="https://www.victorchu.info/categories/Paper/Distributed/"/>
+    
+    
+    <category term="Distributed" scheme="https://www.victorchu.info/tags/Distributed/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>git多账号通过ssh提交</title>
+    <link href="https://www.victorchu.info/posts/a40cdb91/"/>
+    <id>https://www.victorchu.info/posts/a40cdb91/</id>
+    <published>2025-10-29T06:18:01.000Z</published>
+    <updated>2025-11-10T02:54:09.362Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;假设我有两个 github 账号，victor(for personal) 和 superman(for work)。如果我想在同一台电脑上使用这两个账号进行 git push/pull。该如何配置？&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Git" scheme="https://www.victorchu.info/categories/Git/"/>
+    
+    
+    <category term="Git" scheme="https://www.victorchu.info/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>分布式协议-Gossip</title>
+    <link href="https://www.victorchu.info/posts/8507ead2/"/>
+    <id>https://www.victorchu.info/posts/8507ead2/</id>
+    <published>2025-10-24T08:40:18.000Z</published>
+    <updated>2025-11-10T02:54:09.359Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;参考&quot;&gt;参考&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;[1] &lt;a href=&quot;https://www.cs.cornell.edu/projects/Quicksilver/public_pdfs/SWIM.pdf&quot;&gt;SWIM: Scalable</summary>
+        
+      
+    
+    
+    
+    <category term="Distributed System" scheme="https://www.victorchu.info/categories/Distributed-System/"/>
+    
+    <category term="Protocol" scheme="https://www.victorchu.info/categories/Distributed-System/Protocol/"/>
+    
+    
+    <category term="Distributed System" scheme="https://www.victorchu.info/tags/Distributed-System/"/>
+    
+  </entry>
   
   <entry>
     <title>Rust Future 共享状态</title>
@@ -430,93 +506,6 @@
     
     
     <category term="Reflect" scheme="https://www.victorchu.info/tags/Reflect/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用物化视图优化查询:一个实用的、可扩展的解决方案</title>
-    <link href="https://www.victorchu.info/posts/4e6dffa/"/>
-    <id>https://www.victorchu.info/posts/4e6dffa/</id>
-    <published>2024-02-02T09:58:19.000Z</published>
-    <updated>2024-06-27T06:53:33.474Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;本篇是&lt;a href=&quot;https://courses.cs.washington.edu/courses/cse591d/01sp/opt_views.pdf&quot;&gt;论文&lt;/a&gt;的中文简单翻译&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;物化视图可以大大缩短查询处理时间，特别是对于大型表的聚合查询。要释放这种潜力，查询优化器必须知道如何以及何时利用物化视图。本文提出了一种快速且可扩展的算法，用于确定是否可以从物化视图中计算查询的部分或全部，并描述了如何将其纳入基于转换的优化器中。当前版本处理由selections、joins和group by组成的视图。优化仍然完全基于成本，也就是说，启发式规则不会选择单个“最佳”重写，而是生成多个重写，优化器以正常方式选择最佳替代方案。实验结果表明，该算法在Microsoft SQL Server上实现了良好的性能和可扩展性。优化时间随着视图数的增加而缓慢增加，但即使视图数达到1000次，优化耗时仍然很低。&lt;/p&gt;
-&lt;p&gt;关键字:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;物化视图&lt;/li&gt;
-&lt;li&gt;视图匹配&lt;/li&gt;
-&lt;li&gt;查询优化&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="Paper" scheme="https://www.victorchu.info/categories/Paper/"/>
-    
-    <category term="BigData" scheme="https://www.victorchu.info/categories/Paper/BigData/"/>
-    
-    
-    <category term="Distributed" scheme="https://www.victorchu.info/tags/Distributed/"/>
-    
-    <category term="BigData" scheme="https://www.victorchu.info/tags/BigData/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>形式化关系查询语言</title>
-    <link href="https://www.victorchu.info/posts/9e3f23c9/"/>
-    <id>https://www.victorchu.info/posts/9e3f23c9/</id>
-    <published>2023-10-03T08:25:05.000Z</published>
-    <updated>2024-06-27T06:53:33.470Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;本文是数据库系统概念第六章节的读书笔记。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;查询语言是用户用来从数据库中请求信息的语言。查询语言可以分为过程化和非过程化的。在过程化语言中用户指导系统对数据库执行一系列操作以计算出结果。在非过程化语言中，用户只需要描述所需信息，而不用给出具体过程。&lt;/p&gt;
-&lt;p&gt;实际上使用的查询语言既包含过程化的成分，又包含非过程化的成分。在一些&amp;quot;纯&amp;quot;查询语言中，关系代数是过程化的，而元组关系演算和域关系演算是非过程的。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;在关系模型中，关系指表。表的一行是元组。表中一列是属性。域是属性的取值范围。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="ReadNotes" scheme="https://www.victorchu.info/categories/ReadNotes/"/>
-    
-    
-    <category term="Query" scheme="https://www.victorchu.info/tags/Query/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Trino Sql优化:Removing redundant ORDER BY</title>
-    <link href="https://www.victorchu.info/posts/422b2ff2/"/>
-    <id>https://www.victorchu.info/posts/422b2ff2/</id>
-    <published>2023-09-01T06:38:06.000Z</published>
-    <updated>2024-06-27T06:53:33.451Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;一些SQL构造（如ORDER BY）在许多情况下不会影响查询结果，并且会产生影响性能的负面影响(查询中的每个ORDER BY子句都代表一个排序执行计划)。如果用户无意中在没有效果的地方使用ORDER BY，可能会导致严重的性能下降和资源浪费。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;sql规范(ISO 9075 Part 2)中说明:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;一个&lt;code&gt;&amp;lt;query expression&amp;gt;&lt;/code&gt;可以包含一个可选的&lt;code&gt;&amp;lt;order by clause&amp;gt;&lt;/code&gt;。&lt;br&gt;
-&lt;code&gt;&amp;lt;query expression&amp;gt;&lt;/code&gt;z中行的顺序仅由&lt;code&gt;&amp;lt;query expression&amp;gt;&lt;/code&gt;直接包含的&lt;code&gt;&amp;lt;order by clause&amp;gt;&lt;/code&gt;指定。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;上述规范意味着，查询引擎可以自由地忽略任何不适合上下文的ORDER BY子句。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Trino" scheme="https://www.victorchu.info/categories/Trino/"/>
-    
-    
-    <category term="Presto" scheme="https://www.victorchu.info/tags/Presto/"/>
-    
-    <category term="Trino" scheme="https://www.victorchu.info/tags/Trino/"/>
     
   </entry>
   
