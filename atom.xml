@@ -6,7 +6,7 @@
   <link href="https://www.victorchu.info/atom.xml" rel="self"/>
   
   <link href="https://www.victorchu.info/"/>
-  <updated>2025-11-10T02:54:09.362Z</updated>
+  <updated>2025-11-11T14:42:41.125Z</updated>
   <id>https://www.victorchu.info/</id>
   
   <author>
@@ -15,6 +15,55 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JavaCC:实现一个计算器</title>
+    <link href="https://www.victorchu.info/posts/ce505f18/"/>
+    <id>https://www.victorchu.info/posts/ce505f18/</id>
+    <published>2025-11-11T09:23:34.000Z</published>
+    <updated>2025-11-11T14:42:41.125Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;/posts/66ec4c97/&quot;&gt;上一篇文章&lt;/a&gt;我们简单介绍了 JavaCC的语法和使用。本文将以实现一个计算器为例，介绍JavaCC 在实际代码中的使用。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Compilers" scheme="https://www.victorchu.info/categories/Compilers/"/>
+    
+    
+    <category term="Compilers" scheme="https://www.victorchu.info/tags/Compilers/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaCC 简介</title>
+    <link href="https://www.victorchu.info/posts/66ec4c97/"/>
+    <id>https://www.victorchu.info/posts/66ec4c97/</id>
+    <published>2025-11-10T06:36:35.000Z</published>
+    <updated>2025-11-11T11:27:42.026Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;JavaCC 是 java 生态中常用的Parser Generator。特征如下:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;JavaCC 生成的解析器是基于LL 的，默认是LL(1)，通过配置可以支持 LL(K)。&lt;/li&gt;
+&lt;li&gt;由于是LL 方式，需要用户自己书写递归下降的语法规则来避免出现左递归问题。&lt;/li&gt;
+&lt;li&gt;JavaCC 支持 EBNF 语法范式。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;JavaCC的工作流程如下:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;令牌管理器读入一个字符序列并生成一个称为令牌的对象序列。用于将字符序列分解为标记序列的规则取决于语言-它们由用户作为正则表达式的集合提供。&lt;/li&gt;
+&lt;li&gt;解析器使用一个令牌序列，分析它的结构，并产生一个由用户定义的输出。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure&gt;&lt;img data-src=&quot;/posts/66ec4c97/javacc-design.webp&quot; alt&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="Compilers" scheme="https://www.victorchu.info/categories/Compilers/"/>
+    
+    
+    <category term="Compilers" scheme="https://www.victorchu.info/tags/Compilers/"/>
+    
+  </entry>
   
   <entry>
     <title>git多账号通过ssh提交</title>
@@ -449,64 +498,6 @@
     
     
     <category term="Reflect" scheme="https://www.victorchu.info/tags/Reflect/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用物化视图优化查询:一个实用的、可扩展的解决方案</title>
-    <link href="https://www.victorchu.info/posts/4e6dffa/"/>
-    <id>https://www.victorchu.info/posts/4e6dffa/</id>
-    <published>2024-02-02T09:58:19.000Z</published>
-    <updated>2024-06-27T06:53:33.474Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;本篇是&lt;a href=&quot;https://courses.cs.washington.edu/courses/cse591d/01sp/opt_views.pdf&quot;&gt;论文&lt;/a&gt;的中文简单翻译&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;物化视图可以大大缩短查询处理时间，特别是对于大型表的聚合查询。要释放这种潜力，查询优化器必须知道如何以及何时利用物化视图。本文提出了一种快速且可扩展的算法，用于确定是否可以从物化视图中计算查询的部分或全部，并描述了如何将其纳入基于转换的优化器中。当前版本处理由selections、joins和group by组成的视图。优化仍然完全基于成本，也就是说，启发式规则不会选择单个“最佳”重写，而是生成多个重写，优化器以正常方式选择最佳替代方案。实验结果表明，该算法在Microsoft SQL Server上实现了良好的性能和可扩展性。优化时间随着视图数的增加而缓慢增加，但即使视图数达到1000次，优化耗时仍然很低。&lt;/p&gt;
-&lt;p&gt;关键字:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;物化视图&lt;/li&gt;
-&lt;li&gt;视图匹配&lt;/li&gt;
-&lt;li&gt;查询优化&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="Paper" scheme="https://www.victorchu.info/categories/Paper/"/>
-    
-    <category term="BigData" scheme="https://www.victorchu.info/categories/Paper/BigData/"/>
-    
-    
-    <category term="Distributed" scheme="https://www.victorchu.info/tags/Distributed/"/>
-    
-    <category term="BigData" scheme="https://www.victorchu.info/tags/BigData/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>形式化关系查询语言</title>
-    <link href="https://www.victorchu.info/posts/9e3f23c9/"/>
-    <id>https://www.victorchu.info/posts/9e3f23c9/</id>
-    <published>2023-10-03T08:25:05.000Z</published>
-    <updated>2024-06-27T06:53:33.470Z</updated>
-    
-    
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;本文是数据库系统概念第六章节的读书笔记。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;查询语言是用户用来从数据库中请求信息的语言。查询语言可以分为过程化和非过程化的。在过程化语言中用户指导系统对数据库执行一系列操作以计算出结果。在非过程化语言中，用户只需要描述所需信息，而不用给出具体过程。&lt;/p&gt;
-&lt;p&gt;实际上使用的查询语言既包含过程化的成分，又包含非过程化的成分。在一些&amp;quot;纯&amp;quot;查询语言中，关系代数是过程化的，而元组关系演算和域关系演算是非过程的。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;在关系模型中，关系指表。表的一行是元组。表中一列是属性。域是属性的取值范围。&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="ReadNotes" scheme="https://www.victorchu.info/categories/ReadNotes/"/>
-    
-    
-    <category term="Query" scheme="https://www.victorchu.info/tags/Query/"/>
     
   </entry>
   
