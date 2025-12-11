@@ -6,7 +6,7 @@
   <link href="https://www.victorchu.info/atom.xml" rel="self"/>
   
   <link href="https://www.victorchu.info/"/>
-  <updated>2025-11-17T06:43:48.765Z</updated>
+  <updated>2025-12-11T06:03:35.738Z</updated>
   <id>https://www.victorchu.info/</id>
   
   <author>
@@ -17,11 +17,41 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Apache Calcite: SQL验证</title>
+    <link href="https://www.victorchu.info/posts/3e9140da/"/>
+    <id>https://www.victorchu.info/posts/3e9140da/</id>
+    <published>2025-12-08T09:23:48.000Z</published>
+    <updated>2025-12-11T06:03:35.738Z</updated>
+    
+    
+    <summary type="html">&lt;pre class=&quot;mermaid&quot;&gt;flowchart LR
+    subgraph calcite
+    A[1.SQL] --&amp;gt;|Parser| B[2.SQL Node]
+    B --&amp;gt;|Validator| C[3.SQL Node]
+    C --&amp;gt;|Convertor| D[4.Rel Node]
+    D --&amp;gt;|Optimizer| E[5.Rel Node]
+    end
+    E --&amp;gt; F[6.Physical Excute Plan]&lt;/pre&gt;
+&lt;p&gt;本文主要介绍Calcite 中的SQL Validator。Calcite 通过 SQL 校验器实现 SQL 绑定，SQL 校验器所需的 Catalog 信息，在&lt;a href=&quot;/post/f2cd8cb8/&quot;&gt;深入理解 Apache Calcite Catalog&lt;/a&gt; 中已经做了详细的介绍。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;SQL 绑定主要的作用是将 SQL 解析生成的 AST 和数据库的元数据进行绑定，从而生成具有语义的 AST。SQL 绑定会通过自底向上的方式遍历 AST，对抽象语法树中的节点进行绑定分析，绑定的过程中会将表、列等元数据附在语法树上，最后生成具有语义的语法树 Bounded AST。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="Apache Calcite" scheme="https://www.victorchu.info/categories/Apache-Calcite/"/>
+    
+    
+    <category term="Apache Calcite" scheme="https://www.victorchu.info/tags/Apache-Calcite/"/>
+    
+  </entry>
+  
+  <entry>
     <title>java:随机数</title>
     <link href="https://www.victorchu.info/posts/e35fa890/"/>
     <id>https://www.victorchu.info/posts/e35fa890/</id>
     <published>2025-11-17T03:23:35.000Z</published>
-    <updated>2025-11-17T06:43:48.765Z</updated>
+    <updated>2025-12-11T05:49:02.445Z</updated>
     
     
     <summary type="html">&lt;p&gt;计算机科学中的随机数分为两种:&lt;/p&gt;
@@ -38,8 +68,6 @@
     
     <category term="Java" scheme="https://www.victorchu.info/categories/Java/"/>
     
-    <category term="Basic" scheme="https://www.victorchu.info/categories/Java/Basic/"/>
-    
     
     <category term="Random" scheme="https://www.victorchu.info/tags/Random/"/>
     
@@ -50,7 +78,7 @@
     <link href="https://www.victorchu.info/posts/ef5a33c2/"/>
     <id>https://www.victorchu.info/posts/ef5a33c2/</id>
     <published>2025-11-13T09:34:25.000Z</published>
-    <updated>2025-11-28T11:33:01.772Z</updated>
+    <updated>2025-12-11T05:13:05.101Z</updated>
     
     
     <summary type="html">&lt;pre class=&quot;mermaid&quot;&gt;flowchart LR
@@ -65,12 +93,10 @@
     
     
     
-    <category term="Apache" scheme="https://www.victorchu.info/categories/Apache/"/>
-    
-    <category term="Calcite" scheme="https://www.victorchu.info/categories/Apache/Calcite/"/>
+    <category term="Apache Calcite" scheme="https://www.victorchu.info/categories/Apache-Calcite/"/>
     
     
-    <category term="Calcite" scheme="https://www.victorchu.info/tags/Calcite/"/>
+    <category term="Apache Calcite" scheme="https://www.victorchu.info/tags/Apache-Calcite/"/>
     
   </entry>
   
@@ -79,17 +105,19 @@
     <link href="https://www.victorchu.info/posts/ce505f18/"/>
     <id>https://www.victorchu.info/posts/ce505f18/</id>
     <published>2025-11-11T09:23:34.000Z</published>
-    <updated>2025-11-13T08:04:33.871Z</updated>
+    <updated>2025-12-11T05:25:01.082Z</updated>
     
     
     <summary type="html">&lt;p&gt;&lt;a href=&quot;/posts/66ec4c97/&quot;&gt;上一篇文章&lt;/a&gt;我们简单介绍了 JavaCC的语法和使用。本文将以实现一个计算器为例，介绍JavaCC 在实际代码中的使用。&lt;/p&gt;</summary>
     
     
     
-    <category term="Compilers" scheme="https://www.victorchu.info/categories/Compilers/"/>
+    <category term="JavaCC" scheme="https://www.victorchu.info/categories/JavaCC/"/>
     
     
-    <category term="Compilers" scheme="https://www.victorchu.info/tags/Compilers/"/>
+    <category term="Parser" scheme="https://www.victorchu.info/tags/Parser/"/>
+    
+    <category term="JavaCC" scheme="https://www.victorchu.info/tags/JavaCC/"/>
     
   </entry>
   
@@ -98,7 +126,7 @@
     <link href="https://www.victorchu.info/posts/66ec4c97/"/>
     <id>https://www.victorchu.info/posts/66ec4c97/</id>
     <published>2025-11-10T06:36:35.000Z</published>
-    <updated>2025-11-13T07:44:04.045Z</updated>
+    <updated>2025-12-11T05:32:25.760Z</updated>
     
     
     <summary type="html">&lt;p&gt;JavaCC 是 java 生态中常用的Parser Generator。特征如下:&lt;/p&gt;
@@ -116,10 +144,12 @@
     
     
     
-    <category term="Compilers" scheme="https://www.victorchu.info/categories/Compilers/"/>
+    <category term="JavaCC" scheme="https://www.victorchu.info/categories/JavaCC/"/>
     
     
-    <category term="Compilers" scheme="https://www.victorchu.info/tags/Compilers/"/>
+    <category term="Parser" scheme="https://www.victorchu.info/tags/Parser/"/>
+    
+    <category term="JavaCC" scheme="https://www.victorchu.info/tags/JavaCC/"/>
     
   </entry>
   
@@ -147,7 +177,7 @@
     <link href="https://www.victorchu.info/posts/1ff241/"/>
     <id>https://www.victorchu.info/posts/1ff241/</id>
     <published>2025-08-20T10:04:53.000Z</published>
-    <updated>2025-08-26T12:45:31.209Z</updated>
+    <updated>2025-12-11T05:22:45.378Z</updated>
     
     
     <summary type="html">&lt;p&gt;如何在 Rust 的多线程中共享值？&lt;/p&gt;
@@ -161,9 +191,7 @@
     <category term="Rust" scheme="https://www.victorchu.info/categories/Rust/"/>
     
     
-    <category term="QuickStart" scheme="https://www.victorchu.info/tags/QuickStart/"/>
-    
-    <category term="Future" scheme="https://www.victorchu.info/tags/Future/"/>
+    <category term="Rust" scheme="https://www.victorchu.info/tags/Rust/"/>
     
   </entry>
   
@@ -172,7 +200,7 @@
     <link href="https://www.victorchu.info/posts/47fee323/"/>
     <id>https://www.victorchu.info/posts/47fee323/</id>
     <published>2025-06-18T02:57:11.000Z</published>
-    <updated>2025-07-07T02:42:56.678Z</updated>
+    <updated>2025-12-11T05:14:56.009Z</updated>
     
     
       
@@ -188,8 +216,6 @@
     <category term="Rust" scheme="https://www.victorchu.info/categories/Rust/"/>
     
     
-    <category term="QuickStart" scheme="https://www.victorchu.info/tags/QuickStart/"/>
-    
     <category term="Rust" scheme="https://www.victorchu.info/tags/Rust/"/>
     
   </entry>
@@ -199,7 +225,7 @@
     <link href="https://www.victorchu.info/posts/f6310143/"/>
     <id>https://www.victorchu.info/posts/f6310143/</id>
     <published>2025-04-30T08:46:17.000Z</published>
-    <updated>2025-08-21T08:53:22.676Z</updated>
+    <updated>2025-12-11T05:22:48.905Z</updated>
     
     
     <summary type="html">&lt;p&gt;Rust 既支持了基于系统线程的多线程编程模型，也支持了基于&lt;code&gt;async/await&lt;/code&gt;的异步编程模型。Rust 的async编程有有以下特性:&lt;/p&gt;
@@ -215,9 +241,7 @@
     <category term="Rust" scheme="https://www.victorchu.info/categories/Rust/"/>
     
     
-    <category term="QuickStart" scheme="https://www.victorchu.info/tags/QuickStart/"/>
-    
-    <category term="Future" scheme="https://www.victorchu.info/tags/Future/"/>
+    <category term="Rust" scheme="https://www.victorchu.info/tags/Rust/"/>
     
   </entry>
   
@@ -226,7 +250,7 @@
     <link href="https://www.victorchu.info/posts/ac6fa74c/"/>
     <id>https://www.victorchu.info/posts/ac6fa74c/</id>
     <published>2025-04-30T07:36:05.000Z</published>
-    <updated>2025-05-07T06:38:19.264Z</updated>
+    <updated>2025-12-11T05:15:19.919Z</updated>
     
     
     <summary type="html">&lt;p&gt;&lt;a href=&quot;https://github.com/tower-rs/tower&quot;&gt;Tower&lt;/a&gt;是一个模块化和可重用组件库，用于构建健壮的网络客户端和服务器。其核心是&lt;a href=&quot;https://docs.rs/tower/latest/tower/trait.Service.html&quot;&gt;Service&lt;/a&gt;特征。Service是一个异步函数，它接受请求并产生响应。然而，其设计的某些方面可能并不明显。与其解释目前Tower中存在的Service特征，让我们通过想象如果你从头开始，你会如何发明它来看看Service背后的动机。&lt;/p&gt;</summary>
@@ -235,8 +259,6 @@
     
     <category term="Rust" scheme="https://www.victorchu.info/categories/Rust/"/>
     
-    
-    <category term="QuickStart" scheme="https://www.victorchu.info/tags/QuickStart/"/>
     
     <category term="Rust" scheme="https://www.victorchu.info/tags/Rust/"/>
     
@@ -247,7 +269,7 @@
     <link href="https://www.victorchu.info/posts/fbdef81e/"/>
     <id>https://www.victorchu.info/posts/fbdef81e/</id>
     <published>2025-04-19T07:38:02.000Z</published>
-    <updated>2025-04-22T05:52:55.986Z</updated>
+    <updated>2025-12-11T05:15:29.978Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文将介绍如果基于 vscode 搭建 Rust 开发环境。&lt;/p&gt;</summary>
@@ -259,7 +281,7 @@
     
     <category term="Rust" scheme="https://www.victorchu.info/tags/Rust/"/>
     
-    <category term="Tool" scheme="https://www.victorchu.info/tags/Tool/"/>
+    <category term="vscode" scheme="https://www.victorchu.info/tags/vscode/"/>
     
   </entry>
   
@@ -268,7 +290,7 @@
     <link href="https://www.victorchu.info/posts/bdfdcebb/"/>
     <id>https://www.victorchu.info/posts/bdfdcebb/</id>
     <published>2025-04-11T06:18:50.000Z</published>
-    <updated>2025-04-15T10:07:10.273Z</updated>
+    <updated>2025-12-11T05:15:34.355Z</updated>
     
     
     <summary type="html">&lt;p&gt;先来看一段 Java 代码，Application中有version和 logger。logger 依赖了 Version。&lt;/p&gt;
@@ -280,8 +302,6 @@
     <category term="Rust" scheme="https://www.victorchu.info/categories/Rust/"/>
     
     
-    <category term="QuickStart" scheme="https://www.victorchu.info/tags/QuickStart/"/>
-    
     <category term="Rust" scheme="https://www.victorchu.info/tags/Rust/"/>
     
   </entry>
@@ -291,7 +311,7 @@
     <link href="https://www.victorchu.info/posts/671ae328/"/>
     <id>https://www.victorchu.info/posts/671ae328/</id>
     <published>2025-04-01T13:08:34.000Z</published>
-    <updated>2025-04-15T10:07:10.272Z</updated>
+    <updated>2025-12-11T05:15:37.888Z</updated>
     
     
     <summary type="html">&lt;p&gt;生命周期，简而言之就是引用的有效作用域。在大多数时候，我们无需手动的声明生命周期，因为编译器可以自动进行推导。当多个生命周期存在，且编译器无法推导出某个引用的生命周期时，就需要我们手动标明生命周期。&lt;/p&gt;
@@ -310,8 +330,6 @@
     <category term="Rust" scheme="https://www.victorchu.info/categories/Rust/"/>
     
     
-    <category term="QuickStart" scheme="https://www.victorchu.info/tags/QuickStart/"/>
-    
     <category term="Rust" scheme="https://www.victorchu.info/tags/Rust/"/>
     
   </entry>
@@ -321,7 +339,7 @@
     <link href="https://www.victorchu.info/posts/33b8702a/"/>
     <id>https://www.victorchu.info/posts/33b8702a/</id>
     <published>2025-03-28T03:43:10.000Z</published>
-    <updated>2025-04-15T10:07:10.269Z</updated>
+    <updated>2025-12-11T05:17:11.184Z</updated>
     
     
       
@@ -335,9 +353,9 @@
     
     
     
-    <category term="Network" scheme="https://www.victorchu.info/categories/Network/"/>
+    <category term="Computer" scheme="https://www.victorchu.info/categories/Computer/"/>
     
-    <category term="TCP" scheme="https://www.victorchu.info/categories/Network/TCP/"/>
+    <category term="Network" scheme="https://www.victorchu.info/categories/Computer/Network/"/>
     
     
     <category term="TCP" scheme="https://www.victorchu.info/tags/TCP/"/>
@@ -349,21 +367,21 @@
     <link href="https://www.victorchu.info/posts/34494ba4/"/>
     <id>https://www.victorchu.info/posts/34494ba4/</id>
     <published>2025-03-11T11:10:04.000Z</published>
-    <updated>2025-03-28T03:21:16.335Z</updated>
+    <updated>2025-12-11T05:17:01.043Z</updated>
     
     
     <summary type="html">&lt;p&gt;上篇博客介绍了 &lt;a href=&quot;/post/c8c5ed6/&quot;&gt;CPU异常分析的工具和方法&lt;/a&gt;。本文将介绍如何定位 CPU 耗时。&lt;/p&gt;</summary>
     
     
     
-    <category term="Linux" scheme="https://www.victorchu.info/categories/Linux/"/>
+    <category term="Computer" scheme="https://www.victorchu.info/categories/Computer/"/>
     
-    <category term="CPU" scheme="https://www.victorchu.info/categories/Linux/CPU/"/>
+    <category term="CPU" scheme="https://www.victorchu.info/categories/Computer/CPU/"/>
     
     
     <category term="Performance" scheme="https://www.victorchu.info/tags/Performance/"/>
     
-    <category term="Analysis Tool" scheme="https://www.victorchu.info/tags/Analysis-Tool/"/>
+    <category term="CPU" scheme="https://www.victorchu.info/tags/CPU/"/>
     
   </entry>
   
@@ -372,7 +390,7 @@
     <link href="https://www.victorchu.info/posts/8c7679f1/"/>
     <id>https://www.victorchu.info/posts/8c7679f1/</id>
     <published>2025-03-11T07:23:17.000Z</published>
-    <updated>2025-04-16T08:37:25.662Z</updated>
+    <updated>2025-12-11T05:15:51.171Z</updated>
     
     
     <summary type="html">&lt;p&gt;如果不同的类型具有相同的行为，那么我们就可以定义一个特征，然后为这些类型实现该特征。定义特征是把一些方法组合在一起，目的是定义一个实现某些目标所必需的行为的集合。&lt;/p&gt;
@@ -386,8 +404,6 @@
     <category term="Rust" scheme="https://www.victorchu.info/categories/Rust/"/>
     
     
-    <category term="QuickStart" scheme="https://www.victorchu.info/tags/QuickStart/"/>
-    
     <category term="Rust" scheme="https://www.victorchu.info/tags/Rust/"/>
     
   </entry>
@@ -397,7 +413,7 @@
     <link href="https://www.victorchu.info/posts/25a24ade/"/>
     <id>https://www.victorchu.info/posts/25a24ade/</id>
     <published>2025-03-07T09:32:49.000Z</published>
-    <updated>2025-04-18T07:52:21.413Z</updated>
+    <updated>2025-12-11T05:16:32.786Z</updated>
     
     
     <summary type="html">&lt;p&gt;指针是一个包含了内存地址的变量，该内存地址引用或者指向了另外的数据。&lt;/p&gt;
@@ -414,8 +430,6 @@
     <category term="Rust" scheme="https://www.victorchu.info/categories/Rust/"/>
     
     
-    <category term="QuickStart" scheme="https://www.victorchu.info/tags/QuickStart/"/>
-    
     <category term="Rust" scheme="https://www.victorchu.info/tags/Rust/"/>
     
   </entry>
@@ -425,7 +439,7 @@
     <link href="https://www.victorchu.info/posts/61faea5e/"/>
     <id>https://www.victorchu.info/posts/61faea5e/</id>
     <published>2025-03-05T07:06:09.000Z</published>
-    <updated>2025-03-07T06:19:23.102Z</updated>
+    <updated>2025-12-11T05:23:09.388Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文总结了如何使用 Java 客户端操作 HDFS，以及一些注意点。&lt;/p&gt;</summary>
@@ -434,8 +448,8 @@
     
     <category term="Java" scheme="https://www.victorchu.info/categories/Java/"/>
     
-    <category term="HDFS" scheme="https://www.victorchu.info/categories/Java/HDFS/"/>
     
+    <category term="Java" scheme="https://www.victorchu.info/tags/Java/"/>
     
     <category term="HDFS" scheme="https://www.victorchu.info/tags/HDFS/"/>
     
@@ -446,7 +460,7 @@
     <link href="https://www.victorchu.info/posts/36b20547/"/>
     <id>https://www.victorchu.info/posts/36b20547/</id>
     <published>2025-03-03T09:54:30.000Z</published>
-    <updated>2025-06-24T09:55:12.841Z</updated>
+    <updated>2025-12-11T05:18:09.942Z</updated>
     
     
     <summary type="html">&lt;p&gt;Rust 为了解决内存安全问题，引入了所有权系统。&lt;/p&gt;
@@ -463,8 +477,6 @@
     <category term="Rust" scheme="https://www.victorchu.info/categories/Rust/"/>
     
     
-    <category term="QuickStart" scheme="https://www.victorchu.info/tags/QuickStart/"/>
-    
     <category term="Rust" scheme="https://www.victorchu.info/tags/Rust/"/>
     
   </entry>
@@ -474,41 +486,19 @@
     <link href="https://www.victorchu.info/posts/c8c5ed6/"/>
     <id>https://www.victorchu.info/posts/c8c5ed6/</id>
     <published>2024-09-18T11:40:00.000Z</published>
-    <updated>2025-03-11T12:13:15.691Z</updated>
+    <updated>2025-12-11T05:17:26.638Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文记录一些分析 CPU 性能问题的工具&amp;amp;方法。&lt;/p&gt;</summary>
     
     
     
-    <category term="Linux" scheme="https://www.victorchu.info/categories/Linux/"/>
+    <category term="Computer" scheme="https://www.victorchu.info/categories/Computer/"/>
     
-    <category term="CPU" scheme="https://www.victorchu.info/categories/Linux/CPU/"/>
+    <category term="CPU" scheme="https://www.victorchu.info/categories/Computer/CPU/"/>
     
     
     <category term="Performance" scheme="https://www.victorchu.info/tags/Performance/"/>
-    
-    <category term="Analysis Tool" scheme="https://www.victorchu.info/tags/Analysis-Tool/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>varint编码</title>
-    <link href="https://www.victorchu.info/posts/208a3645/"/>
-    <id>https://www.victorchu.info/posts/208a3645/</id>
-    <published>2024-06-18T09:30:53.000Z</published>
-    <updated>2025-07-07T02:42:56.680Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;Varint是一种使用一个或多个字节序列化整数的方法，会把整数编码为变长字节。对于32位整型的4个字节数据经过Varint编码后需要1&lt;sub&gt;5个字节，小的数字使用1个byte，大的数字使用5个bytes。64位整型数据编码后占用1&lt;/sub&gt;10个字节。&lt;/p&gt;
-&lt;p&gt;在实际场景中小数字的使用率远远多于大数字，因此通过Varint编码对于大部分场景都可以起到很好的压缩效果。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Encoding" scheme="https://www.victorchu.info/categories/Encoding/"/>
-    
-    
-    <category term="Encoding" scheme="https://www.victorchu.info/tags/Encoding/"/>
     
   </entry>
   
