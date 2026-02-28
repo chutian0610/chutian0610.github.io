@@ -1,0 +1,39 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Memory - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/memory/</link><description>Memory - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Mon, 07 Jun 2021 16:52:24 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/memory/" rel="self" type="application/rss+xml"/><item><title>获取Docker容器的内存使用情况</title><link>http://www.victorchu.info/posts/2021/06/fd677780/</link><pubDate>Mon, 07 Jun 2021 16:52:24 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2021/06/fd677780/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/docker.webp" referrerpolicy="no-referrer">
+            </div><p>在之前介绍linux命令free时，有提到过docker中使用free命令获得的常常是宿主机的内存使用情况。那么怎么获取docker中内存的使用情况呢？</p>]]></description></item><item><title>What Every Programmer Should Know About Memory (3)</title><link>http://www.victorchu.info/posts/2020/11/8bd607ed/</link><pubDate>Sun, 08 Nov 2020 11:03:34 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2020/11/8bd607ed/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/computer.webp" referrerpolicy="no-referrer">
+            </div><div class="details admonition note open">
+    <div class="details-summary admonition-title">
+        <span class="icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg></span>未完待续<span class="details-icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span>
+    </div>
+    <div class="details-content">
+        <div class="admonition-content">持续更新中&hellip;</div></div></div>
+<p>本文翻译自 <a href="https://people.freebsd.org/~lstewart/articles/cpumemory.pdf#link=pdf" target="_blank" rel="noopener noreferrer">What Every Programmer Should Know About Memory</a>的第6章</p>]]></description></item><item><title>What Every Programmer Should Know About Memory (2)</title><link>http://www.victorchu.info/posts/2020/08/92cd36ac/</link><pubDate>Wed, 26 Aug 2020 21:36:46 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2020/08/92cd36ac/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/computer.webp" referrerpolicy="no-referrer">
+            </div><p>本文翻译自 <a href="https://people.freebsd.org/~lstewart/articles/cpumemory.pdf#link=pdf" target="_blank" rel="noopener noreferrer">What Every Programmer Should Know About Memory</a>的第4,5章</p>]]></description></item><item><title>What Every Programmer Should Know About Memory (1)</title><link>http://www.victorchu.info/posts/2020/05/b9e0656f/</link><pubDate>Tue, 26 May 2020 21:36:46 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2020/05/b9e0656f/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/computer.webp" referrerpolicy="no-referrer">
+            </div><p>本文翻译自 <a href="https://people.freebsd.org/~lstewart/articles/cpumemory.pdf#link=pdf" target="_blank" rel="noopener noreferrer">What Every Programmer Should Know About Memory</a>的第1,2,3章</p>]]></description></item><item><title>CPU Memory Cache</title><link>http://www.victorchu.info/posts/2018/05/ee80e066/</link><pubDate>Thu, 03 May 2018 15:20:56 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2018/05/ee80e066/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/computer.webp" referrerpolicy="no-referrer">
+            </div><p>曾今计算机稳定的基本结构悄然改变，硬件开发人员开始致力于优化单个子系统。于是电脑一些组件的性能大大的落后因而成为了瓶颈。由于开销的原因，大容量存储器和内存子系统相对于其他组件来说改善得更为缓慢。</p>
+<p>大容量存储的性能问题往往靠软件来改善: 操作系统将常用(且最有可能被用)的数据放在主存中，因为后者的速度要快上几个数量级。或者将缓存加入存储设备中，这样就可以在不修改操作系统的前提下提升性能。(然而，为了在使用缓存时保证数据的完整性，仍然要作出一些修改).</p>
+<p>而解决内存的瓶颈更为困难，它与大容量存储不同，几乎每种方案都需要对硬件作出修改。目前，这些变更主要有以下这些方式:</p>
+<ul>
+<li>RAM的硬件设计(速度与并发度)</li>
+<li>内存控制器的设计</li>
+<li>CPU缓存</li>
+<li>设备的直接内存访问(DMA)</li>
+</ul>]]></description></item><item><title>使用 JOL 分析 Java 对象内存</title><link>http://www.victorchu.info/posts/2017/04/a8819e70/</link><pubDate>Sun, 30 Apr 2017 11:15:43 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/04/a8819e70/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/jvm.webp" referrerpolicy="no-referrer">
+            </div><p>前面介绍了<a href="/posts/2017/04/7937355a/" rel="">Java对象在JVM中的内存布局</a>。那么有什么方法可以方便的计算Java对象的内存占用？</p>
+<p>本篇文章我们将介绍如何使用<a href="https://github.com/openjdk/jol" target="_blank" rel="noopener noreferrer">JOL</a>分析Java对象内存。JOL是一个用来分析JVM中Object布局的小工具。包括Object在内存中的占用情况，实例对象的引用情况等等。JOL可以在代码中使用，也可以独立的以命令行中运行，文中使用java为jdk8。</p>]]></description></item><item><title>Java虚拟机-对象内存布局</title><link>http://www.victorchu.info/posts/2017/04/7937355a/</link><pubDate>Sat, 29 Apr 2017 19:35:07 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/04/7937355a/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/jvm.webp" referrerpolicy="no-referrer">
+            </div><p>本文讨论的是Java 对象的内存布局, 默认使用Oracle 1.8 Hotspot虚拟机。</p>]]></description></item><item><title>linux命令free</title><link>http://www.victorchu.info/posts/2016/12/d177193b/</link><pubDate>Fri, 16 Dec 2016 09:50:42 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2016/12/d177193b/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/monitor.webp" referrerpolicy="no-referrer">
+            </div><p>free 命令是一个显示系统中空闲和已用内存大小的工具。free 命令的输出和 top 命令相似。大多数Linux发行版已经含有 free 命令。</p>]]></description></item><item><title>Memory of C</title><link>http://www.victorchu.info/posts/2016/06/26272894/</link><pubDate>Thu, 16 Jun 2016 17:56:24 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2016/06/26272894/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/computer.webp" referrerpolicy="no-referrer">
+            </div><p>C的内存使用分为三个部分:</p>
+<p>– 静态：全局变量存储，在整个程序运行期间永久存储。
+– 栈：局部变量存储（自动、连续内存）。
+– 堆：动态存储（大型内存池，不按连续顺序分配）。</p>]]></description></item></channel></rss>

@@ -1,0 +1,7 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Immutable - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/immutable/</link><description>Immutable - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Fri, 03 Mar 2017 16:56:23 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/immutable/" rel="self" type="application/rss+xml"/><item><title>Java不可变对象</title><link>http://www.victorchu.info/posts/2017/03/a9c18450/</link><pubDate>Fri, 03 Mar 2017 16:56:23 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/03/a9c18450/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/java.webp" referrerpolicy="no-referrer">
+            </div><p>可变类和不可变类(Mutable and Immutable Objects)的初步定义：</p>
+<ol>
+<li>可变类：当你获得这个类的一个实例引用时，你可以改变这个实例的内容。</li>
+<li>不可变类：当你获得这个类的一个实例引用时，你不可以改变这个实例的内容。不可变类的实例一但创建，其内在成员变量的值就不能被修改。</li>
+</ol>]]></description></item></channel></rss>

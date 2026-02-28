@@ -1,0 +1,39 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Effective - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/effective/</link><description>Effective - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Thu, 22 Aug 2019 17:10:28 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/effective/" rel="self" type="application/rss+xml"/><item><title>My Effective Maven</title><link>http://www.victorchu.info/posts/2019/08/1cc88961/</link><pubDate>Thu, 22 Aug 2019 17:10:28 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2019/08/1cc88961/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/mvn.webp" referrerpolicy="no-referrer">
+            </div><p>我的Effective Maven使用笔记</p>
+<h2 id="常用-mvn-命令" class="headerLink">
+    <a href="#%e5%b8%b8%e7%94%a8-mvn-%e5%91%bd%e4%bb%a4" class="header-mark"></a>常用 mvn 命令</h2><h3 id="mvn输出增加线程id" class="headerLink">
+    <a href="#mvn%e8%be%93%e5%87%ba%e5%a2%9e%e5%8a%a0%e7%ba%bf%e7%a8%8bid" class="header-mark"></a>mvn输出增加线程ID</h3><div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
+  <div class="
+    
+    tw-flex 
+    tw-flex-row
+    tw-flex-1 
+    tw-justify-between 
+    tw-w-full tw-bg-bgColor-secondary
+    ">      
+    <button 
+      class="
+        code-block-button
+        tw-mx-2 
+        tw-flex
+        tw-flex-row
+        tw-flex-1"
+      aria-hidden="true">
+          <div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div>
+          <p class="tw-select-none !tw-my-1">sh</p>]]></description></item><item><title>My Effective Java</title><link>http://www.victorchu.info/posts/2018/08/31388fb9/</link><pubDate>Thu, 16 Aug 2018 15:52:40 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2018/08/31388fb9/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/java.webp" referrerpolicy="no-referrer">
+            </div><div class="details admonition note open">
+    <div class="details-summary admonition-title">
+        <span class="icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg></span>未完待续<span class="details-icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span>
+    </div>
+    <div class="details-content">
+        <div class="admonition-content">持续更新中&hellip;</div></div></div>
+<p>我的Effective Java开发笔记</p>]]></description></item><item><title>My Effective Git</title><link>http://www.victorchu.info/posts/2016/11/77645e9e/</link><pubDate>Wed, 23 Nov 2016 15:00:41 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2016/11/77645e9e/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/git.webp" referrerpolicy="no-referrer">
+            </div><p>本文是关于git的使用技巧。</p>]]></description></item><item><title>My Effective Zsh</title><link>http://www.victorchu.info/posts/2016/11/c7b6c829/</link><pubDate>Wed, 23 Nov 2016 13:03:07 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2016/11/c7b6c829/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/shell-commands.webp" referrerpolicy="no-referrer">
+            </div><p>本文是关于zsh的使用技巧。Zsh是比Bash更好用的Shell。</p>]]></description></item></channel></rss>
