@@ -1,0 +1,18 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>JavaCC - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/javacc/</link><description>JavaCC - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Wed, 12 Nov 2025 16:19:57 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/javacc/" rel="self" type="application/rss+xml"/><item><title>JavaCC:Token Manager</title><link>http://www.victorchu.info/posts/2025/11/553c738f/</link><pubDate>Wed, 12 Nov 2025 16:19:57 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2025/11/553c738f/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/compiler.webp" referrerpolicy="no-referrer">
+            </div><p>JavaCC的词法解析被转化为一组词法状态，每个状态都有一个唯一的标识符用于命名。Token Manager(生成的代码)在运行时总是处于状态之一，默认的一个词法状态是<code>DEFAULT</code>。当Token Manager初始化时，默认情况下是以<code>DEFAULT</code>状态开始。也可以在Token Manager 构造时，指定起始词法状态<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>。</p>]]></description></item><item><title>JavaCC 实现一个计算器</title><link>http://www.victorchu.info/posts/2025/11/ce505f18/</link><pubDate>Tue, 11 Nov 2025 17:23:34 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2025/11/ce505f18/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/compiler.webp" referrerpolicy="no-referrer">
+            </div><p><a href="/posts/2025/11/66ec4c97/" rel="">上一篇文章</a>我们简单介绍了 JavaCC的语法和使用。本文将以实现一个计算器为例，介绍JavaCC 在实际代码中的使用。</p>]]></description></item><item><title>JavaCC 简介</title><link>http://www.victorchu.info/posts/2025/11/66ec4c97/</link><pubDate>Mon, 10 Nov 2025 14:36:35 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2025/11/66ec4c97/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/compiler.webp" referrerpolicy="no-referrer">
+            </div><p>JavaCC 是 java 生态中常用的Parser Generator。特征如下:</p>
+<ul>
+<li>JavaCC 生成的解析器是基于LL 的，默认是LL(1)，通过配置可以支持 LL(K)。</li>
+<li>由于是LL 方式，需要用户自己书写递归下降的语法规则来避免出现左递归问题。</li>
+<li>JavaCC 支持 EBNF 语法范式。</li>
+</ul>
+<p>JavaCC的工作流程如下:</p>
+<ul>
+<li>令牌管理器读入一个字符序列并生成一个称为令牌的对象序列。用于将字符序列分解为标记序列的规则取决于语言-它们由用户作为正则表达式的集合提供。</li>
+<li>解析器使用一个令牌序列，分析它的结构，并产生一个由用户定义的输出。</li>
+</ul>
+<p><img class="tw-inline" loading="lazy" src='/posts/2025/11/66ec4c97/javacc-design.webp'    height="558" width="560"></p>]]></description></item></channel></rss>
