@@ -1,0 +1,13 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Encoding - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/encoding/</link><description>Encoding - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Tue, 18 Jun 2024 17:30:53 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/encoding/" rel="self" type="application/rss+xml"/><item><title>varint编码</title><link>http://www.victorchu.info/posts/2024/06/208a3645/</link><pubDate>Tue, 18 Jun 2024 17:30:53 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2024/06/208a3645/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/storage.webp" referrerpolicy="no-referrer">
+            </div><p>Varint是一种使用一个或多个字节序列化整数的方法，会把整数编码为变长字节。对于32位整型的4个字节数据经过Varint编码后需要<code>1~5</code>个字节，小的数字使用1个byte，大的数字使用5个bytes。64位整型数据编码后占用<code>1~10</code>个字节。</p>
+<p>在实际场景中小数字的使用率远远多于大数字，因此通过Varint编码对于大部分场景都可以起到很好的压缩效果。</p>]]></description></item><item><title>字符集和编码</title><link>http://www.victorchu.info/posts/2020/03/3b384a2/</link><pubDate>Mon, 16 Mar 2020 14:14:36 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2020/03/3b384a2/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/storage.webp" referrerpolicy="no-referrer">
+            </div><p>计算机内部，所有信息最终都是一个二进制值。每一个二进制位（bit）有0和1两种状态，因此八个二进制位就可以组合出256种状态，这被称为一个字节（byte）。也就是说，一个字节一共可以用来表示256种不同的状态。如果将这每一个状态对应一个符号，就是256个符号，从00000000到11111111。</p>
+<p><img class="tw-inline" loading="lazy" src='/posts/2020/03/3b384a2/char.webp'    height="368" width="371"></p>
+<ul>
+<li>Character 字符。即我们看到的单个符号，像“A”、“啊”等</li>
+<li>Code point 代码点。一个无符号数字，通常用16进制表示。代码点与字符的一一对应关系称为字符集（Character Set），这种对应关系肯定不止一种，也就导致了不同字符集的出现，像 ASCII、ISO-8859-1、GB2312、GBK、Unicode 等。</li>
+<li>Bytes 二进制字节。其含义为代码点在内存或磁盘中的表示形式。代码点与二进制字节的一一对应关系称为编码（Encoding），当然这种对应关系也不是唯一的，所以编码也有很多种，像 ASCII、ISO-8859-1、ENC-CN、GBK、UTF-8等。</li>
+</ul>
+<p>例如，ASCII 字符集只是定义了字符与字符码（character code，也称 code point 代码点）的对应关系。也就是说这一层面只是规定了字符A用 65 表示，至于这个 65 在内存或硬盘中怎么表示，它不管，那是 ASCII 编码做的事。</p>]]></description></item></channel></rss>

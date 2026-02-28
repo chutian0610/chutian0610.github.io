@@ -1,0 +1,38 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Compiler - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/compiler/</link><description>Compiler - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Thu, 15 Nov 2018 17:32:57 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/compiler/" rel="self" type="application/rss+xml"/><item><title>语法范式</title><link>http://www.victorchu.info/posts/2018/11/4c79bccf/</link><pubDate>Thu, 15 Nov 2018 17:32:57 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2018/11/4c79bccf/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/compiler.webp" referrerpolicy="no-referrer">
+            </div><p>上下文无关的组成部分:</p>
+<ul>
+<li>终结符号</li>
+<li>非终结符号</li>
+<li>一个开始符号</li>
+<li>一组产生式</li>
+</ul>
+<p>例如，下面数学表达式:</p>
+<p>$$
+expr \to expr+term
+$$</p>
+<p>$$
+expr \to expr-term
+$$</p>
+<p>$$
+expr \to term
+$$</p>
+<p>$$
+term \to term * factor
+$$</p>
+<p>$$
+term \to term/factor
+$$</p>
+<p>$$
+term \to factor
+$$</p>
+<p>$$
+factor \to (expr)
+$$</p>
+<p>$$
+factor \to id
+$$</p>
+<ol>
+<li>终结符号(词法单元)是组成串的基本符号，例如上面的 <code>+</code>,<code>-</code>。</li>
+<li>非终结符号是表示串的集合的语法变量,例如上面的term和factor。非终结符号表示的串集合用于定义由文法生成的语言。</li>
+</ol>]]></description></item></channel></rss>
