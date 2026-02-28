@@ -1,0 +1,49 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Maven - 分类 - Victor's Code Journey</title><link>http://www.victorchu.info/categories/maven/</link><description>Maven - 分类 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Fri, 11 Nov 2022 16:14:35 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/categories/maven/" rel="self" type="application/rss+xml"/><item><title>Maven依赖机制</title><link>http://www.victorchu.info/posts/2022/11/f07d4e05/</link><pubDate>Fri, 11 Nov 2022 16:14:35 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2022/11/f07d4e05/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/mvn.webp" referrerpolicy="no-referrer">
+            </div><p>Maven依赖传递是Maven的核心机制之一，它能够一定程度上简化Maven的依赖配置。</p>]]></description></item><item><title>maven default http blocker问题</title><link>http://www.victorchu.info/posts/2021/11/403b691d/</link><pubDate>Tue, 30 Nov 2021 19:08:13 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2021/11/403b691d/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/mvn.webp" referrerpolicy="no-referrer">
+            </div><p>最近在maven打包的时候遇到一个问题:</p>
+<div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
+  <div class="
+    
+    tw-flex 
+    tw-flex-row
+    tw-flex-1 
+    tw-justify-between 
+    tw-w-full tw-bg-bgColor-secondary
+    ">      
+    <button 
+      class="
+        code-block-button
+        tw-mx-2 
+        tw-flex
+        tw-flex-row
+        tw-flex-1"
+      aria-hidden="true">
+          <div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div>
+          <p class="tw-select-none !tw-my-1">text</p>]]></description></item><item><title>My Effective Maven</title><link>http://www.victorchu.info/posts/2019/08/1cc88961/</link><pubDate>Thu, 22 Aug 2019 17:10:28 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2019/08/1cc88961/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/mvn.webp" referrerpolicy="no-referrer">
+            </div><p>我的Effective Maven使用笔记</p>
+<h2 id="常用-mvn-命令" class="headerLink">
+    <a href="#%e5%b8%b8%e7%94%a8-mvn-%e5%91%bd%e4%bb%a4" class="header-mark"></a>常用 mvn 命令</h2><h3 id="mvn输出增加线程id" class="headerLink">
+    <a href="#mvn%e8%be%93%e5%87%ba%e5%a2%9e%e5%8a%a0%e7%ba%bf%e7%a8%8bid" class="header-mark"></a>mvn输出增加线程ID</h3><div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
+  <div class="
+    
+    tw-flex 
+    tw-flex-row
+    tw-flex-1 
+    tw-justify-between 
+    tw-w-full tw-bg-bgColor-secondary
+    ">      
+    <button 
+      class="
+        code-block-button
+        tw-mx-2 
+        tw-flex
+        tw-flex-row
+        tw-flex-1"
+      aria-hidden="true">
+          <div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div>
+          <p class="tw-select-none !tw-my-1">sh</p>]]></description></item></channel></rss>

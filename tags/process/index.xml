@@ -1,0 +1,13 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Process - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/process/</link><description>Process - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Sat, 14 May 2022 15:07:33 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/process/" rel="self" type="application/rss+xml"/><item><title>操作系统:进程&amp;线程&amp;协程</title><link>http://www.victorchu.info/posts/2022/05/5211c8b3/</link><pubDate>Sat, 14 May 2022 15:07:33 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2022/05/5211c8b3/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/computer.webp" referrerpolicy="no-referrer">
+            </div><p>本文会介绍操作系统中的进程,线程和协程。</p>
+<p><img class="tw-inline" loading="lazy" src='/posts/2022/05/5211c8b3/cover.webp'    height="494" width="493"></p>]]></description></item><item><title>Java进程</title><link>http://www.victorchu.info/posts/2017/03/d42c7f5d/</link><pubDate>Mon, 20 Mar 2017 19:39:23 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/03/d42c7f5d/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/java.webp" referrerpolicy="no-referrer">
+            </div><p>进程的概念主要有两点：</p>
+<ul>
+<li>第一，进程是一个实体。每一个进程都有它自己的地址空间，一般情况下，包括文本区域（text region）、数据区域（data region）和堆栈（stack region）。文本区域存储处理器执行的代码；数据区域存储变量和进程执行期间使用的动态分配的内存；堆栈区域存储着活动过程调用的指令和本地变量。</li>
+<li>第二，进程是一个“执行中的程序”。程序是一个没有生命的实体，只有处理器赋予程序生命时（操作系统执行之），它才能成为一个活动的实体，我们称其为进程。</li>
+</ul>]]></description></item><item><title>linux子shell执行方式区别</title><link>http://www.victorchu.info/posts/2016/12/272d10b2/</link><pubDate>Tue, 20 Dec 2016 20:39:12 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2016/12/272d10b2/</guid><description><![CDATA[<blockquote>
+  <p>假设<code>xxx.sh</code>和当前脚本在同一个目录</p>
+
+</blockquote>]]></description></item></channel></rss>
