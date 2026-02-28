@@ -1,0 +1,40 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Airlift - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/airlift/</link><description>Airlift - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Fri, 23 Dec 2022 18:34:20 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/airlift/" rel="self" type="application/rss+xml"/><item><title>Trino源码学习-Airlift源码分析</title><link>http://www.victorchu.info/posts/2022/12/50d45236/</link><pubDate>Fri, 23 Dec 2022 18:34:20 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2022/12/50d45236/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/trino.webp" referrerpolicy="no-referrer">
+            </div><p>上一篇文章了解了 Trino 的基础 Airlift 框架。本篇将深入 Airlift 源码进行学习，Airlift中的服务都通过guice注入。</p>]]></description></item><item><title>Trino源码学习-基础框架Airlift</title><link>http://www.victorchu.info/posts/2022/12/5748ce15/</link><pubDate>Wed, 21 Dec 2022 00:08:27 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2022/12/5748ce15/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/trino.webp" referrerpolicy="no-referrer">
+            </div><p><a href="https://github.com/airlift/airlift" target="_blank" rel="noopener noreferrer">Airlift</a>是Trino的系统基础，是一个用Java构建REST服务的轻量级框架。Airlift并不是像Spring一样的重量级框架，相反，它像是由一组开源工具组成的工具包，将来自 Java 生态系统的稳定、成熟的库汇集到一个简单、轻量级的包中，让您专注于完成工作，并包括对配置、指标、日志记录、依赖注入等的内置支持，使开发者能够在最短的时间内交付生产质量的 Web 服务。</p>
+<p>Airlift包含以下标准开源库:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">Library</th>
+          <th style="text-align: left">Domain</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><a href="https://www.eclipse.org/jetty/" target="_blank" rel="noopener noreferrer">Jetty</a></td>
+          <td style="text-align: left">Industry standard HTTP server and client</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><a href="https://eclipse-ee4j.github.io/jersey/" target="_blank" rel="noopener noreferrer">JAX-RS/Jersey</a></td>
+          <td style="text-align: left">The Java standard for REST servers</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><a href="https://github.com/FasterXML/jackson" target="_blank" rel="noopener noreferrer">Jackson</a></td>
+          <td style="text-align: left">Industry standard JSON serialization</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><a href="https://github.com/google/guava" target="_blank" rel="noopener noreferrer">Guava</a></td>
+          <td style="text-align: left">Swiss army knife for Java</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><a href="https://github.com/google/guice" target="_blank" rel="noopener noreferrer">Guice</a></td>
+          <td style="text-align: left">The best dependency injection framework for Java</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><a href="https://github.com/martint/jmxutils" target="_blank" rel="noopener noreferrer">jmxutils</a></td>
+          <td style="text-align: left">Simple library for exposing JMX endpoints</td>
+      </tr>
+  </tbody>
+</table>]]></description></item></channel></rss>

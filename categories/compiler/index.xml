@@ -1,0 +1,268 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Compiler - 分类 - Victor's Code Journey</title><link>http://www.victorchu.info/categories/compiler/</link><description>Compiler - 分类 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Wed, 12 Nov 2025 16:19:57 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/categories/compiler/" rel="self" type="application/rss+xml"/><item><title>JavaCC:Token Manager</title><link>http://www.victorchu.info/posts/2025/11/553c738f/</link><pubDate>Wed, 12 Nov 2025 16:19:57 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2025/11/553c738f/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/compiler.webp" referrerpolicy="no-referrer">
+            </div><p>JavaCC的词法解析被转化为一组词法状态，每个状态都有一个唯一的标识符用于命名。Token Manager(生成的代码)在运行时总是处于状态之一，默认的一个词法状态是<code>DEFAULT</code>。当Token Manager初始化时，默认情况下是以<code>DEFAULT</code>状态开始。也可以在Token Manager 构造时，指定起始词法状态<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>。</p>]]></description></item><item><title>JavaCC 实现一个计算器</title><link>http://www.victorchu.info/posts/2025/11/ce505f18/</link><pubDate>Tue, 11 Nov 2025 17:23:34 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2025/11/ce505f18/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/compiler.webp" referrerpolicy="no-referrer">
+            </div><p><a href="/posts/2025/11/66ec4c97/" rel="">上一篇文章</a>我们简单介绍了 JavaCC的语法和使用。本文将以实现一个计算器为例，介绍JavaCC 在实际代码中的使用。</p>]]></description></item><item><title>JavaCC 简介</title><link>http://www.victorchu.info/posts/2025/11/66ec4c97/</link><pubDate>Mon, 10 Nov 2025 14:36:35 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2025/11/66ec4c97/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/compiler.webp" referrerpolicy="no-referrer">
+            </div><p>JavaCC 是 java 生态中常用的Parser Generator。特征如下:</p>
+<ul>
+<li>JavaCC 生成的解析器是基于LL 的，默认是LL(1)，通过配置可以支持 LL(K)。</li>
+<li>由于是LL 方式，需要用户自己书写递归下降的语法规则来避免出现左递归问题。</li>
+<li>JavaCC 支持 EBNF 语法范式。</li>
+</ul>
+<p>JavaCC的工作流程如下:</p>
+<ul>
+<li>令牌管理器读入一个字符序列并生成一个称为令牌的对象序列。用于将字符序列分解为标记序列的规则取决于语言-它们由用户作为正则表达式的集合提供。</li>
+<li>解析器使用一个令牌序列，分析它的结构，并产生一个由用户定义的输出。</li>
+</ul>
+<p><img class="tw-inline" loading="lazy" src='/posts/2025/11/66ec4c97/javacc-design.webp'    height="558" width="560"></p>]]></description></item><item><title>Parser解析重写SQL</title><link>http://www.victorchu.info/posts/2022/11/c3d08049/</link><pubDate>Mon, 28 Nov 2022 17:15:44 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2022/11/c3d08049/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/compiler.webp" referrerpolicy="no-referrer">
+            </div><p>最近在做SQL方面的工作，主要是SQL语法解析和改写。因此打算记录下解析的技术&amp;工具。</p>
+<p>文本解析一般首推使用正则表达式。对于大多数的文本，正则都可以很好的解析。以ELK套件中的Logstash为例，其内置的Grok插件支持了120+种常用Pattern，可以很好的用于解析多种形式的文本。但是。正则不是文本解析的万能钥匙，由于正则表达式的自身实现约束，大多数正则表达式引擎不能较好的处理嵌套结构的数据。此外，对于脚本语言或编程语言，正则表达式也是无能为力。</p>
+<p>举个例子，如果想替换SQL中的某个字段名，如果只是简单的使用正则替换，那么很可能会错误修改其他位置的文本。例如想修改下面SQL中的order_cnt别名时，就很有可能错误修改其他位置的order_cnt，要避免这类问题需要对正则添加很多断言和约束，由于实际场景中可能会对SQL的列名，表名，条件等各个位置进行改写，场景十分复杂。所以正则这种方式不能从根本上解决问题。由此，引出了接下来要介绍的技术&ndash;语法解析器(Parser)。</p>
+<div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
+  <div class="
+    
+    tw-flex 
+    tw-flex-row
+    tw-flex-1 
+    tw-justify-between 
+    tw-w-full tw-bg-bgColor-secondary
+    ">      
+    <button 
+      class="
+        code-block-button
+        tw-mx-2 
+        tw-flex
+        tw-flex-row
+        tw-flex-1"
+      aria-hidden="true">
+          <div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div>
+          <p class="tw-select-none !tw-my-1">sql</p>
+      </button>
+
+   <div class="tw-flex">
+      <button 
+        class="
+          line-number-button
+          tw-mx-2 
+          tw-hidden 
+          group-[.is-open]:tw-block 
+          group-[.show-line-numbers]:tw-text-fgColor-link 
+          print:!tw-hidden" 
+        title="Toggle line numbers"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M61.77 401l17.5-20.15a19.92 19.92 0 0 0 5.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h22.83a157.41 157.41 0 0 0-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33 0 15.94 2.44 15.94 9.09 0 4.72-4.2 8.22-14.36 8.22a41.54 41.54 0 0 1-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16 0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM16 160h64a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H64V40a8 8 0 0 0-8-8H32a8 8 0 0 0-7.14 4.42l-8 16A8 8 0 0 0 24 64h8v64H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8zm-3.91 160H80a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44 0-29.06-25-39.56-44.47-39.56-21.36 0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44 0 0 1 9.46-3.84c3.33 0 9.28 1.56 9.28 8.75C51 248.19 0 257.31 0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+
+      <button 
+        class="
+          wrap-code-button
+          tw-select-none 
+          tw-mx-2 
+          tw-hidden 
+          group-[.is-open]:tw-block 
+          group-[.is-wrap]:tw-text-fgColor-link 
+          print:!tw-hidden" 
+        title="Toggle code wrap"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+      
+      <button 
+        class="
+          copy-code-button
+          tw-select-none
+          tw-mx-2 
+          tw-hidden
+          group-[.is-open]:tw-block
+          hover:tw-text-fgColor-link 
+          print:!tw-hidden"
+        title="Copy code">
+          <span class="copy-icon tw-block"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M433.941 65.941l-51.882-51.882A48 48 0 0 0 348.118 0H176c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51 0 48-21.49 48-48v-48h80c26.51 0 48-21.49 48-48V99.882a48 48 0 0 0-14.059-33.941zM266 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 0 1-6 6zm128-96H182a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 0 1-6 6zm6-256h-64V48h9.632c1.591 0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 0 1 1.757 4.243V112z"/></svg></span>
+          <span class="check-icon tw-hidden"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+      </button>
+        
+      <button 
+        class="
+          tw-select-none 
+          tw-mx-2 
+          tw-block 
+          group-[.is-open]:tw-hidden 
+          print:!tw-hidden" 
+        disabled
+        aria-hidden="true"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button>
+    </div>
+  </div>
+  <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
+    id="codeblock-id-15" 
+    class="
+      chroma 
+      !tw-block 
+      tw-p-0
+      tw-m-0
+      tw-transition-[max-height] 
+      tw-duration-500 
+      tw-ease-in-out 
+      group-[.is-closed]:!tw-max-h-0 
+      group-[.is-wrap]:tw-text-wrap
+      tw-overflow-y-hidden
+      tw-overflow-x-auto
+      tw-scrollbar-thin
+      "><span class="line"><span class="cl"><span class="k">select</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">dt</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">sum</span><span class="p">(</span><span class="n">order_cnt</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">order_cnt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">from</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="k">select</span><span class="w"> </span><span class="n">order_cnt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="k">from</span><span class="w"> </span><span class="n">order_info</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="k">where</span><span class="w"> </span><span class="n">dt</span><span class="w"> </span><span class="k">between</span><span class="w"> </span><span class="n">xxx</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">xxx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">)</span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">dt</span></span></span></code></pre>
+</div>]]></description></item><item><title>自制正则表达式引擎</title><link>http://www.victorchu.info/posts/2021/12/119c21cc/</link><pubDate>Sun, 12 Dec 2021 20:18:40 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2021/12/119c21cc/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/compiler.webp" referrerpolicy="no-referrer">
+            </div><p>在前面的<a href="/posts/2021/11/118b8ca3/" rel="">编译原理-词法分析</a>一文中，我们介绍了基于正则表达式方式构建NFA和DFA进行词法分析的方案。本文将基于该方案，扩展一些功能，实现一个正则表达式执行引擎<a href="https://github.com/chutian0610/JRegex/tree/toy" target="_blank" rel="noopener noreferrer">JRegex - alpha版本</a>。</p>]]></description></item><item><title>手写Parser-Pratt Parser</title><link>http://www.victorchu.info/posts/2021/12/5fef21da/</link><pubDate>Thu, 09 Dec 2021 18:00:53 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2021/12/5fef21da/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/compiler.webp" referrerpolicy="no-referrer">
+            </div><p>解析是编译器将一系列标记转换为树表示的过程：</p>
+<div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
+  <div class="
+    
+    tw-flex 
+    tw-flex-row
+    tw-flex-1 
+    tw-justify-between 
+    tw-w-full tw-bg-bgColor-secondary
+    ">      
+    <button 
+      class="
+        code-block-button
+        tw-mx-2 
+        tw-flex
+        tw-flex-row
+        tw-flex-1"
+      aria-hidden="true">
+          <div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div>
+          <p class="tw-select-none !tw-my-1">text</p>
+      </button>
+
+   <div class="tw-flex">
+      <button 
+        class="
+          line-number-button
+          tw-mx-2 
+          tw-hidden 
+          group-[.is-open]:tw-block 
+          group-[.show-line-numbers]:tw-text-fgColor-link 
+          print:!tw-hidden" 
+        title="Toggle line numbers"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M61.77 401l17.5-20.15a19.92 19.92 0 0 0 5.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h22.83a157.41 157.41 0 0 0-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33 0 15.94 2.44 15.94 9.09 0 4.72-4.2 8.22-14.36 8.22a41.54 41.54 0 0 1-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16 0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM16 160h64a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H64V40a8 8 0 0 0-8-8H32a8 8 0 0 0-7.14 4.42l-8 16A8 8 0 0 0 24 64h8v64H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8zm-3.91 160H80a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44 0-29.06-25-39.56-44.47-39.56-21.36 0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44 0 0 1 9.46-3.84c3.33 0 9.28 1.56 9.28 8.75C51 248.19 0 257.31 0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+
+      <button 
+        class="
+          wrap-code-button
+          tw-select-none 
+          tw-mx-2 
+          tw-hidden 
+          group-[.is-open]:tw-block 
+          group-[.is-wrap]:tw-text-fgColor-link 
+          print:!tw-hidden" 
+        title="Toggle code wrap"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+      
+      <button 
+        class="
+          copy-code-button
+          tw-select-none
+          tw-mx-2 
+          tw-hidden
+          group-[.is-open]:tw-block
+          hover:tw-text-fgColor-link 
+          print:!tw-hidden"
+        title="Copy code">
+          <span class="copy-icon tw-block"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M433.941 65.941l-51.882-51.882A48 48 0 0 0 348.118 0H176c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51 0 48-21.49 48-48v-48h80c26.51 0 48-21.49 48-48V99.882a48 48 0 0 0-14.059-33.941zM266 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 0 1-6 6zm128-96H182a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 0 1-6 6zm6-256h-64V48h9.632c1.591 0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 0 1 1.757 4.243V112z"/></svg></span>
+          <span class="check-icon tw-hidden"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+      </button>
+        
+      <button 
+        class="
+          tw-select-none 
+          tw-mx-2 
+          tw-block 
+          group-[.is-open]:tw-hidden 
+          print:!tw-hidden" 
+        disabled
+        aria-hidden="true"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button>
+    </div>
+  </div>
+  <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
+    id="codeblock-id-35" 
+    class="
+      chroma 
+      !tw-block 
+      tw-p-0
+      tw-m-0
+      tw-transition-[max-height] 
+      tw-duration-500 
+      tw-ease-in-out 
+      group-[.is-closed]:!tw-max-h-0 
+      group-[.is-wrap]:tw-text-wrap
+      tw-overflow-y-hidden
+      tw-overflow-x-auto
+      tw-scrollbar-thin
+      "><pre tabindex="0"><code>                            Add
+                 Parser     / \
+&#34;1 + 2 * 3&#34;    -------&gt;   1  Mul
+                              / \
+                             2   3</code></pre></code></pre>
+</div>
+<p>Pratt Parser解析是手写解析最常用的技术之一。</p>]]></description></item><item><title>编译原理-词法分析</title><link>http://www.victorchu.info/posts/2021/11/118b8ca3/</link><pubDate>Mon, 29 Nov 2021 19:29:01 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2021/11/118b8ca3/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/compiler.webp" referrerpolicy="no-referrer">
+            </div><p>编译器模型：</p>
+<pre class="mermaid">graph LR
+源代码-->|词法分析器|词法单元
+词法单元-->|语法分析器|语法分析树
+语法分析树-->|中间代码生成器|中间代码
+中间代码-->|代码优化,机器无关|中间代码
+中间代码-->|代码生成器|目标代码
+目标代码-->|机器相关代码优化|机器码
+机器码-->output((机器码执行))
+</pre>]]></description></item><item><title>语法范式</title><link>http://www.victorchu.info/posts/2018/11/4c79bccf/</link><pubDate>Thu, 15 Nov 2018 17:32:57 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2018/11/4c79bccf/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/compiler.webp" referrerpolicy="no-referrer">
+            </div><p>上下文无关的组成部分:</p>
+<ul>
+<li>终结符号</li>
+<li>非终结符号</li>
+<li>一个开始符号</li>
+<li>一组产生式</li>
+</ul>
+<p>例如，下面数学表达式:</p>
+<p>$$
+expr \to expr+term
+$$</p>
+<p>$$
+expr \to expr-term
+$$</p>
+<p>$$
+expr \to term
+$$</p>
+<p>$$
+term \to term * factor
+$$</p>
+<p>$$
+term \to term/factor
+$$</p>
+<p>$$
+term \to factor
+$$</p>
+<p>$$
+factor \to (expr)
+$$</p>
+<p>$$
+factor \to id
+$$</p>
+<ol>
+<li>终结符号(词法单元)是组成串的基本符号，例如上面的 <code>+</code>,<code>-</code>。</li>
+<li>非终结符号是表示串的集合的语法变量,例如上面的term和factor。非终结符号表示的串集合用于定义由文法生成的语言。</li>
+</ol>]]></description></item></channel></rss>
