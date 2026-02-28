@@ -1,0 +1,33 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Performance - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/performance/</link><description>Performance - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Tue, 11 Mar 2025 19:10:04 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/performance/" rel="self" type="application/rss+xml"/><item><title>系统性能分析-CPU耗时定位</title><link>http://www.victorchu.info/posts/2025/03/34494ba4/</link><pubDate>Tue, 11 Mar 2025 19:10:04 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2025/03/34494ba4/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/computer.webp" referrerpolicy="no-referrer">
+            </div><p>上篇博客介绍了 <a href="/post/2024/09/c8c5ed6/" rel="">CPU异常分析的工具和方法</a>。本文将介绍如何定位 CPU 耗时。</p>]]></description></item><item><title>系统性能分析-CPU-异常分析</title><link>http://www.victorchu.info/posts/2024/09/c8c5ed6/</link><pubDate>Wed, 18 Sep 2024 19:40:00 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2024/09/c8c5ed6/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/computer.webp" referrerpolicy="no-referrer">
+            </div><p>本文记录一些分析 CPU 性能问题的工具&amp;方法。</p>]]></description></item><item><title>CPU分支预测对程序性能的影响</title><link>http://www.victorchu.info/posts/2022/12/3032d41a/</link><pubDate>Tue, 13 Dec 2022 11:33:54 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2022/12/3032d41a/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/computer.webp" referrerpolicy="no-referrer">
+            </div><p>执行下面这段代码，你会发现排序的数组总是比未排序的数组计算快。</p>]]></description></item><item><title>log 性能优化</title><link>http://www.victorchu.info/posts/2022/03/496918eb/</link><pubDate>Tue, 01 Mar 2022 21:36:16 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2022/03/496918eb/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/java.webp" referrerpolicy="no-referrer">
+            </div><p>日志是服务中一个重要组成部分，当优化性能的时候，也要思考对日志的性能优化。</p>]]></description></item><item><title>JVM性能分析工具-Async Profiler</title><link>http://www.victorchu.info/posts/2021/08/b23a2d0b/</link><pubDate>Sat, 28 Aug 2021 16:31:28 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2021/08/b23a2d0b/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/jvm.webp" referrerpolicy="no-referrer">
+            </div><p>很多 JVM CPU Profiler(例如VisualVM,NetBean Profiler,YourKit 和 JProfiler等)都提供了CPU分析器。一般CPU Profiling功能有两种实现方式: Sampling和Instrumentation。</p>
+<ul>
+<li>Sampling方式基于无侵入的额外线程对所有线程的调用栈快照进行固定频率抽样，它的性能开销很低。但由于它基于“采样”的模式，以及JVM固有的只能在安全点(SafePoint)进行采样的“缺陷”，会导致统计结果存在一定的偏差。核心原理如下：
+<ul>
+<li>引入Profiler依赖，或直接利用Agent技术注入目标JVM进程并启动Profiler。</li>
+<li>启动一个采样定时器，以固定的采样频率每隔一段时间（毫秒级）对所有线程的调用栈进行Dump。</li>
+<li>汇总并统计每次调用栈的Dump结果，在一定时间内采到足够的样本后，导出统计结果，内容是每个方法被采样到的次数及方法的调用关系。</li>
+</ul>
+</li>
+<li>Instrumentation则是利用Instrument API，对所有必要的Class进行字节码增强，在进入每个方法前进行埋点，方法执行结束后统计本次方法执行耗时，最终进行汇总。Instrumentation方式对几乎所有方法添加了额外的AOP逻辑，这会导致对线上服务造成巨额的性能影响，但其优势是：绝对精准的方法调用次数、调用时间统计。</li>
+</ul>
+<p>Sampling由于低开销的特性，更适合用在CPU密集型的应用中，以及不可接受大量性能开销的线上服务中。而Instrumentation则更适合用在I/O密集的应用中、对性能开销不敏感以及确实需要精确统计的场景中。上面介绍的CPU Profiler更多的是基于Sampling来实现。</p>]]></description></item><item><title>线程对性能的影响</title><link>http://www.victorchu.info/posts/2019/06/d2aa61ea/</link><pubDate>Thu, 13 Jun 2019 20:50:14 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2019/06/d2aa61ea/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/computer.webp" referrerpolicy="no-referrer">
+            </div><p>随着多核芯片的广泛使用，线程是提升性能的首选方案。适当提升一点线程数会很好;事实上，拥有太多线程可能会使程序陷入困境。过多的线程主要对两个方面有影响:</p>
+<ul>
+<li>首先，在太多线程之间划分固定数量的工作会使每个线程分到的工作太少，以至于启动和终止线程的开销会影响有用的工作。</li>
+<li>其次，运行太多线程会因为共享有限硬件资源，从而导致产生过多的开销。</li>
+</ul>]]></description></item><item><title>disruptor学习笔记</title><link>http://www.victorchu.info/posts/2018/09/44040b14/</link><pubDate>Tue, 11 Sep 2018 00:29:17 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2018/09/44040b14/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/java.webp" referrerpolicy="no-referrer">
+            </div><p>LMAX Disruptor是一个高性能的线程间消息库。下面是其简单架构示意图
+<img class="tw-inline" loading="lazy" src='/posts/2018/09/44040b14/disruptor.webp'    height="532" width="800"></p>]]></description></item><item><title>Java虚拟机-伪共享</title><link>http://www.victorchu.info/posts/2018/05/4cd66d97/</link><pubDate>Fri, 04 May 2018 15:28:48 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2018/05/4cd66d97/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/jvm.webp" referrerpolicy="no-referrer">
+            </div><p>在Java程序中,数组的成员在缓存中也是连续的. 其实从Java对象的相邻成员变量也会加载到同一缓存行中. 如果多个线程操作不同的成员变量, 但是相同的缓存行, 伪共享(False Sharing)问题就发生了. 关于伪共享的介绍可以参考<a href="/posts/2018/05/ee80e066/" rel="">上一篇博客: CPU Memory Cache</a>。</p>]]></description></item></channel></rss>
