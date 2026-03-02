@@ -1,0 +1,11 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Random - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/random/</link><description>Random - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Tue, 17 Apr 2018 11:23:35 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/random/" rel="self" type="application/rss+xml"/><item><title>java:随机数</title><link>http://www.victorchu.info/posts/2018/04/e35fa890/</link><pubDate>Tue, 17 Apr 2018 11:23:35 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2018/04/e35fa890/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/java.webp" referrerpolicy="no-referrer">
+            </div><p>计算机科学中的随机数分为两种:</p>
+<ul>
+<li>真随机数: 其生成过程是不可预测、不可重复的，完全基于自然界中物理过程的随机性。</li>
+<li>伪随机数:  其生成过程是确定性的、可预测的，但通过一个算法使得生成的数字序列看起来像是随机的。
+<ul>
+<li>使用一个确定的数学公式。它从一个初始值（称为“种子”）开始，通过算法计算出下一个数，然后用这个数作为新的内部状态，继续计算下一个数，如此反复。</li>
+</ul>
+</li>
+</ul>]]></description></item></channel></rss>
