@@ -1,0 +1,12 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Tracing - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/tracing/</link><description>Tracing - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Tue, 11 Jan 2022 22:35:14 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/tracing/" rel="self" type="application/rss+xml"/><item><title>分布式追踪系统</title><link>http://www.victorchu.info/posts/2022/01/a892384f/</link><pubDate>Tue, 11 Jan 2022 22:35:14 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2022/01/a892384f/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/distribute.webp" referrerpolicy="no-referrer">
+            </div><p>随着微服务和云原生开发的兴起，越来越多应用基于分布式进行开发，大型应用拆分为微服务后，服务之间的依赖和调用变得越来越复杂。微服务提供了一个强大的体系结构，但也有面临了一些挑战，例如：</p>
+<ul>
+<li>如何调试和观察跨复杂网络的分布式调用？</li>
+<li>如何分析服务链路的瓶颈并对其进行调优？</li>
+<li>如何快速进行服务链路的故障发现？</li>
+<li>&hellip;&hellip;</li>
+</ul>
+<p>为了更好地维护这些服务，软件领域出现了 Observability 思想。</p>]]></description></item><item><title>Dapper,大规模分布式系统的跟踪系统</title><link>http://www.victorchu.info/posts/2022/01/f24440bb/</link><pubDate>Mon, 10 Jan 2022 20:11:45 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2022/01/f24440bb/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/paper.webp" referrerpolicy="no-referrer">
+            </div><p>本篇是论文<a href="https://storage.googleapis.com/pub-tools-public-publication-data/pdf/36356.pdf" target="_blank" rel="noopener noreferrer">Dapper,大规模分布式系统的跟踪系统</a>的中文简单翻译</p>]]></description></item></channel></rss>
