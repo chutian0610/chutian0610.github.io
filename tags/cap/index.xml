@@ -1,0 +1,9 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>CAP - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/cap/</link><description>CAP - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Mon, 21 Mar 2022 17:49:16 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/cap/" rel="self" type="application/rss+xml"/><item><title>分布式系统理论-CAP</title><link>http://www.victorchu.info/posts/2022/03/c274555b/</link><pubDate>Mon, 21 Mar 2022 17:49:16 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2022/03/c274555b/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/distribute.webp" referrerpolicy="no-referrer">
+            </div><p>CAP定理(CAP theorem)，又被称作布鲁尔定理(Brewer&rsquo;s theorem)，它指出对于一个分布式计算系统来说，不可能同时满足以下三点:</p>
+<ul>
+<li>一致性 (Consistency): 一个写操作返回成功，那么之后的读请求都必须读到这个新数据；如果返回失败，那么所有读操作都不能读到这个数据。所有节点访问同一份最新的数据。</li>
+<li>可用性 (Availability): 保证每个请求都会收到关于它是成功还是失败的响应。无论您是要读取还是写入，您都会得到一些响应。</li>
+<li>分区容错性 (Partition tolerance): 能容忍网络分区，在网络断开(不是延迟)的情况下，被分隔的节点仍能正常对外提供服务。</li>
+</ul>
+<p><img class="tw-inline" loading="lazy" src='/posts/2022/03/c274555b/CAP.webp'    height="342" width="343"></p>]]></description></item></channel></rss>

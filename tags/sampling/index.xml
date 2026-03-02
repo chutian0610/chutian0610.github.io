@@ -1,0 +1,19 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Sampling - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/sampling/</link><description>Sampling - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Thu, 25 May 2023 11:23:29 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/sampling/" rel="self" type="application/rss+xml"/><item><title>蓄水池采样算法</title><link>http://www.victorchu.info/posts/2023/05/d8af9969/</link><pubDate>Thu, 25 May 2023 11:23:29 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2023/05/d8af9969/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><p>蓄水池采样算法是一种随机抽样算法，它能够在一个很大的集合中，抽取一部分样本，并保证每个样本的选取概率都是相等并随机的。</p>
+<ul>
+<li>特点：
+<ul>
+<li>选取集合可以非常大，甚至不知道边界。</li>
+<li>每个样本的选取随机且概率相等。</li>
+<li>时间复杂度较低，O(n)，节省内存。</li>
+</ul>
+</li>
+<li>适用场景：
+<ul>
+<li>在一些非常大的集合，或者未知大小的集合，不知道边界的集合，不知道文件总行数的情况下，随机抽取k个元素。</li>
+<li>保证每个元素抽取都是均匀随机的并且概率相等。</li>
+<li>尽量高效，节省内存地抽取</li>
+</ul>
+</li>
+</ul>]]></description></item></channel></rss>
