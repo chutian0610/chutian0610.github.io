@@ -1,0 +1,11 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Editor - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/editor/</link><description>Editor - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Sun, 18 Dec 2016 09:50:42 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/editor/" rel="self" type="application/rss+xml"/><item><title>linux命令awk</title><link>http://www.victorchu.info/posts/2016/12/5c947520/</link><pubDate>Sun, 18 Dec 2016 09:50:42 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2016/12/5c947520/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/shell-commands.webp" referrerpolicy="no-referrer">
+            </div><p>Awk的基本功能就是查找具某种模式的文本行（或者其他单位的文本）。当匹配某个模式后，awk会对该行执行指定的动作。Awk然后继续输入行，直到文件输入处理完毕。</p>]]></description></item><item><title>linux命令sed</title><link>http://www.victorchu.info/posts/2016/12/ab7d6f7c/</link><pubDate>Thu, 15 Dec 2016 09:50:42 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2016/12/ab7d6f7c/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/shell-commands.webp" referrerpolicy="no-referrer">
+            </div><p>sed 是linux 中的流式编辑器，用于过滤和修改文本。sed 会根据脚本命令来处理文本文件中的数据，这些命令要么从命令行中输入，要么存储在一个文本文件中，此命令执行数据的顺序如下：</p>
+<ol>
+<li>每次仅读取一行内容；</li>
+<li>根据提供的规则命令匹配并修改数据。注意，sed 默认不会直接修改源文件数据，而是会将数据复制到缓冲区中，修改也仅限于缓冲区中的数据；</li>
+<li>将执行结果输出。</li>
+<li>当一行数据匹配完成后，它会继续读取下一行数据，并重复这个过程，直到将文件中所有数据处理完毕。</li>
+</ol>]]></description></item></channel></rss>
