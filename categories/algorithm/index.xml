@@ -1,0 +1,92 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Algorithm - 分类 - Victor's Code Journey</title><link>http://www.victorchu.info/categories/algorithm/</link><description>Algorithm - 分类 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Thu, 25 May 2023 11:23:29 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/categories/algorithm/" rel="self" type="application/rss+xml"/><item><title>蓄水池采样算法</title><link>http://www.victorchu.info/posts/2023/05/d8af9969/</link><pubDate>Thu, 25 May 2023 11:23:29 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2023/05/d8af9969/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><p>蓄水池采样算法是一种随机抽样算法，它能够在一个很大的集合中，抽取一部分样本，并保证每个样本的选取概率都是相等并随机的。</p>
+<ul>
+<li>特点：
+<ul>
+<li>选取集合可以非常大，甚至不知道边界。</li>
+<li>每个样本的选取随机且概率相等。</li>
+<li>时间复杂度较低，O(n)，节省内存。</li>
+</ul>
+</li>
+<li>适用场景：
+<ul>
+<li>在一些非常大的集合，或者未知大小的集合，不知道边界的集合，不知道文件总行数的情况下，随机抽取k个元素。</li>
+<li>保证每个元素抽取都是均匀随机的并且概率相等。</li>
+<li>尽量高效，节省内存地抽取</li>
+</ul>
+</li>
+</ul>]]></description></item><item><title>算法之LFU缓存算法</title><link>http://www.victorchu.info/posts/2022/11/126cb175/</link><pubDate>Fri, 18 Nov 2022 14:35:29 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2022/11/126cb175/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><p>LFU（Least Frequently Used）最近最少使用算法。它是基于“如果一个数据在最近一段时间内使用次数很少，那么在将来一段时间内被使用的可能性也很小”的思路。</p>
+<p>举个例子,缓存空间大小为3：</p>
+<ol>
+<li>put(1,&ldquo;a&rdquo;)</li>
+<li>put(2,&ldquo;b&rdquo;)</li>
+<li>get(1)</li>
+<li>get(2)</li>
+<li>put(3,&ldquo;c&rdquo;)</li>
+<li>put(4,&ldquo;d&rdquo;) // 此时LFU应该淘汰(3,&ldquo;c&rdquo;)</li>
+</ol>]]></description></item><item><title>diff算法-Myers算法</title><link>http://www.victorchu.info/posts/2022/05/c970017b/</link><pubDate>Wed, 11 May 2022 15:00:53 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2022/05/c970017b/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><p>diff算法用于比较文本间的差异，通常用于版本控制系统，例如 git( <code>$git diff</code>)。</p>]]></description></item><item><title>算法之MD5</title><link>http://www.victorchu.info/posts/2022/03/7bbf0c12/</link><pubDate>Wed, 16 Mar 2022 22:14:54 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2022/03/7bbf0c12/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><p>MD5 即Message-Digest Algorithm 5 (信息-摘要算法5)。MD5 使用little-endian(小端模式)，输入任意不定长度信息，以 512-bit 进行分组，生成四个32-bit 数据，最后联合输出固定 128-bit 的信息摘要。</p>
+<p>MD5 不是足够安全的。Hans Dobbertin在1996年找到了两个不同的512-bit 块,它们 在MD5 计算下产生相同的hash 值。至今还没有真正找到两个不同的消息，它们的MD5 的hash 值相等。</p>]]></description></item><item><title>算法之CRC</title><link>http://www.victorchu.info/posts/2021/12/d4df40c6/</link><pubDate>Thu, 16 Dec 2021 17:03:08 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2021/12/d4df40c6/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><p>循环冗余校验（英语：Cyclic redundancy check，通称“CRC”）是一种根据网络数据包或电脑文件等数据产生简短固定位数校验码的一种散列函数，主要用来检测或校验数据传输或者保存后可能出现的错误。生成的数字在传输或者存储之前计算出来并且附加到数据后面，然后接收方进行检验确定数据是否发生变化<a href="#refer-anchor-1" rel=""><sup>1</sup></a>。</p>]]></description></item><item><title>MurmurHash</title><link>http://www.victorchu.info/posts/2021/09/bedde473/</link><pubDate>Mon, 27 Sep 2021 16:03:01 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2021/09/bedde473/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><p>MurmurHash 是一种非加密hash功能，适用于基于hash的一般查找。由Austin Appleby在2008年发明， 并出现了多个变种，目前托管在<a href="https://github.com/aappleby/smhasher" target="_blank" rel="noopener noreferrer">github</a>。该名称来自两个基本操作，乘 multiply 和 旋转 rotate(该算法实际上使用shift和xor而不是rotate)，用于其内循环。与其它流行的哈希函数相比，对于规律性较强的key，MurmurHash的随机分布特征表现更良好。</p>
+<p>Redis在实现字典时用到了两种不同的哈希算法，MurmurHash便是其中一种（另一种是djb），在Redis中应用十分广泛，包括数据库、集群、哈希键、阻塞操作等功能都用到了这个算法。该算法最新版本是MurmurHash3，基于MurmurHash2改进了一些小瑕疵，使得速度更快，实现了32位（低延时）、128位HashKey，尤其对大块的数据，具有较高的平衡性与低碰撞率。</p>]]></description></item><item><title>算法之拓扑排序</title><link>http://www.victorchu.info/posts/2019/08/425a15f8/</link><pubDate>Tue, 20 Aug 2019 15:14:28 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2019/08/425a15f8/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><p>拓扑排序（Topological Sorting）是一个有向无环图（DAG, Directed Acyclic Graph）的所有顶点的线性序列。且该序列必须满足下面两个条件：</p>
+<ol>
+<li>每个顶点出现且只出现一次。</li>
+<li>若存在一条从顶点 A 到顶点 B 的路径，那么在序列中顶点 A 出现在顶点 B 的前面。</li>
+</ol>
+<pre class="mermaid">graph TD
+id1((1)) --> id2((2))
+id1((1)) --> id4((4))
+id2((2)) --> id4((4))
+id4((4)) --> id3((3))
+id2((2)) --> id3((3))
+id4((4)) --> id5((5))
+id3((3)) --> id5((5))
+</pre><blockquote>
+  <p>有向无环图（DAG）才有拓扑排序，非DAG图没有拓扑排序一说。</p>
+
+</blockquote>]]></description></item><item><title>算法之布尔表达式化简</title><link>http://www.victorchu.info/posts/2019/07/797c9309/</link><pubDate>Tue, 09 Jul 2019 14:50:00 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2019/07/797c9309/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><h2 id="概念介绍" class="headerLink">
+    <a href="#%e6%a6%82%e5%bf%b5%e4%bb%8b%e7%bb%8d" class="header-mark"></a>概念介绍</h2><p>布尔基础:</p>
+<ul>
+<li>
+<p>逻辑表达式: 由逻辑变量和与 $\land$ ,或 $\lor$ ,非 $\neg$ 3种运算符连接所构成的表达式。</p>
+</li>
+<li>
+<p>析取式: 表达式之间都通过逻辑或连接的复合表达式。</p>
+</li>
+<li>
+<p>合取式: 表达式之间都通过逻辑与连接的复合表达式。</p>
+</li>
+<li>
+<p>合取范式 (Conjunctive Normal Form)2 是命题公式的一个标准型，它由一系列析取子句 用合取操作连接而来。如 $(a) \land (a \lor \neg c) \land (b \lor c)$</p>
+</li>
+<li>
+<p>与之相反，析取范式 (Disjunctive Normal Form) 是命题公式的另一个标准型，它由一系列 合取子句 用 析取操作 连接而来。如 $(a) \lor (a \land \neg c) \lor (b \land c)$</p>
+</li>
+</ul>
+<p>表达式化简:</p>
+<ul>
+<li>表达式相等: 两个表达式具有同样的变量，且对于变量的任意一组取值，表达式的值均相等，这两个表达式是相等的</li>
+<li>最小项: 如果某个表达式的某个乘积(与)项包含了表达式的全部变量，其中每个表达式都以原变量或是反变量的形式出现。n个变量可以有2^n个最小项。</li>
+<li>主析取式: 可以将表达式化简为全部由最小项组成的唯一表达式，也被称为主析取式(符合析取范式).</li>
+</ul>]]></description></item><item><title>生命游戏</title><link>http://www.victorchu.info/posts/2019/04/d7c1dece/</link><pubDate>Fri, 19 Apr 2019 23:21:05 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2019/04/d7c1dece/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><p>生命游戏是英国数学家约翰·何顿·康威在1970年发明的细胞自动机。</p>]]></description></item><item><title>算法之KMP字符串匹配</title><link>http://www.victorchu.info/posts/2018/11/39af9a85/</link><pubDate>Thu, 29 Nov 2018 16:28:06 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2018/11/39af9a85/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><p>有一个文本串S，和一个模式串P，现在要查找P在S中的位置，怎么查找呢？</p>
+<p>假设主串target为: <code>a b a c a a b a c a b a c a b a a b b</code>,模式串pattern: <code>a b a c a b</code>(为了方便查看，每个字符间用空格隔开)。</p>
+<p>用暴力算法匹配字符串过程中，我们会把<code>target[0]</code>跟 <code>pattern[0]</code> 匹配，如果相同则匹配下一个字符，直到出现不相同的情况，此时我们会丢弃前面的匹配信息，然后把<code>target[1]</code>跟 <code>pattern[0]</code> 匹配，循环进行，直到主串结束，或者出现匹配成功的情况。这种丢弃前面的匹配信息的方法，极大地降低了匹配效率。</p>
+<p>以上面的字符为例子:pattern的前5个字符<code>abaca</code>可以匹配target的前5个字符,但是<code>pattern[5]</code>和<code>target[5]</code>不匹配。下面重新从target[1]开始和pattern匹配。</p>
+<p>显然效率很差，因为你要把&quot;搜索位置&quot;移到已经比较过的位置，重比一遍。</p>]]></description></item></channel></rss>
