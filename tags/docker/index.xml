@@ -1,0 +1,18 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Docker - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/docker/</link><description>Docker - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Mon, 07 Jun 2021 16:52:24 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/docker/" rel="self" type="application/rss+xml"/><item><title>获取Docker容器的内存使用情况</title><link>http://www.victorchu.info/posts/2021/06/fd677780/</link><pubDate>Mon, 07 Jun 2021 16:52:24 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2021/06/fd677780/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/docker.webp" referrerpolicy="no-referrer">
+            </div><p>在之前介绍linux命令free时，有提到过docker中使用free命令获得的常常是宿主机的内存使用情况。那么怎么获取docker中内存的使用情况呢？</p>]]></description></item><item><title>docker 简介</title><link>http://www.victorchu.info/posts/2019/12/8dbdd948/</link><pubDate>Tue, 31 Dec 2019 16:06:32 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2019/12/8dbdd948/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/docker.webp" referrerpolicy="no-referrer">
+            </div><p>Docker是一个用于开发,交付和运行应用程序的开放平台.Docker提供了在松散隔离的环境(称为容器)中打包和运行应用程序的功能.隔离和安全性使您可以在给定主机上同时运行多个容器.容器是轻量级的,因为它们不需要虚拟机管理程序的额外负载,而是直接在主机的内核中运行.这意味着与使用虚拟机相比,可以在给定的硬件组合上运行更多的容器.甚至可以在实际上是虚拟机的主机中运行Docker容器！</p>
+<p>Docker提供了工具和平台来管理容器的生命周期：</p>
+<ul>
+<li>使用容器开发应用程序及其支持组件.</li>
+<li>容器成为分发和测试应用程序的单元.</li>
+<li>准备就绪后,可以将应用程序作为容器或协调服务部署到生产环境中.</li>
+</ul>
+<p>举个例子:</p>
+<ol>
+<li>开发人员在本地编写代码,并使用Docker容器与同事共享工作.</li>
+<li>使用Docker将其应用程序推送到测试环境中,并执行自动和手动测试.</li>
+<li>当开发人员发现错误时,他们可以在开发环境中对其进行修复,然后将其重新部署到测试环境中以进行测试和验证.</li>
+<li>测试完成后,将修补程序推送给生产环境就像将更新的映像推送到生产环境一样简单.</li>
+</ol>]]></description></item></channel></rss>

@@ -1,0 +1,26 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Cache - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/cache/</link><description>Cache - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Fri, 18 Nov 2022 14:35:29 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/cache/" rel="self" type="application/rss+xml"/><item><title>算法之LFU缓存算法</title><link>http://www.victorchu.info/posts/2022/11/126cb175/</link><pubDate>Fri, 18 Nov 2022 14:35:29 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2022/11/126cb175/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><p>LFU（Least Frequently Used）最近最少使用算法。它是基于“如果一个数据在最近一段时间内使用次数很少，那么在将来一段时间内被使用的可能性也很小”的思路。</p>
+<p>举个例子,缓存空间大小为3：</p>
+<ol>
+<li>put(1,&ldquo;a&rdquo;)</li>
+<li>put(2,&ldquo;b&rdquo;)</li>
+<li>get(1)</li>
+<li>get(2)</li>
+<li>put(3,&ldquo;c&rdquo;)</li>
+<li>put(4,&ldquo;d&rdquo;) // 此时LFU应该淘汰(3,&ldquo;c&rdquo;)</li>
+</ol>]]></description></item><item><title>缓存的一些思考</title><link>http://www.victorchu.info/posts/2020/05/8a15ea5f/</link><pubDate>Tue, 26 May 2020 20:50:00 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2020/05/8a15ea5f/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/architecture.webp" referrerpolicy="no-referrer">
+            </div><p>缓存常被用于处理高并发,高性能问题,在现今的系统中被广泛使用。缓存模式，简单来说就是利用时间局限性原理，通过空间换时间来达到加速数据获取的目的。</p>
+<p>缓存的读写性能很高，预热快，在数据访问存在性能瓶颈或遇到突发流量，系统读写压力大增时，可以快速部署上线，同时在流量稳定后，也可以随时下线，从而使系统的可扩展性大大增强。</p>
+<p>但是，在系统中引入缓存后，会增加系统的复杂度。</p>]]></description></item><item><title>CPU Memory Cache</title><link>http://www.victorchu.info/posts/2018/05/ee80e066/</link><pubDate>Thu, 03 May 2018 15:20:56 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2018/05/ee80e066/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/computer.webp" referrerpolicy="no-referrer">
+            </div><p>曾今计算机稳定的基本结构悄然改变，硬件开发人员开始致力于优化单个子系统。于是电脑一些组件的性能大大的落后因而成为了瓶颈。由于开销的原因，大容量存储器和内存子系统相对于其他组件来说改善得更为缓慢。</p>
+<p>大容量存储的性能问题往往靠软件来改善: 操作系统将常用(且最有可能被用)的数据放在主存中，因为后者的速度要快上几个数量级。或者将缓存加入存储设备中，这样就可以在不修改操作系统的前提下提升性能。(然而，为了在使用缓存时保证数据的完整性，仍然要作出一些修改).</p>
+<p>而解决内存的瓶颈更为困难，它与大容量存储不同，几乎每种方案都需要对硬件作出修改。目前，这些变更主要有以下这些方式:</p>
+<ul>
+<li>RAM的硬件设计(速度与并发度)</li>
+<li>内存控制器的设计</li>
+<li>CPU缓存</li>
+<li>设备的直接内存访问(DMA)</li>
+</ul>]]></description></item></channel></rss>

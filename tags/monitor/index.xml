@@ -1,0 +1,13 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Monitor - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/monitor/</link><description>Monitor - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Sat, 17 Dec 2016 13:57:22 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/monitor/" rel="self" type="application/rss+xml"/><item><title>linux命令stat系列</title><link>http://www.victorchu.info/posts/2016/12/bb7ea87f/</link><pubDate>Sat, 17 Dec 2016 13:57:22 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2016/12/bb7ea87f/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/monitor.webp" referrerpolicy="no-referrer">
+            </div><p>本文介绍 linux 常用的 stat 系列命令:</p>
+<ul>
+<li>vmstat：显示虚拟内存信息</li>
+<li>iostat：统计cpu和IO信息</li>
+<li>ifstat：阅读网络接口统计数据的便捷工具</li>
+<li>netstat：查看网络连接情况</li>
+<li>pidstat：查看进程使用信息</li>
+<li>dstat：系统资源统计，代替vmstat,iosat,ifstat,netstat命令。</li>
+</ul>]]></description></item><item><title>linux命令top</title><link>http://www.victorchu.info/posts/2016/12/3a1678d4/</link><pubDate>Sat, 17 Dec 2016 13:57:22 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2016/12/3a1678d4/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/monitor.webp" referrerpolicy="no-referrer">
+            </div><p>top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，top命令提供了实时的对系统处理器的状态监视.它将显示系统中CPU最“敏感”的任务列表.该命令可以按CPU使用.内存使用和执行时间对任务进行排序。</p>]]></description></item></channel></rss>

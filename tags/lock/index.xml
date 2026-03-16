@@ -1,0 +1,13 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Lock - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/lock/</link><description>Lock - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Mon, 05 Dec 2022 11:42:33 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/lock/" rel="self" type="application/rss+xml"/><item><title>分布式锁实现-DB</title><link>http://www.victorchu.info/posts/2022/12/8a3cfb04/</link><pubDate>Mon, 05 Dec 2022 11:42:33 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2022/12/8a3cfb04/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/distribute.webp" referrerpolicy="no-referrer">
+            </div><p>在<a href="posts/2020/05/4eb3381c/" rel="">前面</a>我们简单介绍过分布式锁，本篇文章会介绍如果基于数据库(Mysql)实现分布式锁。基于Mysql实现锁的一般场景是对性能要求不高，且不希望因为分布式锁而引入新的组件的。</p>]]></description></item><item><title>分布式锁简介</title><link>http://www.victorchu.info/posts/2020/05/4eb3381c/</link><pubDate>Mon, 25 May 2020 11:09:22 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2020/05/4eb3381c/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/distribute.webp" referrerpolicy="no-referrer">
+            </div><p>在分布式场景中分布式锁是一种很常见的需求。实现一个分布式锁要注意以下几点:</p>
+<ul>
+<li>安全: 独享（相互排斥）。在任意一个时刻，只有一个客户端持有锁。</li>
+<li>锁失效保护: 无死锁。即便持有锁的客户端崩溃（crashed)或者网络被分裂（gets partitioned)，锁仍然可以被获取。</li>
+<li>集群容错。 只要大部分节点都活着，客户端就可以获取和释放锁。</li>
+<li>原子性：获取释放锁最好是原子操作，获取释放锁的性能要好。</li>
+<li>可重入(optional): 同一个线程在没有释放锁之前，如果想再次操作，可以直接获得锁。</li>
+<li>阻塞/非阻塞(optional)：若没有获取到锁，返回获取失败。</li>
+</ul>]]></description></item></channel></rss>

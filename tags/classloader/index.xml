@@ -1,0 +1,12 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>ClassLoader - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/classloader/</link><description>ClassLoader - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Sat, 28 Oct 2017 19:18:21 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/classloader/" rel="self" type="application/rss+xml"/><item><title>java 类加载器</title><link>http://www.victorchu.info/posts/2017/10/921530f5/</link><pubDate>Sat, 28 Oct 2017 19:18:21 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/10/921530f5/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/java.webp" referrerpolicy="no-referrer">
+            </div><p>前面我们介绍了<a href="/posts/2017/10/51a7bdd0/" rel="">Java的类加载流程</a>。这篇文章，我们来详细了解下java的类加载器。</p>]]></description></item><item><title>Java 类加载</title><link>http://www.victorchu.info/posts/2017/10/51a7bdd0/</link><pubDate>Fri, 27 Oct 2017 11:24:08 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/10/51a7bdd0/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/java.webp" referrerpolicy="no-referrer">
+            </div><p>在java代码中，类型的加载，连接与初始化过程都是在程序运行期间完成的（类class文件信息在编译期间已经确定好）。</p>
+<p><img class="tw-inline" loading="lazy" src='/posts/2017/10/51a7bdd0/jvm-classloader.webp'    height="168" width="474"></p>
+<p>类从被加载到虚拟机内存中开始，到卸载出内存为止，它的整个生命周期包括：加载<code>Loading</code>、验证<code>Verification</code>、准备<code>Preparation</code>、解析<code>Resolution</code>、初始化<code>Initialization</code>、使用<code>Using</code>和卸载<code>Unloading</code>7个阶段。其中准备、验证、解析3个部分统称为连接<code>Linking</code>。</p>
+<p>加载、验证、准备、初始化和卸载这5个阶段的顺序是确定的，类的加载过程必须按照这种顺序按部就班地开始，而解析阶段则不一定：它在某些情况下可以在初始化阶段之后再开始，这是为了支持Java语言的运行时绑定(也称为动态绑定或晚期绑定)。</p>
+<blockquote>
+  <p>注意，本文的JDK版本是Java 1.8，在Java 9 引进模块化后，ClassLoader也有了一些新变化。</p>
+
+</blockquote>]]></description></item></channel></rss>

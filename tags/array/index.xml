@@ -1,0 +1,28 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Array - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/array/</link><description>Array - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Wed, 15 Nov 2017 10:21:39 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/array/" rel="self" type="application/rss+xml"/><item><title>数据结构-数组</title><link>http://www.victorchu.info/posts/2017/11/23e3ed9/</link><pubDate>Wed, 15 Nov 2017 10:21:39 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/11/23e3ed9/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/struct.webp" referrerpolicy="no-referrer">
+            </div><p>数组是使用最广泛的基础数据结构。数组是存放在连续内存空间上的相同类型数据的集合，可以方便的通过数字索引的方式获取到索引所对应的数据。需要注意的是数组的索引都是从0开始计算的。下图就是长度为3的字符数组的例子。</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">内存地址</th>
+          <th style="text-align: left">1001</th>
+          <th style="text-align: left">1002</th>
+          <th style="text-align: left">1003</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">数组元素</td>
+          <td style="text-align: left">&lsquo;a&rsquo;</td>
+          <td style="text-align: left">&lsquo;b&rsquo;</td>
+          <td style="text-align: left">&lsquo;c&rsquo;</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">数组索引</td>
+          <td style="text-align: left">0</td>
+          <td style="text-align: left">1</td>
+          <td style="text-align: left">2</td>
+      </tr>
+  </tbody>
+</table>
+<p>假设一个数组，其元素按照值的固定顺序排序(升序或降序)，那么这种数组被称为有序数组。在实际的算法使用中常常会对数组先进行排序，然后在进行处理。</p>]]></description></item></channel></rss>

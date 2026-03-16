@@ -1,0 +1,35 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Trino &amp; Presto - 系列 - Victor's Code Journey</title><link>http://www.victorchu.info/series/trino--presto/</link><description>Trino &amp; Presto - 系列 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Fri, 01 Sep 2023 14:38:06 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/series/trino--presto/" rel="self" type="application/rss+xml"/><item><title>Trino Sql优化:Removing redundant ORDER BY</title><link>http://www.victorchu.info/posts/2023/09/422b2ff2/</link><pubDate>Fri, 01 Sep 2023 14:38:06 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2023/09/422b2ff2/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/trino.webp" referrerpolicy="no-referrer">
+            </div><p>一些SQL构造（如ORDER BY）在许多情况下不会影响查询结果，并且会产生影响性能的负面影响(查询中的每个ORDER BY子句都代表一个排序执行计划)。如果用户无意中在没有效果的地方使用ORDER BY，可能会导致严重的性能下降和资源浪费。</p>
+<p>sql规范(ISO 9075 Part 2)中说明:</p>
+<ul>
+<li>一个<code>&lt;query expression&gt;</code>可以包含一个可选的<code>&lt;order by clause&gt;</code>。</li>
+<li><code>&lt;query expression&gt;</code>z中行的顺序仅由<code>&lt;query expression&gt;</code>直接包含的<code>&lt;order by clause&gt;</code>指定。</li>
+</ul>
+<p>上述规范意味着，查询引擎可以自由地忽略任何不适合上下文的ORDER BY子句。</p>]]></description></item><item><title>Trino源码学习-自定义函数</title><link>http://www.victorchu.info/posts/2023/08/8147f19c/</link><pubDate>Wed, 30 Aug 2023 20:20:06 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2023/08/8147f19c/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/trino.webp" referrerpolicy="no-referrer">
+            </div><p>Presto Functions 并不能像 Hive UDF 一样动态加载，需要根据 Function 的类型，实现 Presto 内部定义的不同接口，在 Presto 服务启动时进行注册，然后才能在 SQL 执行时进行调用。</p>]]></description></item><item><title>Trino源码学习-内存管理</title><link>http://www.victorchu.info/posts/2023/05/729a4968/</link><pubDate>Fri, 05 May 2023 21:11:16 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2023/05/729a4968/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/trino.webp" referrerpolicy="no-referrer">
+            </div><p>Trino中的内存管理分为两块:</p>
+<ul>
+<li>LocalMemoryManager: 在ServerMainModule中声明，用于管理当前节点的内存使用</li>
+<li>ClusterMemoryManager: 在CoordinatorModule中声明，用于管理集群的内存使用</li>
+</ul>]]></description></item><item><title>Trino源码学习-TASK执行</title><link>http://www.victorchu.info/posts/2023/03/fe718156/</link><pubDate>Wed, 15 Mar 2023 10:35:46 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2023/03/fe718156/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/trino.webp" referrerpolicy="no-referrer">
+            </div><p><a href="/posts/2023/02/53a7bc3d/" rel="">上篇</a>我们介绍了查询是如何调度的。本篇将介绍Task的执行。</p>]]></description></item><item><title>Trino源码学习-查询调度</title><link>http://www.victorchu.info/posts/2023/02/53a7bc3d/</link><pubDate>Tue, 28 Feb 2023 14:26:19 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2023/02/53a7bc3d/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/trino.webp" referrerpolicy="no-referrer">
+            </div><p><a href="/posts/2023/02/9fa3672f/" rel="">上篇</a>分析了SQL逻辑执行计划的生成，本篇将继续分析逻辑计划是如何在进行调度的。</p>]]></description></item><item><title>Trino源码学习-SQL语法树解析</title><link>http://www.victorchu.info/posts/2023/02/544755c6/</link><pubDate>Fri, 17 Feb 2023 14:40:34 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2023/02/544755c6/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/trino.webp" referrerpolicy="no-referrer">
+            </div><p>Trino在查询提交时，会将SQL文本解析成语法树。Trino将这一动作分为2个部分:</p>
+<pre class="mermaid">flowchart LR
+    s1(SQL)-->|Parser base Antlr|s2(ANTLR AST)
+    s2-->|AST builder base Antlr Visitor|s3(Presto AST)
+</pre>]]></description></item><item><title>Trino源码学习-执行计划生成</title><link>http://www.victorchu.info/posts/2023/02/9fa3672f/</link><pubDate>Thu, 16 Feb 2023 22:28:44 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2023/02/9fa3672f/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/trino.webp" referrerpolicy="no-referrer">
+            </div><p><a href="/posts/2023/01/e7bc0170/" rel="">上篇</a>分析了trino提交查询部分的源码，本篇来分析下，构建执行计划部分的源码。</p>]]></description></item><item><title>Trino源码学习-Page数据结构</title><link>http://www.victorchu.info/posts/2023/02/1820ecd2/</link><pubDate>Wed, 15 Feb 2023 17:34:44 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2023/02/1820ecd2/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/trino.webp" referrerpolicy="no-referrer">
+            </div><p>本篇来看下在查询执行的过程中，底层的数据结构是什么样的。</p>]]></description></item><item><title>Trino源码学习-查询提交</title><link>http://www.victorchu.info/posts/2023/01/e7bc0170/</link><pubDate>Sat, 21 Jan 2023 22:16:06 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2023/01/e7bc0170/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/trino.webp" referrerpolicy="no-referrer">
+            </div><p><a href="/posts/2023/01/5707b8da/" rel="">上篇</a>介绍了Trino的启动流程，这篇我们来学习下查询提交的流程。</p>]]></description></item><item><title>Trino源码学习-Trino启动</title><link>http://www.victorchu.info/posts/2023/01/5707b8da/</link><pubDate>Thu, 12 Jan 2023 10:39:27 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2023/01/5707b8da/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/trino.webp" referrerpolicy="no-referrer">
+            </div><p>本篇文章开始，我们将进行Trino的源码分析，一切还是从启动开始看起。</p>]]></description></item></channel></rss>

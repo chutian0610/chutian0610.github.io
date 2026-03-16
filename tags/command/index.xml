@@ -1,0 +1,143 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Command - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/command/</link><description>Command - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Thu, 23 May 2019 10:40:17 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/command/" rel="self" type="application/rss+xml"/><item><title>linux命令split</title><link>http://www.victorchu.info/posts/2019/05/cc7d73b4/</link><pubDate>Thu, 23 May 2019 10:40:17 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2019/05/cc7d73b4/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/shell-commands.webp" referrerpolicy="no-referrer">
+            </div><p>split命令可以将一个大文件分割成很多个小文件，有时需要将文件分割成更小的片段，比如为提高可读性，生成日志等。</p>]]></description></item><item><title>linux命令tmpreaper</title><link>http://www.victorchu.info/posts/2018/08/d8ffabd7/</link><pubDate>Sun, 19 Aug 2018 11:14:17 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2018/08/d8ffabd7/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/shell-commands.webp" referrerpolicy="no-referrer">
+            </div><p><code>tmpwatch</code> 会在指定目录中递归删除指定时间段内未被访问的文件。通常，它用于自动清除临时文件系统目录，例如 <code>/tmp</code> 和 <code>/var/tmp</code>。</p>
+<ul>
+<li>它只会删除空目录、常规文件和符号链接。它不会切换到其他文件系统，并避开了属于根用户的 <code>lost+found</code> 目录。</li>
+<li>默认情况下，<code>tmpwatch</code> 会根据文件的 atime（访问时间）而不是 mtime（修改时间）删除文件。</li>
+<li>可以在 <code>tmpwatch</code> 命令中添加其他参数来更改这些行为。</li>
+</ul>
+<blockquote>
+  <p><strong>警告：</strong> 不要在 <code>/</code> 中运行 <code>tmpwatch</code> 或 <code>tmpreaper</code>，因为该程序中没有防止这种情况的机制。</p>
+
+</blockquote>]]></description></item><item><title>linux命令dig</title><link>http://www.victorchu.info/posts/2016/12/87a8c43f/</link><pubDate>Wed, 28 Dec 2016 20:46:15 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2016/12/87a8c43f/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/shell-commands-search.webp" referrerpolicy="no-referrer">
+            </div><p>Linux dig命令用来从 DNS 域名服务器查询主机地址信息。</p>]]></description></item><item><title>linux命令find</title><link>http://www.victorchu.info/posts/2016/12/55f7bcf7/</link><pubDate>Mon, 19 Dec 2016 17:13:01 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2016/12/55f7bcf7/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/shell-commands-search.webp" referrerpolicy="no-referrer">
+            </div><p>Linux find 命令用于在指定目录下查找文件和目录。它可以使用不同的选项来过滤和限制查找的结果。使用语法如下:</p>
+<div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
+  <div class="
+    
+    tw-flex 
+    tw-flex-row
+    tw-flex-1 
+    tw-justify-between 
+    tw-w-full tw-bg-bgColor-secondary
+    ">      
+    <button 
+      class="
+        code-block-button
+        tw-mx-2 
+        tw-flex
+        tw-flex-row
+        tw-flex-1"
+      aria-hidden="true">
+          <div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div>
+          <p class="tw-select-none !tw-my-1">sh</p>
+      </button>
+
+   <div class="tw-flex">
+      <button 
+        class="
+          line-number-button
+          tw-mx-2 
+          tw-hidden 
+          group-[.is-open]:tw-block 
+          group-[.show-line-numbers]:tw-text-fgColor-link 
+          print:!tw-hidden" 
+        title="Toggle line numbers"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M61.77 401l17.5-20.15a19.92 19.92 0 0 0 5.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h22.83a157.41 157.41 0 0 0-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33 0 15.94 2.44 15.94 9.09 0 4.72-4.2 8.22-14.36 8.22a41.54 41.54 0 0 1-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16 0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM16 160h64a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H64V40a8 8 0 0 0-8-8H32a8 8 0 0 0-7.14 4.42l-8 16A8 8 0 0 0 24 64h8v64H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8zm-3.91 160H80a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44 0-29.06-25-39.56-44.47-39.56-21.36 0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44 0 0 1 9.46-3.84c3.33 0 9.28 1.56 9.28 8.75C51 248.19 0 257.31 0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+
+      <button 
+        class="
+          wrap-code-button
+          tw-select-none 
+          tw-mx-2 
+          tw-hidden 
+          group-[.is-open]:tw-block 
+          group-[.is-wrap]:tw-text-fgColor-link 
+          print:!tw-hidden" 
+        title="Toggle code wrap"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+      
+      <button 
+        class="
+          copy-code-button
+          tw-select-none
+          tw-mx-2 
+          tw-hidden
+          group-[.is-open]:tw-block
+          hover:tw-text-fgColor-link 
+          print:!tw-hidden"
+        title="Copy code">
+          <span class="copy-icon tw-block"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M433.941 65.941l-51.882-51.882A48 48 0 0 0 348.118 0H176c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51 0 48-21.49 48-48v-48h80c26.51 0 48-21.49 48-48V99.882a48 48 0 0 0-14.059-33.941zM266 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 0 1-6 6zm128-96H182a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 0 1-6 6zm6-256h-64V48h9.632c1.591 0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 0 1 1.757 4.243V112z"/></svg></span>
+          <span class="check-icon tw-hidden"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+      </button>
+        
+      <button 
+        class="
+          tw-select-none 
+          tw-mx-2 
+          tw-block 
+          group-[.is-open]:tw-hidden 
+          print:!tw-hidden" 
+        disabled
+        aria-hidden="true"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button>
+    </div>
+  </div>
+  <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
+    id="codeblock-id-1" 
+    class="
+      chroma 
+      !tw-block 
+      tw-p-0
+      tw-m-0
+      tw-transition-[max-height] 
+      tw-duration-500 
+      tw-ease-in-out 
+      group-[.is-closed]:!tw-max-h-0 
+      group-[.is-wrap]:tw-text-wrap
+      tw-overflow-y-hidden
+      tw-overflow-x-auto
+      tw-scrollbar-thin
+      "><span class="line"><span class="cl">find <span class="o">[</span>-H<span class="o">]</span> <span class="o">[</span>-L<span class="o">]</span> <span class="o">[</span>-P<span class="o">]</span> <span class="o">[</span>-Olevel<span class="o">]</span> <span class="o">[</span>-D debugopts<span class="o">]</span> <span class="o">[</span>path...<span class="o">]</span> <span class="o">[</span>expression<span class="o">]</span></span></span></code></pre>
+</div>
+<p>参数说明:</p>
+<ul>
+<li>path 是要查找的目录路径，可以是一个目录或文件名，也可以是多个路径，多个路径之间用空格分隔，如果未指定路径，则默认为当前目录。</li>
+<li>expression 是可选参数，用于指定查找的条件，可以是选项，测试和动作。</li>
+</ul>]]></description></item><item><title>linux命令awk</title><link>http://www.victorchu.info/posts/2016/12/5c947520/</link><pubDate>Sun, 18 Dec 2016 09:50:42 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2016/12/5c947520/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/shell-commands.webp" referrerpolicy="no-referrer">
+            </div><p>Awk的基本功能就是查找具某种模式的文本行（或者其他单位的文本）。当匹配某个模式后，awk会对该行执行指定的动作。Awk然后继续输入行，直到文件输入处理完毕。</p>]]></description></item><item><title>linux命令stat系列</title><link>http://www.victorchu.info/posts/2016/12/bb7ea87f/</link><pubDate>Sat, 17 Dec 2016 13:57:22 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2016/12/bb7ea87f/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/monitor.webp" referrerpolicy="no-referrer">
+            </div><p>本文介绍 linux 常用的 stat 系列命令:</p>
+<ul>
+<li>vmstat：显示虚拟内存信息</li>
+<li>iostat：统计cpu和IO信息</li>
+<li>ifstat：阅读网络接口统计数据的便捷工具</li>
+<li>netstat：查看网络连接情况</li>
+<li>pidstat：查看进程使用信息</li>
+<li>dstat：系统资源统计，代替vmstat,iosat,ifstat,netstat命令。</li>
+</ul>]]></description></item><item><title>linux命令top</title><link>http://www.victorchu.info/posts/2016/12/3a1678d4/</link><pubDate>Sat, 17 Dec 2016 13:57:22 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2016/12/3a1678d4/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/monitor.webp" referrerpolicy="no-referrer">
+            </div><p>top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，top命令提供了实时的对系统处理器的状态监视.它将显示系统中CPU最“敏感”的任务列表.该命令可以按CPU使用.内存使用和执行时间对任务进行排序。</p>]]></description></item><item><title>linux命令tumx</title><link>http://www.victorchu.info/posts/2016/12/85f7767b/</link><pubDate>Fri, 16 Dec 2016 13:54:00 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2016/12/85f7767b/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/shell-commands.webp" referrerpolicy="no-referrer">
+            </div><p>命令行的典型使用方式是，打开一个终端窗口（terminal window，以下简称&quot;窗口&quot;），在里面输入命令。用户与计算机的这种临时的交互，称为一次&quot;会话&quot;（session）。</p>
+<p>会话的一个重要特点是，窗口与其中启动的进程是连在一起的。打开窗口，会话开始；关闭窗口，会话结束，会话内部的进程也会随之终止，不管有没有运行完。</p>
+<p>一个典型的例子就是，SSH 登录远程计算机，打开一个远程窗口执行命令。这时，网络突然断线，再次登录的时候，是找不回上一次执行的命令的。因为上一次 SSH 会话已经终止了，里面的进程也随之消失了。</p>
+<p>为了解决这个问题，会话与窗口可以&quot;解绑&quot;：窗口关闭时，会话并不终止，而是继续运行，等到以后需要的时候，再让会话&quot;绑定&quot;其他窗口。</p>]]></description></item><item><title>linux命令free</title><link>http://www.victorchu.info/posts/2016/12/d177193b/</link><pubDate>Fri, 16 Dec 2016 09:50:42 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2016/12/d177193b/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/monitor.webp" referrerpolicy="no-referrer">
+            </div><p>free 命令是一个显示系统中空闲和已用内存大小的工具。free 命令的输出和 top 命令相似。大多数Linux发行版已经含有 free 命令。</p>]]></description></item><item><title>linux命令sed</title><link>http://www.victorchu.info/posts/2016/12/ab7d6f7c/</link><pubDate>Thu, 15 Dec 2016 09:50:42 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2016/12/ab7d6f7c/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/shell-commands.webp" referrerpolicy="no-referrer">
+            </div><p>sed 是linux 中的流式编辑器，用于过滤和修改文本。sed 会根据脚本命令来处理文本文件中的数据，这些命令要么从命令行中输入，要么存储在一个文本文件中，此命令执行数据的顺序如下：</p>
+<ol>
+<li>每次仅读取一行内容；</li>
+<li>根据提供的规则命令匹配并修改数据。注意，sed 默认不会直接修改源文件数据，而是会将数据复制到缓冲区中，修改也仅限于缓冲区中的数据；</li>
+<li>将执行结果输出。</li>
+<li>当一行数据匹配完成后，它会继续读取下一行数据，并重复这个过程，直到将文件中所有数据处理完毕。</li>
+</ol>]]></description></item></channel></rss>

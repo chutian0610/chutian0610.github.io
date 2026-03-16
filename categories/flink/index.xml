@@ -1,0 +1,28 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Flink - 分类 - Victor's Code Journey</title><link>http://www.victorchu.info/categories/flink/</link><description>Flink - 分类 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Thu, 06 Jan 2022 10:48:00 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/categories/flink/" rel="self" type="application/rss+xml"/><item><title>Flink:Buffer框架</title><link>http://www.victorchu.info/posts/2022/01/329af0a6/</link><pubDate>Thu, 06 Jan 2022 10:48:00 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2022/01/329af0a6/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/flink.webp" referrerpolicy="no-referrer">
+            </div><p>Flink是使用 JVM 的大数据开源计算框架，基于 JVM 的数据分析引擎都需要面对将大量数据存到内存中，这就不得不面对 JVM 存在的几个问题：</p>
+<ol>
+<li>Java 对象存储密度低。一个只包含 boolean 属性的对象占用了16个字节内存: 对象头占了8个,boolean 属性占了1个,对齐填充占了7个。而实际上只需要一个bit就够了。</li>
+</ol>
+<ul>
+<li>Full GC 会极大地影响性能, 尤其是为了处理更大数据而开了很大内存空间的JVM来说, GC 会达到秒级甚至分钟级。</li>
+<li>OOM 问题影响稳定性。OutOfMemoryError是分布式计算框架经常会遇到的问题, 当JVM中所有对象大小超过分配给JVM的内存大小时, 就会发生OutOfMemoryError错误, 导致JVM崩溃, 分布式框架的健壮性和性能都会受到影响。</li>
+</ul>
+<p>对于第一个问题，如果采用基类存储就可以解决。而第二个问题，可以考虑是使用直接内存和内存池来解决 Full GC 的问题。OOM 问题需要支持内存数据溢写到磁盘，即支持内存数据的序列化和反序列化。这里不使用 JDK 原始 buffer 的原因是 JDK Buffer只支持存储相同固定类型的实例数据，而实际上流式数据处理的总是一行数据，且数据要支持可扩展的类系统。</p>
+<p>因此，Flink 选择了实现自己管理的内存单元和可扩展的类型系统，也就是接下来介绍的 Buffer框架(Memory Segment) 和对应的 TypeSerializer。</p>
+<p><img class="tw-inline" loading="lazy" src='/posts/2022/01/329af0a6/memory-mgmt.webp'    height="312" width="709"></p>]]></description></item><item><title>Flink源码学习-准备工作</title><link>http://www.victorchu.info/posts/2019/05/81f17543/</link><pubDate>Fri, 10 May 2019 16:06:32 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2019/05/81f17543/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/flink.webp" referrerpolicy="no-referrer">
+            </div><p>本文是学习flink源码前的准备工作。在开始之前，先做好准备工作：</p>
+<ul>
+<li>安装JDK8+，Flink 依赖 Java 8 或更新的版本来进行构建。
+<ul>
+<li>自flink1.15 开始需要Java 11(如无必要不使用更高版本的JDk去build)</li>
+</ul>
+</li>
+<li>安装Maven 3 ( Maven 3.3.x 可以构建 Flink，但是不能正确地屏蔽掉指定的依赖。Maven 3.2.5 可以正确地构建库文件)</li>
+<li>安装Scala 2.11或2.12
+<ul>
+<li>自flink1.15 开始需要Scala 2.12</li>
+</ul>
+</li>
+</ul>]]></description></item></channel></rss>
