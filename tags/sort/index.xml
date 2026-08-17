@@ -1,0 +1,29 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Sort - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/sort/</link><description>Sort - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Tue, 20 Aug 2019 15:14:28 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/sort/" rel="self" type="application/rss+xml"/><item><title>算法之拓扑排序</title><link>http://www.victorchu.info/posts/2019/08/425a15f8/</link><pubDate>Tue, 20 Aug 2019 15:14:28 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2019/08/425a15f8/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><p>拓扑排序（Topological Sorting）是一个有向无环图（DAG, Directed Acyclic Graph）的所有顶点的线性序列。且该序列必须满足下面两个条件：</p>
+<ol>
+<li>每个顶点出现且只出现一次。</li>
+<li>若存在一条从顶点 A 到顶点 B 的路径，那么在序列中顶点 A 出现在顶点 B 的前面。</li>
+</ol>
+<pre class="mermaid">graph TD
+id1((1)) --> id2((2))
+id1((1)) --> id4((4))
+id2((2)) --> id4((4))
+id4((4)) --> id3((3))
+id2((2)) --> id3((3))
+id4((4)) --> id5((5))
+id3((3)) --> id5((5))
+</pre><blockquote>
+  <p>有向无环图（DAG）才有拓扑排序，非DAG图没有拓扑排序一说。</p>
+
+</blockquote>]]></description></item><item><title>算法之排序算法</title><link>http://www.victorchu.info/posts/2018/02/ca44adb5/</link><pubDate>Sun, 25 Feb 2018 14:13:36 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2018/02/ca44adb5/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><div class="details admonition note open">
+    <div class="details-summary admonition-title">
+        <span class="icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg></span>未完待续<span class="details-icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span>
+    </div>
+    <div class="details-content">
+        <div class="admonition-content">持续更新中&hellip;</div></div></div>
+<p>本文介绍基于数组的<a href="https://github.com/chutian0610/java-algorithms-impl/blob/master/src/main/java/info/victorchu/algorithms/sort" target="_blank" rel="noopener noreferrer">常用排序算法</a>.</p>]]></description></item></channel></rss>

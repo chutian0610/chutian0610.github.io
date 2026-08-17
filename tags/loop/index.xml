@@ -1,0 +1,11 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Loop - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/loop/</link><description>Loop - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Fri, 01 Sep 2017 14:28:46 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/loop/" rel="self" type="application/rss+xml"/><item><title>Java，循环还是递归？</title><link>http://www.victorchu.info/posts/2017/09/d51dc677/</link><pubDate>Fri, 01 Sep 2017 14:28:46 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/09/d51dc677/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/java.webp" referrerpolicy="no-referrer">
+            </div><p>开始比较前，先来了解下循环和递归的定义。</p>
+<ul>
+<li>循环是一段在程序中只出现一次，但可能会连续执行多次的代码。循环中的代码会执行特定的次数(例如for)，或者是执行到特定条件成立时结束循环(例如while)，或者是针对某一集合中的所有项目都执行一次。</li>
+<li>递归指在函数的定义中使用函数自身的方法，即一个函数不断调用自身的行为。</li>
+</ul>
+<blockquote>
+  <p>注意: 上面的循环定义不适用于所有情况，在一些函数编程语言（例如Haskell和Scheme）中会使用递归或不动点组合子来达到循环的效果。</p>
+
+</blockquote>]]></description></item></channel></rss>

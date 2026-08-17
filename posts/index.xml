@@ -1,0 +1,134 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 - Victor's Code Journey</title><link>http://www.victorchu.info/posts/</link><description>所有文章 | Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Mon, 17 Aug 2026 16:37:36 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/posts/" rel="self" type="application/rss+xml"/><item><title>BBR算法</title><link>http://www.victorchu.info/posts/2026/08/782fb62b/</link><pubDate>Mon, 17 Aug 2026 16:37:36 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/08/782fb62b/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><h2 id="一从一个常见但反直觉的现象说起" class="headerLink">
+    <a href="#%e4%b8%80%e4%bb%8e%e4%b8%80%e4%b8%aa%e5%b8%b8%e8%a7%81%e4%bd%86%e5%8f%8d%e7%9b%b4%e8%a7%89%e7%9a%84%e7%8e%b0%e8%b1%a1%e8%af%b4%e8%b5%b7" class="header-mark"></a>一、从一个常见但反直觉的现象说起</h2><p>你可能听过这样的话：&ldquo;网线明明是千兆的，为什么下载速度总是上不去？&rdquo;</p>
+<p>或者更具体一点：你用 speedtest 测速，自己买的 200M 宽带，下行只能跑到 80M；公司升级到 10G 专线，看 YouTube 4K 仍然时不时卡顿。</p>
+<p>很多人第一反应是&quot;运营商限速&quot;或&quot;网站服务器不行&quot;。但如果你是做后端的、或者管过一段广域网链路，会知道<strong>罪魁祸首往往不是带宽不够，而是 TCP 的拥塞控制策略本身</strong>。</p>]]></description></item><item><title>AIMD 加性增 乘性减算法</title><link>http://www.victorchu.info/posts/2026/08/dd0537e7/</link><pubDate>Mon, 17 Aug 2026 15:31:09 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/08/dd0537e7/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><h2 id="一从一个常见的运维难题说起" class="headerLink">
+    <a href="#%e4%b8%80%e4%bb%8e%e4%b8%80%e4%b8%aa%e5%b8%b8%e8%a7%81%e7%9a%84%e8%bf%90%e7%bb%b4%e9%9a%be%e9%a2%98%e8%af%b4%e8%b5%b7" class="header-mark"></a>一、从一个常见的运维难题说起</h2><p>假设你正在运营一个分布式限流系统，全公司上百个服务都要经过你分配的&quot;带宽配额&quot;。预算就这么多，但每个服务的真实需求你事先不清楚——有的服务平时风平浪静，促销时流量能翻 10 倍；有的服务每月稳定增长 30%。</p>
+<p>你会怎么分配这些带宽？</p>
+<ul>
+<li><strong>分配固定配额</strong>：结果几乎是灾难——资源浪费和争抢同时发生。</li>
+<li><strong>让业务方报需求</strong>：这种&quot;自报家门&quot;在 KPI 面前几乎一定会虚报，最后仍然会把系统打爆。</li>
+<li><strong>让业务方主动试</strong>：先少申请一点，发现不够再加。这种&quot;摸着石头过河&quot;的思路，恰恰是 TCP 拥塞控制的核心。</li>
+</ul>
+<p>30 多年前，<strong>Van Jacobson</strong> 在设计 TCP 拥塞控制时面对的是同一个问题：网络（链路）的带宽是<strong>共享资源</strong>，发送方不知道链路的当前容量，也不知道有多少其他发送方在抢资源。他必须设计一个<strong>让所有发送方在不知道对方存在的情况下，依然能公平、高效地共享链路</strong>的算法。</p>]]></description></item><item><title>EWMA 指数加权移动平均统计方法</title><link>http://www.victorchu.info/posts/2026/08/ce990616/</link><pubDate>Mon, 17 Aug 2026 15:09:10 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/08/ce990616/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><p>如果你写过监控告警、自适应限流或者负载均衡，大概率遇到过这个问题：怎么用一个数值，实时地描述&quot;当前系统有多慢&quot;？EWMA（Exponentially Weighted Moving Average，指数加权移动平均）几乎是工程实践里的标准答案——它只需要一个 float 的内存，一行加法就能更新，却能给出比简单平均更贴近&quot;当下&quot;的估计。</p>]]></description></item><item><title>自适应算法简介</title><link>http://www.victorchu.info/posts/2026/08/78ac49b9/</link><pubDate>Mon, 17 Aug 2026 12:02:43 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/08/78ac49b9/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><h2 id="一从一个常见的运维难题说起" class="headerLink">
+    <a href="#%e4%b8%80%e4%bb%8e%e4%b8%80%e4%b8%aa%e5%b8%b8%e8%a7%81%e7%9a%84%e8%bf%90%e7%bb%b4%e9%9a%be%e9%a2%98%e8%af%b4%e8%b5%b7" class="header-mark"></a>一、从一个常见的运维难题说起</h2><p>先抛个场景：某个核心服务运行了一段时间后，运维同学收到告警——<strong>Full GC 次数突然飙高</strong>。登录机器一看，Metaspace 使用率长期维持在 90% 以上，老年代被反复撑爆。</p>
+<p>按照经验，第一反应是加大 <code>-XX:MetaspaceSize</code>。但问题是：<strong>加大到多少合适？</strong> 设 256M，下次告警；设 512M，内存浪费严重；设 1G，业务方立刻投诉资源利用率低。</p>]]></description></item><item><title>HikariCP Connection Adder 卡死：JDBC URL 漏配 `socketTimeout` 的故障复盘</title><link>http://www.victorchu.info/posts/2026/08/9ad572b5/</link><pubDate>Wed, 12 Aug 2026 11:21:43 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/08/9ad572b5/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/java.webp" referrerpolicy="no-referrer">
+            </div><p>先看一段栈，再决定要不要继续读——</p>
+<div class="code-block highlight is-open show-line-numbers  tw:group tw:my-2">
+  <div class="
+    
+    tw:flex 
+    tw:flex-row
+    tw:flex-1 
+    tw:justify-between 
+    tw:w-full tw:bg-bgColor-secondary
+    ">      
+    <button 
+      class="
+        code-block-button
+        tw:mx-2 
+        tw:flex
+        tw:flex-row
+        tw:flex-1"
+      aria-hidden="true">
+          <span class="tw:group-[.is-open]:rotate-90 tw:transition-[transform] tw:duration-500 tw:ease-in-out tw:print:hidden! tw:w-min tw:h-min tw:my-1 tw:mx-1"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></span>
+          <span class="tw:select-none tw:my-1! tw:block">bash</span>
+      </button>
+
+   <div class="tw:flex">
+      <button 
+        class="
+          line-number-button
+          tw:mx-2 
+          tw:hidden 
+          tw:group-[.is-open]:block 
+          tw:group-[.show-line-numbers]:text-fgColor-link 
+          tw:print:hidden!" 
+        title="Toggle line numbers"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M61.77 401l17.5-20.15a19.92 19.92 0 0 0 5.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h22.83a157.41 157.41 0 0 0-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33 0 15.94 2.44 15.94 9.09 0 4.72-4.2 8.22-14.36 8.22a41.54 41.54 0 0 1-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16 0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM16 160h64a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H64V40a8 8 0 0 0-8-8H32a8 8 0 0 0-7.14 4.42l-8 16A8 8 0 0 0 24 64h8v64H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8zm-3.91 160H80a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44 0-29.06-25-39.56-44.47-39.56-21.36 0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44 0 0 1 9.46-3.84c3.33 0 9.28 1.56 9.28 8.75C51 248.19 0 257.31 0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+
+      <button 
+        class="
+          wrap-code-button
+          tw:select-none 
+          tw:mx-2 
+          tw:hidden 
+          tw:group-[.is-open]:block 
+          tw:group-[.is-wrap]:text-fgColor-link 
+          tw:print:hidden!" 
+        title="Toggle code wrap"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+      
+      <button 
+        class="
+          copy-code-button
+          tw:select-none
+          tw:mx-2 
+          tw:hidden
+          tw:group-[.is-open]:block
+          tw:hover:text-fgColor-link 
+          tw:print:hidden!"
+        title="Copy code">
+          <span class="copy-icon tw:block"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M433.941 65.941l-51.882-51.882A48 48 0 0 0 348.118 0H176c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51 0 48-21.49 48-48v-48h80c26.51 0 48-21.49 48-48V99.882a48 48 0 0 0-14.059-33.941zM266 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 0 1-6 6zm128-96H182a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 0 1-6 6zm6-256h-64V48h9.632c1.591 0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 0 1 1.757 4.243V112z"/></svg></span>
+          <span class="check-icon tw:hidden"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+      </button>
+        
+      <button 
+        class="
+          tw:select-none 
+          tw:mx-2 
+          tw:block 
+          tw:group-[.is-open]:hidden 
+          tw:print:hidden!" 
+        disabled
+        aria-hidden="true"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button>
+    </div>
+  </div>
+  <pre style="counter-reset: codeblock;" class="tw:block tw:m-0 tw:p-0"><code 
+    id="codeblock-id-31" 
+    class="
+      chroma 
+      tw:block! 
+      tw:p-0
+      tw:m-0
+      tw:transition-[max-height] 
+      tw:duration-500 
+      tw:ease-in-out 
+      tw:group-[.is-closed]:max-h-0! 
+      tw:group-[.is-wrap]:text-wrap
+      tw:overflow-y-hidden
+      tw:overflow-x-auto
+      tw:scrollbar-thin
+      "><span class="line"><span class="cl"><span class="c1"># 这两份 stack dump 间隔 14 分钟抓的，&#34;jdbc:mysql://10.14.127.31:19030/xxx&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 的 connection adder 线程，tid 完全一致，栈帧一帧没动。</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 业务侧呢？告警群里全是 SQLTransientConnectionException。</span></span></span></code></pre>
+</div>
+<p>说真的，这种栈谁都不想看到——10 个 HikariCP 连接池、每个池的 adder 都卡在 <code>socketRead0</code>，不是忙，是死等。更扎心的是，业务方第一时间甩锅 HikariCP &ldquo;卡死了&rdquo;，但 HikariCP 的 <code>MAIN</code> 池好好的；另一边 DBA 看到 MySQL 进程没崩、<code>SHOW PROCESSLIST</code> 也查不出明显异常。两边都没事，问题到底出在哪？</p>]]></description></item><item><title>Presto/Trino 中 0.5 引发的精度谜团：Decimal 隐式类型推导与 MySQL 差异</title><link>http://www.victorchu.info/posts/2026/07/098549ec/</link><pubDate>Thu, 02 Jul 2026 21:39:38 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/07/098549ec/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/trino.webp" referrerpolicy="no-referrer">
+            </div><p>在 Presto/Trino 中，<code>0.5</code> 默认不是 <code>DOUBLE</code>，而是 <code>DECIMAL</code>。这个容易被忽略的字面量类型，会让 <code>bigint * 0.5</code> 这类表达式整体走上 Decimal 算术规则，最终把结果 scale 锁死在 1 位小数。</p>
+<p>本文从一个线上&quot;精度丢失&quot;问题切入，逐步拆解 Presto 的类型推导链与 Decimal 四则运算规则，再对比 MySQL 在加减乘除上的差异，最后给出可复用的排查建议。如果你曾在跨引擎或跨团队迁移时被精度问题困扰，这篇文章应该能帮到你。</p>]]></description></item><item><title>限流简介</title><link>http://www.victorchu.info/posts/2026/06/8ce642df/</link><pubDate>Tue, 30 Jun 2026 14:15:08 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/06/8ce642df/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/distribute.webp" referrerpolicy="no-referrer">
+            </div><p>限流是高并发系统里最朴素的自我保护手段：当流量超过系统承载上限时，主动拒绝或排队部分请求，换取整体稳定。</p>
+<p>这篇文章从固定窗口、滑动窗口、漏桶、令牌桶、GCRA 五类经典算法讲起，用 Redis Lua 脚本还原实现细节，再分析 Redisson RateLimiter 的设计本质，最后落到分布式限流的三大关键问题与生产选型建议。如果你正在设计或优化一套限流方案，这篇文章会是一张清晰的路线图。</p>]]></description></item><item><title>MacBook Pro 2016 15 Inch安装 Ubuntu 系统</title><link>http://www.victorchu.info/posts/2026/06/6ea75aca/</link><pubDate>Tue, 30 Jun 2026 11:20:13 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/06/6ea75aca/</guid><description>&lt;div class="featured-image">
+                &lt;img src="/feature-images/ubuntu.webp" referrerpolicy="no-referrer">
+            &lt;/div></description></item><item><title>60 秒定位 Linux 性能瓶颈：一份能直接抄的命令清单</title><link>http://www.victorchu.info/posts/2026/06/73913c08/</link><pubDate>Wed, 03 Jun 2026 21:09:18 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/06/73913c08/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/computer.webp" referrerpolicy="no-referrer">
+            </div><p>凌晨 3 点，oncall 电话响了。&ldquo;服务慢了，用户在刷不出页面。&rdquo; 你 SSH 进一台从没见过的 Linux 服务器，没有 Prometheus dashboard，没有 APM 火焰图，只有黑漆漆的命令行。</p>
+<p>第一分钟该敲什么？</p>
+<p>Netflix 性能工程团队 2015 年给出的答案是：<strong>10 个命令，60 秒</strong>。本文把这套方法整理成一份可以照抄的清单，并补上一张&quot;心智地图&quot;，让你不只是机械记忆命令，而是理解<strong>为什么要敲它们、应该看哪几列、看完之后该往哪走</strong>。</p>]]></description></item><item><title>eBPF 简介：从钩子、验证器到 BCC 实战</title><link>http://www.victorchu.info/posts/2026/06/0bff2f37/</link><pubDate>Wed, 03 Jun 2026 20:50:00 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/06/0bff2f37/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/computer.webp" referrerpolicy="no-referrer">
+            </div><p>你有没有遇到过这种场景：线上服务偶发延迟，<code>top</code> 看 CPU 正常、<code>iostat</code> 看磁盘不忙、<code>strace</code> 抓不到关键调用，但应用就是慢。想看某个系统调用真实的耗时分布？想找&quot;一闪而过&quot;的短进程？传统工具集体失灵。</p>
+<p>问题的根源在于：<strong>Linux 内核对你&quot;关着门&quot;</strong>。你想观测的所有关键路径——系统调用、网络收发、调度、文件 I/O——都在内核里，而你已经很多年没编译过内核了。</p>
+<p><code>eBPF</code>（extended Berkeley Packet Filter）就是 Linux 给开发者开的一扇窗。它让你<strong>不重启内核、不写内核模块</strong>，就能在内核的关键路径上跑一段自定义逻辑。本文用三件事讲清它：eBPF 是什么、怎么工作、怎么先用起来。</p>]]></description></item></channel></rss>

@@ -1,0 +1,911 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>限流简介 - Victor's Code Journey</title><meta name=Description content><meta property="og:url" content="http://www.victorchu.info/posts/2026/06/8ce642df/"><meta property="og:site_name" content="Victor's Code Journey"><meta property="og:title" content="限流简介"><meta property="og:description" content="限流是高并发系统里最朴素的自我保护手段：当流量超过系统承载上限时，主动拒绝或排队部分请求，换取整体稳定。
+这篇文章从固定窗口、滑动窗口、漏桶、令牌桶、GCRA 五类经典算法讲起，用 Redis Lua 脚本还原实现细节，再分析 Redisson RateLimiter 的设计本质，最后落到分布式限流的三大关键问题与生产选型建议。如果你正在设计或优化一套限流方案，这篇文章会是一张清晰的路线图。"><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2026-06-30T14:15:08+08:00"><meta property="article:modified_time" content="2026-06-30T14:15:08+08:00"><meta property="article:tag" content="MicroService"><meta property="og:image" content="http://www.victorchu.info/blog-solid.svg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="http://www.victorchu.info/blog-solid.svg"><meta name=twitter:title content="限流简介"><meta name=twitter:description content="限流是高并发系统里最朴素的自我保护手段：当流量超过系统承载上限时，主动拒绝或排队部分请求，换取整体稳定。
+这篇文章从固定窗口、滑动窗口、漏桶、令牌桶、GCRA 五类经典算法讲起，用 Redis Lua 脚本还原实现细节，再分析 Redisson RateLimiter 的设计本质，最后落到分布式限流的三大关键问题与生产选型建议。如果你正在设计或优化一套限流方案，这篇文章会是一张清晰的路线图。"><meta name=application-name content="Victor's Code Journey"><meta name=apple-mobile-web-app-title content="Victor's Code Journey"><meta name=theme-color content="#f8f8f8"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=canonical href=http://www.victorchu.info/posts/2026/06/8ce642df/><link rel=prev href=http://www.victorchu.info/posts/2026/06/6ea75aca/><link rel=next href=http://www.victorchu.info/posts/2026/07/098549ec/><link rel=stylesheet href=/css/main.min.7279c10edda26efb5dbc11956417de1c.css integrity="md5-cnnBDt2ibvtdvBGVZBfeHA=="><link rel=stylesheet href=/css/style.min.8983304fd7534daf340b30b7f3cf86be.css integrity="md5-iYMwT9dTTa80CzC388+Gvg=="><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"限流简介","inLanguage":"zh-cn","mainEntityOfPage":{"@type":"WebPage","@id":"http://www.victorchu.info/posts/2026/06/8ce642df/"},"image":[{"@type":"ImageObject","url":"http://www.victorchu.info/feature-images/distribute.webp","width":554,"height":400}],"genre":"posts","keywords":["MicroService"],"wordcount":12216,"url":"http://www.victorchu.info/posts/2026/06/8ce642df/","datePublished":"2026-06-30T14:15:08+08:00","dateModified":"2026-06-30T14:15:08+08:00","publisher":{"@type":"Organization","name":"victorchutian"},"author":[{"@type":"Person","name":"victorchutian","url":"http://www.victorchu.info/authors/victorchutian/"}],"description":""}</script></head><body data-instant-intensity=viewport class="tw:flex tw:min-h-screen tw:flex-col"><script>function setTheme(e){document.body.setAttribute("theme",e),document.documentElement.className=e,document.documentElement.style.setProperty("color-scheme",e==="light"?"light":"dark"),e==="light"?document.documentElement.classList.remove("dark"):document.documentElement.classList.add("dark"),window.theme=e,window.isDark=window.theme!=="light"}function saveTheme(e){window.localStorage&&localStorage.setItem("theme",e)}function getMeta(e){const t=document.getElementsByTagName("meta");for(let n=0;n<t.length;n++)if(t[n].getAttribute("name")===e)return t[n];return""}if(window.localStorage&&localStorage.getItem("theme")){let e=localStorage.getItem("theme");e==="light"||e==="dark"?setTheme(e):setTheme(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}else"auto"==="light"||"auto"==="dark"?(setTheme("auto"),saveTheme("auto")):(saveTheme("auto"),setTheme(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"));let metaColors={light:"#f8f8f8",dark:"#161b22"};getMeta("theme-color").content=metaColors[document.body.getAttribute("theme")],window.switchThemeEventSet=new Set</script><div id=back-to-top></div><div id=mask></div><header class="desktop tw:print:hidden!" id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Victor's Code Journey"><img class="tw:inline tw:align-text-bottom tw:mr-1" src=/images/blog-solid.svg alt="Victor's Code Journey" height=32 width=32><span id=desktop-header-typeit class=typeit></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>所有文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/series/>系列 </a><a class=menu-item href=/about/>关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder="Search ..." id=search-input-desktop>
+<button class="search-button search-toggle" id=search-toggle-desktop title=搜索>
+<svg class="icon" viewBox="0 0 512 512"><path d="M505 442.7 405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9.0 208 0S0 93.1.0 208s93.1 208 208 208c48.3.0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9.0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7.0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7.0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</button>
+<button class="search-button search-clear" id=search-clear-desktop title=清空>
+<svg class="icon" viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3.0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3.0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3.0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3.0 17L312 256l65.6 65.1z"/></svg>
+</button>
+<span class="search-button search-loading tw:animate-spin" id=search-loading-desktop><svg class="icon" viewBox="0 0 512 512"><path d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49.0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156.0c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"/></svg>
+</span></span><button class="menu-item theme-switch" aria-label=切换主题>
+<svg class="icon" viewBox="0 0 512 512"><path d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8 8 119.033 8 256zm248 184V72c101.705.0 184 82.311 184 184 0 101.705-82.311 184-184 184z"/></svg></button></div></div></div></header><header class="mobile tw:print:hidden!" id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Victor's Code Journey"><img class="tw:inline tw:align-text-bottom tw:mr-1" src=/images/blog-solid.svg alt="Victor's Code Journey" height=32 width=32><span id=mobile-header-typeit class=typeit></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder="Search ..." id=search-input-mobile>
+<button class="search-button search-toggle tw:h-10" id=search-toggle-mobile title=搜索>
+<svg class="icon" viewBox="0 0 512 512"><path d="M505 442.7 405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9.0 208 0S0 93.1.0 208s93.1 208 208 208c48.3.0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9.0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7.0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7.0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</button>
+<button class="search-button search-clear tw:h-fit" id=search-clear-mobile title=清空>
+<svg class="icon" viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3.0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3.0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3.0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3.0 17L312 256l65.6 65.1z"/></svg>
+</button>
+<span class="search-button search-loading tw:animate-spin" id=search-loading-mobile><svg class="icon" viewBox="0 0 512 512"><path d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49.0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156.0c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"/></svg></span></div><button class=search-cancel id=search-cancel-mobile>
+取消</button></div><a class=menu-item href=/posts/ title>所有文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/series/ title>系列</a><a class=menu-item href=/about/ title>关于</a><button class="menu-item theme-switch tw:w-full" aria-label=切换主题>
+<svg class="icon" viewBox="0 0 512 512"><path d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8 8 119.033 8 256zm248 184V72c101.705.0 184 82.311 184 184 0 101.705-82.311 184-184 184z"/></svg></button></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class="tw:mx-4 tw:flex-1"><div class="toc tw:print:hidden!" id=toc-auto><h2 class=toc-title>目录</h2><div class="toc-content always-active" id=toc-content-auto><nav id=TableOfContents><ul><li><a href=#什么是限流>什么是限流？</a></li><li><a href=#算法地图>算法地图</a></li><li><a href=#固定窗口>固定窗口</a><ul><li><a href=#redis-实现固定窗口>Redis 实现：固定窗口</a></li></ul></li><li><a href=#滑动窗口>滑动窗口</a><ul><li><a href=#redis-实现滑动窗口精确版>Redis 实现：滑动窗口（精确版）</a></li><li><a href=#zset-vs-list两种实现路径的权衡>ZSET vs List：两种实现路径的权衡</a></li><li><a href=#redis-实现近似滑动窗口格子法>Redis 实现：近似滑动窗口（格子法）</a></li></ul></li><li><a href=#漏桶算法>漏桶算法</a><ul><li><a href=#redis-实现漏桶>Redis 实现：漏桶</a></li></ul></li><li><a href=#令牌桶算法>令牌桶算法</a><ul><li><a href=#redis-实现令牌桶>Redis 实现：令牌桶</a></li></ul></li><li><a href=#gcra通用信元速率算法>GCRA：通用信元速率算法</a><ul><li><a href=#手工-lua-实现-gcra>手工 Lua 实现 GCRA</a></li><li><a href=#漏桶与令牌桶的统一视角>漏桶与令牌桶的统一视角</a></li><li><a href=#批量支持>批量支持</a></li></ul></li><li><a href=#redisson-ratelimiter>Redisson RateLimiter</a><ul><li><a href=#核心数据结构>核心数据结构</a></li><li><a href=#工作流程>工作流程</a><ul><li><a href=#1-过期许可回收>1. 过期许可回收</a></li><li><a href=#2-判断是否放行>2. 判断是否放行</a></li><li><a href=#3-首次初始化>3. 首次初始化</a></li><li><a href=#4-key-过期管理>4. Key 过期管理</a></li></ul></li><li><a href=#设计总结>设计总结</a></li></ul></li><li><a href=#分布式限流的三个关键问题>分布式限流的三个关键问题</a><ul><li><a href=#时钟不同步你的一秒不是我的一秒>时钟不同步：你的"一秒"不是我的"一秒"</a></li><li><a href=#热点-key90-的流量都打在一个-redis-节点上>热点 Key：90% 的流量都打在一个 Redis 节点上</a></li><li><a href=#性能抖动限流不该比业务还慢>性能抖动：限流不该比业务还慢</a></li></ul></li><li><a href=#算法选型指南>算法选型指南</a><ul><li><a href=#微服务中的部署位置>微服务中的部署位置</a></li><li><a href=#主流限流库组件一览>主流限流库/组件一览</a></li><li><a href=#几个普适原则>几个普适原则</a></li><li><a href=#阈值怎么定实践经验>阈值怎么定：实践经验</a></li></ul></li><li><a href=#参考资料>参考资料</a></li></ul></nav></div></div><dialog id=toc-dialog class="tw:max-w-full tw:w-full tw:max-h-full tw:h-full tw:ml-16"><div class="toc tw:mx-4 tw:max-w-full"><h2 class="tw:mx-0 tw:my-6 tw:uppercase tw:text-2xl">目录</h2><div class=toc-content><nav id=TableOfContents><ul><li><a href=#什么是限流>什么是限流？</a></li><li><a href=#算法地图>算法地图</a></li><li><a href=#固定窗口>固定窗口</a><ul><li><a href=#redis-实现固定窗口>Redis 实现：固定窗口</a></li></ul></li><li><a href=#滑动窗口>滑动窗口</a><ul><li><a href=#redis-实现滑动窗口精确版>Redis 实现：滑动窗口（精确版）</a></li><li><a href=#zset-vs-list两种实现路径的权衡>ZSET vs List：两种实现路径的权衡</a></li><li><a href=#redis-实现近似滑动窗口格子法>Redis 实现：近似滑动窗口（格子法）</a></li></ul></li><li><a href=#漏桶算法>漏桶算法</a><ul><li><a href=#redis-实现漏桶>Redis 实现：漏桶</a></li></ul></li><li><a href=#令牌桶算法>令牌桶算法</a><ul><li><a href=#redis-实现令牌桶>Redis 实现：令牌桶</a></li></ul></li><li><a href=#gcra通用信元速率算法>GCRA：通用信元速率算法</a><ul><li><a href=#手工-lua-实现-gcra>手工 Lua 实现 GCRA</a></li><li><a href=#漏桶与令牌桶的统一视角>漏桶与令牌桶的统一视角</a></li><li><a href=#批量支持>批量支持</a></li></ul></li><li><a href=#redisson-ratelimiter>Redisson RateLimiter</a><ul><li><a href=#核心数据结构>核心数据结构</a></li><li><a href=#工作流程>工作流程</a><ul><li><a href=#1-过期许可回收>1. 过期许可回收</a></li><li><a href=#2-判断是否放行>2. 判断是否放行</a></li><li><a href=#3-首次初始化>3. 首次初始化</a></li><li><a href=#4-key-过期管理>4. Key 过期管理</a></li></ul></li><li><a href=#设计总结>设计总结</a></li></ul></li><li><a href=#分布式限流的三个关键问题>分布式限流的三个关键问题</a><ul><li><a href=#时钟不同步你的一秒不是我的一秒>时钟不同步：你的"一秒"不是我的"一秒"</a></li><li><a href=#热点-key90-的流量都打在一个-redis-节点上>热点 Key：90% 的流量都打在一个 Redis 节点上</a></li><li><a href=#性能抖动限流不该比业务还慢>性能抖动：限流不该比业务还慢</a></li></ul></li><li><a href=#算法选型指南>算法选型指南</a><ul><li><a href=#微服务中的部署位置>微服务中的部署位置</a></li><li><a href=#主流限流库组件一览>主流限流库/组件一览</a></li><li><a href=#几个普适原则>几个普适原则</a></li><li><a href=#阈值怎么定实践经验>阈值怎么定：实践经验</a></li></ul></li><li><a href=#参考资料>参考资料</a></li></ul></nav></div></div></dialog><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single tw:print:w-full! tw:print:max-w-none! tw:print:m-0! tw:print:p-0!"><h1 class=single-title data-pagefind-meta=date:2026-06-30 data-pagefind-body>限流简介</h1><div class=post-meta><div class=post-meta-line><span class=post-author><span class=author><span class=screen-reader-text></span><a href=http://www.victorchu.info/authors/victorchutian/>victorchutian</a></span>
+</span>&nbsp;<span class=post-category>收录于 </span>&nbsp;<span class=post-category>类别 <a href=/categories/microservice/><svg class="icon" viewBox="0 0 512 512"><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49.0 112v288c0 26.51 21.49 48 48 48h416c26.51.0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>MicroService</a></span></div><div class=post-meta-line><svg class="icon" viewBox="0 0 448 512"><path d="M148 288h-40c-6.6.0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6.0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6.0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6.0 12 5.4 12 12v52h48c26.5.0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3.0 6-2.7 6-6z"/></svg>&nbsp;<time datetime=2026-06-30>2026-06-30</time>&nbsp;<svg class="icon" viewBox="0 0 576 512"><path d="M402.3 344.9l32-32c5-5 13.7-1.5 13.7 5.7V464c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h273.5c7.1.0 10.7 8.6 5.7 13.7l-32 32c-1.5 1.5-3.5 2.3-5.7 2.3H48v352h352V350.5c0-2.1.8-4.1 2.3-5.6zm156.6-201.8L296.3 405.7l-90.4 10c-26.2 2.9-48.5-19.2-45.6-45.6l10-90.4L432.9 17.1c22.9-22.9 59.9-22.9 82.7.0l43.2 43.2c22.9 22.9 22.9 60 .1 82.8zM460.1 174 402 115.9 216.2 301.8l-7.3 65.3 65.3-7.3L460.1 174zm64.8-79.7-43.2-43.2c-4.1-4.1-10.8-4.1-14.8.0L436 82l58.1 58.1 30.9-30.9c4-4.2 4-10.8-.1-14.9z"/></svg>&nbsp;<time datetime=2026-06-30>2026-06-30</time>&nbsp;<svg class="icon" viewBox="0 0 512 512"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3.0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9.0l60.1 60.1c18.8 18.7 18.8 49.1.0 67.9zM284.2 99.8 21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3.0-17l-111-111c-4.8-4.7-12.4-4.7-17.1.0zM124.1 339.9c-5.5-5.5-5.5-14.3.0-19.8l154-154c5.5-5.5 14.3-5.5 19.8.0s5.5 14.3.0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8.0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&nbsp;约 12216 字&nbsp;
+<svg class="icon" viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5.0-2e2-89.5-2e2-2e2S145.5 56 256 56s2e2 89.5 2e2 2e2-89.5 2e2-2e2 2e2zm61.8-104.4-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6.0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"/></svg>&nbsp;预计阅读 54 分钟&nbsp;</div></div><div class=featured-image><img loading=eager src=/feature-images/distribute.webp height=400 width=554></div><div class="details toc tw:print:block!" id=toc-static data-kept><div class="details-summary toc-title"><span>目录</span>
+<span class=details-icon><svg class="icon" viewBox="0 0 256 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9.0l-22.6-22.6c-9.4-9.4-9.4-24.6.0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6.0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9.0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#什么是限流>什么是限流？</a></li><li><a href=#算法地图>算法地图</a></li><li><a href=#固定窗口>固定窗口</a><ul><li><a href=#redis-实现固定窗口>Redis 实现：固定窗口</a></li></ul></li><li><a href=#滑动窗口>滑动窗口</a><ul><li><a href=#redis-实现滑动窗口精确版>Redis 实现：滑动窗口（精确版）</a></li><li><a href=#zset-vs-list两种实现路径的权衡>ZSET vs List：两种实现路径的权衡</a></li><li><a href=#redis-实现近似滑动窗口格子法>Redis 实现：近似滑动窗口（格子法）</a></li></ul></li><li><a href=#漏桶算法>漏桶算法</a><ul><li><a href=#redis-实现漏桶>Redis 实现：漏桶</a></li></ul></li><li><a href=#令牌桶算法>令牌桶算法</a><ul><li><a href=#redis-实现令牌桶>Redis 实现：令牌桶</a></li></ul></li><li><a href=#gcra通用信元速率算法>GCRA：通用信元速率算法</a><ul><li><a href=#手工-lua-实现-gcra>手工 Lua 实现 GCRA</a></li><li><a href=#漏桶与令牌桶的统一视角>漏桶与令牌桶的统一视角</a></li><li><a href=#批量支持>批量支持</a></li></ul></li><li><a href=#redisson-ratelimiter>Redisson RateLimiter</a><ul><li><a href=#核心数据结构>核心数据结构</a></li><li><a href=#工作流程>工作流程</a><ul><li><a href=#1-过期许可回收>1. 过期许可回收</a></li><li><a href=#2-判断是否放行>2. 判断是否放行</a></li><li><a href=#3-首次初始化>3. 首次初始化</a></li><li><a href=#4-key-过期管理>4. Key 过期管理</a></li></ul></li><li><a href=#设计总结>设计总结</a></li></ul></li><li><a href=#分布式限流的三个关键问题>分布式限流的三个关键问题</a><ul><li><a href=#时钟不同步你的一秒不是我的一秒>时钟不同步：你的"一秒"不是我的"一秒"</a></li><li><a href=#热点-key90-的流量都打在一个-redis-节点上>热点 Key：90% 的流量都打在一个 Redis 节点上</a></li><li><a href=#性能抖动限流不该比业务还慢>性能抖动：限流不该比业务还慢</a></li></ul></li><li><a href=#算法选型指南>算法选型指南</a><ul><li><a href=#微服务中的部署位置>微服务中的部署位置</a></li><li><a href=#主流限流库组件一览>主流限流库/组件一览</a></li><li><a href=#几个普适原则>几个普适原则</a></li><li><a href=#阈值怎么定实践经验>阈值怎么定：实践经验</a></li></ul></li><li><a href=#参考资料>参考资料</a></li></ul></nav></div></div><div class=content id=content data-pagefind-body><p>限流是高并发系统里最朴素的自我保护手段：当流量超过系统承载上限时，主动拒绝或排队部分请求，换取整体稳定。</p><p>这篇文章从固定窗口、滑动窗口、漏桶、令牌桶、GCRA 五类经典算法讲起，用 Redis Lua 脚本还原实现细节，再分析 Redisson RateLimiter 的设计本质，最后落到分布式限流的三大关键问题与生产选型建议。如果你正在设计或优化一套限流方案，这篇文章会是一张清晰的路线图。</p><h2 id=什么是限流 class=headerLink><a href=#%e4%bb%80%e4%b9%88%e6%98%af%e9%99%90%e6%b5%81 class=header-mark></a>什么是限流？</h2><p><strong>限流，就是给并发请求设置一个明确的"上限"。</strong> 当单位时间内的请求量超过这个阈值时，多余的请求会被拒绝、排队或降级处理，而不是任由它们涌入系统深处。</p><p>你可以把它想象成景区限流：故宫每天限流 8 万人，限制的并不是容量，而是参观体验与文物安全的临界点。超过上限，后到的游客只能改天再来——软件系统中的限流，逻辑与此完全一致。</p><p>服务器的 CPU、内存、数据库连接池、线程池都是有限资源。当瞬时流量远超处理能力时，系统就像超负荷运转的餐厅后厨：订单越积越多，每道菜的出锅时间都被拉长，最终谁也吃不上饭——表现在系统上，就是请求大面积超时、服务响应变慢，直至整体崩溃。</p><p><strong>限流的本质，是一种"有损服务"下的自我保护机制。</strong> 它承认系统无法处理所有请求，于是主动放弃一部分请求，换取其余请求能被快速、正确地处理，保证核心功能不至于瘫痪。听起来有些无奈，但在高并发场景下，这恰恰是最理性的选择：死扛的结果往往是全盘崩溃，而适度的"拒绝"，反而能让系统在能力范围内持续稳定地提供服务。</p><p>理解了这一点，就能跳出"限流就是少接点客"的浅层认知。本质上，限流是一套围绕**&ldquo;什么时候限、限多少、怎么限、限谁&rdquo;** 的工程策略。下文会从固定窗口、滑动窗口、漏桶、令牌桶这些经典算法讲起，再聊到 GCRA 与生产环境的实战细节。</p><h2 id=算法地图 class=headerLink><a href=#%e7%ae%97%e6%b3%95%e5%9c%b0%e5%9b%be class=header-mark></a>算法地图</h2><p>在深入细节之前，先把常见的限流算法摆在一张图上，建立全局认知：</p><div class=table-wrapper><table><thead><tr><th>算法</th><th>核心思路</th><th>是否允许突发</th><th>单次判定成本</th><th>内存占用</th><th>典型应用场景</th></tr></thead><tbody><tr><td>固定窗口</td><td>单位时间内计数器 +1</td><td>是（边界可翻倍）</td><td>O(1)</td><td>极小（1 个计数器）</td><td>简单 QPS 限制</td></tr><tr><td>滑动窗口</td><td>维护最近 N 毫秒的请求集合</td><td>近似平滑</td><td>O(1)</td><td>大（每个请求 1 条记录）</td><td>API 配额、用户操作频率</td></tr><tr><td>漏桶</td><td>桶匀速漏水，请求匀速流出</td><td>否（强制平滑）</td><td>O(1)</td><td>极小（2 个数值）</td><td>保护下游数据库、第三方 API</td></tr><tr><td>令牌桶</td><td>桶匀速产令牌，请求取令牌</td><td>是（桶可囤积）</td><td>O(1)</td><td>极小（2 个数值）</td><td>通用 HTTP 接口限流</td></tr><tr><td>GCRA</td><td>仅维护"理论到达时间" TAT</td><td>是（等价令牌桶）</td><td>O(1)</td><td>极小（1 个数值）</td><td>高性能网关、嵌入式限流</td></tr></tbody></table></div><p>下文按"由简到繁、由计数型到令牌型"的顺序逐一展开。</p><h2 id=固定窗口 class=headerLink><a href=#%e5%9b%ba%e5%ae%9a%e7%aa%97%e5%8f%a3 class=header-mark></a>固定窗口</h2><p><strong>固定窗口（Fixed Window）</strong> 是最直观、最容易理解的限流算法，几乎所有随手写出来的限流逻辑，本质上都是它。</p><p>原理一句话讲清楚：把时间切成等长的片段（例如每 1 秒一个窗口），每个窗口内维护一个计数器。请求到来时，计数器加 1；超过阈值则拒绝；窗口结束时，计数器清零，进入下一个窗口。</p><div class="code-block highlight is-open show-line-numbers tw:group tw:my-2"><div class="tw:flex
+tw:flex-row
+tw:flex-1
+tw:justify-between
+tw:w-full tw:bg-bgColor-secondary"><button class="code-block-button
+tw:mx-2
+tw:flex
+tw:flex-row
+tw:flex-1" aria-hidden=true>
+<span class="tw:group-[.is-open]:rotate-90 tw:transition-[transform] tw:duration-500 tw:ease-in-out tw:print:hidden! tw:w-min tw:h-min tw:my-1 tw:mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></span>
+<span class="tw:select-none tw:my-1! tw:block">text</span></button><div class=tw:flex><button class="line-number-button
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.show-line-numbers]:text-fgColor-link
+tw:print:hidden!" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.is-wrap]:text-fgColor-link
+tw:print:hidden!" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:hover:text-fgColor-link
+tw:print:hidden!" title="Copy code">
+<span class="copy-icon tw:block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw:hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw:select-none
+tw:mx-2
+tw:block
+tw:group-[.is-open]:hidden
+tw:print:hidden!" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw:block tw:m-0 tw:p-0"><code id=codeblock-id-1 class="chroma
+tw:block!
+tw:p-0
+tw:m-0
+tw:transition-[max-height]
+tw:duration-500
+tw:ease-in-out
+tw:group-[.is-closed]:max-h-0!
+tw:group-[.is-wrap]:text-wrap
+tw:overflow-y-hidden
+tw:overflow-x-auto
+tw:scrollbar-thin"><span class=line><span class=cl>窗口阈值 = 3
+</span></span><span class=line><span class=cl>时间轴 →
+</span></span><span class=line><span class=cl>窗口1 (0~1s)        窗口2 (1~2s)        窗口3 (2~3s)
+</span></span><span class=line><span class=cl>|----+----+----|----+----+----|----+----+----|
+</span></span><span class=line><span class=cl>  ✓    ✓    ✓     ✓   ✓✓   ✗    ✓    ✓    ✓
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>✓ 请求通过  ✗ 请求拒绝</span></span></code></pre></div><p>上图中，三个 1 秒窗口的阈值都设为 3。窗口 1 的 3 个请求全部通过；窗口 2 内的第 4 个请求触发拒绝；窗口 3 只来了 2 个请求，未触发限制。</p><h3 id=redis-实现固定窗口 class=headerLink><a href=#redis-%e5%ae%9e%e7%8e%b0%e5%9b%ba%e5%ae%9a%e7%aa%97%e5%8f%a3 class=header-mark></a>Redis 实现：固定窗口</h3><p>基于 Redis 只需一个 key 加一个过期时间即可：</p><div class="code-block highlight is-closed show-line-numbers tw:group tw:my-2"><div class="tw:flex
+tw:flex-row
+tw:flex-1
+tw:justify-between
+tw:w-full tw:bg-bgColor-secondary"><button class="code-block-button
+tw:mx-2
+tw:flex
+tw:flex-row
+tw:flex-1" aria-hidden=true>
+<span class="tw:group-[.is-open]:rotate-90 tw:transition-[transform] tw:duration-500 tw:ease-in-out tw:print:hidden! tw:w-min tw:h-min tw:my-1 tw:mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></span>
+<span class="tw:select-none tw:my-1! tw:block">lua</span></button><div class=tw:flex><button class="line-number-button
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.show-line-numbers]:text-fgColor-link
+tw:print:hidden!" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.is-wrap]:text-fgColor-link
+tw:print:hidden!" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:hover:text-fgColor-link
+tw:print:hidden!" title="Copy code">
+<span class="copy-icon tw:block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw:hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw:select-none
+tw:mx-2
+tw:block
+tw:group-[.is-open]:hidden
+tw:print:hidden!" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw:block tw:m-0 tw:p-0"><code id=codeblock-id-2 class="chroma
+tw:block!
+tw:p-0
+tw:m-0
+tw:transition-[max-height]
+tw:duration-500
+tw:ease-in-out
+tw:group-[.is-closed]:max-h-0!
+tw:group-[.is-wrap]:text-wrap
+tw:overflow-y-hidden
+tw:overflow-x-auto
+tw:scrollbar-thin"><span class=line><span class=cl><span class=c1>-- fixed_window.lua</span>
+</span></span><span class=line><span class=cl><span class=c1>-- KEYS[1] : 限流的 key，例如 &#34;rate_limit:user123:login&#34;</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[1] : 窗口阈值，最大允许请求数</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[2] : 窗口时长，单位秒</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>key</span>    <span class=o>=</span> <span class=n>KEYS</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>limit</span>  <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>window</span> <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>2</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 获取当前计数</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>current</span> <span class=o>=</span> <span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;GET&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>if</span> <span class=n>current</span> <span class=o>==</span> <span class=kc>false</span> <span class=kr>then</span>
+</span></span><span class=line><span class=cl>    <span class=c1>-- 首个请求：初始化为 1，过期时间略大于窗口（避免边界时钟偏差）</span>
+</span></span><span class=line><span class=cl>    <span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;SET&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=s1>&#39;EX&#39;</span><span class=p>,</span> <span class=n>window</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=kr>return</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=kr>else</span>
+</span></span><span class=line><span class=cl>    <span class=n>current</span> <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>current</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=kr>if</span> <span class=n>current</span> <span class=o>&lt;</span> <span class=n>limit</span> <span class=kr>then</span>
+</span></span><span class=line><span class=cl>        <span class=c1>-- 未达上限：累加计数</span>
+</span></span><span class=line><span class=cl>        <span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;INCR&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=kr>return</span> <span class=n>current</span> <span class=o>+</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=kr>else</span>
+</span></span><span class=line><span class=cl>        <span class=c1>-- 达到上限：拒绝请求</span>
+</span></span><span class=line><span class=cl>        <span class=kr>return</span> <span class=o>-</span><span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=kr>end</span>
+</span></span><span class=line><span class=cl><span class=kr>end</span></span></span></code></pre></div><p><strong>优点：</strong> 实现简单、内存占用极小——每个窗口仅需一个计数器。</p><p><strong>致命缺陷：边界翻倍问题。</strong> 当流量恰好集中在窗口 1 的末尾与窗口 2 的开头时，跨窗口的 1 秒内实际通过的请求数可能达到阈值的 2 倍。固定窗口只关心自己窗口内的计数，对跨窗口的流量尖峰毫无感知，限流不平滑。</p><h2 id=滑动窗口 class=headerLink><a href=#%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3 class=header-mark></a>滑动窗口</h2><p>固定窗口的根源问题在于：窗口一旦切换，计数就清零，前一秒与后一秒的流量被完全割裂。</p><p><strong>滑动窗口</strong> 的解法是：把窗口视为一个持续向前滑动的时间区间，只统计"距离当前时刻最近的一个窗口时长内"的请求数。</p><p>具体来说：若窗口大小为 1 秒，每次请求到来时，系统都检查"最近 1 秒内"已处理多少请求。达到上限则拒绝，否则放行，并把这次请求的时间戳记录下来，作为后续判断的依据。</p><div class="code-block highlight is-open show-line-numbers tw:group tw:my-2"><div class="tw:flex
+tw:flex-row
+tw:flex-1
+tw:justify-between
+tw:w-full tw:bg-bgColor-secondary"><button class="code-block-button
+tw:mx-2
+tw:flex
+tw:flex-row
+tw:flex-1" aria-hidden=true>
+<span class="tw:group-[.is-open]:rotate-90 tw:transition-[transform] tw:duration-500 tw:ease-in-out tw:print:hidden! tw:w-min tw:h-min tw:my-1 tw:mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></span>
+<span class="tw:select-none tw:my-1! tw:block">text</span></button><div class=tw:flex><button class="line-number-button
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.show-line-numbers]:text-fgColor-link
+tw:print:hidden!" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.is-wrap]:text-fgColor-link
+tw:print:hidden!" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:hover:text-fgColor-link
+tw:print:hidden!" title="Copy code">
+<span class="copy-icon tw:block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw:hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw:select-none
+tw:mx-2
+tw:block
+tw:group-[.is-open]:hidden
+tw:print:hidden!" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw:block tw:m-0 tw:p-0"><code id=codeblock-id-3 class="chroma
+tw:block!
+tw:p-0
+tw:m-0
+tw:transition-[max-height]
+tw:duration-500
+tw:ease-in-out
+tw:group-[.is-closed]:max-h-0!
+tw:group-[.is-wrap]:text-wrap
+tw:overflow-y-hidden
+tw:overflow-x-auto
+tw:scrollbar-thin"><span class=line><span class=cl>时间轴 →  (窗口向前滑动)
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        [  滑动窗口 = 最近1秒  ]
+</span></span><span class=line><span class=cl>|----+----+----+----+----+----|
+</span></span><span class=line><span class=cl>0.0  0.2  0.4  0.6  0.8  1.0  1.2 ...
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>时刻 0.0s: 请求1进来  窗口内[1]            &lt;3 通过
+</span></span><span class=line><span class=cl>时刻 0.3s: 请求2进来  窗口内[1,2]          &lt;3 通过
+</span></span><span class=line><span class=cl>时刻 0.5s: 请求3进来  窗口内[1,2,3]        =3 通过
+</span></span><span class=line><span class=cl>时刻 0.7s: 请求4进来  窗口内[1,2,3]        =3 拒绝 (最近1秒内已有3次)
+</span></span><span class=line><span class=cl>时刻 1.1s: 请求5进来  窗口内[2,3] (0.3~1.1)=2 通过 (请求1已滑出窗口)</span></span></code></pre></div><p>关键观察：当时间走到 1.1 秒时，0.0 秒的请求 1 已超出"最近 1 秒"的范围，不再计入。此时计数为 2，请求 5 顺利通过。这正是滑动窗口的精妙之处：<strong>流量控制连续平滑，没有硬边界带来的突刺。</strong></p><h3 id=redis-实现滑动窗口精确版 class=headerLink><a href=#redis-%e5%ae%9e%e7%8e%b0%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3%e7%b2%be%e7%a1%ae%e7%89%88 class=header-mark></a>Redis 实现：滑动窗口（精确版）</h3><p>滑动窗口的核心需求是：<strong>按时间戳存储每次请求，并能高效地进行范围统计与清理。</strong> Redis 的有序集合（Sorted Set, ZSET）天然契合这一需求：</p><ul><li><strong>member</strong>：请求的唯一标识（例如 UUID 或请求流水号），避免重复计数。</li><li><strong>score</strong>：请求到达的时间戳（毫秒精度）。</li></ul><p>每次请求时，先用 <code>ZREMRANGEBYSCORE</code> 移除窗口外的旧记录，再用 <code>ZCARD</code> 统计当前窗口内的成员数。若未达阈值，把当前请求加入 ZSET 并放行；否则拒绝。</p><div class="code-block highlight is-closed show-line-numbers tw:group tw:my-2"><div class="tw:flex
+tw:flex-row
+tw:flex-1
+tw:justify-between
+tw:w-full tw:bg-bgColor-secondary"><button class="code-block-button
+tw:mx-2
+tw:flex
+tw:flex-row
+tw:flex-1" aria-hidden=true>
+<span class="tw:group-[.is-open]:rotate-90 tw:transition-[transform] tw:duration-500 tw:ease-in-out tw:print:hidden! tw:w-min tw:h-min tw:my-1 tw:mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></span>
+<span class="tw:select-none tw:my-1! tw:block">lua</span></button><div class=tw:flex><button class="line-number-button
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.show-line-numbers]:text-fgColor-link
+tw:print:hidden!" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.is-wrap]:text-fgColor-link
+tw:print:hidden!" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:hover:text-fgColor-link
+tw:print:hidden!" title="Copy code">
+<span class="copy-icon tw:block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw:hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw:select-none
+tw:mx-2
+tw:block
+tw:group-[.is-open]:hidden
+tw:print:hidden!" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw:block tw:m-0 tw:p-0"><code id=codeblock-id-4 class="chroma
+tw:block!
+tw:p-0
+tw:m-0
+tw:transition-[max-height]
+tw:duration-500
+tw:ease-in-out
+tw:group-[.is-closed]:max-h-0!
+tw:group-[.is-wrap]:text-wrap
+tw:overflow-y-hidden
+tw:overflow-x-auto
+tw:scrollbar-thin"><span class=line><span class=cl><span class=c1>-- sliding_window.lua</span>
+</span></span><span class=line><span class=cl><span class=c1>-- KEYS[1] : 限流 ZSET 的 key</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[1] : 窗口大小，单位秒</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[2] : 窗口阈值，最大允许请求数</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[3] : 当前请求的唯一标识（UUID/随机串）</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[4] : 当前时间戳，毫秒（由客户端传入，保证分布式下的一致性）</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>key</span>       <span class=o>=</span> <span class=n>KEYS</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>window</span>    <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span> <span class=o>*</span> <span class=mi>1000</span>  <span class=c1>-- 转为毫秒</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>limit</span>     <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>2</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>member</span>    <span class=o>=</span> <span class=n>ARGV</span><span class=p>[</span><span class=mi>3</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>now</span>       <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>4</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 计算窗口左边界</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>windowStart</span> <span class=o>=</span> <span class=n>now</span> <span class=o>-</span> <span class=n>window</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 移除窗口外的旧数据</span>
+</span></span><span class=line><span class=cl><span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;ZREMRANGEBYSCORE&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>windowStart</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 获取当前窗口内的请求数</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>current</span> <span class=o>=</span> <span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;ZCARD&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>if</span> <span class=n>current</span> <span class=o>&lt;</span> <span class=n>limit</span> <span class=kr>then</span>
+</span></span><span class=line><span class=cl>    <span class=c1>-- 未达上限：记录本次请求，并设置 key 过期（窗口长度 + 1秒冗余）</span>
+</span></span><span class=line><span class=cl>    <span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;ZADD&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>,</span> <span class=n>now</span><span class=p>,</span> <span class=n>member</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;PEXPIRE&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>,</span> <span class=n>window</span> <span class=o>+</span> <span class=mi>1000</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=kr>return</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=kr>else</span>
+</span></span><span class=line><span class=cl>    <span class=kr>return</span> <span class=o>-</span><span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=kr>end</span></span></span></code></pre></div><blockquote><p>ZSET 中的 member 必须唯一，生产环境建议使用 UUID 或雪花算法生成的 ID。</p></blockquote><h3 id=zset-vs-list两种实现路径的权衡 class=headerLink><a href=#zset-vs-list%e4%b8%a4%e7%a7%8d%e5%ae%9e%e7%8e%b0%e8%b7%af%e5%be%84%e7%9a%84%e6%9d%83%e8%a1%a1 class=header-mark></a>ZSET vs List：两种实现路径的权衡</h3><p>在极高并发下，ZSET 内存开销较大（每个 member 还要存 score 和 UUID），也可以用 List 实现：</p><div class="code-block highlight is-closed show-line-numbers tw:group tw:my-2"><div class="tw:flex
+tw:flex-row
+tw:flex-1
+tw:justify-between
+tw:w-full tw:bg-bgColor-secondary"><button class="code-block-button
+tw:mx-2
+tw:flex
+tw:flex-row
+tw:flex-1" aria-hidden=true>
+<span class="tw:group-[.is-open]:rotate-90 tw:transition-[transform] tw:duration-500 tw:ease-in-out tw:print:hidden! tw:w-min tw:h-min tw:my-1 tw:mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></span>
+<span class="tw:select-none tw:my-1! tw:block">lua</span></button><div class=tw:flex><button class="line-number-button
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.show-line-numbers]:text-fgColor-link
+tw:print:hidden!" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.is-wrap]:text-fgColor-link
+tw:print:hidden!" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:hover:text-fgColor-link
+tw:print:hidden!" title="Copy code">
+<span class="copy-icon tw:block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw:hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw:select-none
+tw:mx-2
+tw:block
+tw:group-[.is-open]:hidden
+tw:print:hidden!" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw:block tw:m-0 tw:p-0"><code id=codeblock-id-5 class="chroma
+tw:block!
+tw:p-0
+tw:m-0
+tw:transition-[max-height]
+tw:duration-500
+tw:ease-in-out
+tw:group-[.is-closed]:max-h-0!
+tw:group-[.is-wrap]:text-wrap
+tw:overflow-y-hidden
+tw:overflow-x-auto
+tw:scrollbar-thin"><span class=line><span class=cl><span class=c1>-- sliding_window_list.lua</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>key</span>        <span class=o>=</span> <span class=n>KEYS</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>window_ms</span>  <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span> <span class=o>*</span> <span class=mi>1000</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>limit</span>      <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>2</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>now</span>        <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>3</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>window_start</span> <span class=o>=</span> <span class=n>now</span> <span class=o>-</span> <span class=n>window_ms</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 移除过期元素</span>
+</span></span><span class=line><span class=cl><span class=kr>while</span> <span class=kc>true</span> <span class=kr>do</span>
+</span></span><span class=line><span class=cl>    <span class=kd>local</span> <span class=n>oldest</span> <span class=o>=</span> <span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;LINDEX&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=kr>if</span> <span class=ow>not</span> <span class=n>oldest</span> <span class=kr>then</span> <span class=kr>break</span> <span class=kr>end</span>
+</span></span><span class=line><span class=cl>    <span class=kr>if</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>oldest</span><span class=p>)</span> <span class=o>&lt;</span> <span class=n>window_start</span> <span class=kr>then</span>
+</span></span><span class=line><span class=cl>        <span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;LPOP&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=kr>else</span>
+</span></span><span class=line><span class=cl>        <span class=kr>break</span>
+</span></span><span class=line><span class=cl>    <span class=kr>end</span>
+</span></span><span class=line><span class=cl><span class=kr>end</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 检查当前长度</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>count</span> <span class=o>=</span> <span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;LLEN&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kr>if</span> <span class=n>count</span> <span class=o>&gt;=</span> <span class=n>limit</span> <span class=kr>then</span>
+</span></span><span class=line><span class=cl>    <span class=kr>return</span> <span class=o>-</span><span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=kr>end</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;RPUSH&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>,</span> <span class=n>now</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;PEXPIRE&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>,</span> <span class=n>window_ms</span> <span class=o>+</span> <span class=mi>1000</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kr>return</span> <span class=n>count</span> <span class=o>+</span> <span class=mi>1</span></span></span></code></pre></div><p>两种数据结构的对比如下：</p><div class=table-wrapper><table><thead><tr><th>维度</th><th>ZSET</th><th>List</th></tr></thead><tbody><tr><td><strong>内存占用</strong></td><td>较高：每个 member 含 score（double）+ 唯一标识（通常为 UUID）</td><td>较低：仅存时间戳数字</td></tr><tr><td><strong>清理效率</strong></td><td><code>ZREMRANGEBYSCORE</code> 批量删除，时间复杂度 O(log N + M)</td><td>需逐个 <code>LPOP</code>，Lua 内循环次数多，最坏情况阻塞 Redis</td></tr><tr><td><strong>计数精度</strong></td><td>member 天然去重，重试不会重复计数</td><td><strong>无唯一性约束</strong>，重复推送会被多算，限流偏紧</td></tr><tr><td><strong>复杂度</strong></td><td>API 清晰，处理范围干净</td><td>依赖 List 头尾操作，分布式下时间漂移可能乱序</td></tr><tr><td><strong>适用场景</strong></td><td>中等 QPS（万级以下）、要求精确去重的业务限流</td><td>百万 QPS 以上的网关层、内存极度敏感、可保证请求无重复</td></tr></tbody></table></div><h3 id=redis-实现近似滑动窗口格子法 class=headerLink><a href=#redis-%e5%ae%9e%e7%8e%b0%e8%bf%91%e4%bc%bc%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3%e6%a0%bc%e5%ad%90%e6%b3%95 class=header-mark></a>Redis 实现：近似滑动窗口（格子法）</h3><p>精确滑动窗口要存储每个请求的时间戳，在高并发下成本可观。<strong>当流量极高时，可以用"格子法"牺牲微小精度，换取性能与内存的大幅改善。</strong></p><p>以 1 秒窗口、阈值 100 为例，思路是：</p><ul><li>将 1 秒切成 10 个格子，每个格子 100 毫秒。</li><li>每个格子对应一个 Redis key（如 <code>rate:user:action:格子索引</code>），存该格子内的请求计数，过期时间为 1 秒 + 缓冲。</li><li>每次请求：定位当前格子（<code>bucket_index = now_ms // 100</code>），累加该格子计数，并求和最近 10 个格子的总数。超过阈值则拒绝。</li><li>这样只需要维护 10 个计数器，<strong>内存与固定窗口相当</strong>，但精度与滑动窗口接近。</li></ul><div class="code-block highlight is-closed show-line-numbers tw:group tw:my-2"><div class="tw:flex
+tw:flex-row
+tw:flex-1
+tw:justify-between
+tw:w-full tw:bg-bgColor-secondary"><button class="code-block-button
+tw:mx-2
+tw:flex
+tw:flex-row
+tw:flex-1" aria-hidden=true>
+<span class="tw:group-[.is-open]:rotate-90 tw:transition-[transform] tw:duration-500 tw:ease-in-out tw:print:hidden! tw:w-min tw:h-min tw:my-1 tw:mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></span>
+<span class="tw:select-none tw:my-1! tw:block">lua</span></button><div class=tw:flex><button class="line-number-button
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.show-line-numbers]:text-fgColor-link
+tw:print:hidden!" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.is-wrap]:text-fgColor-link
+tw:print:hidden!" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:hover:text-fgColor-link
+tw:print:hidden!" title="Copy code">
+<span class="copy-icon tw:block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw:hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw:select-none
+tw:mx-2
+tw:block
+tw:group-[.is-open]:hidden
+tw:print:hidden!" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw:block tw:m-0 tw:p-0"><code id=codeblock-id-6 class="chroma
+tw:block!
+tw:p-0
+tw:m-0
+tw:transition-[max-height]
+tw:duration-500
+tw:ease-in-out
+tw:group-[.is-closed]:max-h-0!
+tw:group-[.is-wrap]:text-wrap
+tw:overflow-y-hidden
+tw:overflow-x-auto
+tw:scrollbar-thin"><span class=line><span class=cl><span class=c1>-- approx_sliding_window.lua</span>
+</span></span><span class=line><span class=cl><span class=c1>-- KEYS[1] : 限流 key 前缀（如 &#34;rate_limit:user123:login&#34;）</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[1] : 窗口大小（秒）</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[2] : 阈值</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[3] : 格子数量 N（如 10）</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[4] : 当前毫秒时间戳</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>key_prefix</span> <span class=o>=</span> <span class=n>KEYS</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>window_sec</span> <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>limit</span>      <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>2</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>bucket_num</span> <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>3</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>now_ms</span>     <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>4</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>bucket_span</span>    <span class=o>=</span> <span class=n>math.ceil</span><span class=p>(</span><span class=n>window_sec</span> <span class=o>*</span> <span class=mi>1000</span> <span class=o>/</span> <span class=n>bucket_num</span><span class=p>)</span> <span class=c1>-- 每个格子的毫秒长度</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>current_bucket</span> <span class=o>=</span> <span class=n>math.floor</span><span class=p>(</span><span class=n>now_ms</span> <span class=o>/</span> <span class=n>bucket_span</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 计算需要检查的格子区间</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>start_bucket</span> <span class=o>=</span> <span class=n>current_bucket</span> <span class=o>-</span> <span class=n>bucket_num</span> <span class=o>+</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>end_bucket</span>   <span class=o>=</span> <span class=n>current_bucket</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 统计总计数</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>total</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=kr>for</span> <span class=n>i</span> <span class=o>=</span> <span class=n>start_bucket</span><span class=p>,</span> <span class=n>end_bucket</span> <span class=kr>do</span>
+</span></span><span class=line><span class=cl>    <span class=kd>local</span> <span class=n>key</span> <span class=o>=</span> <span class=n>key_prefix</span> <span class=o>..</span> <span class=s2>&#34;:&#34;</span> <span class=o>..</span> <span class=n>i</span>
+</span></span><span class=line><span class=cl>    <span class=kd>local</span> <span class=n>cnt</span> <span class=o>=</span> <span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;GET&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=kr>if</span> <span class=n>cnt</span> <span class=kr>then</span>
+</span></span><span class=line><span class=cl>        <span class=n>total</span> <span class=o>=</span> <span class=n>total</span> <span class=o>+</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>cnt</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=kr>end</span>
+</span></span><span class=line><span class=cl><span class=kr>end</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 总和已达阈值则拒绝</span>
+</span></span><span class=line><span class=cl><span class=kr>if</span> <span class=n>total</span> <span class=o>&gt;=</span> <span class=n>limit</span> <span class=kr>then</span>
+</span></span><span class=line><span class=cl>    <span class=kr>return</span> <span class=o>-</span><span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=kr>end</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 递增当前格子并设置过期</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>current_key</span> <span class=o>=</span> <span class=n>key_prefix</span> <span class=o>..</span> <span class=s2>&#34;:&#34;</span> <span class=o>..</span> <span class=n>current_bucket</span>
+</span></span><span class=line><span class=cl><span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;INCR&#39;</span><span class=p>,</span> <span class=n>current_key</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;PEXPIRE&#39;</span><span class=p>,</span> <span class=n>current_key</span><span class=p>,</span> <span class=n>window_sec</span> <span class=o>*</span> <span class=mi>1000</span> <span class=o>+</span> <span class=n>bucket_span</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>return</span> <span class=n>total</span> <span class=o>+</span> <span class=mi>1</span></span></span></code></pre></div><p><strong>格子数的取舍：</strong></p><div class=table-wrapper><table><thead><tr><th>格子数 N</th><th>单次 Redis 操作</th><th>理论最大突发</th><th>适用场景</th></tr></thead><tbody><tr><td>5~10</td><td>5~10 次 GET</td><td>阈值的 <code>1.1~1.2</code> 倍</td><td>极高 QPS 网关层，内存极度敏感</td></tr><tr><td>10~20</td><td>10~20 次 GET</td><td>阈值的 <code>1.05~1.1</code> 倍</td><td>通用推荐，绝大多数业务场景</td></tr><tr><td>30~60</td><td>30~60 次 GET</td><td>阈值的 <code>1.02~1.03</code> 倍</td><td>准精确限流，可接受更高开销</td></tr></tbody></table></div><p>通常 10~20 个格子就能在绝大多数场景取得不错的平衡：例如 1 秒窗口 10 个格子，理论最大突发约为阈值的 <code>1 + 1/N</code>，仅比精确滑动窗口多放约 10%。若窗口放大到 1 分钟，仍可使用 10 个格子，每个 6 秒，精度略降但远好于固定窗口。</p><p><strong>优势：</strong> 内存仅需 N 个计数器，操作简单，性能高，适合超高并发的网关层限流。
+<strong>局限：</strong> 仍是近似算法，边界处存在理论误差；对极端精确计费的场景不适用。</p><h2 id=漏桶算法 class=headerLink><a href=#%e6%bc%8f%e6%a1%b6%e7%ae%97%e6%b3%95 class=header-mark></a>漏桶算法</h2><p>固定窗口与滑动窗口本质上都在<strong>计数</strong>：统计一段时间内来了多少请求，超限则拒绝。这种模式的副作用是：只要未超阈值，请求可以一瞬间全部通过。例如阈值 100 req/s，第 1 毫秒涌入 100 个请求也会被全部放行，剩下的 999 毫秒只能干等。</p><p>但有些场景不容许这种"一拥而上"。比如保护下游数据库，我们期望请求以<strong>均匀的速度</strong>抵达，而不是一阵一阵地冲击。这时就轮到<strong>漏桶算法</strong> 登场了。</p><p>漏桶把请求想象成水流，系统里放着一只底部带小孔的桶：</p><ul><li>请求来了，先倒进桶里（入桶）。</li><li>桶底部以恒定速率向下漏水（处理请求）。</li><li>桶满了，再倒水就溢出（请求被拒绝）。</li></ul><p>请求可以任意速度到达，只要桶未满就被暂存；处理端按预设速率（如 2 req/s）从容取出。桶一满，新来的请求直接溢出被限流。</p><div class=table-wrapper><table><thead><tr><th style=text-align:left>对比点</th><th style=text-align:left>滑动窗口 / 固定窗口</th><th style=text-align:left>漏桶</th></tr></thead><tbody><tr><td style=text-align:left>核心逻辑</td><td style=text-align:left>统计过去一段时间的请求数，超了就限流</td><td style=text-align:left>控制请求离开的速度，削峰填谷</td></tr><tr><td style=text-align:left>流量整形</td><td style=text-align:left>弱——允许瞬时突发至阈值</td><td style=text-align:left>强——无论流入多猛，流出始终恒定</td></tr><tr><td style=text-align:left>应对突发</td><td style=text-align:left>接受窗口内的突发</td><td style=text-align:left>超出桶容量即丢弃</td></tr><tr><td style=text-align:left>适合场景</td><td style=text-align:left>保护整体 QPS 上限，允许弹性</td><td style=text-align:left>严格保护下游处理能力，要求恒定间隔</td></tr></tbody></table></div><p>可见，计数器型算法"管来"，漏桶算法"管走"。这决定了漏桶天然适合<strong>需要严格流控</strong> 的场景，例如调用第三方 API、对方要求 QPS 不超过 10 且两次请求间隔不能小于 100ms——漏桶就是为此量身定做。</p><h3 id=redis-实现漏桶 class=headerLink><a href=#redis-%e5%ae%9e%e7%8e%b0%e6%bc%8f%e6%a1%b6 class=header-mark></a>Redis 实现：漏桶</h3><div class="code-block highlight is-closed show-line-numbers tw:group tw:my-2"><div class="tw:flex
+tw:flex-row
+tw:flex-1
+tw:justify-between
+tw:w-full tw:bg-bgColor-secondary"><button class="code-block-button
+tw:mx-2
+tw:flex
+tw:flex-row
+tw:flex-1" aria-hidden=true>
+<span class="tw:group-[.is-open]:rotate-90 tw:transition-[transform] tw:duration-500 tw:ease-in-out tw:print:hidden! tw:w-min tw:h-min tw:my-1 tw:mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></span>
+<span class="tw:select-none tw:my-1! tw:block">lua</span></button><div class=tw:flex><button class="line-number-button
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.show-line-numbers]:text-fgColor-link
+tw:print:hidden!" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.is-wrap]:text-fgColor-link
+tw:print:hidden!" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:hover:text-fgColor-link
+tw:print:hidden!" title="Copy code">
+<span class="copy-icon tw:block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw:hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw:select-none
+tw:mx-2
+tw:block
+tw:group-[.is-open]:hidden
+tw:print:hidden!" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw:block tw:m-0 tw:p-0"><code id=codeblock-id-7 class="chroma
+tw:block!
+tw:p-0
+tw:m-0
+tw:transition-[max-height]
+tw:duration-500
+tw:ease-in-out
+tw:group-[.is-closed]:max-h-0!
+tw:group-[.is-wrap]:text-wrap
+tw:overflow-y-hidden
+tw:overflow-x-auto
+tw:scrollbar-thin"><span class=line><span class=cl><span class=c1>-- leaky_bucket.lua</span>
+</span></span><span class=line><span class=cl><span class=c1>-- KEYS[1] : 桶的 key（如 &#34;leaky_bucket:user123:api&#34;）</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[1] : 桶的容量（最大水位）</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[2] : 漏水速率，单位：个/秒</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[3] : 当前时间戳（毫秒）</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[4] : 本次请求需要增加的请求数（通常为 1）</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>key</span>        <span class=o>=</span> <span class=n>KEYS</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>capacity</span>   <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>rate</span>       <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>2</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>now</span>        <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>3</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>requested</span>  <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>4</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 读取当前水位与上次漏水时间</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>water</span>     <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;GET&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>last_time</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>if</span> <span class=n>water</span> <span class=o>==</span> <span class=kc>false</span> <span class=kr>then</span>
+</span></span><span class=line><span class=cl>    <span class=n>water</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=kr>else</span>
+</span></span><span class=line><span class=cl>    <span class=n>last_time</span> <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;GET&#39;</span><span class=p>,</span> <span class=n>key</span> <span class=o>..</span> <span class=s1>&#39;:ts&#39;</span><span class=p>))</span> <span class=ow>or</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=kr>end</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 计算自上次以来的漏水量</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>elapsed</span> <span class=o>=</span> <span class=p>(</span><span class=n>now</span> <span class=o>-</span> <span class=n>last_time</span><span class=p>)</span> <span class=o>/</span> <span class=mi>1000</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>leaked</span>  <span class=o>=</span> <span class=n>elapsed</span> <span class=o>*</span> <span class=n>rate</span>
+</span></span><span class=line><span class=cl><span class=n>water</span> <span class=o>=</span> <span class=n>math.max</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>water</span> <span class=o>-</span> <span class=n>leaked</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 判断是否溢出</span>
+</span></span><span class=line><span class=cl><span class=kr>if</span> <span class=n>water</span> <span class=o>+</span> <span class=n>requested</span> <span class=o>&gt;</span> <span class=n>capacity</span> <span class=kr>then</span>
+</span></span><span class=line><span class=cl>    <span class=kr>return</span> <span class=o>-</span><span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=kr>end</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 入桶</span>
+</span></span><span class=line><span class=cl><span class=n>water</span> <span class=o>=</span> <span class=n>water</span> <span class=o>+</span> <span class=n>requested</span>
+</span></span><span class=line><span class=cl><span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;SET&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>,</span> <span class=n>water</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;SET&#39;</span><span class=p>,</span> <span class=n>key</span> <span class=o>..</span> <span class=s1>&#39;:ts&#39;</span><span class=p>,</span> <span class=n>now</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 设置过期，防止空桶长期占用内存</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>ttl</span> <span class=o>=</span> <span class=n>math.ceil</span><span class=p>(</span><span class=n>capacity</span> <span class=o>/</span> <span class=n>rate</span><span class=p>)</span> <span class=o>+</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;EXPIRE&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>,</span> <span class=n>ttl</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;EXPIRE&#39;</span><span class=p>,</span> <span class=n>key</span> <span class=o>..</span> <span class=s1>&#39;:ts&#39;</span><span class=p>,</span> <span class=n>ttl</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>return</span> <span class=n>water</span></span></span></code></pre></div><p><strong>适用场景：</strong></p><ul><li>严格保护下游，要求平滑流量（如数据库连接池、第三方支付接口）。</li><li>需要整形的场景：即便上游有多波突发流量，下游始终收到均匀的请求序列。</li><li>配合消息队列使用，天然契合生产-消费模型。</li></ul><p><strong>局限：</strong></p><ul><li>对"合理的突发"不友好。例如系统平时能轻松处理 100 QPS，但秒杀前几秒突然涌入 200 QPS，漏桶会毫不留情地丢弃超出桶容量的部分，即使下游其实能应对短暂冲高。</li><li>参数选择依赖实际处理能力：速率设小了浪费性能，设大了起不到保护作用，需要根据压测精确调优。</li></ul><p>正是漏桶"过于死板"的这一缺点，才催生了更灵活、允许一定突发的<strong>令牌桶算法</strong>。</p><h2 id=令牌桶算法 class=headerLink><a href=#%e4%bb%a4%e7%89%8c%e6%a1%b6%e7%ae%97%e6%b3%95 class=header-mark></a>令牌桶算法</h2><p><strong>令牌桶</strong> 的思路非常巧妙：不再"倒水进桶"，而是在桶里放令牌。</p><ul><li>系统以固定速率向桶中添加令牌（如每秒产生 2 个）。</li><li>桶有自己的容量上限（如最多 10 个）。桶满后，新产生的令牌被丢弃。</li><li>每个请求到来时，必须从桶里取走一个令牌才能被处理。</li><li>桶空时，请求被限流——要么等待，要么直接拒绝。</li></ul><div class=table-wrapper><table><thead><tr><th style=text-align:left>对比</th><th style=text-align:left>漏桶</th><th style=text-align:left>令牌桶</th></tr></thead><tbody><tr><td style=text-align:left>核心对象</td><td style=text-align:left>请求（水）</td><td style=text-align:left>令牌</td></tr><tr><td style=text-align:left>整形方向</td><td style=text-align:left>控制流出速率（处理端）</td><td style=text-align:left>控制流入速率（请求端）</td></tr><tr><td style=text-align:left>突发流量</td><td style=text-align:left>不支持，超容量即丢弃</td><td style=text-align:left>支持，空闲时囤积的令牌可支撑一波突发</td></tr><tr><td style=text-align:left>适用场景</td><td style=text-align:left>严格保护下游处理节奏</td><td style=text-align:left>允许弹性突发，但限制长期平均速率</td></tr></tbody></table></div><p>漏桶在乎"下游处理能力曲线是一条直线"，令牌桶在乎"平均速率不超标，但允许瞬时冲高"。大部分实际业务限流（用户登录、发帖、抢购）并非必须恒速处理，只要保证长期上限不被冲破即可。<strong>这种情况下，令牌桶远比漏桶灵活，也因此成为公认最适合生产环境的限流算法。</strong></p><h3 id=redis-实现令牌桶 class=headerLink><a href=#redis-%e5%ae%9e%e7%8e%b0%e4%bb%a4%e7%89%8c%e6%a1%b6 class=header-mark></a>Redis 实现：令牌桶</h3><div class="code-block highlight is-closed show-line-numbers tw:group tw:my-2"><div class="tw:flex
+tw:flex-row
+tw:flex-1
+tw:justify-between
+tw:w-full tw:bg-bgColor-secondary"><button class="code-block-button
+tw:mx-2
+tw:flex
+tw:flex-row
+tw:flex-1" aria-hidden=true>
+<span class="tw:group-[.is-open]:rotate-90 tw:transition-[transform] tw:duration-500 tw:ease-in-out tw:print:hidden! tw:w-min tw:h-min tw:my-1 tw:mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></span>
+<span class="tw:select-none tw:my-1! tw:block">lua</span></button><div class=tw:flex><button class="line-number-button
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.show-line-numbers]:text-fgColor-link
+tw:print:hidden!" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.is-wrap]:text-fgColor-link
+tw:print:hidden!" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:hover:text-fgColor-link
+tw:print:hidden!" title="Copy code">
+<span class="copy-icon tw:block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw:hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw:select-none
+tw:mx-2
+tw:block
+tw:group-[.is-open]:hidden
+tw:print:hidden!" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw:block tw:m-0 tw:p-0"><code id=codeblock-id-8 class="chroma
+tw:block!
+tw:p-0
+tw:m-0
+tw:transition-[max-height]
+tw:duration-500
+tw:ease-in-out
+tw:group-[.is-closed]:max-h-0!
+tw:group-[.is-wrap]:text-wrap
+tw:overflow-y-hidden
+tw:overflow-x-auto
+tw:scrollbar-thin"><span class=line><span class=cl><span class=c1>-- token_bucket.lua</span>
+</span></span><span class=line><span class=cl><span class=c1>-- KEYS[1] : 令牌桶的 key（如 &#34;token_bucket:user123:api&#34;）</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[1] : 令牌桶容量（最大令牌数）</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[2] : 令牌生成速率（个/秒）</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[3] : 当前时间戳（毫秒）</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[4] : 本次请求需要消耗的令牌数（通常为 1）</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>key</span>       <span class=o>=</span> <span class=n>KEYS</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>capacity</span>  <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>rate</span>      <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>2</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>now</span>       <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>3</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>requested</span> <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>4</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 读取当前令牌数与上次填充时间</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>tokens</span>    <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;GET&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>last_time</span> <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;GET&#39;</span><span class=p>,</span> <span class=n>key</span> <span class=o>..</span> <span class=s1>&#39;:ts&#39;</span><span class=p>))</span> <span class=ow>or</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>if</span> <span class=n>tokens</span> <span class=o>==</span> <span class=kc>false</span> <span class=kr>then</span>
+</span></span><span class=line><span class=cl>    <span class=n>tokens</span> <span class=o>=</span> <span class=n>capacity</span>  <span class=c1>-- 首次初始化为满桶</span>
+</span></span><span class=line><span class=cl><span class=kr>end</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 根据经过的时间补充令牌</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>elapsed</span>    <span class=o>=</span> <span class=p>(</span><span class=n>now</span> <span class=o>-</span> <span class=n>last_time</span><span class=p>)</span> <span class=o>/</span> <span class=mi>1000</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>add_tokens</span> <span class=o>=</span> <span class=n>elapsed</span> <span class=o>*</span> <span class=n>rate</span>
+</span></span><span class=line><span class=cl><span class=n>tokens</span> <span class=o>=</span> <span class=n>math.min</span><span class=p>(</span><span class=n>capacity</span><span class=p>,</span> <span class=n>tokens</span> <span class=o>+</span> <span class=n>add_tokens</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 令牌不足则拒绝</span>
+</span></span><span class=line><span class=cl><span class=kr>if</span> <span class=n>tokens</span> <span class=o>&lt;</span> <span class=n>requested</span> <span class=kr>then</span>
+</span></span><span class=line><span class=cl>    <span class=kr>return</span> <span class=o>-</span><span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=kr>end</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 消耗令牌并保存</span>
+</span></span><span class=line><span class=cl><span class=n>tokens</span> <span class=o>=</span> <span class=n>tokens</span> <span class=o>-</span> <span class=n>requested</span>
+</span></span><span class=line><span class=cl><span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;SET&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>,</span> <span class=n>tokens</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;SET&#39;</span><span class=p>,</span> <span class=n>key</span> <span class=o>..</span> <span class=s1>&#39;:ts&#39;</span><span class=p>,</span> <span class=n>now</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 设置过期时间：桶清空所需的最长时间</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>ttl</span> <span class=o>=</span> <span class=n>math.ceil</span><span class=p>(</span><span class=n>capacity</span> <span class=o>/</span> <span class=n>rate</span><span class=p>)</span> <span class=o>+</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;EXPIRE&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>,</span> <span class=n>ttl</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;EXPIRE&#39;</span><span class=p>,</span> <span class=n>key</span> <span class=o>..</span> <span class=s1>&#39;:ts&#39;</span><span class=p>,</span> <span class=n>ttl</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>return</span> <span class=n>tokens</span></span></span></code></pre></div><p>令牌桶几乎是目前 HTTP 接口限流、用户行为频率控制领域的"标配"算法，原因有三：</p><ul><li><strong>宽容：</strong> 空闲时的令牌累积允许小高峰通过，不至于对正常业务造成误伤。</li><li><strong>严格：</strong> 长期平均处理速率绝不会超过令牌生成速率，保护系统整体承载极限。</li><li><strong>直观：</strong> 容量 = 可接受的最大突发量，速率 = 长期吞吐量上限，运营容易理解。</li></ul><p>当然，令牌桶也有边界。若下游是真正的"一个请求处理一个请求，中间没有缓冲"（如老式串行打印机、对时序有严格要求的硬件设备），漏桶可能更合适。但对 99% 的互联网后端服务而言，<strong>令牌桶就是最佳实践</strong>。</p><h2 id=gcra通用信元速率算法 class=headerLink><a href=#gcra%e9%80%9a%e7%94%a8%e4%bf%a1%e5%85%83%e9%80%9f%e7%8e%87%e7%ae%97%e6%b3%95 class=header-mark></a>GCRA：通用信元速率算法</h2><p>传统令牌桶需要存储两个值：tokens 和 last_time。在分布式系统中，如果多个客户端时钟不一致，或 Redis 服务器的时钟被调整，上次填充时间的计算就会出现偏差。</p><p><strong>有没有一种方式，只用一个变量就能表达整个限流逻辑？</strong></p><p>这就是 <strong>GCRA（Generic Cell Rate Algorithm，通用信元速率算法）</strong>，起源于 ATM 网络的流量整形。</p><p><strong>核心思想：用"理论到达时间"代替"桶"。</strong> GCRA 不再关心"桶里还剩多少"，只维护一个参数——<strong>TAT（Theoretical Arrival Time，理论到达时间）</strong>。它表示<strong>上一个请求被"安排"在什么时候执行</strong>，或者说<strong>下一个请求允许到达的最早时间</strong>。</p><pre class=mermaid>flowchart TD
+    A[请求到达] --> B["获取当前时间 now"]
+    B --> C["映射令牌桶参数<br>（T = period/rate, L = burst × T）"]
+
+    C --> D["读取该 Key 的 TAT"]
+    D --> E{"TAT 是否存在？"}
+
+    E -->|不存在（首次请求）| F["初始化 TAT = now"]
+    E -->|存在| G["读取 TAT 值"]
+
+    F --> H["虚拟调度：计算下次许可时间<br>next_TAT = max(TAT, now) + T"]
+    G --> H
+
+    H --> I{"判决：突发量检查<br>next_TAT - now ≤ L ？"}
+
+    I -->|是（令牌充足）| J["允许通过"]
+    J --> K["更新存储 TAT = next_TAT"]
+    K --> L["设置 Key 过期时间"]
+    L --> M["返回成功"]
+
+    I -->|否（令牌不足）| N["拒绝请求"]
+    N --> O["TAT 保持不变"]
+    O --> P["返回失败"]
+</pre><p>算法的步骤极其简单：</p><ol><li>设定<strong>发射间隔</strong> <code>Δt</code>（例如速率 5 req/s，则 <code>Δt = 1/5 = 200ms</code>）。</li><li>当请求在 <code>ta</code>（实际到达时间）到来时，比较 <code>ta</code> 与 <code>TAT</code>：<ul><li>若 <code>ta >= TAT</code>：请求在预定时间之后到达，不算提前。<ul><li>允许通过，<strong><code>TAT = ta + Δt</code></strong>（在到达时间上叠加间隔，不给"迟到"发奖励）。</li></ul></li><li>若 <code>ta &lt; TAT</code>：请求到得太早，需要再等一等。<ul><li>若 <code>TAT - ta</code> 超过突发容忍 <code>burst_tolerance = max_burst × Δt</code>，<strong>拒绝</strong>。</li><li>否则允许通过，但 <strong><code>TAT = TAT + Δt</code></strong>（在原计划时间上累加间隔，使流量严格匀速）。</li></ul></li></ul></li><li>状态只需要持久化一个值：<code>TAT</code>。</li></ol><p>可以看到，<strong>没有"桶"的容量概念，也不数令牌个数，只做时间加减。</strong> 但神奇的是，它完全能模拟令牌桶的行为（包括支持突发）。</p><p>假设 <code>Δt = 200ms</code>，突发容忍 <code>max_burst = 2</code>（即最多提前 2 个间隔，允许 400ms 内的堆积）：</p><div class=table-wrapper><table><thead><tr><th>请求到达时间 <code>ta</code></th><th><code>TAT</code></th><th>判断</th><th>操作后 <code>TAT</code></th></tr></thead><tbody><tr><td>ta = 0ms</td><td>TAT = 0ms</td><td>0 >= 0 放行</td><td>0 + 200 = 200ms</td></tr><tr><td>ta = 50ms</td><td>TAT = 200ms</td><td>50 &lt; 200 且差值 150ms &lt; 400ms 放行</td><td>200 + 200 = 400ms</td></tr><tr><td>ta = 100ms</td><td>TAT = 400ms</td><td>100 &lt; 400 且差值 300ms &lt; 400ms 放行</td><td>400 + 200 = 600ms</td></tr><tr><td>ta = 120ms</td><td>TAT = 600ms</td><td>120 &lt; 600 且差值 480ms > 400ms 拒绝</td><td>TAT 不变 = 600ms</td></tr><tr><td>ta = 700ms</td><td>TAT = 600ms</td><td>700 >= 600 放行</td><td>700 + 200 = 900ms</td></tr></tbody></table></div><p>观察：</p><ul><li>第 2、3 个请求虽然"早了"，但差值在容忍范围内仍然被接受，并把后续 TAT 延后——<strong>实现了突发</strong>。</li><li>第 4 个请求太早，被拒绝，<strong>保护了长期速率</strong>。</li><li>经过一段空闲（第 5 个请求），TAT 直接重置为 <code>ta + Δt</code>，不保留积压——等效于令牌桶的"空闲时令牌不会无限囤积"。</li></ul><p>这个"容忍差值"就是 <code>burst = max_burst × Δt</code>，对应令牌桶的<strong>桶容量</strong>。</p><h3 id=手工-lua-实现-gcra class=headerLink><a href=#%e6%89%8b%e5%b7%a5-lua-%e5%ae%9e%e7%8e%b0-gcra class=header-mark></a>手工 Lua 实现 GCRA</h3><p>仅需维护 <code>TAT</code>（毫秒为单位）即可：</p><div class="code-block highlight is-closed show-line-numbers tw:group tw:my-2"><div class="tw:flex
+tw:flex-row
+tw:flex-1
+tw:justify-between
+tw:w-full tw:bg-bgColor-secondary"><button class="code-block-button
+tw:mx-2
+tw:flex
+tw:flex-row
+tw:flex-1" aria-hidden=true>
+<span class="tw:group-[.is-open]:rotate-90 tw:transition-[transform] tw:duration-500 tw:ease-in-out tw:print:hidden! tw:w-min tw:h-min tw:my-1 tw:mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></span>
+<span class="tw:select-none tw:my-1! tw:block">lua</span></button><div class=tw:flex><button class="line-number-button
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.show-line-numbers]:text-fgColor-link
+tw:print:hidden!" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.is-wrap]:text-fgColor-link
+tw:print:hidden!" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:hover:text-fgColor-link
+tw:print:hidden!" title="Copy code">
+<span class="copy-icon tw:block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw:hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw:select-none
+tw:mx-2
+tw:block
+tw:group-[.is-open]:hidden
+tw:print:hidden!" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw:block tw:m-0 tw:p-0"><code id=codeblock-id-9 class="chroma
+tw:block!
+tw:p-0
+tw:m-0
+tw:transition-[max-height]
+tw:duration-500
+tw:ease-in-out
+tw:group-[.is-closed]:max-h-0!
+tw:group-[.is-wrap]:text-wrap
+tw:overflow-y-hidden
+tw:overflow-x-auto
+tw:scrollbar-thin"><span class=line><span class=cl><span class=c1>-- gcra.lua</span>
+</span></span><span class=line><span class=cl><span class=c1>-- KEYS[1] : TAT key</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[1] : emission interval (毫秒)，即 1000/rate</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[2] : burst tolerance (毫秒)，即 capacity * interval</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[3] : 当前时间 (毫秒)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>key</span>      <span class=o>=</span> <span class=n>KEYS</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>interval</span> <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>burst</span>    <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>2</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>now</span>      <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>3</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>tat</span> <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;GET&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=kr>if</span> <span class=n>tat</span> <span class=o>==</span> <span class=kc>false</span> <span class=kr>then</span>
+</span></span><span class=line><span class=cl>    <span class=n>tat</span> <span class=o>=</span> <span class=n>now</span>
+</span></span><span class=line><span class=cl><span class=kr>end</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>if</span> <span class=n>now</span> <span class=o>&gt;=</span> <span class=n>tat</span> <span class=kr>then</span>
+</span></span><span class=line><span class=cl>    <span class=c1>-- 未提前：更新 TAT 至 now + interval</span>
+</span></span><span class=line><span class=cl>    <span class=kd>local</span> <span class=n>new_tat</span> <span class=o>=</span> <span class=n>now</span> <span class=o>+</span> <span class=n>interval</span>
+</span></span><span class=line><span class=cl>    <span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;SET&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>,</span> <span class=n>new_tat</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;PEXPIRE&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>,</span> <span class=n>burst</span> <span class=o>+</span> <span class=mi>1000</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=kr>return</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl><span class=kr>else</span>
+</span></span><span class=line><span class=cl>    <span class=c1>-- 提前到达</span>
+</span></span><span class=line><span class=cl>    <span class=kr>if</span> <span class=p>(</span><span class=n>tat</span> <span class=o>-</span> <span class=n>now</span><span class=p>)</span> <span class=o>&gt;</span> <span class=n>burst</span> <span class=kr>then</span>
+</span></span><span class=line><span class=cl>        <span class=c1>-- 超过容忍：拒绝</span>
+</span></span><span class=line><span class=cl>        <span class=kr>return</span> <span class=o>-</span><span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=kr>else</span>
+</span></span><span class=line><span class=cl>        <span class=c1>-- 在容忍内：按计划延后</span>
+</span></span><span class=line><span class=cl>        <span class=kd>local</span> <span class=n>new_tat</span> <span class=o>=</span> <span class=n>tat</span> <span class=o>+</span> <span class=n>interval</span>
+</span></span><span class=line><span class=cl>        <span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;SET&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>,</span> <span class=n>new_tat</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;PEXPIRE&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>,</span> <span class=n>burst</span> <span class=o>+</span> <span class=mi>1000</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=kr>return</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=kr>end</span>
+</span></span><span class=line><span class=cl><span class=kr>end</span></span></span></code></pre></div><h3 id=漏桶与令牌桶的统一视角 class=headerLink><a href=#%e6%bc%8f%e6%a1%b6%e4%b8%8e%e4%bb%a4%e7%89%8c%e6%a1%b6%e7%9a%84%e7%bb%9f%e4%b8%80%e8%a7%86%e8%a7%92 class=header-mark></a>漏桶与令牌桶的统一视角</h3><p>GCRA 揭示了一个有趣的事实：<strong>漏桶和令牌桶的底层数学完全相同</strong>，区别仅在于初始状态与参数语义。</p><div class=table-wrapper><table><thead><tr><th style=text-align:left>对比维度</th><th style=text-align:left>GCRA 漏桶</th><th style=text-align:left>GCRA 令牌桶</th></tr></thead><tbody><tr><td style=text-align:left><strong>底层公式</strong></td><td style=text-align:left><code>next_TAT = max(TAT, now) + T</code></td><td style=text-align:left><strong>完全一样</strong></td></tr><tr><td style=text-align:left><strong>Redis 存储</strong></td><td style=text-align:left>1 个 String（存 TAT）</td><td style=text-align:left><strong>完全一样</strong>（1 个 String）</td></tr><tr><td style=text-align:left><strong>冷启动行为</strong></td><td style=text-align:left>默认允许突发（<code>TAT = now</code>）</td><td style=text-align:left>若严格模拟空桶，需预热（<code>TAT = now + L</code>）</td></tr><tr><td style=text-align:left><strong>参数 <code>burst</code> 语义</strong></td><td style=text-align:left>突发流量容忍度（滴水容量）</td><td style=text-align:left>令牌桶最大容量</td></tr><tr><td style=text-align:left><strong>空闲后行为</strong></td><td style=text-align:left>立即允许突发（桶空了）</td><td style=text-align:left>立即允许突发（桶满了）——<strong>结果相同</strong></td></tr></tbody></table></div><p>由此可以归纳出：</p><ul><li>仅存 TAT、初始化 <code>TAT = now</code>，就实现了一个允许冷启动突发的通用限流器。它既可以叫漏桶，也可以叫"令牌桶宽松模式"。</li><li>若要令牌桶的"严格冷启动（禁止初始突发）"，只需在 Lua 加一行：<code>if tat == nil then tat = now + L end</code>。</li><li>将 <code>burst</code> 设为 1，可实现严格"匀速消费"。</li></ul><h3 id=批量支持 class=headerLink><a href=#%e6%89%b9%e9%87%8f%e6%94%af%e6%8c%81 class=header-mark></a>批量支持</h3><p>经典 GCRA 维护一个 理论到达时间（TAT），每次请求间隔固定 <code>Δt</code>。如果允许一次消耗 n 个许可，最简单的映射就是把这一次请求等价为 连续 n 次单许可请求，即 TAT 应增加 <code>n * Δt</code>。但这里有一个额外条件：突发容忍度（burst） 必须能容纳这 n 个许可对应的“提前量”。否则就算桶容量够，算法也可能误杀。</p><p>假设参数：</p><ul><li>Δt：单个许可的发射间隔（如 200ms）</li><li>burst：最大提前量（对应桶容量 × Δt，例如 10 个许可 → burst = 2000ms）</li><li>请求申请 n 个许可</li></ul><p>修改后的判断逻辑：</p><ul><li>如果 ta >= TAT（请求在计划之后到达）<ul><li>→ 通过，新 TAT = ta + n * Δt</li></ul></li><li>如果 ta &lt; TAT（请求来得早）<ul><li>需要“预支”未来 n 个间隔，理论最早可完成时间 = TAT + n * Δt</li><li>提前量 = (TAT + n * Δt) - ta</li><li>若提前量 ≤ burst，则通过，新 TAT = TAT + n * Δt ,否则拒绝</li></ul></li></ul><p>这个逻辑完美还原了令牌桶的效果：桶容量 = burst / Δt，一次拿 n 个令牌等价于把未来 n 个间隔的许可提前消耗，同时受桶容量上限约束。</p><p>一个 lua的实现:</p><div class="code-block highlight is-closed show-line-numbers tw:group tw:my-2"><div class="tw:flex
+tw:flex-row
+tw:flex-1
+tw:justify-between
+tw:w-full tw:bg-bgColor-secondary"><button class="code-block-button
+tw:mx-2
+tw:flex
+tw:flex-row
+tw:flex-1" aria-hidden=true>
+<span class="tw:group-[.is-open]:rotate-90 tw:transition-[transform] tw:duration-500 tw:ease-in-out tw:print:hidden! tw:w-min tw:h-min tw:my-1 tw:mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></span>
+<span class="tw:select-none tw:my-1! tw:block">lua</span></button><div class=tw:flex><button class="line-number-button
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.show-line-numbers]:text-fgColor-link
+tw:print:hidden!" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.is-wrap]:text-fgColor-link
+tw:print:hidden!" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:hover:text-fgColor-link
+tw:print:hidden!" title="Copy code">
+<span class="copy-icon tw:block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw:hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw:select-none
+tw:mx-2
+tw:block
+tw:group-[.is-open]:hidden
+tw:print:hidden!" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw:block tw:m-0 tw:p-0"><code id=codeblock-id-10 class="chroma
+tw:block!
+tw:p-0
+tw:m-0
+tw:transition-[max-height]
+tw:duration-500
+tw:ease-in-out
+tw:group-[.is-closed]:max-h-0!
+tw:group-[.is-wrap]:text-wrap
+tw:overflow-y-hidden
+tw:overflow-x-auto
+tw:scrollbar-thin"><span class=line><span class=cl><span class=c1>-- gcra_throttle.lua</span>
+</span></span><span class=line><span class=cl><span class=c1>-- KEYS[1] : 限流器 key</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[1] : capacity (最大突发许可数，桶容量)</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[2] : rate (每秒允许通过的许可数)</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[3] : requested (本次申请许可数)</span>
+</span></span><span class=line><span class=cl><span class=c1>-- ARGV[4] : current_time (可选，客户端传入毫秒时间戳，若不传则使用 Redis 服务器时间)</span>
+</span></span><span class=line><span class=cl><span class=c1>-- 返回: {allowed, retry_after_seconds, remaining}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>key</span> <span class=o>=</span> <span class=n>KEYS</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>capacity</span> <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>rate</span> <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>2</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>requested</span> <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>3</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>now</span> <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>4</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=kr>if</span> <span class=ow>not</span> <span class=n>now</span> <span class=kr>then</span>
+</span></span><span class=line><span class=cl>    <span class=c1>-- 使用 Redis 服务器时间（微秒精度，这里转为毫秒）</span>
+</span></span><span class=line><span class=cl>    <span class=kd>local</span> <span class=n>redis_time</span> <span class=o>=</span> <span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;TIME&#39;</span><span class=p>)</span>  <span class=c1>-- 返回 {seconds, microseconds}</span>
+</span></span><span class=line><span class=cl>    <span class=n>now</span> <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>redis_time</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span> <span class=o>*</span> <span class=mi>1000</span> <span class=o>+</span> <span class=n>math.floor</span><span class=p>(</span><span class=n>tonumber</span><span class=p>(</span><span class=n>redis_time</span><span class=p>[</span><span class=mi>2</span><span class=p>])</span> <span class=o>/</span> <span class=mi>1000</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kr>end</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 发射间隔（毫秒）</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>emission_interval</span> <span class=o>=</span> <span class=mi>1000</span> <span class=o>/</span> <span class=n>rate</span>
+</span></span><span class=line><span class=cl><span class=c1>-- 突发容忍度（毫秒）</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>burst</span> <span class=o>=</span> <span class=n>capacity</span> <span class=o>*</span> <span class=n>emission_interval</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 读取理论到达时间 TAT</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>tat</span> <span class=o>=</span> <span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;GET&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kr>if</span> <span class=ow>not</span> <span class=n>tat</span> <span class=kr>then</span>
+</span></span><span class=line><span class=cl>    <span class=n>tat</span> <span class=o>=</span> <span class=n>now</span>
+</span></span><span class=line><span class=cl><span class=kr>else</span>
+</span></span><span class=line><span class=cl>    <span class=n>tat</span> <span class=o>=</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>tat</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kr>end</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 计算新的理论到达时间</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>new_tat</span> <span class=o>=</span> <span class=n>math.max</span><span class=p>(</span><span class=n>tat</span><span class=p>,</span> <span class=n>now</span><span class=p>)</span> <span class=o>+</span> <span class=n>requested</span> <span class=o>*</span> <span class=n>emission_interval</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>-- 判断是否允许</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>allowed</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>retry_after</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=kd>local</span> <span class=n>remaining</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>if</span> <span class=n>new_tat</span> <span class=o>-</span> <span class=n>now</span> <span class=o>&lt;=</span> <span class=n>burst</span> <span class=kr>then</span>
+</span></span><span class=line><span class=cl>    <span class=c1>-- 允许通过</span>
+</span></span><span class=line><span class=cl>    <span class=n>allowed</span> <span class=o>=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;SET&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>,</span> <span class=n>new_tat</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1>-- 设置过期时间：最多 burst + 一个间隔，避免冷 key 残留</span>
+</span></span><span class=line><span class=cl>    <span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;PEXPIRE&#39;</span><span class=p>,</span> <span class=n>key</span><span class=p>,</span> <span class=n>math.floor</span><span class=p>(</span><span class=n>burst</span> <span class=o>+</span> <span class=n>emission_interval</span> <span class=o>+</span> <span class=mi>1000</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>-- 计算 remaining：等价于 capacity - 已预支的许可数</span>
+</span></span><span class=line><span class=cl>    <span class=c1>-- 已预支许可数 = (new_tat - now) / emission_interval</span>
+</span></span><span class=line><span class=cl>    <span class=kd>local</span> <span class=n>consumed</span> <span class=o>=</span> <span class=p>(</span><span class=n>new_tat</span> <span class=o>-</span> <span class=n>now</span><span class=p>)</span> <span class=o>/</span> <span class=n>emission_interval</span>
+</span></span><span class=line><span class=cl>    <span class=n>remaining</span> <span class=o>=</span> <span class=n>math.max</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>capacity</span> <span class=o>-</span> <span class=n>math.ceil</span><span class=p>(</span><span class=n>consumed</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=n>retry_after</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=kr>else</span>
+</span></span><span class=line><span class=cl>    <span class=c1>-- 拒绝</span>
+</span></span><span class=line><span class=cl>    <span class=n>allowed</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>    <span class=c1>-- retry_after = 最早可重试的时间 - now</span>
+</span></span><span class=line><span class=cl>    <span class=n>retry_after</span> <span class=o>=</span> <span class=p>(</span><span class=n>new_tat</span> <span class=o>-</span> <span class=n>burst</span> <span class=o>-</span> <span class=n>now</span><span class=p>)</span> <span class=o>/</span> <span class=mi>1000</span>  <span class=c1>-- 转为秒</span>
+</span></span><span class=line><span class=cl>    <span class=kr>if</span> <span class=n>retry_after</span> <span class=o>&lt;</span> <span class=mi>0</span> <span class=kr>then</span> <span class=n>retry_after</span> <span class=o>=</span> <span class=mi>0</span> <span class=kr>end</span>
+</span></span><span class=line><span class=cl>    <span class=c1>-- remaining 为 0，因为桶中没有足够的令牌</span>
+</span></span><span class=line><span class=cl>    <span class=n>remaining</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl><span class=kr>end</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>return</span> <span class=p>{</span><span class=n>allowed</span><span class=p>,</span> <span class=n>retry_after</span><span class=p>,</span> <span class=n>remaining</span><span class=p>}</span></span></span></code></pre></div><blockquote><p><strong>一点提醒：</strong> GCRA 与本文其他算法一样，都是单 key 单速率的限流器。生产中的"用户级 + 全局级"分层限流仍需组合多个 key 串联判断，这是此类算法的共性而非 GCRA 独有的局限。</p></blockquote><h2 id=redisson-ratelimiter class=headerLink><a href=#redisson-ratelimiter class=header-mark></a>Redisson RateLimiter</h2><p>Redisson 的 <code>RateLimiter</code> 是 Java 生态中最广泛使用的分布式限流实现之一。<strong>它并非传统令牌桶，而是用 ZSET + 计数器实现 GCRA——是的，前文讲的 GCRA 在这里得到了工业级的 Java 落地。</strong> 理解这一点，再看下面的源码分析会顺很多。</p><h3 id=核心数据结构 class=headerLink><a href=#%e6%a0%b8%e5%bf%83%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84 class=header-mark></a>核心数据结构</h3><ul><li><strong><code>permitsName</code>（ZSET key）</strong>：记录已发放的许可。<ul><li><strong>score</strong>：许可被允许使用的时间戳（毫秒，由传入的 <code>ARGV[2]</code> 提供）。</li><li><strong>member</strong>：经 <code>struct.pack('Bc0I', len, random, ARGV[1])</code> 编码的二进制串，包含随机串（用于去重）与本次请求的许可数。这样既能支持单次消耗多个许可（如批量操作），又保证 member 唯一性。</li></ul></li><li><strong><code>valueName</code>（String key）</strong>：当前可用许可数（初始化为 <code>rate</code>），相当于桶里剩余的令牌。</li></ul><h3 id=工作流程 class=headerLink><a href=#%e5%b7%a5%e4%bd%9c%e6%b5%81%e7%a8%8b class=header-mark></a>工作流程</h3><h4 id=1-过期许可回收 class=headerLink><a href=#1-%e8%bf%87%e6%9c%9f%e8%ae%b8%e5%8f%af%e5%9b%9e%e6%94%b6 class=header-mark></a>1. 过期许可回收</h4><p>脚本首先计算窗口左边界 <code>now - interval</code>，从 ZSET 中取出 score 小于该值的所有成员：</p><div class="code-block highlight is-open show-line-numbers tw:group tw:my-2"><div class="tw:flex
+tw:flex-row
+tw:flex-1
+tw:justify-between
+tw:w-full tw:bg-bgColor-secondary"><button class="code-block-button
+tw:mx-2
+tw:flex
+tw:flex-row
+tw:flex-1" aria-hidden=true>
+<span class="tw:group-[.is-open]:rotate-90 tw:transition-[transform] tw:duration-500 tw:ease-in-out tw:print:hidden! tw:w-min tw:h-min tw:my-1 tw:mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></span>
+<span class="tw:select-none tw:my-1! tw:block">lua</span></button><div class=tw:flex><button class="line-number-button
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.show-line-numbers]:text-fgColor-link
+tw:print:hidden!" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.is-wrap]:text-fgColor-link
+tw:print:hidden!" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:hover:text-fgColor-link
+tw:print:hidden!" title="Copy code">
+<span class="copy-icon tw:block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw:hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw:select-none
+tw:mx-2
+tw:block
+tw:group-[.is-open]:hidden
+tw:print:hidden!" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw:block tw:m-0 tw:p-0"><code id=codeblock-id-11 class="chroma
+tw:block!
+tw:p-0
+tw:m-0
+tw:transition-[max-height]
+tw:duration-500
+tw:ease-in-out
+tw:group-[.is-closed]:max-h-0!
+tw:group-[.is-wrap]:text-wrap
+tw:overflow-y-hidden
+tw:overflow-x-auto
+tw:scrollbar-thin"><span class=line><span class=cl><span class=kd>local</span> <span class=n>expiredValues</span> <span class=o>=</span> <span class=n>redis.call</span><span class=p>(</span><span class=s1>&#39;zrangebyscore&#39;</span><span class=p>,</span> <span class=n>permitsName</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=n>tonumber</span><span class=p>(</span><span class=n>ARGV</span><span class=p>[</span><span class=mi>2</span><span class=p>])</span> <span class=o>-</span> <span class=n>interval</span><span class=p>);</span></span></span></code></pre></div><p>这些是已经滑出时间窗口的许可，对应令牌桶中"随着时间流逝新产生的令牌"。遍历过期成员，累计释放的许可数 <code>released</code>。</p><p>若 <code>released > 0</code>，执行：</p><ul><li>用 <code>ZREMRANGEBYSCORE</code> 删除所有过期成员。</li><li>尝试把 <code>currentValue</code> 增加 <code>released</code>，但不超过 <code>rate</code>。若 <code>currentValue + released > rate</code>，说明内部状态可能出现不一致，此时重新统计整个 ZSET 中的剩余许可总数 <code>used</code>，并设置 <code>currentValue = rate - used</code>，确保计数精确等于"窗口内剩余可发许可"。</li><li>将更新后的 <code>currentValue</code> 写回 <code>valueName</code>。</li></ul><p>这模拟了令牌补充——<strong>但不是连续地按速率递增，而是每次请求到来时一次性回收窗口外的过期许可。</strong> 系统空闲一段时间后，第一个请求会触发回收大量许可，<code>currentValue</code> 瞬间回满到 <code>rate</code>，从而支持突发流量。</p><h4 id=2-判断是否放行 class=headerLink><a href=#2-%e5%88%a4%e6%96%ad%e6%98%af%e5%90%a6%e6%94%be%e8%a1%8c class=header-mark></a>2. 判断是否放行</h4><ul><li>若 <code>currentValue >= 请求许可数</code>：<ul><li>将本次许可信息（随机串 + 许可数）写入 ZSET，<code>score = 当前时间</code>。</li><li>对 <code>valueName</code> 执行 <code>DECRBY</code> 减掉消耗的许可。</li><li>返回 <code>nil</code>（表示允许通过）。</li></ul></li><li>若 <code>currentValue &lt; 请求许可数</code>：<ul><li>从 ZSET 取出最早一个许可（最小 score），计算重试等待时间：<code>res = 3 + interval - (now - firstValue[2])</code>。该值实际表示"要等到那个最早的许可过期后，才能获得足够的令牌"。常数 3 是一个微小的安全偏移。</li><li>返回 <code>res</code> 给客户端，客户端据此延时重试。</li></ul></li></ul><h4 id=3-首次初始化 class=headerLink><a href=#3-%e9%a6%96%e6%ac%a1%e5%88%9d%e5%a7%8b%e5%8c%96 class=header-mark></a>3. 首次初始化</h4><p>若 <code>valueName</code> 不存在，说明是首次使用：直接将其置为 <code>rate</code>，再执行一次"消耗许可"逻辑（写入 ZSET 并递减）。<strong>因此第一次请求总是可以拿到满桶的许可。</strong></p><h4 id=4-key-过期管理 class=headerLink><a href=#4-key-%e8%bf%87%e6%9c%9f%e7%ae%a1%e7%90%86 class=header-mark></a>4. Key 过期管理</h4><p>根据 <code>keepAliveTime</code> 或 hash key 自身的 TTL 设置相关 key 的过期，避免长期不用的限流器残留内存。</p><h3 id=设计总结 class=headerLink><a href=#%e8%ae%be%e8%ae%a1%e6%80%bb%e7%bb%93 class=header-mark></a>设计总结</h3><p>Redisson 实际上没有维护传统令牌桶的两个变量（令牌数 + 上次填充时间），而是：</p><ul><li><strong>速率控制</strong>：通过滑动窗口的过期回收实现。任何长度为 <code>interval</code> 的滑动窗口内，通过的请求总数不超过 <code>rate</code>。</li><li><strong>突发支持</strong>：空闲后 ZSET 变空，<code>valueName</code> 回满到 <code>rate</code>，可一次性通过 <code>rate</code> 个请求——<strong>等价于令牌桶容量 = rate</strong>。</li><li><strong>平滑效果</strong>：每次消耗许可时都在 ZSET 留下带时间戳的记录，后续请求必须等这些记录过期才能拿到新许可，从而限制输出速率（补充是批量的，平滑度取决于 <code>interval</code> 设置）。</li></ul><p><strong>Redisson 的本质是一个严格的滑动窗口限流器，通过将窗口长度定义为 <code>interval</code>、上限定义为 <code>rate</code>，完美复现令牌桶的容量突发 + 长期限速行为。</strong> 用户使用时无需感知底层实现，配置起来就像配置令牌桶一样直观。</p><h2 id=分布式限流的三个关键问题 class=headerLink><a href=#%e5%88%86%e5%b8%83%e5%bc%8f%e9%99%90%e6%b5%81%e7%9a%84%e4%b8%89%e4%b8%aa%e5%85%b3%e9%94%ae%e9%97%ae%e9%a2%98 class=header-mark></a>分布式限流的三个关键问题</h2><p>在分布式环境下，即使算法写得再正确，线上跑起来仍会冒出让人头疼的问题。下面列出三个最常见的坑，以及对应的解决思路。</p><h3 id=时钟不同步你的一秒不是我的一秒 class=headerLink><a href=#%e6%97%b6%e9%92%9f%e4%b8%8d%e5%90%8c%e6%ad%a5%e4%bd%a0%e7%9a%84%e4%b8%80%e7%a7%92%e4%b8%8d%e6%98%af%e6%88%91%e7%9a%84%e4%b8%80%e7%a7%92 class=header-mark></a>时钟不同步：你的"一秒"不是我的"一秒"</h3><p>固定窗口、滑动窗口、令牌桶、GCRA——几乎所有算法都依赖时间。单机场景下，<code>System.currentTimeMillis()</code> 完全够用；但在分布式系统中，不同服务器的时钟可能存在毫秒甚至秒级的偏差。</p><p>如果限流逻辑让客户端自己传时间戳（很多 Lua 脚本都这么干），那么一台"走得快"的服务器发出的请求，可能提前耗尽限流配额；一台"走得慢"的服务器，则可能因时间戳滞后，导致本该过期的许可迟迟无法回收。</p><p><strong>应对：</strong></p><ul><li><strong>NTP 严格同步</strong>：将所有参与限流的服务器时钟偏差控制在 10ms 以内，但别完全指望它。</li><li><strong>以 Redis 时间为准</strong>：用 <code>redis.call('TIME')</code> 代替传入的 <code>ARGV</code>。代价是增加一次 Redis 调用，但能杜绝客户端作恶或时钟偏差。</li><li><strong>单调递增序列号</strong>：用序列号代替时间戳，但通常需要额外的协调服务（如 ZooKeeper），仅适合对时间极度敏感的特殊场景。</li></ul><h3 id=热点-key90-的流量都打在一个-redis-节点上 class=headerLink><a href=#%e7%83%ad%e7%82%b9-key90-%e7%9a%84%e6%b5%81%e9%87%8f%e9%83%bd%e6%89%93%e5%9c%a8%e4%b8%80%e4%b8%aa-redis-%e8%8a%82%e7%82%b9%e4%b8%8a class=header-mark></a>热点 Key：90% 的流量都打在一个 Redis 节点上</h3><p>假设做了一个全局限流：所有用户共享一个限流 key（如 <code>rate_limit:global:login</code>）。双十一零点，千万级并发同时冲向这个 key，所有请求都在 Redis 的同一个 slot（集群模式）或同一个实例上排队。</p><p>Redis 的单线程处理模型下，这个 key 会成为绝对瓶颈——CPU 打满、网络吞吐饱和、连接超时，<strong>限流器本身反而成了故障点</strong>。</p><p><strong>应对：</strong></p><ul><li><strong>拆 key 打散</strong>：避免"全局唯一 key"。可按用户 ID、IP 或随机分桶（例如 <code>rate_limit:global:login:bucket_0 ~ bucket_99</code>）。每个子桶独立限流，总通过量用子桶容量之和控制。这会牺牲一点全局精确度（子桶之间可能不均匀），但性能提升巨大。</li><li><strong>本地预限流</strong>：在应用服务器内存中先做一次粗粒度限流（如 Guava RateLimiter），只有本地预通过的请求才去 Redis 做精确判断。这样能过滤掉 90% 以上的请求，极大减轻 Redis 压力。</li><li><strong>避免人为加剧热点</strong>：在 Redis Cluster 下，不要用 hash tag 强制把全局 key 分配到特定节点。</li></ul><h3 id=性能抖动限流不该比业务还慢 class=headerLink><a href=#%e6%80%a7%e8%83%bd%e6%8a%96%e5%8a%a8%e9%99%90%e6%b5%81%e4%b8%8d%e8%af%a5%e6%af%94%e4%b8%9a%e5%8a%a1%e8%bf%98%e6%85%a2 class=header-mark></a>性能抖动：限流不该比业务还慢</h3><p>限流的本质是保护系统，但如果限流本身引入了不可忽略的延迟，那就本末倒置了。</p><p>常见原因包括：Lua 脚本中的循环遍历（如 List 清理、ZSET 范围扫描）、大 key 的 <code>ZREMRANGEBYSCORE</code>、或 Redis CPU 被其他业务打满导致限流命令排队。在毫秒级的服务里，一次限流判断若从 0.5ms 飙升到 10ms，足以拖慢整个调用链。</p><p><strong>应对：</strong></p><ul><li><strong>算法匹配数据规模</strong>：避免在高并发下使用 <code>while</code> 循环清理 List；优先使用 ZSET 的批量操作（<code>ZREMRANGEBYSCORE</code> 的时间复杂度为 O(log N) 而非 O(N)）。若请求量极大，使用上文提到的近似滑动窗口（格子法）。</li><li><strong>脚本超时与降级</strong>：为 Lua 脚本执行设置合理的超时，一旦 Redis 响应变慢，采用"默认放行"或"转本地限流"的降级策略。<strong>保命要紧，宁可少限一点，也别把业务全堵死。</strong></li><li><strong>物理隔离</strong>：若限流流量极大（百万 QPS 级别），将限流 Redis 与业务缓存 Redis 物理隔离，避免相互干扰。也可采用 Redis-Cell 这类 C 模块来提升单机吞吐量。</li><li><strong>监控与告警</strong>：把限流脚本的平均执行时间、Redis 命令的 p99 延迟、限流拒绝率都纳入监控。<strong>抖动一旦出现，第一时间发现比事后补救重要得多。</strong></li></ul><h2 id=算法选型指南 class=headerLink><a href=#%e7%ae%97%e6%b3%95%e9%80%89%e5%9e%8b%e6%8c%87%e5%8d%97 class=header-mark></a>算法选型指南</h2><p>上文的算法地图讲了"算法本身怎么看"，这里讲"业务场景怎么选"：</p><div class=table-wrapper><table><thead><tr><th>业务场景</th><th>推荐方案</th><th>选型理由</th></tr></thead><tbody><tr><td>简单 QPS 上限，可接受边界翻倍</td><td>固定窗口</td><td>一行计数器搞定，零依赖</td></tr><tr><td>通用 HTTP 接口、用户操作频率</td><td>令牌桶 / GCRA</td><td>兼顾突发容忍与长期限速</td></tr><tr><td>极高 QPS 网关层、内存极度敏感</td><td>近似滑动窗口（格子法）</td><td>用少量计数器模拟平滑限流</td></tr><tr><td>严格保护下游数据库或第三方 API</td><td>漏桶</td><td>强制输出平滑，无任何突发</td></tr><tr><td>API 配额精确管理（计费、强一致）</td><td>精确滑动窗口</td><td>严格去重，误差最小</td></tr><tr><td>高性能分布式限流器（Java 生态）</td><td>Redisson RateLimiter</td><td>GCRA 的工业级实现，开箱即用</td></tr></tbody></table></div><h3 id=微服务中的部署位置 class=headerLink><a href=#%e5%be%ae%e6%9c%8d%e5%8a%a1%e4%b8%ad%e7%9a%84%e9%83%a8%e7%bd%b2%e4%bd%8d%e7%bd%ae class=header-mark></a>微服务中的部署位置</h3><p>限流的价值不仅取决于算法，也取决于它部署在哪一层。常见的有四层，由外向内依次递进：</p><div class=table-wrapper><table><thead><tr><th>层级</th><th>典型实现</th><th>控制粒度</th><th>作用</th></tr></thead><tbody><tr><td><strong>客户端 SDK / 接入层</strong></td><td>Guava RateLimiter、Sentinel SDK</td><td>用户/设备</td><td>减少无效请求到达服务端，省下网络与 TLS 开销</td></tr><tr><td><strong>API 网关</strong></td><td>Envoy、Nginx、Sentinel Gateway</td><td>全局、租户</td><td>统一入口级保护，防突发把网关打挂</td></tr><tr><td><strong>服务内部</strong></td><td>Redisson RateLimiter、Sentinel</td><td>用户、IP、业务键</td><td>细粒度业务限流，配合熔断/降级</td></tr><tr><td><strong>数据访问层</strong></td><td>连接池限流、Sentinel</td><td>资源维度</td><td>保护数据库、缓存等核心资源不被击穿</td></tr></tbody></table></div><p><strong>实战建议：组合部署而不是单点。</strong> 例如：</p><ul><li>网关层做全局粗粒度限流（兜底）</li><li>服务内部按用户/业务做细粒度限流（精细控制）</li><li>数据访问层兜底保护最关键的资源（最后防线）</li></ul><p>这样每一层都守住自己的职责，整体韧性最强。</p><h3 id=主流限流库组件一览 class=headerLink><a href=#%e4%b8%bb%e6%b5%81%e9%99%90%e6%b5%81%e5%ba%93%e7%bb%84%e4%bb%b6%e4%b8%80%e8%a7%88 class=header-mark></a>主流限流库/组件一览</h3><p>不同语言和场景下都有成熟的开箱即用方案：</p><div class=table-wrapper><table><thead><tr><th>名称</th><th>语言/平台</th><th>特点</th></tr></thead><tbody><tr><td><strong>Guava RateLimiter</strong></td><td>Java</td><td>令牌桶，进程内单机版，简单易用</td></tr><tr><td><strong>Redisson RateLimiter</strong></td><td>Java</td><td>分布式，基于 Redis（GCRA 实现）</td></tr><tr><td><strong>Sentinel</strong></td><td>Java</td><td>阿里开源，限流 + 熔断 + 降级一体</td></tr><tr><td><strong>Resilience4j</strong></td><td>Java</td><td>函数式熔断限流库，轻量</td></tr><tr><td><strong>Envoy</strong></td><td>C++/网关</td><td>服务网格/网关层限流</td></tr><tr><td><strong>Nginx</strong></td><td>网关</td><td><code>limit_req</code> / <code>limit_conn</code> 指令</td></tr><tr><td><strong>Redis-Cell</strong></td><td>Redis Module</td><td>单机极致性能，C 语言扩展</td></tr></tbody></table></div><h3 id=几个普适原则 class=headerLink><a href=#%e5%87%a0%e4%b8%aa%e6%99%ae%e9%80%82%e5%8e%9f%e5%88%99 class=header-mark></a>几个普适原则</h3><ol><li><strong>从简单开始</strong>：大多数场景令牌桶就够用，别过早优化。</li><li><strong>压测为准</strong>：算法选型与参数（QPS、桶容量、格子数）都应基于真实压测，不要拍脑袋。</li><li><strong>可观测性先行</strong>：上线前就要有拒绝率、延迟、桶水位等指标的监控，否则出问题只能盲人摸象。</li><li><strong>分层部署</strong>：单点限流挡不住所有故障，多层组合才有韧性。</li></ol><h3 id=阈值怎么定实践经验 class=headerLink><a href=#%e9%98%88%e5%80%bc%e6%80%8e%e4%b9%88%e5%ae%9a%e5%ae%9e%e8%b7%b5%e7%bb%8f%e9%aa%8c class=header-mark></a>阈值怎么定：实践经验</h3><p>最后一个常见问题：阈值数字到底怎么拍？几条经验：</p><ul><li><strong>基线压测先行</strong>：先用工具（如 wrk、JMeter、ghz）测出单实例能稳定承载的 QPS 与 p99 延迟，作为阈值上限。</li><li><strong>留 20%~30% buffer</strong>：线上环境比压测复杂（网络抖动、上下游 RT 波动），不要把阈值打到理论极限。</li><li><strong>按业务峰值 × 倍数估算</strong>：参考历史峰值的 1.5~2 倍，避免秒杀等场景直接打挂。</li><li><strong>先宽松后收紧</strong>：上线初期阈值宽松一些，根据真实拒绝率与转化率数据逐步收紧。</li><li><strong>按用户/资源分维度</strong>：不要全局一个值，给 VIP 用户、内部调用、第三方接入分别配阈值。</li><li><strong>灰度验证</strong>：新阈值先小流量灰度，观察拒绝率与下游指标再全量。</li></ul><h2 id=参考资料 class=headerLink><a href=#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99 class=header-mark></a>参考资料</h2><ul><li><a href=https://en.wikipedia.org/wiki/Generic_cell_rate_algorithm target=_blank rel="noopener noreferrer">GCRA 限流算法</a></li><li><a href=https://github.com/redisson/redisson/blob/master/redisson/src/main/java/org/redisson/RedissonRateLimiter.java target=_blank rel="noopener noreferrer">RedissonRateLimiter</a></li></ul></div><h2>相关内容</h2><div class=related-container><div class=related-item-container><div class=related-image><a href=/posts/2022/01/f24440bb/><img src=/feature-images/paper.webp alt=限流简介 height=200 width=400></a></div><h2 class=related-title><a href=/posts/2022/01/f24440bb/>Dapper,大规模分布式系统的跟踪系统</a></h2></div></div><div class="sponsor tw:print:hidden"><div class=sponsor-avatar></div><p class=sponsor-bio><em>如果你觉得这篇文章对你有所帮助，请我一杯咖啡吧~</em></p><div class=sponsor-custom><div style=display:flex;justify-content:center;gap:30px><div style=text-align:center><img src=/images/weixinpay.webp alt=微信支付 style=width:200px;height:auto;border-radius:8px><span style=display:block;margin-top:10px;font-size:14px;color:#666>微信支付</span></div><div style=text-align:center><img src=/images/alpay.webp alt=支付宝 style=width:200px;height:auto;border-radius:8px><span style=display:block;margin-top:10px;font-size:14px;color:#666>支付宝</span></div></div></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 2026-06-30</span></div><div class=post-info-license></div></div><div class="post-info-line tw:print:hidden!"><div class=post-info-md></div><div class=post-info-share><button title="分享到 Instapaper" data-sharer=instapaper data-url=http://www.victorchu.info/posts/2026/06/8ce642df/ data-title=限流简介 data-description><svg class="icon" role="img" viewBox="0 0 24 24"><title>Instapaper</title><path d="M14.766 20.259c0 1.819.271 2.089 2.934 2.292V24H6.301v-1.449c2.666-.203 2.934-.473 2.934-2.292V3.708c0-1.784-.27-2.089-2.934-2.292V0h11.398v1.416c-2.662.203-2.934.506-2.934 2.292v16.551z"/></svg></button><button title="分享到 Pocket" data-sharer=pocket data-url=http://www.victorchu.info/posts/2026/06/8ce642df/><svg class="icon" viewBox="0 0 448 512"><path d="M407.6 64h-367C18.5 64 0 82.5.0 104.6v135.2C0 364.5 99.7 464 224.2 464c124 0 223.8-99.5 223.8-224.2V104.6c0-22.4-17.7-40.6-40.4-40.6zm-162 268.5c-12.4 11.8-31.4 11.1-42.4.0C89.5 223.6 88.3 227.4 88.3 209.3c0-16.9 13.8-30.7 30.7-30.7 17 0 16.1 3.8 105.2 89.3 90.6-86.9 88.6-89.3 105.5-89.3 16.9.0 30.7 13.8 30.7 30.7.0 17.8-2.9 15.7-114.8 123.2z"/></svg></button><button title="分享到 Flipboard" data-sharer=flipboard data-url=http://www.victorchu.info/posts/2026/06/8ce642df/ data-title=限流简介><svg class="icon" viewBox="0 0 448 512"><path d="M0 32v448h448V32H0zm358.4 179.2h-89.6v89.6h-89.6v89.6H89.6V121.6h268.8v89.6z"/></svg></button><button title="分享到 微博" data-sharer=weibo data-url=http://www.victorchu.info/posts/2026/06/8ce642df/ data-title=限流简介 data-image=/feature-images/distribute.webp><svg class="icon" viewBox="0 0 512 512"><path d="M407 177.6c7.6-24-13.4-46.8-37.4-41.7-22 4.8-28.8-28.1-7.1-32.8 50.1-10.9 92.3 37.1 76.5 84.8-6.8 21.2-38.8 10.8-32-10.3zM214.8 446.7C108.5 446.7.0 395.3.0 310.4c0-44.3 28-95.4 76.3-143.7C176 67 279.5 65.8 249.9 161c-4 13.1 12.3 5.7 12.3 6 79.5-33.6 140.5-16.8 114 51.4-3.7 9.4 1.1 10.9 8.3 13.1 135.7 42.3 34.8 215.2-169.7 215.2zm143.7-146.3c-5.4-55.7-78.5-94-163.4-85.7-84.8 8.6-148.8 60.3-143.4 116s78.5 94 163.4 85.7c84.8-8.6 148.8-60.3 143.4-116zM347.9 35.1c-25.9 5.6-16.8 43.7 8.3 38.3 72.3-15.2 134.8 52.8 111.7 124-7.4 24.2 29.1 37 37.4 12 31.9-99.8-55.1-195.9-157.4-174.3zm-78.5 311c-17.1 38.8-66.8 60-109.1 46.3-40.8-13.1-58-53.4-40.3-89.7 17.7-35.4 63.1-55.4 103.4-45.1 42 10.8 63.1 50.2 46 88.5zm-86.3-30c-12.9-5.4-30 .3-38 12.9-8.3 12.9-4.3 28 8.6 34 13.1 6 30.8.3 39.1-12.9 8-13.1 3.7-28.3-9.7-34zm32.6-13.4c-5.1-1.7-11.4.6-14.3 5.4-2.9 5.1-1.4 10.6 3.7 12.9 5.1 2 11.7-.3 14.6-5.4 2.8-5.2 1.1-10.9-4-12.9z"/></svg></button><button title="分享到 Evernote" data-sharer=evernote data-url=http://www.victorchu.info/posts/2026/06/8ce642df/ data-title=限流简介><svg class="icon" viewBox="0 0 384 512"><path d="M120.82 132.21c1.6 22.31-17.55 21.59-21.61 21.59-68.93.0-73.64-1-83.58 3.34-.56.22-.74.0-.37-.37L123.79 46.45c.38-.37.6-.22.38.37-4.35 9.99-3.35 15.09-3.35 85.39zm79 308c-14.68-37.08 13-76.93 52.52-76.62 17.49.0 22.6 23.21 7.95 31.42-6.19 3.3-24.95 1.74-25.14 19.2-.05 17.09 19.67 25 31.2 24.89A45.64 45.64.0 00312 393.45v-.08c0-11.63-7.79-47.22-47.54-55.34-7.72-1.54-65-6.35-68.35-50.52-3.74 16.93-17.4 63.49-43.11 69.09-8.74 1.94-69.68 7.64-112.92-36.77.0.0-18.57-15.23-28.23-57.95-3.38-15.75-9.28-39.7-11.14-62 0-18 11.14-30.45 25.07-32.2 81 0 90 2.32 101-7.8 9.82-9.24 7.8-15.5 7.8-102.78 1-8.3 7.79-30.81 53.41-24.14 6 .86 31.91 4.18 37.48 30.64l64.26 11.15c20.43 3.71 70.94 7 80.6 57.94 22.66 121.09 8.91 238.46 7.8 238.46C362.15 485.53 267.06 480 267.06 480c-18.95-.23-54.25-9.4-67.27-39.83zm80.94-204.84c-1 1.92-2.2 6 .85 7 14.09 4.93 39.75 6.84 45.88 5.53 3.11-.25 3.05-4.43 2.48-6.65-3.53-21.85-40.83-26.5-49.24-5.92z"/></svg></button></div></div></div><div class=post-info-more><div class=post-tags><svg class="icon" viewBox="0 0 640 512"><path d="M497.941 225.941 286.059 14.059A48 48 0 00252.118.0H48C21.49.0.0 21.49.0 48v204.118a48 48 0 0014.059 33.941l211.882 211.882c18.744 18.745 49.136 18.746 67.882.0l204.118-204.118c18.745-18.745 18.745-49.137.0-67.882zM112 160c-26.51.0-48-21.49-48-48s21.49-48 48-48 48 21.49 48 48-21.49 48-48 48zm513.941 133.823L421.823 497.941c-18.745 18.745-49.137 18.745-67.882.0l-.36-.36L527.64 323.522c16.999-16.999 26.36-39.6 26.36-63.64s-9.362-46.641-26.36-63.64L331.397.0h48.721a48 48 0 0133.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137.0 67.882z"/></svg>&nbsp;<a href=/tags/microservice/>MicroService</a></div><div class=tw:print:hidden!><span><button class="tw:text-fgColor-link-muted tw:hover:text-fgColor-link-muted-hover" onclick=window.history.back()>返回</button></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></div></div><div class="post-nav tw:print:hidden"><a href=/posts/2026/06/6ea75aca/ class=prev rel=prev title="MacBook Pro 2016 15 Inch安装 Ubuntu 系统"><svg class="icon" viewBox="0 0 256 512"><path d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9.0l22.6 22.6c9.4 9.4 9.4 24.6.0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6.0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9.0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"/></svg>MacBook Pro 2016 15 Inch安装 Ubuntu 系统</a>
+<a href=/posts/2026/07/098549ec/ class=next rel=next title="Presto/Trino 中 0.5 引发的精度谜团：Decimal 隐式类型推导与 MySQL 差异">Presto/Trino 中 0.5 引发的精度谜团：Decimal 隐式类型推导与 MySQL 差异<svg class="icon" viewBox="0 0 256 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9.0l-22.6-22.6c-9.4-9.4-9.4-24.6.0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6.0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9.0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></a></div></div><div id=comments class="tw:print:hidden! tw:pt-32 tw:pb-8"><div id=giscus></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://giscus.app/>giscus</a>.</noscript></div></article></main><footer class=footer><div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreferrer" title="Hugo 0.162.1">Hugo</a> 强力驱动&nbsp;|&nbsp;本网站由<a href=https://pages.cloudflare.com/ rel=noopener target=_blank>Cloudflare Pages</a>提供 CDN加速/云存储服务&nbsp;|&nbsp;主题 - <a href=https://github.com/HEIGE-PCloud/DoIt target=_blank rel="noopener noreferrer" title="DoIt 1.0.2"><svg class="icon" viewBox="0 0 576 512"><path d="M402.3 344.9l32-32c5-5 13.7-1.5 13.7 5.7V464c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h273.5c7.1.0 10.7 8.6 5.7 13.7l-32 32c-1.5 1.5-3.5 2.3-5.7 2.3H48v352h352V350.5c0-2.1.8-4.1 2.3-5.6zm156.6-201.8L296.3 405.7l-90.4 10c-26.2 2.9-48.5-19.2-45.6-45.6l10-90.4L432.9 17.1c22.9-22.9 59.9-22.9 82.7.0l43.2 43.2c22.9 22.9 22.9 60 .1 82.8zM460.1 174 402 115.9 216.2 301.8l-7.3 65.3 65.3-7.3L460.1 174zm64.8-79.7-43.2-43.2c-4.1-4.1-10.8-4.1-14.8.0L436 82l58.1 58.1 30.9-30.9c4-4.2 4-10.8-.1-14.9z"/></svg> DoIt</a></div><div class=footer-line><svg class="icon" viewBox="0 0 512 512"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 448c-110.532.0-2e2-89.451-2e2-2e2.0-110.531 89.451-2e2 2e2-2e2 110.532.0 2e2 89.451 2e2 2e2.0 110.532-89.451 2e2-2e2 2e2zm107.351-101.064c-9.614 9.712-45.53 41.396-104.065 41.396-82.43.0-140.484-61.425-140.484-141.567.0-79.152 60.275-139.401 139.762-139.401 55.531.0 88.738 26.62 97.593 34.779a11.965 11.965.0 011.936 15.322l-18.155 28.113c-3.841 5.95-11.966 7.282-17.499 2.921-8.595-6.776-31.814-22.538-61.708-22.538-48.303.0-77.916 35.33-77.916 80.082.0 41.589 26.888 83.692 78.277 83.692 32.657.0 56.843-19.039 65.726-27.225 5.27-4.857 13.596-4.039 17.82 1.738l19.865 27.17a11.947 11.947.0 01-1.152 15.518z"/></svg>2016 - 2026<span class=author>&nbsp;<a href=/ target=_blank rel="noopener noreferrer">victorchutian</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span><span class=icp-splitter>&nbsp;|&nbsp;</span><br class=icp-br><span class=icp><a href=https://beian.miit.gov.cn/ rel=noopener target=_blank>浙 ICP 备 18037908 号 - 1 </a></span><span class=icp-splitter>&nbsp;|&nbsp;</span><span class=icp><img src=/images/gongan.webp alt style=display:inline-block;vertical-align:middle><a href="https://beian.mps.gov.cn/#/query/webSearch?code=33010902002043" rel=noopener target=_blank>浙公网安备 33010902002043 号</a></span></div><div class=footer-line></div><div class=footer-line></div></div></footer><div class="tw:print:hidden! tw:flex tw:flex-col tw:fixed tw:right-4 tw:bottom-4 tw:gap-2"><a href=#back-to-top id=back-to-top-button class="tw:transition-opacity tw:opacity-0 tw:block tw:bg-bgColor-secondary tw:rounded-full" style=padding:.6rem;line-height:1.3rem;font-size:1rem title=回到顶部><svg class="icon" viewBox="0 0 448 512"><path d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6.0-33.9L207 39c9.4-9.4 24.6-9.4 33.9.0l194.3 194.3c9.4 9.4 9.4 24.6.0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3.0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"/></svg>
+</a><button id=toc-drawer-button class="tw:block tw:bg-bgColor-secondary tw:rounded-full tw:md:hidden" style=padding:.6rem;line-height:1.3rem;font-size:1rem>
+<svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg>
+</button><a href=#comments id=view-comments class="tw:block tw:bg-bgColor-secondary tw:rounded-full" style=padding:.6rem;line-height:1.3rem;font-size:1rem title=查看评论>
+<svg class="icon" viewBox="0 0 512 512"><path d="M256 32C114.6 32 0 125.1.0 240c0 49.6 21.4 95 57 130.7C44.5 421.1 2.7 466 2.2 466.5c-2.2 2.3-2.8 5.7-1.5 8.7S4.8 480 8 480c66.3.0 116-31.8 140.6-51.4 32.7 12.3 69 19.4 107.4 19.4 141.4.0 256-93.1 256-208S397.4 32 256 32z"/></svg></a></div><script type=module>
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: (window.theme === 'dark' ? 'dark' : 'default') });
+</script><link rel=stylesheet href=/lib/katex/katex.min.91de51b2a3c53578693b4aaa70414d37.css integrity="md5-kd5RsqPFNXhpO0qqcEFNNw=="><link rel=preload as=style onload='this.onload=null,this.rel="stylesheet"' href=/lib/katex/copy-tex.min.727189e34fc67f1c2e7020d67aada5dc.css integrity="md5-cnGJ40/GfxwucCDWeq2l3A=="><noscript><link rel=stylesheet href=/lib/katex/copy-tex.min.727189e34fc67f1c2e7020d67aada5dc.css integrity="md5-cnGJ40/GfxwucCDWeq2l3A=="></noscript><script>window.config={"algoliasearch.min.js":"/lib/algoliasearch/algoliasearch-lite.umd.min.js","autocomplete.min.js":"/lib/autocomplete/autocomplete.min.js",comment:{giscus:{darkTheme:"catppuccin_frappe",dataCategory:"Announcements",dataCategoryId:"DIC_kwDORI9uYs4C15sc",dataEmitMetadata:"0",dataInputPosition:"top",dataLang:"zh-CN",dataLoading:"lazy",dataMapping:"pathname",dataReactionsEnabled:"1",dataRepo:"chutian0610/blog-comment",dataRepoId:"R_kgDORI9uYg",dataStrict:"0",lightTheme:"catppuccin_latte"}},data:{"desktop-header-typeit":"Victor's Code Journey","mobile-header-typeit":"Victor's Code Journey"},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"X9UOD4FSUP",algoliaIndex:"hugo",algoliaSearchKey:"fa32db1f02073025c69da8ebad0a6aa6",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:50,type:"algolia"},sharerjs:!0,typeit:{cursorChar:null,cursorSpeed:null,data:{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},duration:null,speed:null}}</script><script src=/lib/sharer/sharer.min.b834cfb885a9d1d9cc75ca8215372179.js integrity="md5-uDTPuIWp0dnMdcqCFTcheQ=="></script><script src=/lib/typeit/typeit.min.4297640b5eb76c2398632d6ec76a9f01.js integrity="md5-QpdkC163bCOYYy1ux2qfAQ=="></script><script src=/lib/katex/katex.min.45b33a9a36cb61ee90ff56f18e6cd422.js integrity="md5-RbM6mjbLYe6Q/1bxjmzUIg==" defer></script><script src=/lib/katex/auto-render.min.2499f8f84f6a72af275029af0206a56b.js integrity="md5-JJn4+E9qcq8nUCmvAgalaw==" defer></script><script src=/lib/katex/copy-tex.min.a0fd9fa48b9c1d387d2d59e0ddfadee1.js integrity="md5-oP2fpIucHTh9LVng3fre4Q==" defer></script><script src=/lib/katex/mhchem.min.0dafd1efdb3e2ee74d40d34ad711e1c3.js integrity="md5-Da/R79s+LudNQNNK1xHhww==" defer></script><script src=/js/katex.min.785fffd265d99c567aa2f2882b8593a7.js integrity="md5-eF//0mXZnFZ6ovKIK4WTpw==" defer></script><script src=/js/theme.min.2c60e4f8658ba4fc4f1c833ce26de2b3.js integrity="md5-LGDk+GWLpPxPHIM84m3isw==" defer></script><script src=/js/giscus.min.0a8d3dd523c6e5ceba801eb2d1638101.js integrity="md5-Co091SPG5c66gB6y0WOBAQ==" defer></script><script type=speculationrules>
+  {
+    "prerender": [
+      {
+        "where": { "href_matches": "/*" },
+        "eagerness": "moderate"
+      }
+    ]
+  }
+</script></body></html>
