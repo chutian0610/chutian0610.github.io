@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>OOM - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/oom/</link><description>OOM - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Tue, 01 Aug 2017 21:35:37 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/oom/" rel="self" type="application/rss+xml"/><item><title>Java OOM Error</title><link>http://www.victorchu.info/posts/2017/08/45975fd0/</link><pubDate>Tue, 01 Aug 2017 21:35:37 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/08/45975fd0/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/java.webp" referrerpolicy="no-referrer">
+            </div><p>OOM(OutOfMemoryError)是java工程师都会了解的一种异常，实质上，OOM并不是只有一种，一共有9种不同类型的OOM：</p>
+<ul>
+<li>java.lang.OutOfMemoryError: Java heap space</li>
+<li>java.lang.OutOfMemoryError: GC Overhead limit exceeded</li>
+<li>java.lang.OutOfMemoryError: Permgen space</li>
+<li>java.lang.OutOfMemoryError: Metaspace</li>
+<li>java.lang.OutOfMemoryError: Unable to create new native thread</li>
+<li>java.lang.OutOfMemoryError: reason stack_trace_with_native_method</li>
+<li>java.lang.OutOfMemoryError: Requested array size exceeds VM limit</li>
+<li>java.lang.OutOfMemoryError: Kill process or sacrifice child</li>
+<li>java.lang.OutOfMemoryError: Direct buffer memory</li>
+</ul>
+<p>不同的原因触发不同类型的OOM，每种OOM类型的解决方案也不同。</p>]]></description></item></channel></rss>

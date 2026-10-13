@@ -1,0 +1,10 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Pointer - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/pointer/</link><description>Pointer - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Fri, 07 Mar 2025 17:32:49 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/pointer/" rel="self" type="application/rss+xml"/><item><title>Rust 智能指针简介</title><link>http://www.victorchu.info/posts/2025/03/25a24ade/</link><pubDate>Fri, 07 Mar 2025 17:32:49 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2025/03/25a24ade/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/rust.webp" referrerpolicy="no-referrer">
+            </div><p>指针是一个包含了内存地址的变量，该内存地址引用或者指向了另外的数据。</p>
+<p>在 Rust 中，最常见的指针类型是引用，引用通过 &amp; 符号表示。不同于其它语言，引用在 Rust 中被赋予了更深层次的含义，那就是：借用其它变量的值。引用本身很简单，除了指向某个值外并没有其它的功能，也不会造成性能上的额外损耗，因此是 Rust 中使用最多的指针类型。</p>
+<p>而智能指针则不然，它虽然也号称指针，但是它是一个复杂的家伙：通过比引用更复杂的数据结构，包含比引用更多的信息，例如元数据，当前长度，最大可用长度等。智能指针往往是基于结构体实现，它与我们自定义的结构体最大的区别在于它实现了 Deref 和 Drop 特征：</p>
+<ul>
+<li>Deref 可以让智能指针像引用那样工作，这样你就可以写出同时支持智能指针和引用的代码，例如 *T</li>
+<li>Drop 允许你指定智能指针超出作用域后自动执行的代码，例如做一些数据清除等收尾工作</li>
+</ul>
+<p>而 Box 指针是最简单的智能指针。本文将介绍 Box 指针以及 Deref 和 Drop 特征。</p>]]></description></item></channel></rss>

@@ -1,0 +1,7 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Serialization - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/serialization/</link><description>Serialization - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Fri, 31 Mar 2017 19:46:21 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/serialization/" rel="self" type="application/rss+xml"/><item><title>Java序列化</title><link>http://www.victorchu.info/posts/2017/03/9cd1a944/</link><pubDate>Fri, 31 Mar 2017 19:46:21 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/03/9cd1a944/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/java.webp" referrerpolicy="no-referrer">
+            </div><p>&ldquo;持久化&quot;意味着对象的“生存时间”并不取决于程序是否正在执行——它存活于程序的每一次调用之间。通过序列化一个对象，将其写入磁盘，以后在程序再次调用时,通过反序列化,重新恢复那个对象，就能圆满实现一种“持久”效果。什么是序列化和反序列化？(注意这里仅指 java 自身提供的序列化功能)</p>
+<ul>
+<li>把对象转换为字节序列的过程称为对象的序列化。</li>
+<li>把字节序列恢复为对象的过程称为对象的反序列化。</li>
+</ul>]]></description></item></channel></rss>

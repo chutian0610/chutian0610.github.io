@@ -1,0 +1,9 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Version - 分类 - Victor's Code Journey</title><link>http://www.victorchu.info/categories/version/</link><description>Version - 分类 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Sun, 21 Apr 2019 14:01:44 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/categories/version/" rel="self" type="application/rss+xml"/><item><title>版本规范</title><link>http://www.victorchu.info/posts/2019/04/6420cdd8/</link><pubDate>Sun, 21 Apr 2019 14:01:44 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2019/04/6420cdd8/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/spec.webp" referrerpolicy="no-referrer">
+            </div><p>版本格式：<code>主版本号.次版本号.修订号</code>，版本号递增规则如下：</p>
+<ul>
+<li>主版本号：当你做了不兼容的 API 修改，</li>
+<li>次版本号：当你做了向下兼容的功能性新增，</li>
+<li>修订号：当你做了向下兼容的问题修正。</li>
+</ul>
+<p>先行版本号及版本编译元数据可以加到<code>主版本号.次版本号.修订号</code> 的后面，作为延伸。</p>]]></description></item></channel></rss>
