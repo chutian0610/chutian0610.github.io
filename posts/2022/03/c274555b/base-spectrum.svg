@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460" viewBox="0 0 960 460" role="img" aria-labelledby="title desc">
+  <title id="title">ACID 与 BASE 在一致性—可用性光谱上的位置</title>
+  <desc id="desc">光谱左端是强一致优先的 ACID，右端是高可用优先的 BASE，中间列出 BASE 的三个组成部分。</desc>
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0f766e"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+    <marker id="ah6" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L9,3 L0,6 z" fill="#64748b"/>
+    </marker>
+  </defs>
+  <rect width="960" height="460" fill="#f8fafc"/>
+
+  <text x="56" y="54" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="28" font-weight="700" fill="#0f172a">ACID 与 BASE：一致性—可用性光谱的两端</text>
+  <text x="56" y="86" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="16" fill="#64748b">两者不是对错之分，而是同一光谱上针对不同业务场景的取舍</text>
+
+  <rect x="56" y="112" width="848" height="10" rx="5" fill="url(#grad)"/>
+
+  <text x="56" y="152" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#065f46">强一致 · 低可用（ACID）</text>
+  <text x="56" y="176" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#64748b">优先 C 与 A，牺牲 P；单机数据库的默认选择</text>
+
+  <text x="904" y="152" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#9a3412">高可用 · 最终一致（BASE）</text>
+  <text x="904" y="176" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#64748b">优先 A，分区期间放弃强一致，恢复后收敛</text>
+
+  <line x1="56" y1="200" x2="904" y2="200" stroke="#cbd5e1" stroke-width="2" marker-end="url(#ah6)"/>
+  <text x="480" y="196" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="13" fill="#94a3b8">一致性递减 / 可用性递增</text>
+
+  <rect x="56" y="224" width="272" height="148" rx="10" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="80" y="256" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#0f172a">基本可用 BA</text>
+  <text x="80" y="288" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#475569">允许部分功能降级、性能退化</text>
+  <text x="80" y="314" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#475569">局部故障时核心链路仍可服务</text>
+  <text x="80" y="340" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#94a3b8">≠ 系统整体不可用</text>
+
+  <rect x="344" y="224" width="272" height="148" rx="10" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="368" y="256" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#0f172a">软状态 Soft State</text>
+  <text x="368" y="288" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#475569">副本之间允许存在中间状态</text>
+  <text x="368" y="314" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#475569">靠 Gossip / 后台同步异步收敛</text>
+  <text x="368" y="340" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#94a3b8">状态可以临时不稳定</text>
+
+  <rect x="632" y="224" width="272" height="148" rx="10" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="656" y="256" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#0f172a">最终一致 EC</text>
+  <text x="656" y="288" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#475569">没有新写入时最终收敛</text>
+  <text x="656" y="314" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#475569">读操作可能暂时返回旧值</text>
+  <text x="656" y="340" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#94a3b8">收敛后所有副本一致</text>
+
+  <rect x="56" y="392" width="848" height="48" rx="10" fill="#eef2ff" stroke="#c7d2fe"/>
+  <text x="480" y="422" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#3730a3">BASE 是 CAP 中 AP 方案的延伸：只在分区期间放弃强一致，分区恢复后靠最终一致性收敛</text>
+</svg>

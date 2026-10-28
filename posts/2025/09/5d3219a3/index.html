@@ -1,0 +1,616 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Apache Livy 简介 - Victor's Code Journey</title><meta name=Description content><meta property="og:url" content="http://www.victorchu.info/posts/2025/09/5d3219a3/"><meta property="og:site_name" content="Victor's Code Journey"><meta property="og:title" content="Apache Livy 简介"><meta property="og:description" content="当你把一个 Spark 应用交给数据平台服务化时，很快会遇到三个现实问题：客户端机器不一定能直连集群；spark-submit 不适合由 Web 后端反复执行；多个用户的长任务、权限、日志和资源也不能只靠脚本管理。Apache Livy 要解决的就是这一层问题：它把 Spark 集群包装成可远程访问、可管理、可多租户使用的 REST 服务。
+这篇文章面向已经了解 Spark Driver、Executor 和 Cluster Manager 的读者。读完你可以理解 Livy Server 的职责边界、Interactive Session 与 Batch Session 的差异、RSC 的连接建立过程、Executor 资源如何分配和扩缩容、Session 状态恢复机制，以及 Livy 与 Spark Connect 的适用边界。"><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2025-09-14T14:36:31+08:00"><meta property="article:modified_time" content="2026-09-14T10:35:00+08:00"><meta property="article:tag" content="Spark"><meta property="article:tag" content="Livy"><meta property="article:tag" content="Big Data"><meta property="og:image" content="http://www.victorchu.info/blog-solid.svg"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="http://www.victorchu.info/blog-solid.svg"><meta name=twitter:title content="Apache Livy 简介"><meta name=twitter:description content="当你把一个 Spark 应用交给数据平台服务化时，很快会遇到三个现实问题：客户端机器不一定能直连集群；spark-submit 不适合由 Web 后端反复执行；多个用户的长任务、权限、日志和资源也不能只靠脚本管理。Apache Livy 要解决的就是这一层问题：它把 Spark 集群包装成可远程访问、可管理、可多租户使用的 REST 服务。
+这篇文章面向已经了解 Spark Driver、Executor 和 Cluster Manager 的读者。读完你可以理解 Livy Server 的职责边界、Interactive Session 与 Batch Session 的差异、RSC 的连接建立过程、Executor 资源如何分配和扩缩容、Session 状态恢复机制，以及 Livy 与 Spark Connect 的适用边界。"><meta name=application-name content="Victor's Code Journey"><meta name=apple-mobile-web-app-title content="Victor's Code Journey"><meta name=theme-color content="#f8f8f8"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=canonical href=http://www.victorchu.info/posts/2025/09/5d3219a3/><link rel=prev href=http://www.victorchu.info/posts/2025/08/1ff241/><link rel=next href=http://www.victorchu.info/posts/2025/10/a40cdb91/><link rel=stylesheet href=/css/main.min.7279c10edda26efb5dbc11956417de1c.css integrity="md5-cnnBDt2ibvtdvBGVZBfeHA=="><link rel=stylesheet href=/css/style.min.8983304fd7534daf340b30b7f3cf86be.css integrity="md5-iYMwT9dTTa80CzC388+Gvg=="><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Apache Livy 简介","inLanguage":"zh-cn","mainEntityOfPage":{"@type":"WebPage","@id":"http://www.victorchu.info/posts/2025/09/5d3219a3/"},"image":[{"@type":"ImageObject","url":"http://www.victorchu.info/feature-images/spark.webp","width":640,"height":429}],"genre":"posts","keywords":["Spark","Livy","Big Data"],"wordcount":7490,"url":"http://www.victorchu.info/posts/2025/09/5d3219a3/","datePublished":"2025-09-14T14:36:31+08:00","dateModified":"2026-09-14T10:35:00+08:00","publisher":{"@type":"Organization","name":"victorchutian"},"author":[{"@type":"Person","name":"victorchutian","url":"http://www.victorchu.info/authors/victorchutian/"}],"description":""}</script></head><body data-instant-intensity=viewport class="tw:flex tw:min-h-screen tw:flex-col"><script>function setTheme(e){document.body.setAttribute("theme",e),document.documentElement.className=e,document.documentElement.style.setProperty("color-scheme",e==="light"?"light":"dark"),e==="light"?document.documentElement.classList.remove("dark"):document.documentElement.classList.add("dark"),window.theme=e,window.isDark=window.theme!=="light"}function saveTheme(e){window.localStorage&&localStorage.setItem("theme",e)}function getMeta(e){const t=document.getElementsByTagName("meta");for(let n=0;n<t.length;n++)if(t[n].getAttribute("name")===e)return t[n];return""}if(window.localStorage&&localStorage.getItem("theme")){let e=localStorage.getItem("theme");e==="light"||e==="dark"?setTheme(e):setTheme(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}else"auto"==="light"||"auto"==="dark"?(setTheme("auto"),saveTheme("auto")):(saveTheme("auto"),setTheme(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"));let metaColors={light:"#f8f8f8",dark:"#161b22"};getMeta("theme-color").content=metaColors[document.body.getAttribute("theme")],window.switchThemeEventSet=new Set</script><div id=back-to-top></div><div id=mask></div><header class="desktop tw:print:hidden!" id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Victor's Code Journey"><img class="tw:inline tw:align-text-bottom tw:mr-1" src=/images/blog-solid.svg alt="Victor's Code Journey" height=32 width=32><span id=desktop-header-typeit class=typeit></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>所有文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/series/>系列 </a><a class=menu-item href=/about/>关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder="Search ..." id=search-input-desktop>
+<button class="search-button search-toggle" id=search-toggle-desktop title=搜索>
+<svg class="icon" viewBox="0 0 512 512"><path d="M505 442.7 405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9.0 208 0S0 93.1.0 208s93.1 208 208 208c48.3.0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9.0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7.0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7.0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</button>
+<button class="search-button search-clear" id=search-clear-desktop title=清空>
+<svg class="icon" viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3.0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3.0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3.0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3.0 17L312 256l65.6 65.1z"/></svg>
+</button>
+<span class="search-button search-loading tw:animate-spin" id=search-loading-desktop><svg class="icon" viewBox="0 0 512 512"><path d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49.0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156.0c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"/></svg>
+</span></span><button class="menu-item theme-switch" aria-label=切换主题>
+<svg class="icon" viewBox="0 0 512 512"><path d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8 8 119.033 8 256zm248 184V72c101.705.0 184 82.311 184 184 0 101.705-82.311 184-184 184z"/></svg></button></div></div></div></header><header class="mobile tw:print:hidden!" id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Victor's Code Journey"><img class="tw:inline tw:align-text-bottom tw:mr-1" src=/images/blog-solid.svg alt="Victor's Code Journey" height=32 width=32><span id=mobile-header-typeit class=typeit></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder="Search ..." id=search-input-mobile>
+<button class="search-button search-toggle tw:h-10" id=search-toggle-mobile title=搜索>
+<svg class="icon" viewBox="0 0 512 512"><path d="M505 442.7 405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9.0 208 0S0 93.1.0 208s93.1 208 208 208c48.3.0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9.0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7.0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7.0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</button>
+<button class="search-button search-clear tw:h-fit" id=search-clear-mobile title=清空>
+<svg class="icon" viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3.0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3.0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3.0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3.0 17L312 256l65.6 65.1z"/></svg>
+</button>
+<span class="search-button search-loading tw:animate-spin" id=search-loading-mobile><svg class="icon" viewBox="0 0 512 512"><path d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49.0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156.0c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51.0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"/></svg></span></div><button class=search-cancel id=search-cancel-mobile>
+取消</button></div><a class=menu-item href=/posts/ title>所有文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/series/ title>系列</a><a class=menu-item href=/about/ title>关于</a><button class="menu-item theme-switch tw:w-full" aria-label=切换主题>
+<svg class="icon" viewBox="0 0 512 512"><path d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8 8 119.033 8 256zm248 184V72c101.705.0 184 82.311 184 184 0 101.705-82.311 184-184 184z"/></svg></button></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class="tw:mx-4 tw:flex-1"><div class="toc tw:print:hidden!" id=toc-auto><h2 class=toc-title>目录</h2><div class="toc-content always-active" id=toc-content-auto><nav id=TableOfContents><ul><li><a href=#livy-是什么>Livy 是什么</a></li><li><a href=#总体架构>总体架构</a></li><li><a href=#入口层与-rest-路由>入口层与 REST 路由</a></li><li><a href=#interactive-与-batch>Interactive 与 Batch</a></li><li><a href=#interactive-session-的-rsc-链路>Interactive Session 的 RSC 链路</a></li><li><a href=#interactive-session-的-executor-资源模型>Interactive Session 的 Executor 资源模型</a><ul><li><a href=#静态分配>静态分配</a></li><li><a href=#动态分配dynamic-allocation>动态分配（Dynamic Allocation）</a></li></ul></li><li><a href=#batch-session-的提交流程>Batch Session 的提交流程</a></li><li><a href=#session-manager-与状态机>Session Manager 与状态机</a></li><li><a href=#状态存储与恢复>状态存储与恢复</a></li><li><a href=#高可用与故障切换>高可用与故障切换</a></li><li><a href=#安全与多租户>安全与多租户</a></li><li><a href=#最小使用示例>最小使用示例</a></li><li><a href=#常见误区>常见误区</a></li><li><a href=#与-spark-connect-的关系>与 Spark Connect 的关系</a></li><li><a href=#小结>小结</a></li><li><a href=#参考>参考</a></li></ul></nav></div></div><dialog id=toc-dialog class="tw:max-w-full tw:w-full tw:max-h-full tw:h-full tw:ml-16"><div class="toc tw:mx-4 tw:max-w-full"><h2 class="tw:mx-0 tw:my-6 tw:uppercase tw:text-2xl">目录</h2><div class=toc-content><nav id=TableOfContents><ul><li><a href=#livy-是什么>Livy 是什么</a></li><li><a href=#总体架构>总体架构</a></li><li><a href=#入口层与-rest-路由>入口层与 REST 路由</a></li><li><a href=#interactive-与-batch>Interactive 与 Batch</a></li><li><a href=#interactive-session-的-rsc-链路>Interactive Session 的 RSC 链路</a></li><li><a href=#interactive-session-的-executor-资源模型>Interactive Session 的 Executor 资源模型</a><ul><li><a href=#静态分配>静态分配</a></li><li><a href=#动态分配dynamic-allocation>动态分配（Dynamic Allocation）</a></li></ul></li><li><a href=#batch-session-的提交流程>Batch Session 的提交流程</a></li><li><a href=#session-manager-与状态机>Session Manager 与状态机</a></li><li><a href=#状态存储与恢复>状态存储与恢复</a></li><li><a href=#高可用与故障切换>高可用与故障切换</a></li><li><a href=#安全与多租户>安全与多租户</a></li><li><a href=#最小使用示例>最小使用示例</a></li><li><a href=#常见误区>常见误区</a></li><li><a href=#与-spark-connect-的关系>与 Spark Connect 的关系</a></li><li><a href=#小结>小结</a></li><li><a href=#参考>参考</a></li></ul></nav></div></div></dialog><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single tw:print:w-full! tw:print:max-w-none! tw:print:m-0! tw:print:p-0!"><h1 class=single-title data-pagefind-meta=date:2025-09-14 data-pagefind-body>Apache Livy 简介</h1><div class=post-meta><div class=post-meta-line><span class=post-author><span class=author><span class=screen-reader-text></span><a href=http://www.victorchu.info/authors/victorchutian/>victorchutian</a></span>
+</span>&nbsp;<span class=post-category>收录于 </span>&nbsp;<span class=post-category>类别 <a href=/categories/spark/><svg class="icon" viewBox="0 0 512 512"><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49.0 112v288c0 26.51 21.49 48 48 48h416c26.51.0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Spark</a></span></div><div class=post-meta-line><svg class="icon" viewBox="0 0 448 512"><path d="M148 288h-40c-6.6.0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6.0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6.0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6.0 12 5.4 12 12v52h48c26.5.0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3.0 6-2.7 6-6z"/></svg>&nbsp;<time datetime=2025-09-14>2025-09-14</time>&nbsp;<svg class="icon" viewBox="0 0 576 512"><path d="M402.3 344.9l32-32c5-5 13.7-1.5 13.7 5.7V464c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h273.5c7.1.0 10.7 8.6 5.7 13.7l-32 32c-1.5 1.5-3.5 2.3-5.7 2.3H48v352h352V350.5c0-2.1.8-4.1 2.3-5.6zm156.6-201.8L296.3 405.7l-90.4 10c-26.2 2.9-48.5-19.2-45.6-45.6l10-90.4L432.9 17.1c22.9-22.9 59.9-22.9 82.7.0l43.2 43.2c22.9 22.9 22.9 60 .1 82.8zM460.1 174 402 115.9 216.2 301.8l-7.3 65.3 65.3-7.3L460.1 174zm64.8-79.7-43.2-43.2c-4.1-4.1-10.8-4.1-14.8.0L436 82l58.1 58.1 30.9-30.9c4-4.2 4-10.8-.1-14.9z"/></svg>&nbsp;<time datetime=2026-09-14>2026-09-14</time>&nbsp;<svg class="icon" viewBox="0 0 512 512"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3.0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9.0l60.1 60.1c18.8 18.7 18.8 49.1.0 67.9zM284.2 99.8 21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3.0-17l-111-111c-4.8-4.7-12.4-4.7-17.1.0zM124.1 339.9c-5.5-5.5-5.5-14.3.0-19.8l154-154c5.5-5.5 14.3-5.5 19.8.0s5.5 14.3.0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8.0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&nbsp;约 7490 字&nbsp;
+<svg class="icon" viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5.0-2e2-89.5-2e2-2e2S145.5 56 256 56s2e2 89.5 2e2 2e2-89.5 2e2-2e2 2e2zm61.8-104.4-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6.0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"/></svg>&nbsp;预计阅读 33 分钟&nbsp;&nbsp;<span id=busuanzi_container_page_pv>本文阅读量 <span id=busuanzi_value_page_pv></span> 次</span></div></div><div class=featured-image><img loading=eager src=/feature-images/spark.webp height=429 width=640></div><div class="details toc tw:print:block!" id=toc-static data-kept><div class="details-summary toc-title"><span>目录</span>
+<span class=details-icon><svg class="icon" viewBox="0 0 256 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9.0l-22.6-22.6c-9.4-9.4-9.4-24.6.0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6.0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9.0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#livy-是什么>Livy 是什么</a></li><li><a href=#总体架构>总体架构</a></li><li><a href=#入口层与-rest-路由>入口层与 REST 路由</a></li><li><a href=#interactive-与-batch>Interactive 与 Batch</a></li><li><a href=#interactive-session-的-rsc-链路>Interactive Session 的 RSC 链路</a></li><li><a href=#interactive-session-的-executor-资源模型>Interactive Session 的 Executor 资源模型</a><ul><li><a href=#静态分配>静态分配</a></li><li><a href=#动态分配dynamic-allocation>动态分配（Dynamic Allocation）</a></li></ul></li><li><a href=#batch-session-的提交流程>Batch Session 的提交流程</a></li><li><a href=#session-manager-与状态机>Session Manager 与状态机</a></li><li><a href=#状态存储与恢复>状态存储与恢复</a></li><li><a href=#高可用与故障切换>高可用与故障切换</a></li><li><a href=#安全与多租户>安全与多租户</a></li><li><a href=#最小使用示例>最小使用示例</a></li><li><a href=#常见误区>常见误区</a></li><li><a href=#与-spark-connect-的关系>与 Spark Connect 的关系</a></li><li><a href=#小结>小结</a></li><li><a href=#参考>参考</a></li></ul></nav></div></div><div class=content id=content data-pagefind-body><p>当你把一个 Spark 应用交给数据平台服务化时，很快会遇到三个现实问题：客户端机器不一定能直连集群；<code>spark-submit</code> 不适合由 Web 后端反复执行；多个用户的长任务、权限、日志和资源也不能只靠脚本管理。Apache Livy 要解决的就是这一层问题：它把 Spark 集群包装成可远程访问、可管理、可多租户使用的 REST 服务。</p><p>这篇文章面向已经了解 Spark Driver、Executor 和 Cluster Manager 的读者。读完你可以理解 Livy Server 的职责边界、Interactive Session 与 Batch Session 的差异、RSC 的连接建立过程、Executor 资源如何分配和扩缩容、Session 状态恢复机制，以及 Livy 与 Spark Connect 的适用边界。</p><h2 id=livy-是什么 class=headerLink><a href=#livy-%e6%98%af%e4%bb%80%e4%b9%88 class=header-mark></a>Livy 是什么</h2><p>Apache Livy 是一个通过 REST 接口与 Spark 集群交互的服务。它支持提交 Spark 代码片段或完整应用，支持同步和异步获取结果，也支持管理 Spark Context。对 Web、移动端或调度平台来说，它们只需要访问 Livy Server，而不必在每台客户端机器上维护完整的 Spark 客户端环境。</p><p>Livy 的关键特征可以概括为四点：</p><ul><li><strong>远程提交</strong>：客户端通过 HTTP/JSON 或 client library 使用 Spark 集群。</li><li><strong>长 Context 复用</strong>：Interactive Session 可以让 SparkContext 持续存在，多个语句和作业复用其中的缓存数据。</li><li><strong>多租户管理</strong>：多个 Session / Batch 可以共存，并且支持 impersonation、ACL、Kerberos/LDAP 等安全机制。</li><li><strong>控制面与数据面分离</strong>：Livy Server 负责接入、路由、鉴权、状态管理和生命周期控制；真正的 Spark 计算仍然发生在被管理的集群里。</li></ul><p>版本方面，Apache Livy 仍处于 incubating 状态。较新的 <code>0.9.0-incubating</code> 增加了 Kubernetes 提交支持、Spark 3.5.6 支持和 Java 17 测试支持；<code>0.8.0-incubating</code> 则引入了 Scala 2.12 支持等变化。下面以官方 latest 文档和当前 master 源码为主线展开，具体可用特性仍要核对你部署的 Livy 版本。</p><h2 id=总体架构 class=headerLink><a href=#%e6%80%bb%e4%bd%93%e6%9e%b6%e6%9e%84 class=header-mark></a>总体架构</h2><p>官方架构图把系统分成三段：Client 通过 HTTP 访问 REST Server；REST Server 管理多个 Context；Context 所在的 Driver 与 Executor 运行在 Cluster Manager 管理的集群中。可以把 Livy Server 理解成 Spark 集群的<strong>服务化控制面</strong>，而不是替代 Spark 的计算引擎。</p><pre class=mermaid>flowchart TB
+    subgraph clients["Clients"]
+        notebook["Notebook / BI 工具"]
+        webapp["Web / Mobile 后端"]
+        scheduler["调度平台 / SDK"]
+    end
+
+    subgraph server["Livy Server"]
+        direction TB
+        router["REST Router / SessionServlet"]
+        access["AccessManager / Authentication"]
+        imgr["InteractiveSessionManager"]
+        bmgr["BatchSessionManager"]
+        store["SessionStore / StateStore"]
+        launcher["ContextLauncher / RSCClient"]
+        builder["SparkProcessBuilder"]
+
+        router --> access
+        router --> imgr
+        router --> bmgr
+        imgr --> launcher
+        bmgr --> builder
+        imgr --> store
+        bmgr --> store
+    end
+
+    subgraph cluster["YARN / Kubernetes / Local Process"]
+        direction TB
+        cm["Cluster Manager"]
+        irdriver["Interactive Driver<br>RSCDriver / ReplDriver<br>SparkContext"]
+        irexec["Interactive Executors"]
+        bdriver["User Batch Driver"]
+        bexec["Batch Executors"]
+
+        cm --> irdriver
+        irdriver --> irexec
+        cm --> bdriver
+        bdriver --> bexec
+    end
+
+    clients -->|"HTTP / JSON"| router
+    launcher -->|"提交并连接 RSC"| irdriver
+    builder -->|"spark-submit"| cm
+</pre><p>这个边界很重要：Livy Server 挂了，不代表已经运行中的 Spark 应用一定会立刻被杀掉；但客户端可能失去统一的入口，Livy 也可能无法继续更新 Session 状态。开启 recovery 后，Livy 重启可以从状态存储里找回 Session 元数据；不开 recovery 时，默认行为会随服务关闭而遗忘或停止 Session。</p><h2 id=入口层与-rest-路由 class=headerLink><a href=#%e5%85%a5%e5%8f%a3%e5%b1%82%e4%b8%8e-rest-%e8%b7%af%e7%94%b1 class=header-mark></a>入口层与 REST 路由</h2><p>Livy 的两个核心资源是 <code>/sessions</code> 和 <code>/batches</code>。前者对应可反复提交语句的交互式会话，后者对应一次完整应用的批处理提交。Livy Server 内部由 <code>LivyServer</code> 挂载路由，由 <code>SessionServlet</code> 提供通用能力，再由 <code>InteractiveSessionServlet</code> 和 <code>BatchSessionServlet</code> 处理各自的差异。</p><div class=table-wrapper><table><thead><tr><th style=text-align:left>API</th><th style=text-align:left>作用</th></tr></thead><tbody><tr><td style=text-align:left><code>POST /sessions</code></td><td style=text-align:left>创建交互式 Scala、Python、R 或 SQL 会话</td></tr><tr><td style=text-align:left><code>GET /sessions/{id}</code></td><td style=text-align:left>查询 Session 信息</td></tr><tr><td style=text-align:left><code>POST /sessions/{id}/statements</code></td><td style=text-align:left>向会话提交代码片段</td></tr><tr><td style=text-align:left><code>GET /sessions/{id}/statements/{statementId}</code></td><td style=text-align:left>查询语句状态和输出</td></tr><tr><td style=text-align:left><code>POST /batches</code></td><td style=text-align:left>提交一个 JAR / Python 文件形式的批处理应用</td></tr><tr><td style=text-align:left><code>GET /batches/{id}</code></td><td style=text-align:left>查询批处理应用信息</td></tr><tr><td style=text-align:left><code>DELETE /sessions/{id}</code> 或 <code>DELETE /batches/{id}</code></td><td style=text-align:left>停止 Session 或 Batch</td></tr></tbody></table></div><p><code>SessionServlet</code> 并不只是做 URL 转发。它会检查 Session 是否存在，判断请求人是 owner 还是具备 view / modify / super 权限，然后把请求交给 <code>SessionManager</code>。创建请求还会受到最大进程数限制，避免一次突发流量启动过多 Spark 应用。</p><h2 id=interactive-与-batch class=headerLink><a href=#interactive-%e4%b8%8e-batch class=header-mark></a>Interactive 与 Batch</h2><p>Interactive Session 的目标是“长时间使用一个 Spark 环境”。用户可以先定义变量和 DataFrame，再反复提交 SQL、Python、Scala 或 R 语句。它适合探索式分析、Notebook、教学环境和需要复用缓存的场景。</p><p>Batch Session 的目标是“运行一个已经完成的程序”。请求中必须提供 <code>file</code>，通常会指定 <code>className</code> 和参数。Livy 用它生成 <code>spark-submit</code> 命令，然后跟踪应用状态、日志和退出结果。它适合定时 ETL、模型训练脚本和不需要人工交互的作业。</p><div class=table-wrapper><table><thead><tr><th style=text-align:left>维度</th><th style=text-align:left>Interactive Session</th><th style=text-align:left>Batch Session</th></tr></thead><tbody><tr><td style=text-align:left>提交内容</td><td style=text-align:left>代码片段、SQL、Job API 请求</td><td style=text-align:left>完整 JAR / Python 应用</td></tr><tr><td style=text-align:left>生命周期</td><td style=text-align:left>长 Context，等待多轮语句</td><td style=text-align:left>应用退出即结束</td></tr><tr><td style=text-align:left>核心机制</td><td style=text-align:left>RSC + ReplDriver</td><td style=text-align:left><code>spark-submit</code> + 应用监控</td></tr><tr><td style=text-align:left>状态特点</td><td style=text-align:left>idle / busy 等状态反复切换</td><td style=text-align:left>running 到终态</td></tr><tr><td style=text-align:left>典型场景</td><td style=text-align:left>Notebook、交互查询、特征探索</td><td style=text-align:left>定时 ETL、批处理作业</td></tr></tbody></table></div><h2 id=interactive-session-的-rsc-链路 class=headerLink><a href=#interactive-session-%e7%9a%84-rsc-%e9%93%be%e8%b7%af class=header-mark></a>Interactive Session 的 RSC 链路</h2><p>RSC（Remote Spark Context）是 Livy 最有代表性的设计。它让 SparkContext 运行在集群里的专用 Driver 中，而 Livy Server 只保存一个远程客户端连接。</p><p>创建 Interactive Session 时，<code>InteractiveSession</code> 会组装 Spark 配置，并通过 <code>LivyClientBuilder</code> 创建 <code>RSCClient</code>。驱动类被设置为 <code>ReplDriver</code>，随后 <code>ContextLauncher</code> 使用 Spark Launcher 提交一个专用 Spark 应用。这个应用的 Driver 启动 <code>SparkContext</code>，同时启动自己的 RPC Server。</p><pre class=mermaid>sequenceDiagram
+    autonumber
+    participant C as Client
+    participant L as Livy Server / RSCClient
+    participant K as Cluster Manager
+    participant D as RSCDriver / ReplDriver
+
+    C->>L: POST /sessions
+    L->>L: 鉴权、ACL、保存恢复元数据
+    L->>K: ContextLauncher 提交 Spark 应用
+    K->>D: 启动 Driver 和 SparkContext
+    D->>L: 回调 RemoteDriverAddress
+    L->>D: 使用 clientId 与 secret 建立 SASL RPC
+    L->>D: 发送 PingJob
+    D-->>L: PingJob 成功
+    L-->>C: Session 可用，状态进入 idle
+    C->>L: POST /statements
+    L->>D: ReplJobRequest
+    D->>D: Interpreter 解析并执行 Spark 作业
+    D-->>L: Statement 状态和输出
+    L-->>C: 返回 Statement 结果
+</pre><p>RSC 的 RPC 层有几个关键点：</p><ul><li><code>ContextLauncher</code> 生成 <code>clientId</code> 和 <code>secret</code>，Driver 回调后向 Livy Server 返回自己的 RPC 地址。</li><li>客户端与 Driver 建立 Netty RPC，使用 SASL 做身份握手，消息用 Kryo 序列化。</li><li>RPC 调用是异步的；连接没有自动重试，RPC 断开通常意味着该交互式上下文需要终止。</li><li><code>ReplDriver</code> 根据 statement 的 kind 分发到 Scala、PySpark、SparkR 或 SQL 解释器。</li></ul><p>因此，Interactive Session 的 <code>idle</code> / <code>busy</code> 并不只是 Livy Server 自己的状态。Livy Server 还会从 RSCClient 读取 REPL 状态：没有语句在执行时是 <code>idle</code>，正在执行语句时是 <code>busy</code>。</p><h2 id=interactive-session-的-executor-资源模型 class=headerLink><a href=#interactive-session-%e7%9a%84-executor-%e8%b5%84%e6%ba%90%e6%a8%a1%e5%9e%8b class=header-mark></a>Interactive Session 的 Executor 资源模型</h2><p>这里要先区分两个容易混淆的“executor”。RSCDriver 内部有线程池来处理 RPC 请求和 Job API 请求；但真正占用集群 CPU 和内存的是标准 Spark Executor 进程。它可能是 YARN Container，也可能是 Kubernetes Pod。Livy 不自己维护这类 Executor，而是把配置交给 Spark，由 SparkContext 和 Cluster Manager 完成申请、注册、失败替换和释放。</p><p>创建 Interactive Session 时，Livy 会把请求中的资源字段翻译成标准 Spark 配置：</p><ul><li><code>numExecutors</code> 对应 <code>spark.executor.instances</code>，表示静态分配下的 Executor 数量，也是动态分配时常用的初始值；</li><li><code>executorCores</code> 对应 <code>spark.executor.cores</code>，表示单个 Executor 可并发执行的 Task 数；</li><li><code>executorMemory</code> 对应 <code>spark.executor.memory</code>，表示单个 Executor 的 JVM 内存；</li><li><code>driverCores</code> 对应 <code>spark.driver.cores</code>，表示 Driver 可并发使用的 CPU 数；</li><li><code>driverMemory</code> 对应 <code>spark.driver.memory</code>，表示 Driver JVM 内存。</li></ul><p>这些参数在 Session 创建时生效。它们不是 Livy 提供的运行中扩缩容接口；Livy Statement 也不会单独向 Cluster Manager 申请资源。</p><pre class=mermaid>flowchart TB
+    req["POST /sessions"] --> livy["Livy 翻译资源参数"]
+    livy --> spark["SparkContext 使用标准 Spark 配置"]
+    spark --> static{"Dynamic Allocation 是否开启"}
+
+    static -->|"关闭"| fixed["按 spark.executor.instances 申请固定 Executor"]
+    static -->|"开启"| dynamic["ExecutorAllocationManager 管理 Executor"]
+
+    stmt["POST /statements"] --> repl["RSCDriver / ReplDriver 执行代码"]
+    repl --> dag["生成 Stage / Task"]
+    dag --> sched["TaskScheduler 使用已有 Executor"]
+
+    sched -->|"task backlog，未达 maxExecutors"| scaleup["申请更多 Executor"]
+    sched -->|"资源够用"| run["在现有 Executor 上排队或执行"]
+    scaleup --> run
+
+    idle["空闲"] -->|"executorIdleTimeout"| shrink["释放 Executor"]
+    cache["有 cached RDD / DataFrame"] --> keep["持有 cache 的 Executor 可能保留"]
+</pre><h3 id=静态分配 class=headerLink><a href=#%e9%9d%99%e6%80%81%e5%88%86%e9%85%8d class=header-mark></a>静态分配</h3><p>Spark 原生默认关闭 Dynamic Allocation。如果 effective Spark 配置没有开启它，<code>numExecutors</code> 基本就是固定目标数量。</p><p>例如请求中有：</p><div class="code-block highlight is-open show-line-numbers tw:group tw:my-2"><div class="tw:flex
+tw:flex-row
+tw:flex-1
+tw:justify-between
+tw:w-full tw:bg-bgColor-secondary"><button class="code-block-button
+tw:mx-2
+tw:flex
+tw:flex-row
+tw:flex-1" aria-hidden=true>
+<span class="tw:group-[.is-open]:rotate-90 tw:transition-[transform] tw:duration-500 tw:ease-in-out tw:print:hidden! tw:w-min tw:h-min tw:my-1 tw:mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></span>
+<span class="tw:select-none tw:my-1! tw:block">json</span></button><div class=tw:flex><button class="line-number-button
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.show-line-numbers]:text-fgColor-link
+tw:print:hidden!" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.is-wrap]:text-fgColor-link
+tw:print:hidden!" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:hover:text-fgColor-link
+tw:print:hidden!" title="Copy code">
+<span class="copy-icon tw:block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw:hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw:select-none
+tw:mx-2
+tw:block
+tw:group-[.is-open]:hidden
+tw:print:hidden!" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw:block tw:m-0 tw:p-0"><code id=codeblock-id-1 class="chroma
+tw:block!
+tw:p-0
+tw:m-0
+tw:transition-[max-height]
+tw:duration-500
+tw:ease-in-out
+tw:group-[.is-closed]:max-h-0!
+tw:group-[.is-wrap]:text-wrap
+tw:overflow-y-hidden
+tw:overflow-x-auto
+tw:scrollbar-thin"><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;numExecutors&#34;</span><span class=p>:</span> <span class=mi>20</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;executorCores&#34;</span><span class=p>:</span> <span class=mi>2</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;executorMemory&#34;</span><span class=p>:</span> <span class=s2>&#34;4g&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div><p>这个 Session 可能长期持有约 40 个 Executor task slot 和 80 GB Executor 内存。即使它进入 <code>idle</code> 状态，Driver 和 Executor 通常也还会存在。</p><p>这时提交一条生成 100 个 partition 的 Statement，Spark 不会因为数据量更大而自动增加 Executor。它只能在现有 Executor 上排队执行。如果某个 Executor 失败，Spark 可能向 Cluster Manager 申请 replacement Executor，但这是失败替换，不是根据业务负载扩容。</p><h3 id=动态分配dynamic-allocation class=headerLink><a href=#%e5%8a%a8%e6%80%81%e5%88%86%e9%85%8ddynamic-allocation class=header-mark></a>动态分配（Dynamic Allocation）</h3><p>如果希望 idle Session 自动释放 Executor，应显式开启 Spark Dynamic Allocation：</p><div class="code-block highlight is-open show-line-numbers tw:group tw:my-2"><div class="tw:flex
+tw:flex-row
+tw:flex-1
+tw:justify-between
+tw:w-full tw:bg-bgColor-secondary"><button class="code-block-button
+tw:mx-2
+tw:flex
+tw:flex-row
+tw:flex-1" aria-hidden=true>
+<span class="tw:group-[.is-open]:rotate-90 tw:transition-[transform] tw:duration-500 tw:ease-in-out tw:print:hidden! tw:w-min tw:h-min tw:my-1 tw:mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></span>
+<span class="tw:select-none tw:my-1! tw:block">json</span></button><div class=tw:flex><button class="line-number-button
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.show-line-numbers]:text-fgColor-link
+tw:print:hidden!" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.is-wrap]:text-fgColor-link
+tw:print:hidden!" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:hover:text-fgColor-link
+tw:print:hidden!" title="Copy code">
+<span class="copy-icon tw:block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw:hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw:select-none
+tw:mx-2
+tw:block
+tw:group-[.is-open]:hidden
+tw:print:hidden!" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw:block tw:m-0 tw:p-0"><code id=codeblock-id-2 class="chroma
+tw:block!
+tw:p-0
+tw:m-0
+tw:transition-[max-height]
+tw:duration-500
+tw:ease-in-out
+tw:group-[.is-closed]:max-h-0!
+tw:group-[.is-wrap]:text-wrap
+tw:overflow-y-hidden
+tw:overflow-x-auto
+tw:scrollbar-thin"><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;kind&#34;</span><span class=p>:</span> <span class=s2>&#34;pyspark&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&#34;conf&#34;</span><span class=p>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;spark.dynamicAllocation.enabled&#34;</span><span class=p>:</span> <span class=s2>&#34;true&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;spark.dynamicAllocation.minExecutors&#34;</span><span class=p>:</span> <span class=s2>&#34;0&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;spark.dynamicAllocation.maxExecutors&#34;</span><span class=p>:</span> <span class=s2>&#34;50&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&#34;spark.dynamicAllocation.initialExecutors&#34;</span><span class=p>:</span> <span class=s2>&#34;1&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></div><p>开启后，Statement 执行时如果出现 task backlog，<code>ExecutorAllocationManager</code> 会向 Cluster Manager 申请更多 Executor，直到 <code>maxExecutors</code> 或队列资源上限。空闲后，Spark 会按 <code>executorIdleTimeout</code> 释放多余 Executor。</p><p>但仍然有几个边界要注意：</p><ul><li>Driver 会一直存在，Dynamic Allocation 只管理 Executor，不会释放整个 Session。</li><li>有 cached RDD / DataFrame 的 Executor 可能不会被立即释放，需要关注 <code>cachedExecutorIdleTimeout</code>。</li><li>YARN 上通常要配合 external shuffle service；Kubernetes 上则要确认当前 Spark 版本的 shuffle tracking 和 Dynamic Allocation 支持方式。</li><li>Cluster Manager 队列资源不足时，Spark 的申请会等待或失败，Livy Statement 会继续保持 <code>busy</code>，而不是自动换一个队列。</li></ul><p>一句话总结：<strong>Livy Statement 只是提交到已有 RSCDriver；Executor 是 Spark 根据 Session 的 Spark 配置管理的。静态分配不会自动扩容，开启 Spark Dynamic Allocation 后才可能根据 task backlog 继续申请 Executor。</strong></p><h2 id=batch-session-的提交流程 class=headerLink><a href=#batch-session-%e7%9a%84%e6%8f%90%e4%ba%a4%e6%b5%81%e7%a8%8b class=header-mark></a>Batch Session 的提交流程</h2><p>Batch Session 的链路更接近被服务化的 <code>spark-submit</code>。<code>BatchSession</code> 收到请求后，把用户声明的 <code>file</code>、<code>className</code>、资源参数、队列和 Spark 配置交给 <code>SparkProcessBuilder</code>。后者生成启动命令，同时会注入一个用于追踪应用的唯一 tag。</p><pre class=mermaid>sequenceDiagram
+    autonumber
+    participant C as Client
+    participant L as Livy Server
+    participant B as SparkProcessBuilder
+    participant K as YARN / Kubernetes
+    participant D as User Batch Driver
+
+    C->>L: POST /batches
+    L->>L: 校验请求、ACL、保存恢复元数据
+    L->>B: 组装 spark-submit 参数
+    B->>K: 提交应用
+    K->>D: 启动 User Driver 和 Executors
+    L->>K: 使用 app tag / appId 轮询状态
+    K-->>L: 返回状态、日志和追踪 URL
+    C->>L: GET /batches/{id}
+    L-->>C: 返回运行状态和日志
+    D-->>K: 应用完成或失败
+    K-->>L: 更新为终态
+</pre><p>Livy 会根据配置选择不同的 <code>SparkApp</code> 实现：YARN 环境使用 <code>SparkYarnApp</code>，Kubernetes 环境使用 <code>SparkKubernetesApp</code>，其他模式退化为本地进程监控 <code>SparkProcApp</code>。在 YARN 上，Livy 会把应用 tag 写入 <code>spark.yarn.tags</code>；在 Kubernetes 上，则写入 Driver 和 Executor 的 label。这样即使提交命令已经返回，Livy 仍然能继续找到真实应用。</p><p>官方文档强烈建议生产环境使用 YARN cluster mode。这样 Driver 由集群调度和计费，Livy Server 所在主机不会因为承载大量用户 Driver 而变成瓶颈。</p><h2 id=session-manager-与状态机 class=headerLink><a href=#session-manager-%e4%b8%8e%e7%8a%b6%e6%80%81%e6%9c%ba class=header-mark></a>Session Manager 与状态机</h2><p><code>SessionManager</code> 是一个泛型管理器，Interactive 和 Batch 各有自己的 manager。它维护内存中的 Session 映射，分配递增 ID，处理同名冲突，注册 Session，定期回收超时对象。Interactive Session 还支持心跳、idle timeout 和 TTL。</p><pre class=mermaid>stateDiagram-v2
+    [*] --> not_started
+    not_started --> starting
+    starting --> idle: RSC PingJob 成功
+    starting --> running: Batch 应用开始运行
+    starting --> error: 启动或探活失败
+    starting --> dead: 应用退出
+
+    idle --> busy: 提交 Statement
+    busy --> idle: Statement 结束
+    running --> success: 批处理成功
+    running --> dead: 批处理失败或退出
+    running --> killed: 用户终止
+
+    idle --> shutting_down: 删除、超时或 TTL 到期
+    busy --> shutting_down: 删除或强制终止
+    shutting_down --> dead
+
+    error --> [*]
+    dead --> [*]
+    killed --> [*]
+    success --> [*]
+</pre><p>这不是每个版本都完全等价的状态转移图，而是一张便于理解的心智模型。REST 文档中 Session 可能出现 <code>not_started</code>、<code>starting</code>、<code>idle</code>、<code>busy</code>、<code>shutting_down</code>、<code>error</code>、<code>dead</code>、<code>killed</code>、<code>success</code> 等状态；Batch 还会使用 <code>running</code> 表示应用运行中。Statement 另有 <code>waiting</code>、<code>running</code>、<code>available</code>、<code>error</code>、<code>cancelling</code>、<code>cancelled</code> 状态。</p><h2 id=状态存储与恢复 class=headerLink><a href=#%e7%8a%b6%e6%80%81%e5%ad%98%e5%82%a8%e4%b8%8e%e6%81%a2%e5%a4%8d class=header-mark></a>状态存储与恢复</h2><p>Livy 的 recovery 目标是：Livy Server 重启后，不丢失对已有 Session / Batch 的管理视角。默认 <code>livy.server.recovery.mode=off</code> 时使用 <code>BlackholeStateStore</code>，服务关闭时会停止并遗忘 Session。开启 <code>recovery</code> 后，Livy 会把恢复元数据写入状态存储。</p><pre class=mermaid>flowchart TB
+    req["创建 Session / Batch"] --> meta["生成 RecoveryMetadata"]
+    meta --> save["写入 SessionStore"]
+    save --> fs["FileSystemStateStore<br>file:// 或 hdfs://"]
+    save --> zk["ZooKeeperStateStore"]
+    restart["Livy Server 重启"] --> load["读取元数据和 nextSessionId"]
+    load --> recover["Batch: 通过 appTag/appId 找回应用<br>Interactive: 通过 RSC URI 重新连接"]
+    recover --> manage["继续暴露状态、日志和停止接口"]
+</pre><p>几个生产要点：</p><ul><li>状态存储可以选择 <code>filesystem</code> 或 <code>zookeeper</code>。</li><li>文件系统状态存储要求支持原子 rename，源码注释明确建议不要使用 S3 这类不满足该前提的文件系统。</li><li>当前源码要求 recovery 运行在 YARN 或 Kubernetes 上；本地进程模式无法提供同样可靠的恢复语义。</li><li>recovery 是“找回管理视角”，不是完整的双活 HA。多实例接入、负载均衡、隔离和状态一致性仍需要平台层设计。</li></ul><h2 id=高可用与故障切换 class=headerLink><a href=#%e9%ab%98%e5%8f%af%e7%94%a8%e4%b8%8e%e6%95%85%e9%9a%9c%e5%88%87%e6%8d%a2 class=header-mark></a>高可用与故障切换</h2><p>Livy 官方内置的机制更准确地说是 <strong>Session Recovery</strong>，不是完整的 active-active 高可用。它能保证 Livy Server 重启后找回 Session 元数据，但当前实现没有内置 leader election、standby、fencing，也没有多个 Server 安全共享同一批 Session 的语义。</p><p>因此，生产上的推荐形态是：<strong>外部状态存储 + 单活 Livy Server + 平台层故障切换</strong>。可以准备多个 Livy 节点或镜像，但同一时间只允许一个实例作为 active。备用实例不能和 active 同时管理同一批 Session，否则可能出现重复恢复、Session ID 冲突、重复 kill、状态互相覆盖等问题。</p><pre class=mermaid>flowchart TB
+    clients["Client / Notebook / 调度平台"] --> lb["Service / Load Balancer"]
+    lb --> active["Livy Server active"]
+
+    active --> store["外部状态存储<br>ZooKeeper 或 HDFS"]
+    active --> cluster["YARN / Kubernetes Spark Apps"]
+
+    standby["Livy Server standby / 冷备"] -.->|"active 故障后接管"| active
+    controller["Health Check / Failover Controller"] --> standby
+    controller --> store
+
+    recovery["Livy 重启恢复"] --> read["读取 RecoveryMetadata 和 nextSessionId"]
+    read --> batch["Batch: 用 appTag / appId 找回应用"]
+    read --> interactive["Interactive: 用 RSC URI 重新连接"]
+</pre><p>开启 recovery 的 ZooKeeper 配置可以这样组织：</p><div class="code-block highlight is-open show-line-numbers tw:group tw:my-2"><div class="tw:flex
+tw:flex-row
+tw:flex-1
+tw:justify-between
+tw:w-full tw:bg-bgColor-secondary"><button class="code-block-button
+tw:mx-2
+tw:flex
+tw:flex-row
+tw:flex-1" aria-hidden=true>
+<span class="tw:group-[.is-open]:rotate-90 tw:transition-[transform] tw:duration-500 tw:ease-in-out tw:print:hidden! tw:w-min tw:h-min tw:my-1 tw:mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></span>
+<span class="tw:select-none tw:my-1! tw:block">properties</span></button><div class=tw:flex><button class="line-number-button
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.show-line-numbers]:text-fgColor-link
+tw:print:hidden!" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.is-wrap]:text-fgColor-link
+tw:print:hidden!" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:hover:text-fgColor-link
+tw:print:hidden!" title="Copy code">
+<span class="copy-icon tw:block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw:hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw:select-none
+tw:mx-2
+tw:block
+tw:group-[.is-open]:hidden
+tw:print:hidden!" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw:block tw:m-0 tw:p-0"><code id=codeblock-id-3 class="chroma
+tw:block!
+tw:p-0
+tw:m-0
+tw:transition-[max-height]
+tw:duration-500
+tw:ease-in-out
+tw:group-[.is-closed]:max-h-0!
+tw:group-[.is-wrap]:text-wrap
+tw:overflow-y-hidden
+tw:overflow-x-auto
+tw:scrollbar-thin"><span class=line><span class=cl><span class=na>livy.server.recovery.mode</span><span class=o>=</span><span class=s>recovery</span>
+</span></span><span class=line><span class=cl><span class=na>livy.server.recovery.state-store</span><span class=o>=</span><span class=s>zookeeper</span>
+</span></span><span class=line><span class=cl><span class=na>livy.server.zookeeper.url</span><span class=o>=</span><span class=s>zk1:2181,zk2:2181,zk3:2181</span>
+</span></span><span class=line><span class=cl><span class=na>livy.server.zk.retry-policy</span><span class=o>=</span><span class=s>5,100</span></span></span></code></pre></div><p>如果选择 HDFS 状态存储，则改为：</p><div class="code-block highlight is-open show-line-numbers tw:group tw:my-2"><div class="tw:flex
+tw:flex-row
+tw:flex-1
+tw:justify-between
+tw:w-full tw:bg-bgColor-secondary"><button class="code-block-button
+tw:mx-2
+tw:flex
+tw:flex-row
+tw:flex-1" aria-hidden=true>
+<span class="tw:group-[.is-open]:rotate-90 tw:transition-[transform] tw:duration-500 tw:ease-in-out tw:print:hidden! tw:w-min tw:h-min tw:my-1 tw:mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></span>
+<span class="tw:select-none tw:my-1! tw:block">properties</span></button><div class=tw:flex><button class="line-number-button
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.show-line-numbers]:text-fgColor-link
+tw:print:hidden!" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.is-wrap]:text-fgColor-link
+tw:print:hidden!" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:hover:text-fgColor-link
+tw:print:hidden!" title="Copy code">
+<span class="copy-icon tw:block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw:hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw:select-none
+tw:mx-2
+tw:block
+tw:group-[.is-open]:hidden
+tw:print:hidden!" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw:block tw:m-0 tw:p-0"><code id=codeblock-id-4 class="chroma
+tw:block!
+tw:p-0
+tw:m-0
+tw:transition-[max-height]
+tw:duration-500
+tw:ease-in-out
+tw:group-[.is-closed]:max-h-0!
+tw:group-[.is-wrap]:text-wrap
+tw:overflow-y-hidden
+tw:overflow-x-auto
+tw:scrollbar-thin"><span class=line><span class=cl><span class=na>livy.server.recovery.mode</span><span class=o>=</span><span class=s>recovery</span>
+</span></span><span class=line><span class=cl><span class=na>livy.server.recovery.state-store</span><span class=o>=</span><span class=s>filesystem</span>
+</span></span><span class=line><span class=cl><span class=na>livy.server.recovery.state-store.url</span><span class=o>=</span><span class=s>hdfs:///livy/recovery</span></span></span></code></pre></div><p>Batch Session 的恢复通常更稳。Livy 保存了 <code>appId</code>、<code>appTag</code>、owner 和 proxyUser，重启后可以继续到 YARN 或 Kubernetes 查询真实应用状态、日志和诊断信息。Interactive Session 则依赖 <code>rscDriverUri</code>。只有原来的 RSCDriver 还活着，新的 Livy Server 才能重新连接；如果 Driver 已经因为空闲超时、失败或集群回收退出，这个 Session 就无法继续。</p><p>部署时可以按故障切换速度选择方案：</p><div class=table-wrapper><table><thead><tr><th style=text-align:left>方案</th><th style=text-align:left>适用场景</th><th style=text-align:left>注意点</th></tr></thead><tbody><tr><td style=text-align:left>Kubernetes <code>Deployment replicas=1</code> + <code>Recreate</code></td><td style=text-align:left>大多数平台默认选择</td><td style=text-align:left>Pod 重建期间有短暂不可用窗口</td></tr><tr><td style=text-align:left>外部 health check + 冷备接管</td><td style=text-align:left>部署在虚拟机或物理机</td><td style=text-align:left>必须先确认 active 已失联，避免双 active</td></tr><tr><td style=text-align:left>多套独立 Livy 集群按租户分片</td><td style=text-align:left>需要横向扩展或隔离爆炸半径</td><td style=text-align:left>每个分片内部仍是单活</td></tr></tbody></table></div><p>如果确实需要横向扩展，可以用“分片多活”替代“单个服务多活”：</p><div class="code-block highlight is-open show-line-numbers tw:group tw:my-2"><div class="tw:flex
+tw:flex-row
+tw:flex-1
+tw:justify-between
+tw:w-full tw:bg-bgColor-secondary"><button class="code-block-button
+tw:mx-2
+tw:flex
+tw:flex-row
+tw:flex-1" aria-hidden=true>
+<span class="tw:group-[.is-open]:rotate-90 tw:transition-[transform] tw:duration-500 tw:ease-in-out tw:print:hidden! tw:w-min tw:h-min tw:my-1 tw:mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></span>
+<span class="tw:select-none tw:my-1! tw:block">text</span></button><div class=tw:flex><button class="line-number-button
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.show-line-numbers]:text-fgColor-link
+tw:print:hidden!" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.is-wrap]:text-fgColor-link
+tw:print:hidden!" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:hover:text-fgColor-link
+tw:print:hidden!" title="Copy code">
+<span class="copy-icon tw:block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw:hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw:select-none
+tw:mx-2
+tw:block
+tw:group-[.is-open]:hidden
+tw:print:hidden!" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw:block tw:m-0 tw:p-0"><code id=codeblock-id-5 class="chroma
+tw:block!
+tw:p-0
+tw:m-0
+tw:transition-[max-height]
+tw:duration-500
+tw:ease-in-out
+tw:group-[.is-closed]:max-h-0!
+tw:group-[.is-wrap]:text-wrap
+tw:overflow-y-hidden
+tw:overflow-x-auto
+tw:scrollbar-thin"><span class=line><span class=cl>tenant-a -&gt; Livy Cluster A -&gt; hdfs:///livy/tenant-a/recovery
+</span></span><span class=line><span class=cl>tenant-b -&gt; Livy Cluster B -&gt; hdfs:///livy/tenant-b/recovery
+</span></span><span class=line><span class=cl>tenant-c -&gt; Livy Cluster C -&gt; hdfs:///livy/tenant-c/recovery</span></span></code></pre></div><p>每个分片内部仍然保持单活语义。这样整体服务的容量可以扩展，也能把某个 Livy Server 故障的影响范围限制在一个租户内。</p><p>高可用上线前，至少要演练这些场景：Livy Server 重启后 <code>/batches</code> 是否恢复；Batch 的状态、日志和 kill 接口是否继续可用；Interactive 的 RSC URI 是否已经持久化；ZooKeeper 或 HDFS 短暂不可用时 Livy 的行为；备用节点接管后新建 Session 的 ID 是否连续且不冲突；以及故障期间 idle、TTL 或心跳超时是否已经把 Session 回收。</p><h2 id=安全与多租户 class=headerLink><a href=#%e5%ae%89%e5%85%a8%e4%b8%8e%e5%a4%9a%e7%a7%9f%e6%88%b7 class=header-mark></a>安全与多租户</h2><p>Livy 的安全边界要分成几层看：</p><ul><li><strong>接入认证</strong>：可配置 Kerberos/SPNEGO、LDAP，或通过自定义 authentication class 扩展。</li><li><strong>REST ACL</strong>：<code>AccessManager</code> 区分 view、modify、super 和 allowed 用户。查看日志通常走 view 权限，提交、停止和上传资源走 modify 权限。</li><li><strong>用户 impersonation</strong>：管理员用户可以通过 <code>proxyUser</code> 或 <code>doAs</code> 以另一个用户身份启动应用，必须显式开启 <code>livy.impersonation.enabled</code> 并满足 superuser 校验。</li><li><strong>传输与 Web 安全</strong>：可配置 SSL keystore；较新版本还提供 CSRF 保护和安全响应头。</li><li><strong>Spark 配置隔离</strong>：<code>spark-blacklist.conf</code> 可以禁止用户覆盖关键 Spark 配置，避免绕过队列、资源或安全策略。</li></ul><p>如果 Livy Server 暴露在内网负载均衡之后，务必确认真实用户身份如何传入。否则 ACL 和 impersonation 可能只能依赖代理层的正确实现，而不能自动保证租户隔离。</p><h2 id=最小使用示例 class=headerLink><a href=#%e6%9c%80%e5%b0%8f%e4%bd%bf%e7%94%a8%e7%a4%ba%e4%be%8b class=header-mark></a>最小使用示例</h2><p>创建一个 PySpark 交互式 Session：</p><div class="code-block highlight is-open show-line-numbers tw:group tw:my-2"><div class="tw:flex
+tw:flex-row
+tw:flex-1
+tw:justify-between
+tw:w-full tw:bg-bgColor-secondary"><button class="code-block-button
+tw:mx-2
+tw:flex
+tw:flex-row
+tw:flex-1" aria-hidden=true>
+<span class="tw:group-[.is-open]:rotate-90 tw:transition-[transform] tw:duration-500 tw:ease-in-out tw:print:hidden! tw:w-min tw:h-min tw:my-1 tw:mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></span>
+<span class="tw:select-none tw:my-1! tw:block">bash</span></button><div class=tw:flex><button class="line-number-button
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.show-line-numbers]:text-fgColor-link
+tw:print:hidden!" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.is-wrap]:text-fgColor-link
+tw:print:hidden!" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:hover:text-fgColor-link
+tw:print:hidden!" title="Copy code">
+<span class="copy-icon tw:block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw:hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw:select-none
+tw:mx-2
+tw:block
+tw:group-[.is-open]:hidden
+tw:print:hidden!" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw:block tw:m-0 tw:p-0"><code id=codeblock-id-6 class="chroma
+tw:block!
+tw:p-0
+tw:m-0
+tw:transition-[max-height]
+tw:duration-500
+tw:ease-in-out
+tw:group-[.is-closed]:max-h-0!
+tw:group-[.is-wrap]:text-wrap
+tw:overflow-y-hidden
+tw:overflow-x-auto
+tw:scrollbar-thin"><span class=line><span class=cl><span class=nv>BASE</span><span class=o>=</span><span class=s2>&#34;http://livy.example.com:8998&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>curl -X POST <span class=s2>&#34;</span><span class=nv>$BASE</span><span class=s2>/sessions&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  -H <span class=s1>&#39;Content-Type: application/json&#39;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  -d <span class=s1>&#39;{
+</span></span></span><span class=line><span class=cl><span class=s1>    &#34;kind&#34;: &#34;pyspark&#34;,
+</span></span></span><span class=line><span class=cl><span class=s1>    &#34;name&#34;: &#34;demo-pyspark&#34;,
+</span></span></span><span class=line><span class=cl><span class=s1>    &#34;conf&#34;: {
+</span></span></span><span class=line><span class=cl><span class=s1>      &#34;spark.master&#34;: &#34;yarn&#34;,
+</span></span></span><span class=line><span class=cl><span class=s1>      &#34;spark.submit.deployMode&#34;: &#34;cluster&#34;
+</span></span></span><span class=line><span class=cl><span class=s1>    }
+</span></span></span><span class=line><span class=cl><span class=s1>  }&#39;</span></span></span></code></pre></div><p>向该 Session 提交一条语句，并轮询结果：</p><div class="code-block highlight is-open show-line-numbers tw:group tw:my-2"><div class="tw:flex
+tw:flex-row
+tw:flex-1
+tw:justify-between
+tw:w-full tw:bg-bgColor-secondary"><button class="code-block-button
+tw:mx-2
+tw:flex
+tw:flex-row
+tw:flex-1" aria-hidden=true>
+<span class="tw:group-[.is-open]:rotate-90 tw:transition-[transform] tw:duration-500 tw:ease-in-out tw:print:hidden! tw:w-min tw:h-min tw:my-1 tw:mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></span>
+<span class="tw:select-none tw:my-1! tw:block">bash</span></button><div class=tw:flex><button class="line-number-button
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.show-line-numbers]:text-fgColor-link
+tw:print:hidden!" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.is-wrap]:text-fgColor-link
+tw:print:hidden!" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:hover:text-fgColor-link
+tw:print:hidden!" title="Copy code">
+<span class="copy-icon tw:block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw:hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw:select-none
+tw:mx-2
+tw:block
+tw:group-[.is-open]:hidden
+tw:print:hidden!" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw:block tw:m-0 tw:p-0"><code id=codeblock-id-7 class="chroma
+tw:block!
+tw:p-0
+tw:m-0
+tw:transition-[max-height]
+tw:duration-500
+tw:ease-in-out
+tw:group-[.is-closed]:max-h-0!
+tw:group-[.is-wrap]:text-wrap
+tw:overflow-y-hidden
+tw:overflow-x-auto
+tw:scrollbar-thin"><span class=line><span class=cl><span class=nv>SESSION_ID</span><span class=o>=</span><span class=s2>&#34;0&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>curl -X POST <span class=s2>&#34;</span><span class=nv>$BASE</span><span class=s2>/sessions/</span><span class=nv>$SESSION_ID</span><span class=s2>/statements&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  -H <span class=s1>&#39;Content-Type: application/json&#39;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  -d <span class=s1>&#39;{&#34;code&#34;: &#34;spark.range(1000000).count()&#34;}&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>curl <span class=s2>&#34;</span><span class=nv>$BASE</span><span class=s2>/sessions/</span><span class=nv>$SESSION_ID</span><span class=s2>/statements/0&#34;</span></span></span></code></pre></div><p>提交一个 Batch 应用：</p><div class="code-block highlight is-open show-line-numbers tw:group tw:my-2"><div class="tw:flex
+tw:flex-row
+tw:flex-1
+tw:justify-between
+tw:w-full tw:bg-bgColor-secondary"><button class="code-block-button
+tw:mx-2
+tw:flex
+tw:flex-row
+tw:flex-1" aria-hidden=true>
+<span class="tw:group-[.is-open]:rotate-90 tw:transition-[transform] tw:duration-500 tw:ease-in-out tw:print:hidden! tw:w-min tw:h-min tw:my-1 tw:mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></span>
+<span class="tw:select-none tw:my-1! tw:block">bash</span></button><div class=tw:flex><button class="line-number-button
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.show-line-numbers]:text-fgColor-link
+tw:print:hidden!" title="Toggle line numbers"><svg class="icon" viewBox="0 0 512 512"><path d="M61.77 401l17.5-20.15a19.92 19.92.0 005.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 00-8 8v16a8 8 0 008 8h22.83a157.41 157.41.0 00-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33.0 15.94 2.44 15.94 9.09.0 4.72-4.2 8.22-14.36 8.22a41.54 41.54.0 01-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16.0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zm0-160H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16V80a16 16 0 00-16-16zm0 320H176a16 16 0 00-16 16v32a16 16 0 0016 16h320a16 16 0 0016-16v-32a16 16 0 00-16-16zM16 160h64a8 8 0 008-8v-16a8 8 0 00-8-8H64V40a8 8 0 00-8-8H32a8 8 0 00-7.14 4.42l-8 16A8 8 0 0024 64h8v64H16a8 8 0 00-8 8v16a8 8 0 008 8zm-3.91 160H80a8 8 0 008-8v-16a8 8 0 00-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44.0-29.06-25-39.56-44.47-39.56-21.36.0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44.0 019.46-3.84c3.33.0 9.28 1.56 9.28 8.75C51 248.19.0 257.31.0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+<button class="wrap-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:group-[.is-wrap]:text-fgColor-link
+tw:print:hidden!" title="Toggle code wrap"><svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+<button class="copy-code-button
+tw:select-none
+tw:mx-2
+tw:hidden
+tw:group-[.is-open]:block
+tw:hover:text-fgColor-link
+tw:print:hidden!" title="Copy code">
+<span class="copy-icon tw:block"><svg class="icon" viewBox="0 0 448 512"><path d="M433.941 65.941l-51.882-51.882A48 48 0 00348.118.0H176c-26.51.0-48 21.49-48 48v48H48c-26.51.0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51.0 48-21.49 48-48v-48h80c26.51.0 48-21.49 48-48V99.882a48 48 0 00-14.059-33.941zM266 464H54a6 6 0 01-6-6V150a6 6 0 016-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 01-6 6zm128-96H182a6 6 0 01-6-6V54a6 6 0 016-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 01-6 6zm6-256h-64V48h9.632c1.591.0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 011.757 4.243V112z"/></svg></span>
+<span class="check-icon tw:hidden"><svg class="icon" viewBox="0 0 512 512"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206.0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204.0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204.0l36.203 36.204c9.997 9.997 9.997 26.206.0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+</button>
+<button class="tw:select-none
+tw:mx-2
+tw:block
+tw:group-[.is-open]:hidden
+tw:print:hidden!" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw:block tw:m-0 tw:p-0"><code id=codeblock-id-8 class="chroma
+tw:block!
+tw:p-0
+tw:m-0
+tw:transition-[max-height]
+tw:duration-500
+tw:ease-in-out
+tw:group-[.is-closed]:max-h-0!
+tw:group-[.is-wrap]:text-wrap
+tw:overflow-y-hidden
+tw:overflow-x-auto
+tw:scrollbar-thin"><span class=line><span class=cl>curl -X POST <span class=s2>&#34;</span><span class=nv>$BASE</span><span class=s2>/batches&#34;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  -H <span class=s1>&#39;Content-Type: application/json&#39;</span> <span class=se>\
+</span></span></span><span class=line><span class=cl>  -d <span class=s1>&#39;{
+</span></span></span><span class=line><span class=cl><span class=s1>    &#34;file&#34;: &#34;hdfs:///apps/spark-examples.jar&#34;,
+</span></span></span><span class=line><span class=cl><span class=s1>    &#34;className&#34;: &#34;org.apache.spark.examples.SparkPi&#34;,
+</span></span></span><span class=line><span class=cl><span class=s1>    &#34;numExecutors&#34;: 4,
+</span></span></span><span class=line><span class=cl><span class=s1>    &#34;executorMemory&#34;: &#34;2g&#34;,
+</span></span></span><span class=line><span class=cl><span class=s1>    &#34;executorCores&#34;: 2
+</span></span></span><span class=line><span class=cl><span class=s1>  }&#39;</span></span></span></code></pre></div><p>这些示例省略了认证头。生产环境应结合 Kerberos、LDAP、反向代理或内部网关补齐认证，不要把未认证的 Livy 端口直接暴露给普通用户。</p><h2 id=常见误区 class=headerLink><a href=#%e5%b8%b8%e8%a7%81%e8%af%af%e5%8c%ba class=header-mark></a>常见误区</h2><p><strong>把 Livy Server 当成 Spark Driver</strong>。多数场景下，Livy Server 只是控制面。Interactive 的 SparkContext 在 RSCDriver 中，Batch 的 Driver 由 Spark 自己启动。Livy Server 的资源规划应该围绕连接数、元数据、日志缓存和管理线程，而不是把所有用户计算都压到这台机器。</p><p><strong>只看 Livy 状态，不看集群状态</strong>。Livy 的状态来自 REST 对象、RSC REPL 状态以及 YARN/Kubernetes 应用状态的组合。排障时要同时看 Livy Session 日志、Spark UI、YARN application 或 Kubernetes Pod。</p><p><strong>长时间保留 idle Session</strong>。Interactive Session 的 Driver 会持续存在；Executor 是否继续占用资源取决于 Spark Dynamic Allocation、cache 数据和 idle timeout。静态分配下，Executor 通常也会保留。应根据业务配置 idle timeout、TTL、heartbeat、Session 上限，并评估是否开启 Dynamic Allocation。</p><p><strong>把 recovery 理解为高可用</strong>。状态存储能帮助 Livy 重启后找回 Session，但它不自动解决多活写入、请求路由、实例隔离和脑裂问题。高可用方案要在架构层额外设计。</p><p><strong>忽略版本兼容性</strong>。Livy 不捆绑 Spark 发行版，运行时通过 <code>SPARK_HOME</code> 使用 Spark。不同 Livy / Spark / Scala / Java 版本组合的行为可能有差异，升级前要跑真实的 Interactive 和 Batch 链路。</p><h2 id=与-spark-connect-的关系 class=headerLink><a href=#%e4%b8%8e-spark-connect-%e7%9a%84%e5%85%b3%e7%b3%bb class=header-mark></a>与 Spark Connect 的关系</h2><p>Spark 3.4 引入了 Spark Connect。它的客户端把 DataFrame 操作翻译成 unresolved logical plan，通过 gRPC 发送到 Spark 服务端，结果再用 Arrow 流式返回。它带来的客户端/服务端解耦、稳定性和可升级性都很适合现代数据应用。</p><div class=table-wrapper><table><thead><tr><th style=text-align:left>维度</th><th style=text-align:left>Apache Livy</th><th style=text-align:left>Spark Connect</th></tr></thead><tbody><tr><td style=text-align:left>主要协议</td><td style=text-align:left>REST + RSC 的 Netty RPC</td><td style=text-align:left>gRPC + logical plan</td></tr><tr><td style=text-align:left>核心对象</td><td style=text-align:left>Session、Batch、Statement、SparkContext</td><td style=text-align:left>远程 SparkSession</td></tr><tr><td style=text-align:left>API 能力</td><td style=text-align:left>代码片段、Batch、Job API、多语言 REPL</td><td style=text-align:left>主要是 DataFrame 生态，不支持 RDD</td></tr><tr><td style=text-align:left>平台能力</td><td style=text-align:left>多租户、ACL、YARN/K8s 管理集成</td><td style=text-align:left>通常由 Spark 服务端或基础设施扩展</td></tr><tr><td style=text-align:left>适用重点</td><td style=text-align:left>服务化网关和既有 Hadoop/YARN 平台</td><td style=text-align:left>新一代远程 DataFrame 客户端</td></tr></tbody></table></div><p>两者不是简单的替代关系。如果平台已经有 YARN、Kerberos、多用户 Session 管理和 Notebook 集成，Livy 仍是常见选择；如果新系统只需要远程 DataFrame API，并且希望使用 Spark 官方的解耦客户端，Spark Connect 更值得评估。</p><h2 id=小结 class=headerLink><a href=#%e5%b0%8f%e7%bb%93 class=header-mark></a>小结</h2><p>Livy 的价值在于把 Spark 的接入方式服务化：客户端不需要本地 Spark 环境，Web 平台可以通过 REST 创建 Session 或提交 Batch；Livy Server 负责路由、鉴权、状态和生命周期；真正的 Spark 应用运行在 YARN、Kubernetes 或本地进程中。</p><p>理解 Livy 时，关键是区分四条链路：REST 请求如何进入 <code>SessionServlet</code>；Interactive Session 如何通过 RSC 与远程 Driver 保持连接；Interactive 的资源参数如何交给 Spark，并由静态分配或 Dynamic Allocation 管理 Executor；Batch Session 如何转换成 <code>spark-submit</code> 并持续追踪应用状态。再叠加状态存储、安全 ACL 和超时回收，就能看清它在数据平台中的位置。</p><h2 id=参考 class=headerLink><a href=#%e5%8f%82%e8%80%83 class=header-mark></a>参考</h2><ul><li><a href=https://livy.apache.org/ target=_blank rel="noopener noreferrer">Apache Livy 官方网站</a></li><li><a href=https://livy.apache.org/docs/latest/rest-api.html target=_blank rel="noopener noreferrer">Apache Livy REST API 文档</a></li><li><a href=https://livy.apache.org/docs/latest/programmatic-api.html target=_blank rel="noopener noreferrer">Apache Livy Programmatic API</a></li><li><a href=https://livy.apache.org/get-started/ target=_blank rel="noopener noreferrer">Apache Livy Getting Started</a></li><li><a href=https://livy.incubator.apache.org/history/ target=_blank rel="noopener noreferrer">Apache Livy Release History</a></li><li><a href=https://github.com/apache/livy target=_blank rel="noopener noreferrer">Apache Livy GitHub 仓库</a></li><li><a href=https://spark.apache.org/docs/latest/spark-connect-overview.html target=_blank rel="noopener noreferrer">Spark Connect Overview</a></li><li><a href=https://cloud.tencent.com/developer/article/1194700 target=_blank rel="noopener noreferrer">腾讯云开发者社区：Apache Livy 实现思路及模块概述</a></li></ul></div><h2>相关内容</h2><div class=related-container><div class=related-item-container><div class=related-image><a href=/posts/2025/08/7274c97b/><img src=/feature-images/spark.webp alt="Apache Livy 简介" height=200 width=400></a></div><h2 class=related-title><a href=/posts/2025/08/7274c97b/>Spark 简介</a></h2></div></div><div class="sponsor tw:print:hidden"><div class=sponsor-avatar></div><p class=sponsor-bio><em>如果你觉得这篇文章对你有所帮助，请我一杯咖啡吧~</em></p><div class=sponsor-custom><div style=display:flex;justify-content:center;gap:30px><div style=text-align:center><img src=/images/weixinpay.webp alt=微信支付 style=width:200px;height:auto;border-radius:8px><span style=display:block;margin-top:10px;font-size:14px;color:#666>微信支付</span></div><div style=text-align:center><img src=/images/alpay.webp alt=支付宝 style=width:200px;height:auto;border-radius:8px><span style=display:block;margin-top:10px;font-size:14px;color:#666>支付宝</span></div></div></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 2026-09-14</span></div><div class=post-info-license></div></div><div class="post-info-line tw:print:hidden!"><div class=post-info-md></div><div class=post-info-share><button title="分享到 Instapaper" data-sharer=instapaper data-url=http://www.victorchu.info/posts/2025/09/5d3219a3/ data-title="Apache Livy 简介" data-description><svg class="icon" role="img" viewBox="0 0 24 24"><title>Instapaper</title><path d="M14.766 20.259c0 1.819.271 2.089 2.934 2.292V24H6.301v-1.449c2.666-.203 2.934-.473 2.934-2.292V3.708c0-1.784-.27-2.089-2.934-2.292V0h11.398v1.416c-2.662.203-2.934.506-2.934 2.292v16.551z"/></svg></button><button title="分享到 Pocket" data-sharer=pocket data-url=http://www.victorchu.info/posts/2025/09/5d3219a3/><svg class="icon" viewBox="0 0 448 512"><path d="M407.6 64h-367C18.5 64 0 82.5.0 104.6v135.2C0 364.5 99.7 464 224.2 464c124 0 223.8-99.5 223.8-224.2V104.6c0-22.4-17.7-40.6-40.4-40.6zm-162 268.5c-12.4 11.8-31.4 11.1-42.4.0C89.5 223.6 88.3 227.4 88.3 209.3c0-16.9 13.8-30.7 30.7-30.7 17 0 16.1 3.8 105.2 89.3 90.6-86.9 88.6-89.3 105.5-89.3 16.9.0 30.7 13.8 30.7 30.7.0 17.8-2.9 15.7-114.8 123.2z"/></svg></button><button title="分享到 Flipboard" data-sharer=flipboard data-url=http://www.victorchu.info/posts/2025/09/5d3219a3/ data-title="Apache Livy 简介"><svg class="icon" viewBox="0 0 448 512"><path d="M0 32v448h448V32H0zm358.4 179.2h-89.6v89.6h-89.6v89.6H89.6V121.6h268.8v89.6z"/></svg></button><button title="分享到 微博" data-sharer=weibo data-url=http://www.victorchu.info/posts/2025/09/5d3219a3/ data-title="Apache Livy 简介" data-image=/feature-images/spark.webp><svg class="icon" viewBox="0 0 512 512"><path d="M407 177.6c7.6-24-13.4-46.8-37.4-41.7-22 4.8-28.8-28.1-7.1-32.8 50.1-10.9 92.3 37.1 76.5 84.8-6.8 21.2-38.8 10.8-32-10.3zM214.8 446.7C108.5 446.7.0 395.3.0 310.4c0-44.3 28-95.4 76.3-143.7C176 67 279.5 65.8 249.9 161c-4 13.1 12.3 5.7 12.3 6 79.5-33.6 140.5-16.8 114 51.4-3.7 9.4 1.1 10.9 8.3 13.1 135.7 42.3 34.8 215.2-169.7 215.2zm143.7-146.3c-5.4-55.7-78.5-94-163.4-85.7-84.8 8.6-148.8 60.3-143.4 116s78.5 94 163.4 85.7c84.8-8.6 148.8-60.3 143.4-116zM347.9 35.1c-25.9 5.6-16.8 43.7 8.3 38.3 72.3-15.2 134.8 52.8 111.7 124-7.4 24.2 29.1 37 37.4 12 31.9-99.8-55.1-195.9-157.4-174.3zm-78.5 311c-17.1 38.8-66.8 60-109.1 46.3-40.8-13.1-58-53.4-40.3-89.7 17.7-35.4 63.1-55.4 103.4-45.1 42 10.8 63.1 50.2 46 88.5zm-86.3-30c-12.9-5.4-30 .3-38 12.9-8.3 12.9-4.3 28 8.6 34 13.1 6 30.8.3 39.1-12.9 8-13.1 3.7-28.3-9.7-34zm32.6-13.4c-5.1-1.7-11.4.6-14.3 5.4-2.9 5.1-1.4 10.6 3.7 12.9 5.1 2 11.7-.3 14.6-5.4 2.8-5.2 1.1-10.9-4-12.9z"/></svg></button><button title="分享到 Evernote" data-sharer=evernote data-url=http://www.victorchu.info/posts/2025/09/5d3219a3/ data-title="Apache Livy 简介"><svg class="icon" viewBox="0 0 384 512"><path d="M120.82 132.21c1.6 22.31-17.55 21.59-21.61 21.59-68.93.0-73.64-1-83.58 3.34-.56.22-.74.0-.37-.37L123.79 46.45c.38-.37.6-.22.38.37-4.35 9.99-3.35 15.09-3.35 85.39zm79 308c-14.68-37.08 13-76.93 52.52-76.62 17.49.0 22.6 23.21 7.95 31.42-6.19 3.3-24.95 1.74-25.14 19.2-.05 17.09 19.67 25 31.2 24.89A45.64 45.64.0 00312 393.45v-.08c0-11.63-7.79-47.22-47.54-55.34-7.72-1.54-65-6.35-68.35-50.52-3.74 16.93-17.4 63.49-43.11 69.09-8.74 1.94-69.68 7.64-112.92-36.77.0.0-18.57-15.23-28.23-57.95-3.38-15.75-9.28-39.7-11.14-62 0-18 11.14-30.45 25.07-32.2 81 0 90 2.32 101-7.8 9.82-9.24 7.8-15.5 7.8-102.78 1-8.3 7.79-30.81 53.41-24.14 6 .86 31.91 4.18 37.48 30.64l64.26 11.15c20.43 3.71 70.94 7 80.6 57.94 22.66 121.09 8.91 238.46 7.8 238.46C362.15 485.53 267.06 480 267.06 480c-18.95-.23-54.25-9.4-67.27-39.83zm80.94-204.84c-1 1.92-2.2 6 .85 7 14.09 4.93 39.75 6.84 45.88 5.53 3.11-.25 3.05-4.43 2.48-6.65-3.53-21.85-40.83-26.5-49.24-5.92z"/></svg></button></div></div></div><div class=post-info-more><div class=post-tags><svg class="icon" viewBox="0 0 640 512"><path d="M497.941 225.941 286.059 14.059A48 48 0 00252.118.0H48C21.49.0.0 21.49.0 48v204.118a48 48 0 0014.059 33.941l211.882 211.882c18.744 18.745 49.136 18.746 67.882.0l204.118-204.118c18.745-18.745 18.745-49.137.0-67.882zM112 160c-26.51.0-48-21.49-48-48s21.49-48 48-48 48 21.49 48 48-21.49 48-48 48zm513.941 133.823L421.823 497.941c-18.745 18.745-49.137 18.745-67.882.0l-.36-.36L527.64 323.522c16.999-16.999 26.36-39.6 26.36-63.64s-9.362-46.641-26.36-63.64L331.397.0h48.721a48 48 0 0133.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137.0 67.882z"/></svg>&nbsp;<a href=/tags/spark/>Spark</a>,&nbsp;<a href=/tags/livy/>Livy</a>,&nbsp;<a href=/tags/big-data/>Big Data</a></div><div class=tw:print:hidden!><span><button class="tw:text-fgColor-link-muted tw:hover:text-fgColor-link-muted-hover" onclick=window.history.back()>返回</button></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></div></div><div class="post-nav tw:print:hidden"><a href=/posts/2025/08/1ff241/ class=prev rel=prev title="Rust Future 共享状态"><svg class="icon" viewBox="0 0 256 512"><path d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9.0l22.6 22.6c9.4 9.4 9.4 24.6.0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6.0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9.0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"/></svg>Rust Future 共享状态</a>
+<a href=/posts/2025/10/a40cdb91/ class=next rel=next title=git多账号通过ssh提交>git多账号通过ssh提交<svg class="icon" viewBox="0 0 256 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9.0l-22.6-22.6c-9.4-9.4-9.4-24.6.0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6.0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9.0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></a></div></div><div id=comments class="tw:print:hidden! tw:pt-32 tw:pb-8"><div id=giscus></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://giscus.app/>giscus</a>.</noscript></div></article></main><footer class=footer><div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreferrer" title="Hugo 0.162.1">Hugo</a> 强力驱动&nbsp;|&nbsp;本网站由<a href=https://pages.cloudflare.com/ rel=noopener target=_blank>Cloudflare Pages</a>提供 CDN加速/云存储服务&nbsp;|&nbsp;主题 - <a href=https://github.com/HEIGE-PCloud/DoIt target=_blank rel="noopener noreferrer" title="DoIt 1.0.2"><svg class="icon" viewBox="0 0 576 512"><path d="M402.3 344.9l32-32c5-5 13.7-1.5 13.7 5.7V464c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h273.5c7.1.0 10.7 8.6 5.7 13.7l-32 32c-1.5 1.5-3.5 2.3-5.7 2.3H48v352h352V350.5c0-2.1.8-4.1 2.3-5.6zm156.6-201.8L296.3 405.7l-90.4 10c-26.2 2.9-48.5-19.2-45.6-45.6l10-90.4L432.9 17.1c22.9-22.9 59.9-22.9 82.7.0l43.2 43.2c22.9 22.9 22.9 60 .1 82.8zM460.1 174 402 115.9 216.2 301.8l-7.3 65.3 65.3-7.3L460.1 174zm64.8-79.7-43.2-43.2c-4.1-4.1-10.8-4.1-14.8.0L436 82l58.1 58.1 30.9-30.9c4-4.2 4-10.8-.1-14.9z"/></svg> DoIt</a></div><div class=footer-line><svg class="icon" viewBox="0 0 512 512"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 448c-110.532.0-2e2-89.451-2e2-2e2.0-110.531 89.451-2e2 2e2-2e2 110.532.0 2e2 89.451 2e2 2e2.0 110.532-89.451 2e2-2e2 2e2zm107.351-101.064c-9.614 9.712-45.53 41.396-104.065 41.396-82.43.0-140.484-61.425-140.484-141.567.0-79.152 60.275-139.401 139.762-139.401 55.531.0 88.738 26.62 97.593 34.779a11.965 11.965.0 011.936 15.322l-18.155 28.113c-3.841 5.95-11.966 7.282-17.499 2.921-8.595-6.776-31.814-22.538-61.708-22.538-48.303.0-77.916 35.33-77.916 80.082.0 41.589 26.888 83.692 78.277 83.692 32.657.0 56.843-19.039 65.726-27.225 5.27-4.857 13.596-4.039 17.82 1.738l19.865 27.17a11.947 11.947.0 01-1.152 15.518z"/></svg>2016 - 2026<span class=author>&nbsp;<a href=/ target=_blank rel="noopener noreferrer">victorchutian</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span><span class=icp-splitter>&nbsp;|&nbsp;</span><br class=icp-br><span class=icp><a href=https://beian.miit.gov.cn/ rel=noopener target=_blank>浙 ICP 备 18037908 号 - 1 </a></span><span class=icp-splitter>&nbsp;|&nbsp;</span><span class=icp><img src=/images/gongan.webp alt style=display:inline-block;vertical-align:middle><a href="https://beian.mps.gov.cn/#/query/webSearch?code=33010902002043" rel=noopener target=_blank>浙公网安备 33010902002043 号</a></span></div><div class=footer-line><script async src=https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><span class=post-meta-item id=busuanzi_container_site_pv style=display:inline><span class=post-meta-item-icon><svg class="icon" viewBox="0 0 576 512"><path d="M288 144a110.94 110.94.0 00-31.24 5 55.4 55.4.0 017.24 27 56 56 0 01-56 56 55.4 55.4.0 01-27-7.24A111.71 111.71.0 10288 144zm284.52 97.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35.0 000 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35.0 000-29.19zM288 4e2c-98.65.0-189.09-55-237.93-144C98.91 167 189.34 112 288 112s189.09 55 237.93 144C477.1 345 386.66 4e2 288 4e2z"/></svg></span>
+<span class=site-pv title=总访问量><span id=busuanzi_value_site_pv></span></span></span></div><div class=footer-line></div></div></footer><div class="tw:print:hidden! tw:flex tw:flex-col tw:fixed tw:right-4 tw:bottom-4 tw:gap-2"><a href=#back-to-top id=back-to-top-button class="tw:transition-opacity tw:opacity-0 tw:block tw:bg-bgColor-secondary tw:rounded-full" style=padding:.6rem;line-height:1.3rem;font-size:1rem title=回到顶部><svg class="icon" viewBox="0 0 448 512"><path d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6.0-33.9L207 39c9.4-9.4 24.6-9.4 33.9.0l194.3 194.3c9.4 9.4 9.4 24.6.0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3.0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"/></svg>
+</a><button id=toc-drawer-button class="tw:block tw:bg-bgColor-secondary tw:rounded-full tw:md:hidden" style=padding:.6rem;line-height:1.3rem;font-size:1rem>
+<svg class="icon" viewBox="0 0 448 512"><path d="M16 132h416c8.837.0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163.0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837.0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837.0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg>
+</button><a href=#comments id=view-comments class="tw:block tw:bg-bgColor-secondary tw:rounded-full" style=padding:.6rem;line-height:1.3rem;font-size:1rem title=查看评论>
+<svg class="icon" viewBox="0 0 512 512"><path d="M256 32C114.6 32 0 125.1.0 240c0 49.6 21.4 95 57 130.7C44.5 421.1 2.7 466 2.2 466.5c-2.2 2.3-2.8 5.7-1.5 8.7S4.8 480 8 480c66.3.0 116-31.8 140.6-51.4 32.7 12.3 69 19.4 107.4 19.4 141.4.0 256-93.1 256-208S397.4 32 256 32z"/></svg></a></div><script type=module>
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: (window.theme === 'dark' ? 'dark' : 'default') });
+</script><link rel=stylesheet href=/lib/katex/katex.min.91de51b2a3c53578693b4aaa70414d37.css integrity="md5-kd5RsqPFNXhpO0qqcEFNNw=="><link rel=preload as=style onload='this.onload=null,this.rel="stylesheet"' href=/lib/katex/copy-tex.min.727189e34fc67f1c2e7020d67aada5dc.css integrity="md5-cnGJ40/GfxwucCDWeq2l3A=="><noscript><link rel=stylesheet href=/lib/katex/copy-tex.min.727189e34fc67f1c2e7020d67aada5dc.css integrity="md5-cnGJ40/GfxwucCDWeq2l3A=="></noscript><script>window.config={"algoliasearch.min.js":"/lib/algoliasearch/algoliasearch-lite.umd.min.js","autocomplete.min.js":"/lib/autocomplete/autocomplete.min.js",comment:{giscus:{darkTheme:"catppuccin_frappe",dataCategory:"Announcements",dataCategoryId:"DIC_kwDORI9uYs4C15sc",dataEmitMetadata:"0",dataInputPosition:"top",dataLang:"zh-CN",dataLoading:"lazy",dataMapping:"pathname",dataReactionsEnabled:"1",dataRepo:"chutian0610/blog-comment",dataRepoId:"R_kgDORI9uYg",dataStrict:"0",lightTheme:"catppuccin_latte"}},data:{"desktop-header-typeit":"Victor's Code Journey","mobile-header-typeit":"Victor's Code Journey"},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!1,left:"$",right:"$"}],strict:!1},search:{algoliaAppID:"X9UOD4FSUP",algoliaIndex:"hugo",algoliaSearchKey:"fa32db1f02073025c69da8ebad0a6aa6",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:50,type:"algolia"},sharerjs:!0,typeit:{cursorChar:null,cursorSpeed:null,data:{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},duration:null,speed:null}}</script><script src=/lib/sharer/sharer.min.b834cfb885a9d1d9cc75ca8215372179.js integrity="md5-uDTPuIWp0dnMdcqCFTcheQ=="></script><script src=/lib/typeit/typeit.min.4297640b5eb76c2398632d6ec76a9f01.js integrity="md5-QpdkC163bCOYYy1ux2qfAQ=="></script><script src=/lib/katex/katex.min.45b33a9a36cb61ee90ff56f18e6cd422.js integrity="md5-RbM6mjbLYe6Q/1bxjmzUIg==" defer></script><script src=/lib/katex/auto-render.min.2499f8f84f6a72af275029af0206a56b.js integrity="md5-JJn4+E9qcq8nUCmvAgalaw==" defer></script><script src=/lib/katex/copy-tex.min.a0fd9fa48b9c1d387d2d59e0ddfadee1.js integrity="md5-oP2fpIucHTh9LVng3fre4Q==" defer></script><script src=/lib/katex/mhchem.min.0dafd1efdb3e2ee74d40d34ad711e1c3.js integrity="md5-Da/R79s+LudNQNNK1xHhww==" defer></script><script src=/js/katex.min.785fffd265d99c567aa2f2882b8593a7.js integrity="md5-eF//0mXZnFZ6ovKIK4WTpw==" defer></script><script src=/js/theme.min.2c60e4f8658ba4fc4f1c833ce26de2b3.js integrity="md5-LGDk+GWLpPxPHIM84m3isw==" defer></script><script src=/js/giscus.min.0a8d3dd523c6e5ceba801eb2d1638101.js integrity="md5-Co091SPG5c66gB6y0WOBAQ==" defer></script><script type=speculationrules>
+  {
+    "prerender": [
+      {
+        "where": { "href_matches": "/*" },
+        "eagerness": "moderate"
+      }
+    ]
+  }
+</script></body></html>

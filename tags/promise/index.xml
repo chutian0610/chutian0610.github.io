@@ -1,0 +1,8 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Promise - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/promise/</link><description>Promise - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Mon, 17 Jun 2024 10:51:15 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/promise/" rel="self" type="application/rss+xml"/><item><title>异步编程模型:Promises vs Futures</title><link>http://www.victorchu.info/posts/2024/06/f259f96e/</link><pubDate>Mon, 17 Jun 2024 10:51:15 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2024/06/f259f96e/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/architecture.webp" referrerpolicy="no-referrer">
+            </div><p>本文将介绍两种异步编程模型: Promise 和 Future。在计算机科学中，future、promise，是在某些并发编程语言中，指称用于同步程序执行的一种构造。由于某些计算尚未结束，故而需要一个对象来代理这个未知的结果。Future 和 Promise 的设计理念整体上非常相似，但是在不同的语言和框架实现中又存在一定的区别，对此，这里我们基于最广泛的定义进行介绍。</p>
+<ul>
+<li>Future：表示异步任务的返回值，表示一个未来值(只读)的占位符，即未来值的消费者。</li>
+<li>Promise：表示异步任务的执行过程，表示一个可写的单赋值容器，即未来值的生产者。</li>
+</ul>
+<p>在同时包含 Future 和 Promise 的实现中，一般 Promise 对象会有一个关联的 Future 对象。当 Promise 创建时，Future 对象会自动实例化。当异步任务执行完毕，Promise 在内部设置结果，从而将值绑定至 Future 的占位符中。Future 则提供读取方法。将异步操作分成 Future 和 Promise 两个部分的主要原因是 为了实现读写分离，对外部调用者只读，对内部实现者只写。</p>]]></description></item></channel></rss>

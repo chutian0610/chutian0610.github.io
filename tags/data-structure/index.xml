@@ -1,0 +1,19 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Data Structure - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/data-structure/</link><description>Data Structure - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Sat, 10 Oct 2026 16:25:28 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/data-structure/" rel="self" type="application/rss+xml"/><item><title>Swiss Table：Go map 背后的高效 Hash 表</title><link>http://www.victorchu.info/posts/2026/10/c0f61dae/</link><pubDate>Sat, 10 Oct 2026 16:25:28 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/10/c0f61dae/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><h2 id="为什么值得单独讲" class="headerLink">
+    <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e5%80%bc%e5%be%97%e5%8d%95%e7%8b%ac%e8%ae%b2" class="header-mark"></a>为什么值得单独讲</h2><p>Hash 表的性能通常取决于两件事：冲突发生后如何找下一个候选位置，以及这些候选位置离缓存有多远。传统链式哈希把冲突元素串成链表，逻辑简单，但一次查询可能要跳过多个指针；普通开放寻址没有指针跳跃，却常常只能逐个 slot 检查。</p>
+<p>Swiss Table 的核心贡献是在开放寻址表前面加了一层非常小的元数据，让 CPU 能按 group 批量排除大量不可能匹配的 slot。它不改变 hash 表的基本语义，而是改变查找、插入、删除时的观察方式：先用极小的哈希指纹过滤，再对少数候选 key 做精确比较。</p>
+<p>这个设计来自 Google 的工程实践，后来成为 Abseil <code>flat_hash_map</code> 的底层实现，也被 Rust 标准库 <code>HashMap</code> 采用。Go 1.24 之后，内置 <code>map</code> 的默认运行时实现也切换到了 Swiss Table 风格。</p>]]></description></item><item><title>Cuckoo Hash：用两个位置换一个确定的 O(1) 查询</title><link>http://www.victorchu.info/posts/2019/01/efdf1da6/</link><pubDate>Fri, 18 Jan 2019 13:56:06 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2019/01/efdf1da6/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><h2 id="为什么需要-cuckoo-hash" class="headerLink">
+    <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81-cuckoo-hash" class="header-mark"></a>为什么需要 Cuckoo Hash</h2><p>哈希表最理想的状态是：一个 <code>key</code> 经过哈希函数计算后，直接落到一个确定的槽位。但不同 <code>key</code> 可能算出同一个位置，线性探测、链地址法等方法会引入探测链或桶内扫描，查询时间也就不再稳定。</p>
+<p>Cuckoo Hash（布谷鸟哈希）最早由 Rasmus Pagh 和 Flemming Friche Rodler 提出。它给每个 <code>key</code> 安排两个候选位置：只要其中一个为空，就能直接放入；如果两个都被占用，就把已经占据位置的旧 <code>key</code> 踢到它的另一个候选位置。这个过程像布谷鸟把别的鸟蛋挤出鸟巢，因此得名。</p>
+<p>它的最大特点是查询路径非常确定：计算两个哈希值，检查两个固定位置即可。不需要在冲突链上逐个比较，也不需要探测一段连续区间，因此删除也可以用同样简单的方式完成。</p>]]></description></item><item><title>Bloom Filter：用位数组回答“一定不存在”和“可能存在”</title><link>http://www.victorchu.info/posts/2018/08/565ee4cd/</link><pubDate>Tue, 14 Aug 2018 10:36:35 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2018/08/565ee4cd/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><h2 id="一句话理解-bloom-filter" class="headerLink">
+    <a href="#%e4%b8%80%e5%8f%a5%e8%af%9d%e7%90%86%e8%a7%a3-bloom-filter" class="header-mark"></a>一句话理解 Bloom Filter</h2><p>Bloom Filter（布隆过滤器）是一个空间效率很高的概率型集合。它不能精确列出集合里的所有元素，只能回答成员关系问题：</p>
+<ul>
+<li>如果说 <strong>不存在</strong>，这个元素一定没有被插入过；</li>
+<li>如果说 <strong>可能存在</strong>，元素可能真的存在，也可能只是多个已插入元素的位刚好重叠。</li>
+</ul>
+<p>它把元素映射到一个位数组中的若干位置，而不是保存元素本身。因此，哪怕集合里有上亿个 key，每个元素占用的空间也可能只有十几 bit。这个特点让 Bloom Filter 常用于缓存穿透防护、爬虫 URL 去重、海量 key 粗筛和存储引擎的磁盘读优化。</p>]]></description></item></channel></rss>

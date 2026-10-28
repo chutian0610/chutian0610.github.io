@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">版本向量如何判断新旧与并发</title>
+  <desc id="desc">左：两个版本向量逐维度可比，说明 A 新于 B。右：某一维度倒退，说明两边更新是并发的，无法定序。</desc>
+  <rect width="960" height="540" fill="#f8fafc"/>
+
+  <text x="56" y="54" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="28" font-weight="700" fill="#0f172a">版本向量：区分「谁更新」与「并发」</text>
+  <text x="56" y="86" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="16" fill="#64748b">向量的每个元素是（节点, 逻辑时间），表示该节点最后一次更新对象的时间</text>
+
+  <!-- 左：可比较 -->
+  <rect x="56" y="118" width="404" height="360" rx="12" fill="#ffffff" stroke="#e2e8f0"/>
+  <rect x="76" y="138" width="216" height="30" rx="15" fill="#0f766e"/>
+  <text x="184" y="159" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#ffffff">可比较：A 新于 B</text>
+
+  <rect x="76" y="186" width="364" height="54" rx="8" fill="#ecfdf5" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="96" y="219" font-family="SF Mono, Menlo, monospace" font-size="16" fill="#065f46">节点 A：[A=2, B=1]</text>
+
+  <rect x="76" y="252" width="364" height="54" rx="8" fill="#ecfdf5" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="96" y="285" font-family="SF Mono, Menlo, monospace" font-size="16" fill="#065f46">节点 B：[A=1, B=1]</text>
+
+  <text x="76" y="336" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#64748b">逐维度比较（A ≥ B 且至少一维严格大于）</text>
+  <text x="76" y="362" font-family="SF Mono, Menlo, monospace" font-size="15" fill="#0f172a">A 维度：2 ≥ 1 ✓</text>
+  <text x="76" y="386" font-family="SF Mono, Menlo, monospace" font-size="15" fill="#0f172a">B 维度：1 ≥ 1 ✓</text>
+  <text x="76" y="410" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#065f46">有因果关系，可以定序</text>
+
+  <rect x="76" y="422" width="364" height="46" rx="10" fill="#0f766e"/>
+  <text x="258" y="451" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#ffffff">合并时按序应用即可，不产生冲突</text>
+
+  <!-- 右：并发 -->
+  <rect x="500" y="118" width="404" height="360" rx="12" fill="#ffffff" stroke="#e2e8f0"/>
+  <rect x="520" y="138" width="216" height="30" rx="15" fill="#b45309"/>
+  <text x="628" y="159" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#ffffff">不可比较：并发更新</text>
+
+  <rect x="520" y="186" width="364" height="54" rx="8" fill="#fff7ed" stroke="#b45309" stroke-width="1.5"/>
+  <text x="540" y="219" font-family="SF Mono, Menlo, monospace" font-size="16" fill="#9a3412">节点 A：[A=2, B=0]</text>
+
+  <rect x="520" y="252" width="364" height="54" rx="8" fill="#fff7ed" stroke="#b45309" stroke-width="1.5"/>
+  <text x="540" y="285" font-family="SF Mono, Menlo, monospace" font-size="16" fill="#9a3412">节点 B：[A=1, B=1]</text>
+
+  <text x="520" y="336" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#64748b">逐维度比较（A ≥ B 且至少一维严格大于）</text>
+  <text x="520" y="362" font-family="SF Mono, Menlo, monospace" font-size="15" fill="#0f172a">A 维度：2 ≥ 1 ✓</text>
+  <text x="520" y="386" font-family="SF Mono, Menlo, monospace" font-size="15" fill="#0f172a">B 维度：0 &lt; 1 ✗</text>
+  <text x="520" y="410" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#9a3412">存在维度倒退，无法定序</text>
+
+  <rect x="520" y="422" width="364" height="46" rx="10" fill="#b45309"/>
+  <text x="702" y="451" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#ffffff">并发且可能不一致，需冲突检测与合并</text>
+
+  <rect x="56" y="496" width="848" height="42" rx="8" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="480" y="523" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#64748b">选择可用性时，一致性最多只能收紧到「因果一致」这一层——版本向量本身并不解决冲突</text>
+</svg>

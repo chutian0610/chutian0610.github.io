@@ -1,0 +1,11 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>RAG - 分类 - Victor's Code Journey</title><link>http://www.victorchu.info/categories/rag/</link><description>RAG - 分类 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Mon, 01 Jun 2026 17:06:42 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/categories/rag/" rel="self" type="application/rss+xml"/><item><title>GraphRAG 简介</title><link>http://www.victorchu.info/posts/2026/06/b0e01596/</link><pubDate>Mon, 01 Jun 2026 17:06:42 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/06/b0e01596/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/ai.webp" referrerpolicy="no-referrer">
+            </div><p>你有没有遇到过这种情况：公司丢给你 10 万份内部事件报告，问你 <strong>&ldquo;过去三年里，攻击模式呈现出哪些新趋势？&rdquo;</strong> 你把这堆文档丢给传统 RAG 系统，它会按相似度捞出 Top-K 个最相关的文档块，让大模型基于这些片段作答。听起来很合理对吧？</p>
+<p>问题来了：大模型拿到的只是 10 万份报告里&quot;和&rsquo;攻击趋势&rsquo;长得最像&quot;的几十个片段。它 <strong>根本没有通读过完整语料</strong> ，怎么回答得出&quot;新趋势&quot;这种 <strong>全局性问题（Global Sensemaking）</strong> ？向量检索的本质是&quot;局部相似&quot;，而全局总结是&quot;通盘理解&quot;，这是两件本质不同的事。</p>
+<p>类似的全局性问题还有很多：</p>
+<ul>
+<li>&ldquo;这家企业涉及的核心人物和主要事件有哪些？&rdquo;</li>
+<li>&ldquo;这部小说里的人物关系网络是什么样子？&rdquo;</li>
+<li>&ldquo;这套开源代码的架构主题分布如何？&rdquo;</li>
+</ul>
+<p><strong>GraphRAG</strong>（Graph-based RAG）就是为这类问题而生的。它把 RAG 的检索单元从&quot;文本片段&quot;升级为 &ldquo;<strong>知识图谱</strong>&rdquo; ，通过图社区摘要、Map-Reduce 等机制让 LLM 真正具备 <strong>全局感知能力</strong> 。</p>]]></description></item></channel></rss>

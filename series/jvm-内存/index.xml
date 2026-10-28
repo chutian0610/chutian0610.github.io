@@ -1,0 +1,33 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>JVM 内存 - 系列 - Victor's Code Journey</title><link>http://www.victorchu.info/series/jvm-%E5%86%85%E5%AD%98/</link><description>JVM 内存 - 系列 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Tue, 17 Oct 2017 07:58:35 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/series/jvm-%E5%86%85%E5%AD%98/" rel="self" type="application/rss+xml"/><item><title>Java虚拟机-Java内存模型</title><link>http://www.victorchu.info/posts/2017/10/9b98afdc/</link><pubDate>Tue, 17 Oct 2017 07:58:35 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/10/9b98afdc/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/jvm.webp" referrerpolicy="no-referrer">
+            </div><p>多任务处理在现代计算机操作系统中是一个必备功能。计算机的运算能力变得十分强大的同时，运算速度与存储和通信子系统速度的差距太大，大量的时间都花费在磁盘I/O、网络通信和数据库访问上，因此为了避免处理器的大部分时间都花费在等待其它资源，一种行之有效的方法是让计算机同时处理多项任务。</p>]]></description></item><item><title>Java虚拟机-虚拟机栈</title><link>http://www.victorchu.info/posts/2017/08/a438de3b/</link><pubDate>Fri, 25 Aug 2017 15:03:41 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/08/a438de3b/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/jvm.webp" referrerpolicy="no-referrer">
+            </div><p>在前面的<a href="/posts/2017/08/72bd051d/" rel="">Java虚拟机-内存布局</a>一文中我们简单介绍了虚拟机栈：</p>
+<ul>
+<li>java虚拟机栈是线程私有的，他与线程的声明周期同步。虚拟机栈描述的是java方法执行的内存模型。</li>
+<li>每个方法执行都会创建一个栈帧，栈帧包含局部变量表、操作数栈、动态连接、方法出口等。</li>
+</ul>
+<p>本文将继续详细介绍虚拟机栈。</p>]]></description></item><item><title>Java虚拟机-元空间</title><link>http://www.victorchu.info/posts/2017/08/b30e8283/</link><pubDate>Thu, 24 Aug 2017 15:03:41 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/08/b30e8283/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/jvm.webp" referrerpolicy="no-referrer">
+            </div><p>在HotSpot JVM(jvm 8以前)中，永久代中用于存放类和方法的元数据以及常量池，在Java中对应能通过反射获取到的数据，比如Class和Method。每当一个类初次被加载的时候，它的元数据都会放到永久代中。永久代是有大小限制的(启动时设置)，因此如果加载的类太多，很有可能导致永久代内存溢出(java.lang.OutOfMemoryError: PermGen)。Java 8为了解决这一问题，彻底将永久代移除出了HotSpot JVM，将其原有的数据迁移至Java Heap或Metaspace<a href="#refer-anchor-1" rel=""><sup>1</sup></a>。</p>]]></description></item><item><title>Java虚拟机-TLAB</title><link>http://www.victorchu.info/posts/2017/08/24470e0/</link><pubDate>Wed, 23 Aug 2017 14:42:18 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/08/24470e0/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/jvm.webp" referrerpolicy="no-referrer">
+            </div><p>因为堆是全局共享的，因此在同一时间，可能有多个线程在堆上申请空间，那么，在并发场景中，如果两个线程先后把对象引用指向了同一个内存区域，那么对象的内存分配过程就必须进行同步控制。无论是使用哪种同步方案，都会影响内存的分配效率。</p>
+<p>而Java对象的分配是Java中的高频操作，所有，人们想到另外一个办法(TLAB)来提升效率。</p>]]></description></item><item><title>Java-String和intern方法</title><link>http://www.victorchu.info/posts/2017/08/a20699c1/</link><pubDate>Tue, 22 Aug 2017 20:00:05 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/08/a20699c1/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/jvm.webp" referrerpolicy="no-referrer">
+            </div><p>本文介绍和深入分析 Java 中 String 类的 intern 方法。</p>]]></description></item><item><title>Java虚拟机-内存布局</title><link>http://www.victorchu.info/posts/2017/08/72bd051d/</link><pubDate>Tue, 22 Aug 2017 18:13:58 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/08/72bd051d/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/jvm.webp" referrerpolicy="no-referrer">
+            </div><p>本文介绍 Java 虚拟机的内存布局。</p>]]></description></item><item><title>Java OOM Error</title><link>http://www.victorchu.info/posts/2017/08/45975fd0/</link><pubDate>Tue, 01 Aug 2017 21:35:37 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/08/45975fd0/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/java.webp" referrerpolicy="no-referrer">
+            </div><p>OOM(OutOfMemoryError)是java工程师都会了解的一种异常，实质上，OOM并不是只有一种，一共有9种不同类型的OOM：</p>
+<ul>
+<li>java.lang.OutOfMemoryError: Java heap space</li>
+<li>java.lang.OutOfMemoryError: GC Overhead limit exceeded</li>
+<li>java.lang.OutOfMemoryError: Permgen space</li>
+<li>java.lang.OutOfMemoryError: Metaspace</li>
+<li>java.lang.OutOfMemoryError: Unable to create new native thread</li>
+<li>java.lang.OutOfMemoryError: reason stack_trace_with_native_method</li>
+<li>java.lang.OutOfMemoryError: Requested array size exceeds VM limit</li>
+<li>java.lang.OutOfMemoryError: Kill process or sacrifice child</li>
+<li>java.lang.OutOfMemoryError: Direct buffer memory</li>
+</ul>
+<p>不同的原因触发不同类型的OOM，每种OOM类型的解决方案也不同。</p>]]></description></item></channel></rss>

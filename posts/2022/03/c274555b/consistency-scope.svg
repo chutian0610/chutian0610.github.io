@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+  <title id="title">一致性的作用范围</title>
+  <desc id="desc">一致性只在某个边界内成立：主分区或单个分片内部可以同时保证一致性与可用性，跨出边界则无法保证全局不变性约束。</desc>
+  <rect width="960" height="420" fill="#f8fafc"/>
+
+  <text x="56" y="54" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="28" font-weight="700" fill="#0f172a">一致性的作用范围：边界内保证，边界外不保证</text>
+  <text x="56" y="86" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="16" fill="#64748b">一致性从来不是全局属性，而是相对于某个边界而言</text>
+
+  <!-- 左侧：主分区 -->
+  <rect x="56" y="116" width="400" height="204" rx="12" fill="#ecfdf5" stroke="#0f766e" stroke-width="2"/>
+  <text x="76" y="148" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#065f46">主分区 / 单个分片</text>
+
+  <rect x="84" y="166" width="104" height="54" rx="8" fill="#ffffff" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="136" y="199" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" fill="#0f766e">副本 1</text>
+  <rect x="206" y="166" width="104" height="54" rx="8" fill="#ffffff" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="258" y="199" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" fill="#0f766e">副本 2</text>
+  <rect x="328" y="166" width="104" height="54" rx="8" fill="#ffffff" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="380" y="199" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" fill="#0f766e">副本 3</text>
+  <line x1="188" y1="193" x2="202" y2="193" stroke="#0f766e" stroke-width="2"/>
+  <line x1="310" y1="193" x2="324" y2="193" stroke="#0f766e" stroke-width="2"/>
+
+  <text x="76" y="256" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#065f46">边界内：C 与 A 可以同时成立</text>
+  <text x="76" y="282" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#64748b">Paxos / 原子多播的典型场景</text>
+  <text x="76" y="306" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#64748b">跨机房时通常把主分区放在单一数据中心</text>
+
+  <!-- 边界 -->
+  <line x1="490" y1="100" x2="490" y2="330" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="8 6"/>
+  <text x="490" y="92" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#dc2626">分区边界</text>
+
+  <!-- 右侧 -->
+  <rect x="524" y="116" width="380" height="204" rx="12" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+  <text x="544" y="148" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#334155">其它分片 / 跨分区状态</text>
+  <text x="544" y="184" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#475569">分片之间只有最终一致性</text>
+  <text x="544" y="212" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#475569">全局不变性约束无法保证</text>
+  <text x="544" y="248" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#475569">若被切开的是内在关联紧密的状态</text>
+  <text x="544" y="274" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#475569">（如订单 ↔ 库存），最多只有一侧能推进，</text>
+  <text x="544" y="300" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#475569">最坏情况下两侧都无法推进</text>
+
+  <text x="56" y="360" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#475569">分片（sharding）适合分区期间各自推进：每个分片内部仍然自洽，这正是它能继续服务的原因</text>
+  <text x="56" y="386" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#475569">放弃一致性有隐藏负担：必须显式列举系统中所有的不变性约束，否则分区恢复时无从检查</text>
+</svg>
