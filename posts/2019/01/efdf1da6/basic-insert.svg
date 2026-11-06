@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
+  <title id="title">Cuckoo hash basic insert</title>
+  <desc id="desc">A new key x uses two candidate positions. When one is occupied, x enters it and kicks the old key to its alternate position.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
+    </marker>
+    <marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0f766e"/>
+    </marker>
+  </defs>
+  <rect width="960" height="560" fill="#f8fafc"/>
+  <text x="56" y="62" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="28" font-weight="700" fill="#0f172a">两个候选位置发生冲突</text>
+  <text x="56" y="94" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="16" fill="#64748b">x 进入 A[2]，旧 key y 被踢到它自己的另一候选位置</text>
+
+  <text x="92" y="147" font-family="SF Mono, Menlo, monospace" font-size="17" fill="#475569">Table A</text>
+  <g>
+    <rect x="72" y="164" width="248" height="34" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <rect x="72" y="198" width="248" height="34" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <rect x="72" y="232" width="248" height="34" rx="4" fill="#ecfdf5" stroke="#0f766e" stroke-width="2"/>
+    <rect x="72" y="266" width="248" height="34" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <rect x="72" y="300" width="248" height="34" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="84" y="187" font-family="SF Mono, Menlo, monospace" font-size="15" fill="#64748b">0</text>
+    <text x="84" y="221" font-family="SF Mono, Menlo, monospace" font-size="15" fill="#64748b">1</text>
+    <text x="84" y="255" font-family="SF Mono, Menlo, monospace" font-size="15" fill="#065f46">2</text>
+    <text x="84" y="289" font-family="SF Mono, Menlo, monospace" font-size="15" fill="#64748b">3</text>
+    <text x="84" y="323" font-family="SF Mono, Menlo, monospace" font-size="15" fill="#64748b">4</text>
+    <text x="172" y="255" font-family="SF Mono, Menlo, monospace" font-size="18" font-weight="700" fill="#0f766e">x</text>
+  </g>
+
+  <text x="670" y="147" font-family="SF Mono, Menlo, monospace" font-size="17" fill="#475569">Table B</text>
+  <g>
+    <rect x="640" y="164" width="248" height="34" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <rect x="640" y="198" width="248" height="34" rx="4" fill="#fff7ed" stroke="#b45309"/>
+    <rect x="640" y="232" width="248" height="34" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <rect x="640" y="266" width="248" height="34" rx="4" fill="#fff7ed" stroke="#b45309"/>
+    <rect x="640" y="300" width="248" height="34" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="652" y="187" font-family="SF Mono, Menlo, monospace" font-size="15" fill="#64748b">0</text>
+    <text x="652" y="221" font-family="SF Mono, Menlo, monospace" font-size="15" fill="#9a3412">1</text>
+    <text x="652" y="255" font-family="SF Mono, Menlo, monospace" font-size="15" fill="#64748b">2</text>
+    <text x="652" y="289" font-family="SF Mono, Menlo, monospace" font-size="15" fill="#9a3412">3</text>
+    <text x="740" y="289" font-family="SF Mono, Menlo, monospace" font-size="18" font-weight="700" fill="#b45309">z</text>
+    <text x="652" y="323" font-family="SF Mono, Menlo, monospace" font-size="15" fill="#64748b">4</text>
+    <text x="740" y="221" font-family="SF Mono, Menlo, monospace" font-size="18" font-weight="700" fill="#b45309">y</text>
+  </g>
+
+  <rect x="390" y="424" width="82" height="44" rx="22" fill="#0f172a"/>
+  <text x="431" y="452" text-anchor="middle" font-family="SF Mono, Menlo, monospace" font-size="20" font-weight="700" fill="#ffffff">x</text>
+  <path d="M406 424 C350 390 285 330 236 272" stroke="#334155" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="229" y="374" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" fill="#334155">h1(x) = A[2]</text>
+  <path d="M458 424 C554 396 637 336 696 267" stroke="#94a3b8" stroke-width="2" stroke-dasharray="7 7" fill="none" marker-end="url(#arrow)"/>
+  <text x="600" y="372" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" fill="#64748b">h2(x) = B[3]，也已占用</text>
+
+  <path d="M330 236 C438 218 557 202 628 211" stroke="#0f766e" stroke-width="2.5" fill="none" marker-end="url(#arrow-teal)"/>
+  <text x="56" y="124" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" fill="#0f766e">1. y 从 A[2] 移出；2. x 放入 A[2]</text>
+  <text x="600" y="124" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" fill="#b45309">3. y 使用另一候选位置 B[1]</text>
+</svg>

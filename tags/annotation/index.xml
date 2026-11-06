@@ -1,0 +1,8 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Annotation - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/annotation/</link><description>Annotation - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Thu, 01 Jun 2017 16:57:08 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/annotation/" rel="self" type="application/rss+xml"/><item><title>Java注解</title><link>http://www.victorchu.info/posts/2017/06/27de9f3b/</link><pubDate>Thu, 01 Jun 2017 16:57:08 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/06/27de9f3b/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/java.webp" referrerpolicy="no-referrer">
+            </div><p>Annotations是一种元数据，其作用在于提供程序本身以外的一些数据信息，也就是说Annotation他不会属于程序代码本身，不参与逻辑运算，故而不会对原程序代码的操作产生直接的影响。</p>
+<ul>
+<li>为编译器提供辅助信息 — Annotations可以为编译器提供而外信息，以便于检测错误，抑制警告等.</li>
+<li>编译源代码时进行而外操作 — 软件工具可以通过处理Annotation信息来生成原代码，xml文件等等.</li>
+<li>运行时处理 — 有一些annotation甚至可以在程序运行时被检测，使用.</li>
+</ul>]]></description></item></channel></rss>

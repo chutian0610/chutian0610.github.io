@@ -1,0 +1,27 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>GC - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/gc/</link><description>GC - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Wed, 11 Oct 2017 00:19:01 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/gc/" rel="self" type="application/rss+xml"/><item><title>Java虚拟机-GC收集器</title><link>http://www.victorchu.info/posts/2017/10/df91eca7/</link><pubDate>Wed, 11 Oct 2017 00:19:01 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/10/df91eca7/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/jvm.webp" referrerpolicy="no-referrer">
+            </div><p>HotSpot虚拟机实现GC算法时，必须对算法的执行效率有严格的考量，才能保证虚拟机的高效运行。本文介绍了HotSpotGC 算法的部分内部实现。</p>]]></description></item><item><title>Java虚拟机-内存分配与回收策略</title><link>http://www.victorchu.info/posts/2017/09/d6c519ad/</link><pubDate>Sat, 09 Sep 2017 01:10:43 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/09/d6c519ad/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/jvm.webp" referrerpolicy="no-referrer">
+            </div><p>对象的内存分配，主要是在堆上分配(也可能是JIT编译后被拆散成标量类型并间接的栈上分配):</p>
+<ul>
+<li>对象主要分配在新生代的Eden区上，如果启动了本地线程分配缓冲，将按线程优先分配在TLAB上。</li>
+<li>少数情况下会直接分配在老年代中。</li>
+</ul>
+<p>分配的规则并不是百分百固定的，细节取决于当前使用的是哪一种垃圾收集器组合，还有虚拟机中与内存相关的参数设置。</p>
+<p>对象的回收主要分为两种:</p>
+<ul>
+<li>新生代GC(Minor GC)指发生在新生代的垃圾回收动作，Minor GC十分频繁，回收速度较快。</li>
+<li>老年代GC(Major/Full GC)指发生在老年代的GC，出现了Major GC，经常会伴随至少一次Minor GC ,但非绝对，Parallel Scavenger 收集器里有直接进行Major GC的策略选择。通常，Major GC 比Minor GC 慢10倍以上。</li>
+</ul>]]></description></item><item><title>Java虚拟机-GC算法简介</title><link>http://www.victorchu.info/posts/2017/09/eca99d89/</link><pubDate>Fri, 08 Sep 2017 01:10:43 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/09/eca99d89/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/jvm.webp" referrerpolicy="no-referrer">
+            </div><p>在了解垃圾回收算法前，我们先要了解几个基本概念。</p>
+<p>首先是mutator和collector，这两个名词经常在垃圾收集算法中出现，collector指的就是垃圾收集器，而mutator是指除了垃圾收集器之外的部分，比如说我们应用程序本身。mutator的职责一般是NEW(分配内存),READ(从内存中读取内容),WRITE(将内容写入内存)，而collector则就是回收不再使用的内存来供mutator进行NEW操作的使用。</p>
+<p>第二个基本概念是关于mutator roots(mutator根对象),mutator根对象一般指的是分配在堆内存之外，可以直接被mutator直接访问到的对象，一般是指静态/全局变量以及Thread-Local变量(在Java中，存储在java.lang.ThreadLocal中的变量和分配在栈上的变量,方法内部的临时变量等都属于此类).</p>
+<p>第三个基本概念是关于可达对象的定义，从mutator根对象开始进行遍历，可以被访问到的对象都称为是可达对象。这些对象也是mutator(你的应用程序)正在使用的对象。</p>]]></description></item><item><title>Java虚拟机-GC简介</title><link>http://www.victorchu.info/posts/2017/09/c12560c9/</link><pubDate>Thu, 07 Sep 2017 01:10:43 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/09/c12560c9/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/jvm.webp" referrerpolicy="no-referrer">
+            </div><p>GC的三个问题：</p>
+<ol>
+<li>哪些内存需要回收？</li>
+<li>什么时候回收？</li>
+<li>如何回收？</li>
+</ol>]]></description></item></channel></rss>

@@ -1,0 +1,21 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Script - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/script/</link><description>Script - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Thu, 08 Aug 2019 11:17:05 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/script/" rel="self" type="application/rss+xml"/><item><title>shell脚本选项处理</title><link>http://www.victorchu.info/posts/2019/08/54424c49/</link><pubDate>Thu, 08 Aug 2019 11:17:05 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2019/08/54424c49/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/shell-commands.webp" referrerpolicy="no-referrer">
+            </div><p>shell 脚本选项参数解析通常有 3 种方法。</p>
+<ul>
+<li>解析参数数组</li>
+<li>基于getopts</li>
+<li>基于getopt</li>
+</ul>]]></description></item><item><title>shell 脚本和snippets</title><link>http://www.victorchu.info/posts/2019/03/68f70fec/</link><pubDate>Sun, 10 Mar 2019 21:48:26 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2019/03/68f70fec/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/shell-commands.webp" referrerpolicy="no-referrer">
+            </div><p>一些常用的shell 脚本和snippets。</p>]]></description></item><item><title>shell 脚本速查</title><link>http://www.victorchu.info/posts/2019/03/f621daf4/</link><pubDate>Sat, 09 Mar 2019 21:48:26 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2019/03/f621daf4/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/shell-commands.webp" referrerpolicy="no-referrer">
+            </div><p>Shell 脚本（shell script），是一种为 shell 编写的脚本程序。Linux 的 Shell 种类众多，常见的有：</p>
+<ol>
+<li>Bourne Shell（/usr/bin/sh或/bin/sh）</li>
+<li>Bourne Again Shell（/bin/bash）</li>
+<li>C Shell（/usr/bin/csh）</li>
+<li>K Shell（/usr/bin/ksh）</li>
+<li>Shell for Root（/sbin/sh）</li>
+<li>Z Shell /usr/bin/zsh)</li>
+</ol>
+<p>由于易用和免费，Bash 在日常工作中被广泛使用。同时，Bash 也是大多数Linux 系统默认的 Shell。</p>]]></description></item></channel></rss>

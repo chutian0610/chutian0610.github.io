@@ -1,0 +1,58 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Architecture - 分类 - Victor's Code Journey</title><link>http://www.victorchu.info/categories/architecture/</link><description>Architecture - 分类 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Mon, 17 Jun 2024 10:51:15 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/categories/architecture/" rel="self" type="application/rss+xml"/><item><title>异步编程模型:Promises vs Futures</title><link>http://www.victorchu.info/posts/2024/06/f259f96e/</link><pubDate>Mon, 17 Jun 2024 10:51:15 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2024/06/f259f96e/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/architecture.webp" referrerpolicy="no-referrer">
+            </div><p>本文将介绍两种异步编程模型: Promise 和 Future。在计算机科学中，future、promise，是在某些并发编程语言中，指称用于同步程序执行的一种构造。由于某些计算尚未结束，故而需要一个对象来代理这个未知的结果。Future 和 Promise 的设计理念整体上非常相似，但是在不同的语言和框架实现中又存在一定的区别，对此，这里我们基于最广泛的定义进行介绍。</p>
+<ul>
+<li>Future：表示异步任务的返回值，表示一个未来值(只读)的占位符，即未来值的消费者。</li>
+<li>Promise：表示异步任务的执行过程，表示一个可写的单赋值容器，即未来值的生产者。</li>
+</ul>
+<p>在同时包含 Future 和 Promise 的实现中，一般 Promise 对象会有一个关联的 Future 对象。当 Promise 创建时，Future 对象会自动实例化。当异步任务执行完毕，Promise 在内部设置结果，从而将值绑定至 Future 的占位符中。Future 则提供读取方法。将异步操作分成 Future 和 Promise 两个部分的主要原因是 为了实现读写分离，对外部调用者只读，对内部实现者只写。</p>]]></description></item><item><title>响应式宣言</title><link>http://www.victorchu.info/posts/2021/05/462875c7/</link><pubDate>Thu, 06 May 2021 15:02:01 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2021/05/462875c7/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/architecture.webp" referrerpolicy="no-referrer">
+            </div><p>在不同领域中深耕的组织都在不约而同地尝试发现相似的软件构建模式。 希望这些系统会更健壮、更具回弹性 、更灵活，也能更好地满足现代化的需求。</p>
+<p>近年来，应用程序的需求已经发生了戏剧性的更改，模式变化也随之而来。仅在几年前， 一个大型应用程序通常拥有数十台服务器、 秒级的响应时间、 数小时的维护时间以及GB级的数据。 而今，应用程序被部署到了形态各异的载体上, 从移动设备到运行着数以千计的多核心处理器的云端集群。 用户期望着毫秒级的响应时间，以及服务100%正常运行（随时可用）。 而数据则以PB计量。 昨日的软件架构已经根本无法满足今天的需求。</p>
+<p>我们相信大家需要一套贯通整个系统的架构设计方案， 而设计中必需要关注的各个角度也已被理清， 我们需要系统具备以下特质：即时响应性（Responsive）、回弹性（Resilient）、弹性（Elastic）以及消息驱动（Message Driven）。 我们称这样的系统为反应式系统（Reactive System）。</p>
+<blockquote>
+  <p>版本 2.0，2014 年 9 月 16 日发布</p>
+
+</blockquote>]]></description></item><item><title>缓存的一些思考</title><link>http://www.victorchu.info/posts/2020/05/8a15ea5f/</link><pubDate>Tue, 26 May 2020 20:50:00 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2020/05/8a15ea5f/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/architecture.webp" referrerpolicy="no-referrer">
+            </div><p>缓存常被用于处理高并发,高性能问题,在现今的系统中被广泛使用。缓存模式，简单来说就是利用时间局限性原理，通过空间换时间来达到加速数据获取的目的。</p>
+<p>缓存的读写性能很高，预热快，在数据访问存在性能瓶颈或遇到突发流量，系统读写压力大增时，可以快速部署上线，同时在流量稳定后，也可以随时下线，从而使系统的可扩展性大大增强。</p>
+<p>但是，在系统中引入缓存后，会增加系统的复杂度。</p>]]></description></item><item><title>契约式编程</title><link>http://www.victorchu.info/posts/2020/04/b72f5ab1/</link><pubDate>Sat, 04 Apr 2020 17:14:32 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2020/04/b72f5ab1/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/architecture.webp" referrerpolicy="no-referrer">
+            </div><p>契约式设计(Design by Contract)，也被称为契约式编程，契约优先式开发或代码合约等，是一种设计软件的方法。这种方法要求软件设计者为软件组件定义正式的，精确的并且可验证的接口，这样，为传统的抽象数据类型又增加了先验条件、后验条件和不变式。这种方法的名字里用到的“契约”或者说“契约”是一种比喻，因为它和商业契约的情况有点类似。</p>
+<p>DbC的核心思想是对软件系统中的元素之间相互合作以及&quot;责任&quot;与&quot;权利&quot;的比喻。这种比喻从商业活动中&quot;客户&quot;与&quot;供应商&quot;达成&quot;契约&quot;而得来。例如：</p>
+<ul>
+<li>供应商必须提供某种产品（责任），并且他有权期望客户已经付款（权利）。</li>
+<li>客户必须付款（责任），并且有权得到产品（权利）。</li>
+<li>契约双方必须履行那些对所有契约都有效的责任，如法律和规定等。</li>
+</ul>
+<p>同样的，如果在面向对象程序设计中一个类的函数提供了某种功能，那么它要：</p>
+<ul>
+<li>期望所有调用它的客户模块都保证一定的进入条件：这就是函数的先验条件—客户的义务和供应商的权利，这样它就不用去处理不满足先验条件的情况。</li>
+<li>保证退出时给出特定的属性：这就是函数的后验条件—供应商的义务，显然也是客户的权利。</li>
+<li>在进入时假定，并在退出时保持一些特定的属性：不变条件。</li>
+</ul>]]></description></item><item><title>设计模式-断路器</title><link>http://www.victorchu.info/posts/2020/02/8f92d5b9/</link><pubDate>Mon, 10 Feb 2020 21:13:59 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2020/02/8f92d5b9/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/architecture.webp" referrerpolicy="no-referrer">
+            </div><p><strong>什么是短路器？</strong></p>
+<p>断路器本身是指电气安全装置，旨在保护电路免受超过设备可以安全承载的电流。断路器可以重置（手动或自动）以恢复正常运行。在软件工程中用于保护系统稳定性，防止资源过载。</p>]]></description></item><item><title>大型网站技术架构-读书笔记</title><link>http://www.victorchu.info/posts/2019/11/3989ef36/</link><pubDate>Sat, 30 Nov 2019 19:50:42 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2019/11/3989ef36/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/architecture.webp" referrerpolicy="no-referrer">
+            </div><p>本文是《李智慧. 大型网站技术架构:核心原理与案例分析 . 电子工业出版社. 》一书的读书笔记。</p>
+<p>大型网站的特点:</p>
+<ul>
+<li>高并发,大流量的访问</li>
+<li>高可用的服务</li>
+<li>海量数据</li>
+<li>用户分布广，网络环境复杂</li>
+<li>安全环境恶劣</li>
+<li>需要快速变更，发布频繁</li>
+<li>渐进式发展，大型网站都是从一个小网站开始，渐进的演化。</li>
+</ul>]]></description></item><item><title>functional programming 简介</title><link>http://www.victorchu.info/posts/2019/08/bc6bd2fc/</link><pubDate>Sun, 25 Aug 2019 14:50:00 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2019/08/bc6bd2fc/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/architecture.webp" referrerpolicy="no-referrer">
+            </div><p>函数式编程是一种编程范式,它把计算当成是数学函数的求值，从而避免改变状态和使用可变数据。它是一种声明式的编程范式，通过表达式和声明而不是语句来编程。函数式编程是幂等的(无状态的):函数的返回值仅取决于其参数，因此调用具有相同参数值的函数始终会产生相同的结果。这与命令式编程形成对比，在命令式编程中，除了函数的参数之外，程序状态可以影响函数的结果值。随着多核平台和并发计算的发展，函数式编程的无状态特性，在处理这些问题时有着其他编程范式不可比拟的天然优势。</p>]]></description></item><item><title>设计模式之控制反转</title><link>http://www.victorchu.info/posts/2017/01/a9694c7d/</link><pubDate>Sat, 28 Jan 2017 11:36:22 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/01/a9694c7d/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/architecture.webp" referrerpolicy="no-referrer">
+            </div><p>控制反转（Inversion of Control）是一种是面向对象编程中的一种设计原则，用来减低计算机代码之间的耦合度。其基本思想是：借助于“第三方”实现具有依赖关系的对象之间的解耦。</p>]]></description></item><item><title>设计模式之访问者模式</title><link>http://www.victorchu.info/posts/2017/01/e81a254a/</link><pubDate>Thu, 26 Jan 2017 11:36:22 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/01/e81a254a/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/architecture.webp" referrerpolicy="no-referrer">
+            </div><p>访问者模式是一种较为复杂的行为型设计模式，它包含访问者和被访问元素两个主要组成部分，这些被访问的元素通常具有不同的类型，且不同的访问者可以对它们进行不同的访问操作。问者模式使得用户可以在不修改现有系统的情况下扩展系统的功能，为这些不同类型的元素增加新的操作。在使用访问者模式时，被访问元素通常不是单独存在的，它们存储在一个集合中，这个集合被称为“对象结构”，访问者通过遍历对象结构实现对其中存储的元素的逐个操作。</p>]]></description></item><item><title>设计模式之依赖注入</title><link>http://www.victorchu.info/posts/2017/01/21e1fc41/</link><pubDate>Thu, 26 Jan 2017 11:36:22 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/01/21e1fc41/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/architecture.webp" referrerpolicy="no-referrer">
+            </div><p>依赖关系注入是一种软件设计模式，其中一个或多个依赖关系（或服务）被注入或通过引用传递到依赖对象（或客户端）中，并成为客户端状态的一部分。该模式将客户端依赖项的创建与其自身行为分开，这允许程序设计松散耦合并遵循控制反转和单一责任原则。</p>
+<p>简单来说，依赖注入通过请求获取它们的子组件而不是通过创建它们来获取, 将依赖关系的创建与其自身行为分开。</p>]]></description></item></channel></rss>
