@@ -1,0 +1,13 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>ReadNotes - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/readnotes/</link><description>ReadNotes - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Sat, 30 Nov 2019 19:50:42 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/readnotes/" rel="self" type="application/rss+xml"/><item><title>大型网站技术架构-读书笔记</title><link>http://www.victorchu.info/posts/2019/11/3989ef36/</link><pubDate>Sat, 30 Nov 2019 19:50:42 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2019/11/3989ef36/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/architecture.webp" referrerpolicy="no-referrer">
+            </div><p>本文是《李智慧. 大型网站技术架构:核心原理与案例分析 . 电子工业出版社. 》一书的读书笔记。</p>
+<p>大型网站的特点:</p>
+<ul>
+<li>高并发,大流量的访问</li>
+<li>高可用的服务</li>
+<li>海量数据</li>
+<li>用户分布广，网络环境复杂</li>
+<li>安全环境恶劣</li>
+<li>需要快速变更，发布频繁</li>
+<li>渐进式发展，大型网站都是从一个小网站开始，渐进的演化。</li>
+</ul>]]></description></item></channel></rss>

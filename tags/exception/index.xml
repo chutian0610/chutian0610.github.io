@@ -1,0 +1,12 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Exception - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/exception/</link><description>Exception - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Mon, 13 Mar 2017 22:23:40 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/exception/" rel="self" type="application/rss+xml"/><item><title>Java 异常处理</title><link>http://www.victorchu.info/posts/2017/03/cefbcd22/</link><pubDate>Mon, 13 Mar 2017 22:23:40 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/03/cefbcd22/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/java.webp" referrerpolicy="no-referrer">
+            </div><blockquote>
+  <ol>
+<li>Java 的基本原理就是“形式错误的代码不会运行”(编译错误=&ldquo;形式错误的代码&rdquo;)。</li>
+<li>捕获错误最理想的是在编译期间,最好在试图运行程序以前。然而,并非所有错误都能在编译期间侦测到。有些问题必须在运行期间解决,让错误的缔结者通过一些手续向接收者传递一些适当的信息,使其知道该如何正确地处理遇到的问题。</li>
+</ol>
+<blockquote>
+  <p>摘自 <code>&lt;thinking in java 4th&gt;</code></p>
+
+</blockquote>
+</blockquote>]]></description></item></channel></rss>

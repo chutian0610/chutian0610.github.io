@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="dd-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#9ca3af"/>
+    </marker>
+  </defs>
+  <rect width="760" height="300" rx="12" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="380" y="36" text-anchor="middle" font-size="15" font-weight="600" fill="#374151">DDSketch:对数分桶,每个桶的相对宽度恒定</text>
+  <g font-size="11" fill="#6b7280" text-anchor="middle">
+    <text x="90" y="142">1</text><text x="237.5" y="142">3</text><text x="385" y="142">9</text><text x="532.5" y="142">27</text><text x="680" y="142">81</text>
+  </g>
+  <rect x="90" y="150" width="147.5" height="40" fill="#eff6ff" stroke="#9ca3af" stroke-width="1.2"/>
+  <rect x="237.5" y="150" width="147.5" height="40" fill="#fef3c7" stroke="#9ca3af" stroke-width="1.2"/>
+  <rect x="385" y="150" width="147.5" height="40" fill="#dcfce7" stroke="#9ca3af" stroke-width="1.2"/>
+  <rect x="532.5" y="150" width="147.5" height="40" fill="#fce7f3" stroke="#9ca3af" stroke-width="1.2"/>
+  <g font-size="11" fill="#374151" text-anchor="middle">
+    <text x="163.75" y="168">(1,3]</text><text x="311.25" y="168">(3,9]</text><text x="458.75" y="168">(9,27]</text><text x="606.25" y="168">(27,81]</text>
+  </g>
+  <g font-size="10.5" fill="#6b7280" text-anchor="middle">
+    <text x="163.75" y="183">1 个值</text><text x="311.25" y="183">2 个值</text><text x="458.75" y="183">1 个值</text><text x="606.25" y="183">1 个值</text>
+  </g>
+  <line x1="90" y1="190" x2="680" y2="190" stroke="#9ca3af" stroke-width="1.5"/>
+  <g text-anchor="middle" font-size="12" font-weight="700">
+    <line x1="183" y1="126" x2="183" y2="146" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#dd-arr)"/>
+    <circle cx="183" cy="108" r="14" fill="#ffffff" stroke="#2563eb" stroke-width="2"/><text x="183" y="112" fill="#2563eb">2</text>
+    <line x1="351" y1="126" x2="351" y2="146" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#dd-arr)"/>
+    <circle cx="351" cy="108" r="14" fill="#ffffff" stroke="#d97706" stroke-width="2"/><text x="351" y="112" fill="#d97706">7</text>
+    <line x1="522" y1="126" x2="522" y2="146" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#dd-arr)"/>
+    <circle cx="522" cy="108" r="14" fill="#ffffff" stroke="#16a34a" stroke-width="2"/><text x="522" y="112" fill="#16a34a">25</text>
+    <line x1="640" y1="126" x2="640" y2="146" stroke="#db2777" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#dd-arr)"/>
+    <circle cx="640" cy="108" r="14" fill="#ffffff" stroke="#db2777" stroke-width="2"/><text x="640" y="112" fill="#db2777">60</text>
+  </g>
+  <text x="70" y="252" font-size="12.5" fill="#6b7280">桶边界按 γ 等比增长(3¹, 3², 3³ …),相对宽度恒定 → 任意值与所在桶下界的相对误差不超过设定精度</text>
+  <text x="70" y="274" font-size="12.5" fill="#6b7280">查询 P50:按索引累加计数,桶 2 处累计 3 ≥ 2.5 → 返回桶下界 3;同样的 7 在 α=1% 时会落进约 2% 宽的窄桶</text>
+</svg>

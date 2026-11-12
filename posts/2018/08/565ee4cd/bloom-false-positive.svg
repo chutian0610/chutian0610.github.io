@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
+  <title id="title">Bloom Filter false positive</title>
+  <desc id="desc">Query element q has never been inserted, but its three candidate positions were set by x and y.</desc>
+  <rect width="960" height="560" fill="#f8fafc"/>
+  <text x="56" y="62" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="28" font-weight="700" fill="#0f172a">位重叠导致误判</text>
+  <text x="56" y="94" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="16" fill="#64748b">q 没有插入过，但它的候选位分别被 x 和 y 设置成 1</text>
+
+  <g font-family="SF Mono, Menlo, monospace" font-size="14" text-anchor="middle">
+    <rect x="80" y="148" width="120" height="52" rx="6" fill="#ecfdf5" stroke="#0f766e" stroke-width="2"/>
+    <rect x="200" y="148" width="120" height="52" rx="6" fill="#fff7ed" stroke="#b45309" stroke-width="2"/>
+    <rect x="320" y="148" width="120" height="52" rx="6" fill="#e2e8f0" stroke="#334155" stroke-width="2"/>
+    <rect x="440" y="148" width="120" height="52" rx="6" fill="#ecfdf5" stroke="#0f766e" stroke-width="2"/>
+    <rect x="560" y="148" width="120" height="52" rx="6" fill="#fff7ed" stroke="#b45309" stroke-width="2"/>
+    <rect x="680" y="148" width="120" height="52" rx="6" fill="#fff7ed" stroke="#b45309" stroke-width="2"/>
+    <text x="140" y="180" fill="#065f46" font-weight="700">x</text>
+    <text x="260" y="180" fill="#9a3412" font-weight="700">y</text>
+    <text x="380" y="180" fill="#334155" font-weight="700">x/y</text>
+    <text x="620" y="180" fill="#065f46" font-weight="700">x</text>
+    <text x="740" y="180" fill="#9a3412" font-weight="700">y</text>
+    <text x="140" y="224" fill="#64748b">3</text>
+    <text x="260" y="224" fill="#64748b">5</text>
+    <text x="380" y="224" fill="#64748b">8</text>
+    <text x="500" y="224" fill="#64748b">11</text>
+    <text x="620" y="224" fill="#64748b">13</text>
+    <text x="740" y="224" fill="#64748b">15</text>
+  </g>
+
+  <line x1="56" y1="272" x2="904" y2="272" stroke="#e2e8f0" stroke-width="4"/>
+
+  <g font-family="SF Mono, Menlo, monospace" font-size="15">
+    <rect x="80" y="312" width="126" height="54" rx="18" fill="#0f766e"/>
+    <text x="143" y="345" text-anchor="middle" font-size="19" font-weight="700" fill="#ffffff">x</text>
+    <text x="226" y="345" fill="#065f46">set  [3, 8, 13]</text>
+
+    <rect x="80" y="390" width="126" height="54" rx="18" fill="#b45309"/>
+    <text x="143" y="423" text-anchor="middle" font-size="19" font-weight="700" fill="#ffffff">y</text>
+    <text x="226" y="423" fill="#9a3412">set  [5, 8, 15]</text>
+  </g>
+
+  <rect x="546" y="351" width="126" height="54" rx="18" fill="#7c3aed"/>
+  <text x="609" y="384" text-anchor="middle" font-family="SF Mono, Menlo, monospace" font-size="19" font-weight="700" fill="#ffffff">q</text>
+  <text x="692" y="384" font-family="SF Mono, Menlo, monospace" font-size="15" fill="#5b21b6">query [3, 8, 15]</text>
+
+  <g font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15">
+    <text x="546" y="460" fill="#5b21b6">index 3：来自 x</text>
+    <text x="546" y="486" fill="#5b21b6">index 8：来自 x 和 y</text>
+    <text x="546" y="512" fill="#5b21b6">index 15：来自 y</text>
+  </g>
+
+  <text x="56" y="536" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="16" font-weight="700" fill="#7c3aed">q 的所有候选位都是 1，因此 mightContain(q) 返回 true</text>
+</svg>

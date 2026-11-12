@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 310" role="img" aria-labelledby="truetime-interval-title">
+  <title id="truetime-interval-title">TrueTime 返回包含真实时间的不确定区间</title>
+  <rect width="960" height="310" fill="#ffffff"/>
+  <defs>
+    <marker id="interval-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#475569"/>
+    </marker>
+    <marker id="epsilon-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0f766e"/>
+    </marker>
+  </defs>
+
+  <text x="80" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" font-weight="700" fill="#0f172a">TT.now() 返回 [earliest, latest]</text>
+  <rect x="320" y="128" width="310" height="78" rx="10" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <line x1="130" y1="228" x2="830" y2="228" stroke="#475569" stroke-width="2" marker-end="url(#interval-arrow)"/>
+  <text x="838" y="234" font-family="-apple-system, sans-serif" font-size="18" fill="#475569">时间</text>
+
+  <line x1="320" y1="108" x2="320" y2="226" stroke="#0284c7" stroke-width="2"/>
+  <line x1="630" y1="108" x2="630" y2="226" stroke="#0284c7" stroke-width="2"/>
+  <text x="320" y="90" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="17" font-weight="700" fill="#0284c7">earliest</text>
+  <text x="630" y="90" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="17" font-weight="700" fill="#0284c7">latest</text>
+
+  <circle cx="486" cy="167" r="10" fill="#0f766e"/>
+  <text x="486" y="258" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="17" font-weight="700" fill="#0f766e">真实时间 tabs(e)</text>
+  <line x1="476" y1="167" x2="332" y2="167" stroke="#0f766e" stroke-width="3" marker-end="url(#epsilon-arrow)"/>
+  <line x1="496" y1="167" x2="618" y2="167" stroke="#0f766e" stroke-width="3" marker-end="url(#epsilon-arrow)"/>
+  <text x="406" y="149" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="16" font-weight="700" fill="#0f766e">ε</text>
+  <text x="556" y="149" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="16" font-weight="700" fill="#0f766e">ε</text>
+</svg>
