@@ -1,0 +1,7 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Validate - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/validate/</link><description>Validate - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Mon, 08 Dec 2025 17:23:48 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/validate/" rel="self" type="application/rss+xml"/><item><title>Apache Calcite: SQL验证</title><link>http://www.victorchu.info/posts/2025/12/3e9140da/</link><pubDate>Mon, 08 Dec 2025 17:23:48 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2025/12/3e9140da/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/calcite.webp" referrerpolicy="no-referrer">
+            </div><p>本文主要介绍Calcite 中的SQL Validator。Calcite 通过 SQL 校验器实现 SQL 绑定，SQL 校验器所需的 Catalog 信息，在<a href="/post/f2cd8cb8/" rel="">深入理解 Apache Calcite Catalog</a> 中已经做了详细的介绍。</p>
+<blockquote>
+  <p>SQL 绑定主要的作用是将 SQL 解析生成的 AST 和数据库的元数据进行绑定，从而生成具有语义的 AST。SQL 绑定会通过自底向上的方式遍历 AST，对抽象语法树中的节点进行绑定分析，绑定的过程中会将表、列等元数据附在语法树上，最后生成具有语义的语法树 Bounded AST。</p>
+
+</blockquote>]]></description></item></channel></rss>

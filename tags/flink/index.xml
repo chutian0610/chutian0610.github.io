@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Flink - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/flink/</link><description>Flink - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Fri, 10 May 2019 16:06:32 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/flink/" rel="self" type="application/rss+xml"/><item><title>Flink源码学习-准备工作</title><link>http://www.victorchu.info/posts/2019/05/81f17543/</link><pubDate>Fri, 10 May 2019 16:06:32 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2019/05/81f17543/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/flink.webp" referrerpolicy="no-referrer">
+            </div><p>本文是学习flink源码前的准备工作。在开始之前，先做好准备工作：</p>
+<ul>
+<li>安装JDK8+，Flink 依赖 Java 8 或更新的版本来进行构建。
+<ul>
+<li>自flink1.15 开始需要Java 11(如无必要不使用更高版本的JDk去build)</li>
+</ul>
+</li>
+<li>安装Maven 3 ( Maven 3.3.x 可以构建 Flink，但是不能正确地屏蔽掉指定的依赖。Maven 3.2.5 可以正确地构建库文件)</li>
+<li>安装Scala 2.11或2.12
+<ul>
+<li>自flink1.15 开始需要Scala 2.12</li>
+</ul>
+</li>
+</ul>]]></description></item></channel></rss>

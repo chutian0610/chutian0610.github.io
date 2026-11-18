@@ -1,0 +1,21 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>AOP - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/aop/</link><description>AOP - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Thu, 14 Mar 2019 10:21:59 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/aop/" rel="self" type="application/rss+xml"/><item><title>AOP标准:aopalliance</title><link>http://www.victorchu.info/posts/2019/03/20794aee/</link><pubDate>Thu, 14 Mar 2019 10:21:59 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2019/03/20794aee/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/java.webp" referrerpolicy="no-referrer">
+            </div><p>AOP Alliance 项目是许多对Aop和java有浓厚兴趣的软件开发人员联合成立的开源项目，旨在确定Aop的标准。面向切面编程是设计和开发应用程序的一个好方案，AOP 提供了一种通用方法来构建关注点(横切关注点)，并将它们灵活地作为模块插入应用。但是，也带来了问题： 不同的AOP实现并不能适配所有环境。</p>
+<p>大多数人不相信完美系统，我们认为一个系统总是能处理给定的一个问题和环境(不需要适配其他)。现在已经有了很多的AOP实现或AOP相关的技术，例如，通用代理，拦截器或字节码翻译工具。具体如下:</p>
+<ul>
+<li>AspectJ: 面向切面的源码级和字节码级别的织入器。</li>
+<li>AspectWerkz: 一个面向切面框架(字节码动态织入,支持XML配置)。</li>
+<li>BCEL: 一个字节码翻译器</li>
+<li>JAC: 一个面向切面框架(字节码动态织入，可配置切面)</li>
+<li>Javassist: 字节码翻译器，有高级API。</li>
+<li>JBoss-AOP: 拦截和基于元数据的AOP框架(支持独立运行和在JBoss应用服务器种运行)</li>
+<li>JMangler: 一个字节码翻译器，支持兼容翻译</li>
+<li>Nanning: 一个面向切面织入器框架</li>
+<li>Prose: 一个面向切面动态字节码织入框架</li>
+</ul>
+<p>对我们而言，这些实现没有好与坏的区别，都适合于某些问题或环境。AOP Alliance的目的不是提出新的AOP模型，也不是提供一个更好的AOP实现来解决所有场景的问题。其目的在于提炼所有AOP实现的共同核心能力:</p>
+<ul>
+<li>避免重复造轮子，尽量重用</li>
+<li>简化某个环境下现有AOP组件的适配</li>
+<li>简化开发工具集成AOP能力的工作</li>
+</ul>]]></description></item></channel></rss>

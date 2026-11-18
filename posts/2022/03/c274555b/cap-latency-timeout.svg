@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="480" viewBox="0 0 960 480" role="img" aria-labelledby="title desc">
+  <title id="title">分区等价于对通信设置时限</title>
+  <desc id="desc">请求发出后，若在超时时限内没有达成一致，系统就当作发生了分区，必须在取消操作与继续操作之间做出选择。</desc>
+  <defs>
+    <marker id="ah2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L9,3 L0,6 z" fill="#64748b"/>
+    </marker>
+    <marker id="ah3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L9,3 L0,6 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect width="960" height="480" fill="#f8fafc"/>
+
+  <text x="56" y="54" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="28" font-weight="700" fill="#0f172a">分区等价于对通信设置时限</text>
+  <text x="56" y="86" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="16" fill="#64748b">时限内未能达成一致，就当作发生了分区——CAP 的决策就发生在这一刻</text>
+
+  <!-- 超时窗口 -->
+  <rect x="560" y="118" width="344" height="112" rx="8" fill="#fef2f2"/>
+
+  <!-- 时间轴 -->
+  <line x1="80" y1="174" x2="888" y2="174" stroke="#cbd5e1" stroke-width="3" marker-end="url(#ah2)"/>
+  <circle cx="150" cy="174" r="9" fill="#0f172a"/>
+  <text x="150" y="150" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#0f172a">发出请求</text>
+  <text x="150" y="206" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="13" fill="#64748b">等待其他副本确认</text>
+
+  <line x1="560" y1="118" x2="560" y2="230" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="7 6"/>
+  <text x="560" y="108" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#dc2626">超时时限 t</text>
+
+  <circle cx="812" cy="174" r="11" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+  <text x="812" y="180" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="15" font-weight="700" fill="#dc2626">✕</text>
+  <text x="812" y="150" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#dc2626">响应未到达</text>
+  <text x="812" y="206" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="13" fill="#64748b">可能永不到达</text>
+
+  <text x="600" y="146" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#991b1b">超时之后</text>
+  <text x="600" y="170" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#991b1b">系统必须在此做出分区决策</text>
+
+  <text x="80" y="248" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="13" fill="#94a3b8">时间 →</text>
+
+  <!-- 两条分支 -->
+  <path d="M560,232 L560,252 L258,252 L258,286" fill="none" stroke="#dc2626" stroke-width="2" marker-end="url(#ah3)"/>
+  <path d="M560,232 L560,252 L702,252 L702,286" fill="none" stroke="#dc2626" stroke-width="2" marker-end="url(#ah3)"/>
+
+  <rect x="56" y="292" width="404" height="112" rx="10" fill="#ecfdf5" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="80" y="326" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="20" font-weight="700" fill="#065f46">取消操作</text>
+  <text x="80" y="356" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" fill="#0f766e">向客户端返回失败，牺牲可用性 A</text>
+  <text x="80" y="384" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#64748b">CP 系统的做法：宁可拒绝服务，也不写入脏数据</text>
+
+  <rect x="500" y="292" width="404" height="112" rx="10" fill="#fff7ed" stroke="#b45309" stroke-width="1.5"/>
+  <text x="524" y="326" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="20" font-weight="700" fill="#9a3412">继续操作</text>
+  <text x="524" y="356" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" fill="#b45309">在无通信的情况下继续推进，牺牲一致性 C</text>
+  <text x="524" y="384" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#64748b">AP 系统的做法：先做下去，记录日志待恢复时合并</text>
+
+  <rect x="56" y="424" width="848" height="42" rx="8" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="480" y="451" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#64748b">重试通信（Paxos / 两阶段提交）只是推迟决策；无限期重试本身就是选择 C、牺牲 A</text>
+</svg>

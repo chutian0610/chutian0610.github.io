@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520" role="img" aria-labelledby="title desc">
+  <title id="title">补偿事务（Saga）如何撤销已提交的子事务</title>
+  <desc id="desc">大事务被拆成多个各自提交的子事务；某个子事务失败时，发起一笔新的补偿事务，逐一撤销已提交的子事务。</desc>
+  <defs>
+    <marker id="ah4" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L9,3 L0,6 z" fill="#64748b"/>
+    </marker>
+    <marker id="ah5" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L9,3 L0,6 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect width="960" height="520" fill="#f8fafc"/>
+
+  <text x="56" y="54" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="28" font-weight="700" fill="#0f172a">补偿事务：把大事务拆开，再用新事务撤销它</text>
+  <text x="56" y="86" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="16" fill="#64748b">长寿命事务的另一种分区决策——是长时间持锁保证一致，还是及早释放锁换取并发</text>
+
+  <rect x="56" y="110" width="848" height="64" rx="10" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="80" y="138" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="16" font-weight="700" fill="#334155">传统做法：一笔大事务锁住全部记录</text>
+  <text x="80" y="162" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#64748b">要么全部提交、要么全部回滚；串行化会把所有记录锁住，阻塞其它并发事务</text>
+
+  <line x1="204" y1="176" x2="204" y2="210" stroke="#64748b" stroke-width="2" marker-end="url(#ah4)"/>
+  <text x="226" y="200" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#0f172a">拆分为 Saga：每个子事务独立提交</text>
+
+  <rect x="96" y="214" width="216" height="76" rx="10" fill="#ecfdf5" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="204" y="246" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#065f46">子事务 T1</text>
+  <text x="204" y="272" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#0f766e">创建订单</text>
+
+  <rect x="392" y="214" width="216" height="76" rx="10" fill="#ecfdf5" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="500" y="246" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#065f46">子事务 T2</text>
+  <text x="500" y="272" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#0f766e">扣减库存</text>
+
+  <rect x="688" y="214" width="216" height="76" rx="10" fill="#ecfdf5" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="796" y="246" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#065f46">子事务 T3</text>
+  <text x="796" y="272" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#0f766e">扣款</text>
+
+  <line x1="312" y1="252" x2="384" y2="252" stroke="#64748b" stroke-width="2" marker-end="url(#ah4)"/>
+  <line x1="608" y1="252" x2="680" y2="252" stroke="#64748b" stroke-width="2" marker-end="url(#ah4)"/>
+
+  <line x1="796" y1="292" x2="796" y2="350" stroke="#dc2626" stroke-width="2" marker-end="url(#ah5)"/>
+  <text x="782" y="326" text-anchor="end" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" font-weight="700" fill="#dc2626">T3 失败 → 发起补偿事务</text>
+
+  <rect x="688" y="356" width="216" height="76" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="796" y="388" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#991b1b">补偿 C1</text>
+  <text x="796" y="414" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#dc2626">退款，撤销 T3</text>
+
+  <rect x="392" y="356" width="216" height="76" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="500" y="388" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#991b1b">补偿 C2</text>
+  <text x="500" y="414" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#dc2626">回补库存，撤销 T2</text>
+
+  <rect x="96" y="356" width="216" height="76" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="204" y="388" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#991b1b">补偿 C3</text>
+  <text x="204" y="414" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#dc2626">关闭订单，撤销 T1</text>
+
+  <line x1="688" y1="394" x2="616" y2="394" stroke="#dc2626" stroke-width="2" marker-end="url(#ah5)"/>
+  <line x1="392" y1="394" x2="320" y2="394" stroke="#dc2626" stroke-width="2" marker-end="url(#ah5)"/>
+
+  <text x="56" y="472" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#475569">补偿事务是一笔「新事务」：它不撤销已提交的数据，而是发起一笔新事务去纠正它造成的影响</text>
+  <text x="56" y="498" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#475569">所以补偿无法真正抹去已对外暴露的副作用——「退还重复扣款」勉强等价于「从未多收钱」，这就是补偿与回滚的差别</text>
+</svg>

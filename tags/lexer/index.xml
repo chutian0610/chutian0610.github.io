@@ -1,0 +1,12 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Lexer - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/lexer/</link><description>Lexer - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Mon, 29 Nov 2021 19:29:01 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/lexer/" rel="self" type="application/rss+xml"/><item><title>编译原理-词法分析</title><link>http://www.victorchu.info/posts/2021/11/118b8ca3/</link><pubDate>Mon, 29 Nov 2021 19:29:01 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2021/11/118b8ca3/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/compiler.webp" referrerpolicy="no-referrer">
+            </div><p>编译器模型：</p>
+<pre class="mermaid">graph LR
+源代码-->|词法分析器|词法单元
+词法单元-->|语法分析器|语法分析树
+语法分析树-->|中间代码生成器|中间代码
+中间代码-->|代码优化,机器无关|中间代码
+中间代码-->|代码生成器|目标代码
+目标代码-->|机器相关代码优化|机器码
+机器码-->output((机器码执行))
+</pre>]]></description></item></channel></rss>

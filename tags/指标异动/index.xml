@@ -1,0 +1,23 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>指标异动 - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/%E6%8C%87%E6%A0%87%E5%BC%82%E5%8A%A8/</link><description>指标异动 - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Thu, 05 Nov 2026 17:20:00 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/%E6%8C%87%E6%A0%87%E5%BC%82%E5%8A%A8/" rel="self" type="application/rss+xml"/><item><title>异常维度定位：Adtributor 的意外性与解释力</title><link>http://www.victorchu.info/posts/2026/11/6f5fd77c/</link><pubDate>Thu, 05 Nov 2026 17:20:00 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/11/6f5fd77c/</guid><description>&lt;div class="featured-image">
+                &lt;img src="/feature-images/bi.webp" referrerpolicy="no-referrer">
+            &lt;/div>贡献度最高的维度不一定是异动根因——大盘占比大的维度天然霸榜。Adtributor 用 JS 散度衡量「意外性」、用解释力衡量「能解释多少」，把搜索方向从「按贡献排序」换成「按异常程度排序」。</description></item><item><title>路径归因：从首触末触到马尔科夫链</title><link>http://www.victorchu.info/posts/2026/11/e12f7524/</link><pubDate>Thu, 05 Nov 2026 16:15:00 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/11/e12f7524/</guid><description>&lt;div class="featured-image">
+                &lt;img src="/feature-images/bi.webp" referrerpolicy="no-referrer">
+            &lt;/div>首触归因和末触归因各有系统性偏差。马尔科夫链把用户路径建成状态转移网络，用「移除某个环节后转化率掉多少」来衡量贡献。本文给出完整建模步骤、移除效应实算，以及与维度归因、Shapley 的选型对照。</description></item><item><title>多因素叠加归因：Shapley 值与多触点权重</title><link>http://www.victorchu.info/posts/2026/11/961422de/</link><pubDate>Thu, 05 Nov 2026 15:00:00 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/11/961422de/</guid><description>&lt;div class="featured-image">
+                &lt;img src="/feature-images/bi.webp" referrerpolicy="no-referrer">
+            &lt;/div>多个因素同时作用于一个结果、且写不出显式函数时，Shapley 值用边际贡献在所有加入顺序上的加权平均来分配功劳。本文从合作博弈讲起，给出可运行的枚举实现与蒙特卡洛近似，并说明多触点权重分配与它的关系。</description></item><item><title>漏斗拆解：定位是哪一环坏了</title><link>http://www.victorchu.info/posts/2026/11/2b005e8c/</link><pubDate>Thu, 05 Nov 2026 13:30:00 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/11/2b005e8c/</guid><description>&lt;div class="featured-image">
+                &lt;img src="/feature-images/bi.webp" referrerpolicy="no-referrer">
+            &lt;/div>漏斗归因算出来的贡献度，和该优化哪一环，常常不是一回事。本文用 LMDI 拆解四级漏斗，并引入「提升 1pp 转化率值多少钱」的杠杆口径，算出漏斗里哪一环最值得投入。</description></item><item><title>比率指标归因：组间组内拆解与辛普森悖论</title><link>http://www.victorchu.info/posts/2026/11/7282130e/</link><pubDate>Thu, 05 Nov 2026 12:00:00 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/11/7282130e/</guid><description>&lt;div class="featured-image">
+                &lt;img src="/feature-images/bi.webp" referrerpolicy="no-referrer">
+            &lt;/div>转化率涨了 0.8 个百分点，是每个人群的转化率都在涨，还是人群结构变了？组间组内拆解把比率指标的变化拆成自身性变化与结构性变化——辛普森悖论只是它的日常形态。</description></item><item><title>指标分解模型：加法、乘法与残差</title><link>http://www.victorchu.info/posts/2026/11/c35540ac/</link><pubDate>Thu, 05 Nov 2026 10:30:00 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/11/c35540ac/</guid><description>&lt;div class="featured-image">
+                &lt;img src="/feature-images/bi.webp" referrerpolicy="no-referrer">
+            &lt;/div>加法型指标用 Delta 法，乘法型用 LMDI，非线性用泰勒展开或定基代替——但每种方法都会留下残差。本文用 GMV 和 ROI 两个算例讲清残差从哪来、有多大，以及三种处置方式。</description></item><item><title>指标异动归因全景：从指标波动到可执行结论</title><link>http://www.victorchu.info/posts/2026/11/cba63f94/</link><pubDate>Thu, 05 Nov 2026 09:00:00 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/11/cba63f94/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/bi.webp" referrerpolicy="no-referrer">
+            </div><p>周会上，运营问了一句：&ldquo;这周 GMV 环比涨了 5%，为什么？&rdquo;</p>
+<p>三种回答摆在桌上：</p>
+<ul>
+<li>&ldquo;大促上线了。&quot;——结论可能对，但没法回答&quot;大促贡献了几成&rdquo;。</li>
+<li>&ldquo;搜索和直播涨得比较多。&quot;——方向可能对，但&quot;比较多&quot;是多少？涨的部分又被谁抵消了？</li>
+<li>&ldquo;直播贡献 51.4%，推荐 34.3%，私域 25.7%，搜索 −11.4%，四个渠道加起来正好 100%。&quot;——这个能直接拿去排优先级。</li>
+</ul>
+<p>第三种回答就是<strong>归因分析</strong>。它的本质不是&quot;找原因&quot;这种模糊的事，而是<strong>把 ΔY 拆成一组加起来等于 ΔY 的数</strong>，然后按大小排序。本系列 7 篇要讲的就是这件事怎么算对：每种方法的适用边界、残差从哪来、以及在几百个维度里怎么找到真正反常的那一个。</p>
+<p>本文是总纲。后面每一篇对应一种方法族，单独展开。</p>]]></description></item></channel></rss>

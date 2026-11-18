@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 660" role="img" aria-labelledby="title desc">
+  <title id="title">Go Swiss Table map structure</title>
+  <desc id="desc">A Go map has a directory of tables. High hash bits select a table; H1 probes groups; H2 filters the eight slots in a group.</desc>
+  <rect width="960" height="660" fill="#f8fafc"/>
+  <text x="56" y="62" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="28" font-weight="700" fill="#0f172a">Go map：directory + 多个 Swiss Table</text>
+  <text x="56" y="94" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="16" fill="#64748b">Go 使用 8-slot group、uint64 control word 和二次探测</text>
+
+  <g font-family="SF Mono, Menlo, monospace" font-size="15">
+    <rect x="56" y="136" width="180" height="54" rx="8" fill="#0f172a"/>
+    <text x="146" y="169" text-anchor="middle" font-weight="700" fill="#ffffff">map</text>
+    <rect x="292" y="128" width="260" height="70" rx="8" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+    <text x="422" y="159" text-anchor="middle" fill="#334155">directory</text>
+    <text x="422" y="184" text-anchor="middle" font-size="13" fill="#64748b">globalDepth 选择 table</text>
+  </g>
+  <path d="M236 163 H288" stroke="#334155" stroke-width="2.5"/>
+
+  <g font-family="SF Mono, Menlo, monospace" font-size="14" text-anchor="middle">
+    <rect x="588" y="108" width="120" height="46" rx="6" fill="#e2e8f0"/><text x="648" y="137" fill="#334155">00 → A</text>
+    <rect x="588" y="164" width="120" height="46" rx="6" fill="#e2e8f0"/><text x="648" y="193" fill="#334155">01 → B</text>
+    <rect x="724" y="108" width="120" height="46" rx="6" fill="#e2e8f0"/><text x="784" y="137" fill="#334155">10 → C</text>
+    <rect x="724" y="164" width="120" height="46" rx="6" fill="#e2e8f0"/><text x="784" y="193" fill="#334155">11 → D</text>
+  </g>
+  <path d="M552 163 H584" stroke="#334155" stroke-width="2.5"/>
+
+  <text x="56" y="254" font-family="SF Mono, Menlo, monospace" font-size="16" fill="#475569">table B：一个完整 Swiss Table</text>
+  <g font-family="SF Mono, Menlo, monospace" font-size="13">
+    <rect x="56" y="272" width="392" height="188" rx="10" fill="#ffffff" stroke="#0f766e" stroke-width="2"/>
+    <text x="76" y="303" font-size="15" fill="#065f46">group 0</text>
+    <rect x="76" y="319" width="352" height="30" rx="4" fill="#ecfdf5" stroke="#94a3b8"/>
+    <text x="252" y="340" text-anchor="middle" fill="#065f46">ctrl word: uint64 = 8 control bytes</text>
+    <rect x="76" y="357" width="164" height="72" rx="4" fill="#f8fafc" stroke="#cbd5e1"/>
+    <rect x="244" y="357" width="184" height="72" rx="4" fill="#f8fafc" stroke="#cbd5e1"/>
+    <text x="158" y="397" text-anchor="middle" fill="#334155">key slots</text>
+    <text x="336" y="397" text-anchor="middle" fill="#334155">value slots</text>
+
+    <rect x="472" y="272" width="392" height="188" rx="10" fill="#ffffff" stroke="#94a3b8"/>
+    <text x="492" y="303" font-size="15" fill="#475569">group 1</text>
+    <rect x="492" y="319" width="352" height="30" rx="4" fill="#e2e8f0" stroke="#94a3b8"/>
+    <text x="668" y="340" text-anchor="middle" fill="#475569">ctrl word</text>
+    <rect x="492" y="357" width="164" height="72" rx="4" fill="#f8fafc" stroke="#cbd5e1"/>
+    <rect x="660" y="357" width="184" height="72" rx="4" fill="#f8fafc" stroke="#cbd5e1"/>
+    <text x="574" y="397" text-anchor="middle" fill="#64748b">key slots</text>
+    <text x="752" y="397" text-anchor="middle" fill="#64748b">value slots</text>
+  </g>
+  <path d="M648 210 C584 228 512 250 448 268" stroke="#0f766e" stroke-width="2.5"/>
+
+  <line x1="56" y1="507" x2="904" y2="507" stroke="#e2e8f0" stroke-width="4"/>
+  <g font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" fill="#334155">
+    <text x="56" y="551">1. hash 高位：选择 directory 里的 table；table 分裂时只处理局部数据。</text>
+    <text x="56" y="583">2. H1：选择起始 group，并按 quadratic probing 继续探测。</text>
+    <text x="56" y="615">3. H2：在 control word 中批量过滤 8 个 slot，命中后再比较完整 key。</text>
+  </g>
+</svg>

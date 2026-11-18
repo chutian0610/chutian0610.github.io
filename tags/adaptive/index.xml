@@ -1,0 +1,22 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Adaptive - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/adaptive/</link><description>Adaptive - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Mon, 17 Aug 2026 16:37:36 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/adaptive/" rel="self" type="application/rss+xml"/><item><title>BBR算法</title><link>http://www.victorchu.info/posts/2026/08/782fb62b/</link><pubDate>Mon, 17 Aug 2026 16:37:36 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/08/782fb62b/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><h2 id="一从一个常见但反直觉的现象说起" class="headerLink">
+    <a href="#%e4%b8%80%e4%bb%8e%e4%b8%80%e4%b8%aa%e5%b8%b8%e8%a7%81%e4%bd%86%e5%8f%8d%e7%9b%b4%e8%a7%89%e7%9a%84%e7%8e%b0%e8%b1%a1%e8%af%b4%e8%b5%b7" class="header-mark"></a>一、从一个常见但反直觉的现象说起</h2><p>你可能听过这样的话：&ldquo;网线明明是千兆的，为什么下载速度总是上不去？&rdquo;</p>
+<p>或者更具体一点：你用 speedtest 测速，自己买的 200M 宽带，下行只能跑到 80M；公司升级到 10G 专线，看 YouTube 4K 仍然时不时卡顿。</p>
+<p>很多人第一反应是&quot;运营商限速&quot;或&quot;网站服务器不行&quot;。但如果你是做后端的、或者管过一段广域网链路，会知道<strong>罪魁祸首往往不是带宽不够，而是 TCP 的拥塞控制策略本身</strong>。</p>]]></description></item><item><title>AIMD 加性增 乘性减算法</title><link>http://www.victorchu.info/posts/2026/08/dd0537e7/</link><pubDate>Mon, 17 Aug 2026 15:31:09 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/08/dd0537e7/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><h2 id="一从一个常见的运维难题说起" class="headerLink">
+    <a href="#%e4%b8%80%e4%bb%8e%e4%b8%80%e4%b8%aa%e5%b8%b8%e8%a7%81%e7%9a%84%e8%bf%90%e7%bb%b4%e9%9a%be%e9%a2%98%e8%af%b4%e8%b5%b7" class="header-mark"></a>一、从一个常见的运维难题说起</h2><p>假设你正在运营一个分布式限流系统，全公司上百个服务都要经过你分配的&quot;带宽配额&quot;。预算就这么多，但每个服务的真实需求你事先不清楚——有的服务平时风平浪静，促销时流量能翻 10 倍；有的服务每月稳定增长 30%。</p>
+<p>你会怎么分配这些带宽？</p>
+<ul>
+<li><strong>分配固定配额</strong>：结果几乎是灾难——资源浪费和争抢同时发生。</li>
+<li><strong>让业务方报需求</strong>：这种&quot;自报家门&quot;在 KPI 面前几乎一定会虚报，最后仍然会把系统打爆。</li>
+<li><strong>让业务方主动试</strong>：先少申请一点，发现不够再加。这种&quot;摸着石头过河&quot;的思路，恰恰是 TCP 拥塞控制的核心。</li>
+</ul>
+<p>30 多年前，<strong>Van Jacobson</strong> 在设计 TCP 拥塞控制时面对的是同一个问题：网络（链路）的带宽是<strong>共享资源</strong>，发送方不知道链路的当前容量，也不知道有多少其他发送方在抢资源。他必须设计一个<strong>让所有发送方在不知道对方存在的情况下，依然能公平、高效地共享链路</strong>的算法。</p>]]></description></item><item><title>EWMA 指数加权移动平均统计方法</title><link>http://www.victorchu.info/posts/2026/08/ce990616/</link><pubDate>Mon, 17 Aug 2026 15:09:10 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/08/ce990616/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><p>如果你写过监控告警、自适应限流或者负载均衡，大概率遇到过这个问题：怎么用一个数值，实时地描述&quot;当前系统有多慢&quot;？EWMA（Exponentially Weighted Moving Average，指数加权移动平均）几乎是工程实践里的标准答案——它只需要一个 float 的内存，一行加法就能更新，却能给出比简单平均更贴近&quot;当下&quot;的估计。</p>]]></description></item><item><title>自适应算法简介</title><link>http://www.victorchu.info/posts/2026/08/78ac49b9/</link><pubDate>Mon, 17 Aug 2026 12:02:43 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/08/78ac49b9/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            </div><h2 id="一从一个常见的运维难题说起" class="headerLink">
+    <a href="#%e4%b8%80%e4%bb%8e%e4%b8%80%e4%b8%aa%e5%b8%b8%e8%a7%81%e7%9a%84%e8%bf%90%e7%bb%b4%e9%9a%be%e9%a2%98%e8%af%b4%e8%b5%b7" class="header-mark"></a>一、从一个常见的运维难题说起</h2><p>先抛个场景：某个核心服务运行了一段时间后，运维同学收到告警——<strong>Full GC 次数突然飙高</strong>。登录机器一看，Metaspace 使用率长期维持在 90% 以上，老年代被反复撑爆。</p>
+<p>按照经验，第一反应是加大 <code>-XX:MetaspaceSize</code>。但问题是：<strong>加大到多少合适？</strong> 设 256M，下次告警；设 512M，内存浪费严重；设 1G，业务方立刻投诉资源利用率低。</p>]]></description></item></channel></rss>
