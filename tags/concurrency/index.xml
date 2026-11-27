@@ -1,0 +1,49 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Concurrency - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/concurrency/</link><description>Concurrency - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Fri, 27 Nov 2026 07:43:24 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/concurrency/" rel="self" type="application/rss+xml"/><item><title>Peterson 的 CRWW：等待与副本数的下界</title><link>http://www.victorchu.info/posts/2026/11/bb1f4e77/</link><pubDate>Fri, 27 Nov 2026 07:43:24 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/11/bb1f4e77/</guid><description>&lt;div class="featured-image">
+                &lt;img src="/feature-images/paper.webp" referrerpolicy="no-referrer">
+            &lt;/div>想要多强的并发保证，就得付多少份数据副本——Peterson 1983 给出了这张价格表，而且每个数字都是紧的：1、2、3、n+1、n+2，一个不多一个不少。这篇讲清 CRWW 问题、六个方案、五个定理，以及一个 Peterson 自己也说不清的阶跃；最后回到 Left-Right，看它怎么填上了这张表里空着的那一格。</description></item><item><title>Left-Right：让读操作永不阻塞的双实例并发控制</title><link>http://www.victorchu.info/posts/2026/11/0f82f46c/</link><pubDate>Fri, 27 Nov 2026 07:33:19 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/11/0f82f46c/</guid><description>&lt;div class="featured-image">
+                &lt;img src="/feature-images/algorithm.webp" referrerpolicy="no-referrer">
+            &lt;/div>读写锁会让读者被写者挡住，Copy-On-Write 又绕不开 GC。Left-Right 用两份实例交替写，给读者留了一条无阻塞路径：读操作 wait-free 且与线程数无关，写者不会被读者饿死。本文拆解它的握手协议、四个变体和论文里的实测数据，顺带看看它为什么会在十年后被 QuestDB 重新发明一遍。</description></item><item><title>时间轮实现剖析：Kafka 的 TimingWheel 与 Netty 的 HashedWheelTimer</title><link>http://www.victorchu.info/posts/2026/11/c759f6e0/</link><pubDate>Wed, 18 Nov 2026 16:20:00 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2026/11/c759f6e0/</guid><description>&lt;div class="featured-image">
+                &lt;img src="/feature-images/concurrency.webp" referrerpolicy="no-referrer">
+            &lt;/div>算法是论文给的，实现是各家打磨出来的。这一篇逐行读 Kafka 的 TimingWheel / SystemTimer / TimerTaskList 和 Netty 的 HashedWheelTimer：溢出轮怎么懒创建、桶对象怎么跨轮复用、DelayQueue 怎么避免空转，以及 Netty 的 MPSC 交接和 CAS 取消状态机各自解决了什么问题。</description></item><item><title>内存屏障为什么必须存在：store buffer 与 invalidate queue</title><link>http://www.victorchu.info/posts/2019/09/562a36fc/</link><pubDate>Sat, 21 Sep 2019 12:00:00 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2019/09/562a36fc/</guid><description>&lt;div class="featured-image">
+                &lt;img src="/feature-images/concurrency.webp" referrerpolicy="no-referrer">
+            &lt;/div>从 MESI 协议的消息流出发，看清内存屏障的硬件来源：store buffer 让写不必等缓存行，invalidate queue 让失效请求先应答再排队——两种队列各自制造一种乱序，也各自对应一种屏障。这篇讲清屏障为什么必须存在、三种屏障的分工、各架构的屏障指令，以及 Linux 内核抽象出的最小公倍数原语。</description></item><item><title>Java并发之线程池-ScheduledThreadPoolExecutor</title><link>http://www.victorchu.info/posts/2018/08/a7ebee33/</link><pubDate>Thu, 16 Aug 2018 10:29:47 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2018/08/a7ebee33/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/concurrency.webp" referrerpolicy="no-referrer">
+            </div><p>本篇是关于延时线程池的源码分析(JDK1.8)。ScheduledThreadPoolExecutor继承了ThreadPoolExecutor类，实现了ScheduledExecutorService接口。ScheduledThreadPoolExecutor 支持延后执行给定task，或是定期执行。任务在到时间后执行，但是没有任何的实时保证。对于计划执行时间相同的任务，会按照提交顺序，先进先出执行。</p>]]></description></item><item><title>Java并发之forkjoin框架</title><link>http://www.victorchu.info/posts/2018/06/d50265ac/</link><pubDate>Tue, 12 Jun 2018 10:30:44 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2018/06/d50265ac/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/concurrency.webp" referrerpolicy="no-referrer">
+            </div><p>本文是论文 <a href="http://gee.cs.oswego.edu/dl/papers/fj.pdf" target="_blank" rel="noopener noreferrer">A Java Fork/Join FrameWork</a>的简单介绍。</p>]]></description></item><item><title>Java并发之CompletableFuture</title><link>http://www.victorchu.info/posts/2018/05/f322e708/</link><pubDate>Mon, 14 May 2018 23:56:38 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2018/05/f322e708/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/concurrency.webp" referrerpolicy="no-referrer">
+            </div><p>Future接口可以构建异步应用，但依然有其局限性。它很难直接表述多个Future 结果之间的依赖性。实际开发中，我们经常需要达成以下目的：</p>
+<ul>
+<li>将两个异步计算合并为一个——这两个异步计算之间相互独立，同时第二个又依赖于第一个的结果。</li>
+<li>等待 Future 集合中的所有任务都完成。</li>
+<li>仅等待 Future集合中最快结束的任务完成（有可能因为它们试图通过不同的方式计算同一个值），并返回它的结果。</li>
+<li>通过编程方式完成一个Future任务的执行（即以手工设定异步操作结果的方式）。</li>
+<li>应对 Future 的完成事件（即当 Future 的完成事件发生时会收到通知，并能使用 Future 计算的结果进行下一步的操作，不只是简单地阻塞等待操作的结果）</li>
+</ul>]]></description></item><item><title>Java并发之原子变量Atomic</title><link>http://www.victorchu.info/posts/2018/05/c75c1aed/</link><pubDate>Wed, 09 May 2018 10:29:16 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2018/05/c75c1aed/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/concurrency.webp" referrerpolicy="no-referrer">
+            </div><p>Java从JDK1.5开始提供了java.util.concurrent.atomic包，方便程序员在多线程环境下，无锁的进行原子操作。原子变量的底层使用了处理器提供的原子指令，但是不同的CPU架构可能提供的原子指令不一样，也有可能需要某种形式的内部锁,所以该方法不能绝对保证线程不被阻塞。</p>]]></description></item><item><title>Java并发之并发优先线程池</title><link>http://www.victorchu.info/posts/2018/04/47900f63/</link><pubDate>Tue, 10 Apr 2018 16:19:01 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2018/04/47900f63/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/concurrency.webp" referrerpolicy="no-referrer">
+            </div><p>Java原生线程池在提交任务时会优先将线程数扩展到 CoreSize，然后会将任务入队，在队列塞满后会尝试继续扩展线程数到MaxSize。这种方式适合cpu密集型任务，而且任务时间不宜过长，否则会造成队列里面任务的堆积。</p>
+<p>对于 RPC 通信场景的 IO 密集型任务，这种调度方式就不太合适。更适合并发优先的调度策略，即优先扩展线程数到 MaxSize。然后再尝试入队。要是实现上面的调度策略需要基于 JDK 原生线程池做一下调整。</p>]]></description></item><item><title>Java并发之线程池-ThreadPoolExecutor</title><link>http://www.victorchu.info/posts/2018/04/5e318649/</link><pubDate>Mon, 09 Apr 2018 08:00:38 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2018/04/5e318649/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/concurrency.webp" referrerpolicy="no-referrer">
+            </div><p>Eexecutor作为灵活且强大的异步执行框架，其支持多种不同类型的任务执行策略，提供了一种标准的方法将任务的提交过程和执行过程解耦开发，基于生产者-消费者模式，其提交任务的线程相当于生产者，执行任务的线程相当于消费者，并用Runnable来表示任务，Executor的实现还提供了对生命周期的支持，以及统计信息收集，应用程序管理机制和性能监视等机制。</p>
+<pre class="mermaid">classDiagram
+    class ScheduledThreadPoolExecutor
+    ScheduledThreadPoolExecutor--|>ThreadPoolExecutor
+    ScheduledThreadPoolExecutor..|>ScheduledExecutorService
+    class ThreadPoolExecutor
+    ThreadPoolExecutor--|>AbstractExecutorService
+    class ForkJoinPool
+    ForkJoinPool--|>AbstractExecutorService
+    class AbstractExecutorService
+    &lt;&lt;abstract>> AbstractExecutorService
+    AbstractExecutorService..|>ExecutorService
+    ScheduledExecutorService..|>ExecutorService
+    class ScheduledExecutorService
+    &lt;&lt;interface>> ScheduledExecutorService
+     class ExecutorService
+    &lt;&lt;interface>> ExecutorService
+    ExecutorService..|>Executor
+    class Executor
+    &lt;&lt;interface>> Executor
+</pre>]]></description></item></channel></rss>

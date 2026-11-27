@@ -1,0 +1,7 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Bit - 标签 - Victor's Code Journey</title><link>http://www.victorchu.info/tags/bit/</link><description>Bit - 标签 - Victor's Code Journey</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>victorchu0610@outlook.com (victorchutian)</managingEditor><webMaster>victorchu0610@outlook.com (victorchutian)</webMaster><lastBuildDate>Mon, 27 Feb 2017 11:19:31 +0800</lastBuildDate><atom:link href="http://www.victorchu.info/tags/bit/" rel="self" type="application/rss+xml"/><item><title>Java位运算符</title><link>http://www.victorchu.info/posts/2017/02/d8f866a3/</link><pubDate>Mon, 27 Feb 2017 11:19:31 +0800</pubDate><author><name>victorchutian</name></author><guid>http://www.victorchu.info/posts/2017/02/d8f866a3/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/feature-images/java.webp" referrerpolicy="no-referrer">
+            </div><p>Java中的位运算符包含以下几种:</p>
+<ul>
+<li><code>&lt;&lt;</code>(左移),<code>&gt;&gt;</code>(右移)和 <code>&gt;&gt;&gt;</code>(无符号右移)属于移位运算符。</li>
+<li><code>&amp;</code>(位与),<code>|</code>(位或),<code>^</code>(位异或)和<code>~</code>(取反)属于逻辑运算符。</li>
+</ul>]]></description></item></channel></rss>
